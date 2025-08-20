@@ -146,6 +146,72 @@
   }
 }
 
+/* Active Tab Header Styling */
+.active-tab-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 16px;
+  margin-bottom: 16px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.active-tab-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.active-tab-avatar {
+  flex-shrink: 0;
+}
+
+.active-tab-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.active-tab-title {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.active-tab-url {
+  font-size: 12px;
+  opacity: 0.8;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+}
+
+.active-tab-status {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.active-tab-status .status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #4ade80;
+  animation: pulse 2s infinite;
+}
+
+.active-tab-status .status-text {
+  font-size: 12px;
+  opacity: 0.9;
+}
+
 /* Tabs list styling */
 .tabs-list {
   margin-bottom: 30px;

@@ -12,7 +12,7 @@ function App() {
   const [currentUrl, setCurrentUrl] = useState<string>('');
   const [currentTab, setCurrentTab] = useState<any>(null);
   const [tabs, setTabs] = useState<any[]>([]);
-  const [originalTabId, setOriginalTabId] = useState<number | null>(null);
+  const [originalTab, setOriginalTab] = useState<any>(null);
   const [previewTabId, setPreviewTabId] = useState<number | null>(null);
 
   useEffect(() => {
@@ -24,6 +24,8 @@ function App() {
         if (activeTab) {
           setCurrentTab(activeTab);
           setCurrentUrl(activeTab.url || '');
+          // Set the original tab to the currently active tab
+          setOriginalTab(activeTab);
         }
 
         // Get all tabs in current window
@@ -43,7 +45,7 @@ function App() {
       setTabs(prevTabs => prevTabs.filter(tab => tab.id !== tabId));
       
       // If the removed tab was our original or preview tab, reset state
-      setOriginalTabId(prevOriginal => tabId === prevOriginal ? null : prevOriginal);
+      setOriginalTab((prevOriginal: any) => tabId === prevOriginal?.id ? null : prevOriginal);
       setPreviewTabId(prevPreview => tabId === prevPreview ? null : prevPreview);
     };
 
@@ -68,14 +70,14 @@ function App() {
 
   const handleTabHover = useCallback(async (tabId: number) => {
     try {
-      console.log('Hover triggered for tab:', tabId, 'Current state:', { originalTabId, previewTabId });
+      console.log('Hover triggered for tab:', tabId, 'Current state:', { originalTab, previewTabId });
       
       // Only set original tab if we haven't set it yet
-      if (originalTabId === null) {
+      if (originalTab === null) {
         const [activeTab] = await browser.tabs.query({ active: true, currentWindow: true });
         if (activeTab.id && activeTab.id !== tabId) {
-          console.log('Setting original tab to:', activeTab.id);
-          setOriginalTabId(activeTab.id);
+          console.log('Setting original tab to:', activeTab);
+          setOriginalTab(activeTab);
         }
       }
       
@@ -90,34 +92,73 @@ function App() {
     } catch (error) {
       console.error('Error previewing tab:', error);
     }
-  }, [originalTabId, previewTabId]);
+  }, [originalTab, previewTabId]);
 
   const handleTabHoverEnd = useCallback(async () => {
     try {
-      if (originalTabId && previewTabId !== originalTabId) {
+      if (originalTab && previewTabId !== originalTab.id) {
         // Return to original tab
-        await browser.tabs.update(originalTabId, { active: true });
+        await browser.tabs.update(originalTab.id, { active: true });
         setPreviewTabId(null);
       }
     } catch (error) {
       console.error('Error returning to original tab:', error);
     }
-  }, [originalTabId, previewTabId]);
+  }, [originalTab, previewTabId]);
 
   const handleTabClick = useCallback(async (tabId: number) => {
     try {
       // User clicked - this becomes the new "original" tab
-      setOriginalTabId(tabId);
-      setPreviewTabId(null);
+      const clickedTab = tabs.find(t => t.id === tabId);
+      if (clickedTab) {
+        setOriginalTab(clickedTab);
+        setPreviewTabId(null);
+      }
       // Tab is already active from hover, no need to update
     } catch (error) {
       console.error('Error switching to tab:', error);
     }
-  }, []);
+  }, [tabs]);
 
   return (
     <div className="sidepanel">
-        <List dense sx={{ width: '100%', bgcolor: 'background.paper' }}>
+      {/* Sticky Active Tab Header */}
+      {originalTab && (
+        <div className="active-tab-header">
+          <div className="active-tab-content">
+            <div className="active-tab-avatar">
+              <Avatar
+                alt="Active Tab"
+                src={originalTab.favIconUrl || undefined}
+                sx={{ 
+                  width: 32, 
+                  height: 32,
+                  position: 'relative'
+                }}
+              >
+                {!originalTab.favIconUrl && 
+                 (originalTab.title ? 
+                  originalTab.title.charAt(0).toUpperCase() : 'A')}
+              </Avatar>
+            </div>
+            <div className="active-tab-info">
+              <div className="active-tab-title">
+                {originalTab.title || 'Active Tab'}
+              </div>
+              <div className="active-tab-url">
+                {originalTab.url || ''}
+              </div>
+            </div>
+            <div className="active-tab-status">
+              <span className="status-dot active"></span>
+              <span className="status-text">Active</span>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Tabs List */}
+      <List dense sx={{ width: '100%', bgcolor: 'background.paper' }}>
             {tabs.map((tab) => {
               const labelId = `checkbox-list-secondary-label-${tab.id}`;
               return (
