@@ -146,6 +146,38 @@
   }
 }
 
+/* Tabs list styling */
+.tabs-list {
+  margin-bottom: 30px;
+}
+
+.tabs-list .MuiList-root {
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.tabs-list .MuiListItem-root {
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.tabs-list .MuiListItem-root:last-child {
+  border-bottom: none;
+}
+
+.tabs-list .MuiListItemButton-root {
+  padding: 8px 12px;
+}
+
+.tabs-list .MuiListItemAvatar-root {
+  min-width: 32px;
+}
+
+.tabs-list .MuiCheckbox-root {
+  padding: 4px;
+}
+
 /* Responsive adjustments for narrow sidepanels */
 @media (max-width: 300px) {
   .header {
