@@ -12,6 +12,8 @@ function App() {
   const [currentUrl, setCurrentUrl] = useState<string>('');
   const [currentTab, setCurrentTab] = useState<any>(null);
   const [tabs, setTabs] = useState<any[]>([]);
+  const [originalTabId, setOriginalTabId] = useState<number | null>(null);
+  const [previewTabId, setPreviewTabId] = useState<number | null>(null);
 
   useEffect(() => {
     // Get current tab information and all tabs when sidepanel opens
@@ -35,6 +37,47 @@ function App() {
     getTabsInfo();
   }, []);
 
+  const handleTabHover = async (tabId: number) => {
+    try {
+      if (originalTabId === null) {
+        // First hover - store original tab
+        const [activeTab] = await browser.tabs.query({ active: true, currentWindow: true });
+        if (activeTab.id) {
+          setOriginalTabId(activeTab.id);
+        }
+      }
+      
+      // Activate preview tab
+      await browser.tabs.update(tabId, { active: true });
+      setPreviewTabId(tabId);
+    } catch (error) {
+      console.error('Error previewing tab:', error);
+    }
+  };
+
+  const handleTabHoverEnd = async () => {
+    try {
+      if (originalTabId && previewTabId !== originalTabId) {
+        // Return to original tab
+        await browser.tabs.update(originalTabId, { active: true });
+        setPreviewTabId(null);
+      }
+    } catch (error) {
+      console.error('Error returning to original tab:', error);
+    }
+  };
+
+  const handleTabClick = async (tabId: number) => {
+    try {
+      // User clicked - this becomes the new "original" tab
+      setOriginalTabId(tabId);
+      setPreviewTabId(null);
+      // Tab is already active from hover, no need to update
+    } catch (error) {
+      console.error('Error switching to tab:', error);
+    }
+  };
+
   return (
     <div className="sidepanel">
         <List dense sx={{ width: '100%', bgcolor: 'background.paper' }}>
@@ -43,6 +86,14 @@ function App() {
               return (
                 <ListItem
                   key={tab.id}
+                  onMouseEnter={() => handleTabHover(tab.id)}
+                  onMouseLeave={handleTabHoverEnd}
+                  onClick={() => handleTabClick(tab.id)}
+                  sx={{
+                    backgroundColor: previewTabId === tab.id ? 'rgba(102, 126, 234, 0.1)' : 'transparent',
+                    borderLeft: previewTabId === tab.id ? '3px solid #667eea' : '3px solid transparent',
+                    transition: 'all 0.2s ease'
+                  }}
                   secondaryAction={
                     <Checkbox
                       edge="end"
