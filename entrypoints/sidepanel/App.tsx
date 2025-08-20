@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useRef } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
@@ -14,7 +14,6 @@ function App() {
   const [tabs, setTabs] = useState<any[]>([]);
   const [originalTabId, setOriginalTabId] = useState<number | null>(null);
   const [previewTabId, setPreviewTabId] = useState<number | null>(null);
-  const hoverTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     // Get current tab information and all tabs when sidepanel opens
@@ -36,18 +35,16 @@ function App() {
     };
 
     getTabsInfo();
-    
-    // Set up tab event listeners
+  }, []); // Only run once on mount
+
+  // Separate effect for tab event listeners
+  useEffect(() => {
     const handleTabRemoved = (tabId: number) => {
       setTabs(prevTabs => prevTabs.filter(tab => tab.id !== tabId));
       
       // If the removed tab was our original or preview tab, reset state
-      if (tabId === originalTabId) {
-        setOriginalTabId(null);
-      }
-      if (tabId === previewTabId) {
-        setPreviewTabId(null);
-      }
+      setOriginalTabId(prevOriginal => tabId === prevOriginal ? null : prevOriginal);
+      setPreviewTabId(prevPreview => tabId === prevPreview ? null : prevPreview);
     };
 
     const handleTabUpdated = (tabId: number, changeInfo: any, tab: any) => {
@@ -62,41 +59,38 @@ function App() {
     browser.tabs.onRemoved.addListener(handleTabRemoved);
     browser.tabs.onUpdated.addListener(handleTabUpdated);
     
-    // Cleanup function to clear timeouts and remove listeners
+    // Cleanup function to remove listeners
     return () => {
-      if (hoverTimeoutRef.current) {
-        clearTimeout(hoverTimeoutRef.current);
-      }
       browser.tabs.onRemoved.removeListener(handleTabRemoved);
       browser.tabs.onUpdated.removeListener(handleTabUpdated);
     };
-  }, [originalTabId, previewTabId]);
+  }, []); // Only run once on mount
 
   const handleTabHover = useCallback(async (tabId: number) => {
-    // Clear existing timeout
-    if (hoverTimeoutRef.current) {
-      clearTimeout(hoverTimeoutRef.current);
-    }
-    
-    // Set new timeout for hover
-    hoverTimeoutRef.current = setTimeout(async () => {
-      try {
-        if (originalTabId === null) {
-          // First hover - store original tab
-          const [activeTab] = await browser.tabs.query({ active: true, currentWindow: true });
-          if (activeTab.id) {
-            setOriginalTabId(activeTab.id);
-          }
+    try {
+      console.log('Hover triggered for tab:', tabId, 'Current state:', { originalTabId, previewTabId });
+      
+      // Only set original tab if we haven't set it yet
+      if (originalTabId === null) {
+        const [activeTab] = await browser.tabs.query({ active: true, currentWindow: true });
+        if (activeTab.id && activeTab.id !== tabId) {
+          console.log('Setting original tab to:', activeTab.id);
+          setOriginalTabId(activeTab.id);
         }
-        
-        // Activate preview tab
+      }
+      
+      // Only preview if this tab is different from current preview
+      if (previewTabId !== tabId) {
+        console.log('Activating preview tab:', tabId);
         await browser.tabs.update(tabId, { active: true });
         setPreviewTabId(tabId);
-      } catch (error) {
-        console.error('Error previewing tab:', error);
+      } else {
+        console.log('Tab already previewed, skipping activation');
       }
-    }, 150); // 150ms delay
-  }, [originalTabId]);
+    } catch (error) {
+      console.error('Error previewing tab:', error);
+    }
+  }, [originalTabId, previewTabId]);
 
   const handleTabHoverEnd = useCallback(async () => {
     try {
