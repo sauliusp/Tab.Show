@@ -37,25 +37,7 @@ function App() {
 
   return (
     <div className="sidepanel">
-      <header className="header">
-        <h1>Narsheek</h1>
-        <div className="status-indicator">
-          <span className="status-dot active"></span>
-          <span className="status-text">Active</span>
-        </div>
-      </header>
-      
-      <main className="content">
-        <section className="current-page">
-          <h2>Current Page</h2>
-          <div className="url-display">
-            <span className="url-text">{currentUrl || 'Loading...'}</span>
-          </div>
-        </section>
-
-        <section className="tabs-list">
-          <h2>Open Tabs</h2>
-          <List dense sx={{ width: '100%', bgcolor: 'background.paper' }}>
+        <List dense sx={{ width: '100%', bgcolor: 'background.paper' }}>
             {tabs.map((tab) => {
               const labelId = `checkbox-list-secondary-label-${tab.id}`;
               return (
@@ -92,35 +74,6 @@ function App() {
               );
             })}
           </List>
-        </section>
-
-        <section className="actions">
-          <h2>Quick Actions</h2>
-          <div className="action-buttons">
-            <button className="action-btn primary">
-              Analyze Page
-            </button>
-            <button className="action-btn secondary">
-              Save Note
-            </button>
-            <button className="action-btn secondary">
-              View History
-            </button>
-          </div>
-        </section>
-
-        <section className="info">
-          <h2>Extension Info</h2>
-          <div className="info-item">
-            <span className="label">Version:</span>
-            <span className="value">1.0.0</span>
-          </div>
-          <div className="info-item">
-            <span className="label">Status:</span>
-            <span className="value">Running</span>
-          </div>
-        </section>
-      </main>
     </div>
   );
 }
