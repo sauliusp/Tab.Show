@@ -4,7 +4,6 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
-import Checkbox from '@mui/material/Checkbox';
 import Avatar from '@mui/material/Avatar';
 import './App.css';
 
@@ -19,8 +18,6 @@ interface Tab {
 
 function App() {
   // ===== STATE MANAGEMENT =====
-  const [currentUrl, setCurrentUrl] = useState<string>('');
-  const [currentTab, setCurrentTab] = useState<Tab | null>(null);
   const [allTabs, setAllTabs] = useState<Tab[]>([]);
   const [originalTab, setOriginalTab] = useState<Tab | null>(null);
   const [previewTabId, setPreviewTabId] = useState<number | null>(null);
@@ -36,8 +33,6 @@ function App() {
         });
         
         if (activeTab && activeTab.id) {
-          setCurrentTab(activeTab as Tab);
-          setCurrentUrl(activeTab.url || '');
           setOriginalTab(activeTab as Tab); // Set as the reference tab
         }
 
@@ -94,11 +89,6 @@ function App() {
   // Handle mouse hover over a tab - preview the tab
   const handleTabHover = useCallback(async (tabId: number) => {
     try {
-      console.log('Hover triggered for tab:', tabId, 'Current state:', { 
-        originalTab: originalTab?.id, 
-        previewTabId 
-      });
-      
       // Set original tab if not already set (first hover)
       if (!originalTab) {
         const [activeTab] = await browser.tabs.query({ 
@@ -106,18 +96,14 @@ function App() {
           currentWindow: true 
         });
         if (activeTab && activeTab.id && activeTab.id !== tabId) {
-          console.log('Setting original tab to:', activeTab.id);
           setOriginalTab(activeTab as Tab);
         }
       }
       
       // Preview the hovered tab if it's different from current preview
       if (previewTabId !== tabId) {
-        console.log('Activating preview for tab:', tabId);
         await browser.tabs.update(tabId, { active: true });
         setPreviewTabId(tabId);
-      } else {
-        console.log('Tab already previewed, skipping activation');
       }
     } catch (error) {
       console.error('Failed to preview tab on hover:', error);
@@ -128,7 +114,6 @@ function App() {
   const handleTabHoverEnd = useCallback(async () => {
     try {
       if (originalTab && originalTab.id && previewTabId !== originalTab.id) {
-        console.log('Returning to original tab:', originalTab.id);
         await browser.tabs.update(originalTab.id, { active: true });
         setPreviewTabId(null);
       }
@@ -142,7 +127,6 @@ function App() {
     try {
       const clickedTab = allTabs.find(tab => tab.id === tabId);
       if (clickedTab) {
-        console.log('User clicked tab, setting as new original:', tabId);
         setOriginalTab(clickedTab);
         setPreviewTabId(null);
       }
@@ -207,12 +191,6 @@ function App() {
           transition: 'all 0.2s ease',
           opacity: isLoading ? 0.7 : 1
         }}
-        secondaryAction={
-          <Checkbox
-            edge="end"
-            inputProps={{ 'aria-labelledby': labelId }}
-          />
-        }
         disablePadding
       >
         <ListItemButton>
