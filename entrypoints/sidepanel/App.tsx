@@ -8,231 +8,274 @@ import Checkbox from '@mui/material/Checkbox';
 import Avatar from '@mui/material/Avatar';
 import './App.css';
 
+// Types for better code clarity
+interface Tab {
+  id: number | undefined;
+  title?: string;
+  url?: string;
+  favIconUrl?: string;
+  status?: string;
+}
+
 function App() {
+  // ===== STATE MANAGEMENT =====
   const [currentUrl, setCurrentUrl] = useState<string>('');
-  const [currentTab, setCurrentTab] = useState<any>(null);
-  const [tabs, setTabs] = useState<any[]>([]);
-  const [originalTab, setOriginalTab] = useState<any>(null);
+  const [currentTab, setCurrentTab] = useState<Tab | null>(null);
+  const [allTabs, setAllTabs] = useState<Tab[]>([]);
+  const [originalTab, setOriginalTab] = useState<Tab | null>(null);
   const [previewTabId, setPreviewTabId] = useState<number | null>(null);
 
+  // ===== INITIALIZATION EFFECT =====
   useEffect(() => {
-    // Get current tab information and all tabs when sidepanel opens
-    const getTabsInfo = async () => {
+    const initializeTabsInfo = async () => {
       try {
-        // Get current active tab
-        const [activeTab] = await browser.tabs.query({ active: true, currentWindow: true });
-        if (activeTab) {
-          setCurrentTab(activeTab);
+        // Get the currently active tab
+        const [activeTab] = await browser.tabs.query({ 
+          active: true, 
+          currentWindow: true 
+        });
+        
+        if (activeTab && activeTab.id) {
+          setCurrentTab(activeTab as Tab);
           setCurrentUrl(activeTab.url || '');
-          // Set the original tab to the currently active tab
-          setOriginalTab(activeTab);
+          setOriginalTab(activeTab as Tab); // Set as the reference tab
         }
 
-        // Get all tabs in current window
-        const allTabs = await browser.tabs.query({ currentWindow: true });
-        setTabs(allTabs);
+        // Get all tabs in the current window
+        const windowTabs = await browser.tabs.query({ currentWindow: true });
+        setAllTabs(windowTabs as Tab[]);
       } catch (error) {
-        console.error('Error getting tabs info:', error);
+        console.error('Failed to initialize tabs information:', error);
       }
     };
 
-    getTabsInfo();
-  }, []); // Only run once on mount
+    initializeTabsInfo();
+  }, []); // Run only once on component mount
 
-  // Separate effect for tab event listeners
+  // ===== TAB EVENT LISTENERS =====
   useEffect(() => {
     const handleTabRemoved = (tabId: number) => {
-      setTabs(prevTabs => prevTabs.filter(tab => tab.id !== tabId));
+      // Remove the deleted tab from our list
+      setAllTabs(prevTabs => prevTabs.filter(tab => tab.id !== tabId));
       
-      // If the removed tab was our original or preview tab, reset state
-      setOriginalTab((prevOriginal: any) => tabId === prevOriginal?.id ? null : prevOriginal);
-      setPreviewTabId(prevPreview => tabId === prevPreview ? null : prevPreview);
+      // Reset state if the removed tab was our reference or preview
+      if (originalTab?.id === tabId) {
+        setOriginalTab(null);
+      }
+      if (previewTabId === tabId) {
+        setPreviewTabId(null);
+      }
     };
 
-    const handleTabUpdated = (tabId: number, changeInfo: any, tab: any) => {
+    const handleTabUpdated = (tabId: number, changeInfo: any, updatedTab: any) => {
+      // Only update when the page has finished loading
       if (changeInfo.status === 'complete') {
-        setTabs(prevTabs => 
-          prevTabs.map(t => t.id === tabId ? { ...t, ...tab } : t)
+        setAllTabs(prevTabs => 
+          prevTabs.map(tab => 
+            tab.id === tabId ? { ...tab, ...updatedTab } : tab
+          )
         );
       }
     };
 
-    // Add listeners
+    // Register event listeners
     browser.tabs.onRemoved.addListener(handleTabRemoved);
     browser.tabs.onUpdated.addListener(handleTabUpdated);
     
-    // Cleanup function to remove listeners
+    // Cleanup: remove listeners when component unmounts
     return () => {
       browser.tabs.onRemoved.removeListener(handleTabRemoved);
       browser.tabs.onUpdated.removeListener(handleTabUpdated);
     };
-  }, []); // Only run once on mount
+  }, [originalTab, previewTabId]); // Re-run when these values change
 
+  // ===== TAB INTERACTION HANDLERS =====
+  
+  // Handle mouse hover over a tab - preview the tab
   const handleTabHover = useCallback(async (tabId: number) => {
     try {
-      console.log('Hover triggered for tab:', tabId, 'Current state:', { originalTab, previewTabId });
+      console.log('Hover triggered for tab:', tabId, 'Current state:', { 
+        originalTab: originalTab?.id, 
+        previewTabId 
+      });
       
-      // Only set original tab if we haven't set it yet
-      if (originalTab === null) {
-        const [activeTab] = await browser.tabs.query({ active: true, currentWindow: true });
-        if (activeTab.id && activeTab.id !== tabId) {
-          console.log('Setting original tab to:', activeTab);
-          setOriginalTab(activeTab);
+      // Set original tab if not already set (first hover)
+      if (!originalTab) {
+        const [activeTab] = await browser.tabs.query({ 
+          active: true, 
+          currentWindow: true 
+        });
+        if (activeTab && activeTab.id && activeTab.id !== tabId) {
+          console.log('Setting original tab to:', activeTab.id);
+          setOriginalTab(activeTab as Tab);
         }
       }
       
-      // Only preview if this tab is different from current preview
+      // Preview the hovered tab if it's different from current preview
       if (previewTabId !== tabId) {
-        console.log('Activating preview tab:', tabId);
+        console.log('Activating preview for tab:', tabId);
         await browser.tabs.update(tabId, { active: true });
         setPreviewTabId(tabId);
       } else {
         console.log('Tab already previewed, skipping activation');
       }
     } catch (error) {
-      console.error('Error previewing tab:', error);
+      console.error('Failed to preview tab on hover:', error);
     }
   }, [originalTab, previewTabId]);
 
+  // Handle mouse leave - return to original tab
   const handleTabHoverEnd = useCallback(async () => {
     try {
-      if (originalTab && previewTabId !== originalTab.id) {
-        // Return to original tab
+      if (originalTab && originalTab.id && previewTabId !== originalTab.id) {
+        console.log('Returning to original tab:', originalTab.id);
         await browser.tabs.update(originalTab.id, { active: true });
         setPreviewTabId(null);
       }
     } catch (error) {
-      console.error('Error returning to original tab:', error);
+      console.error('Failed to return to original tab:', error);
     }
   }, [originalTab, previewTabId]);
 
+  // Handle tab click - make it the new reference tab
   const handleTabClick = useCallback(async (tabId: number) => {
     try {
-      // User clicked - this becomes the new "original" tab
-      const clickedTab = tabs.find(t => t.id === tabId);
+      const clickedTab = allTabs.find(tab => tab.id === tabId);
       if (clickedTab) {
+        console.log('User clicked tab, setting as new original:', tabId);
         setOriginalTab(clickedTab);
         setPreviewTabId(null);
       }
-      // Tab is already active from hover, no need to update
     } catch (error) {
-      console.error('Error switching to tab:', error);
+      console.error('Failed to handle tab click:', error);
     }
-  }, [tabs]);
+  }, [allTabs]);
 
-  return (
-    <div className="sidepanel">
-      {/* Sticky Active Tab Header */}
-      {originalTab && (
-        <div className="active-tab-header">
-          <div className="active-tab-content">
-            <div className="active-tab-avatar">
-              <Avatar
-                alt="Active Tab"
-                src={originalTab.favIconUrl || undefined}
-                sx={{ 
-                  width: 32, 
-                  height: 32,
-                  position: 'relative'
-                }}
-              >
-                {!originalTab.favIconUrl && 
-                 (originalTab.title ? 
-                  originalTab.title.charAt(0).toUpperCase() : 'A')}
-              </Avatar>
+  // ===== RENDER HELPERS =====
+  
+  // Render the active tab header
+  const renderActiveTabHeader = () => {
+    if (!originalTab) return null;
+
+    return (
+      <div className="active-tab-header">
+        <div className="active-tab-content">
+          <div className="active-tab-avatar">
+            <Avatar
+              alt="Active Tab"
+              src={originalTab.favIconUrl || undefined}
+              sx={{ width: 32, height: 32, position: 'relative' }}
+            >
+              {!originalTab.favIconUrl && 
+               (originalTab.title ? originalTab.title.charAt(0).toUpperCase() : 'A')}
+            </Avatar>
+          </div>
+          <div className="active-tab-info">
+            <div className="active-tab-title">
+              {originalTab.title || 'Active Tab'}
             </div>
-            <div className="active-tab-info">
-              <div className="active-tab-title">
-                {originalTab.title || 'Active Tab'}
-              </div>
-              <div className="active-tab-url">
-                {originalTab.url || ''}
-              </div>
-            </div>
-            <div className="active-tab-status">
-              <span className="status-dot active"></span>
-              <span className="status-text">Active</span>
+            <div className="active-tab-url">
+              {originalTab.url || ''}
             </div>
           </div>
+          <div className="active-tab-status">
+            <span className="status-dot active"></span>
+            <span className="status-text">Active</span>
+          </div>
         </div>
-      )}
+      </div>
+    );
+  };
+
+  // Render a single tab item
+  const renderTabItem = (tab: Tab) => {
+    if (!tab.id) return null; // Skip tabs without ID
+    
+    const labelId = `checkbox-list-secondary-label-${tab.id}`;
+    const isPreviewTab = previewTabId === tab.id;
+    const isLoading = tab.status === 'loading';
+
+    return (
+      <ListItem
+        key={tab.id}
+        onMouseEnter={() => handleTabHover(tab.id!)}
+        onMouseLeave={handleTabHoverEnd}
+        onClick={() => handleTabClick(tab.id!)}
+        sx={{
+          backgroundColor: isPreviewTab ? 'rgba(102, 126, 234, 0.1)' : 'transparent',
+          borderLeft: isPreviewTab ? '3px solid #667eea' : '3px solid transparent',
+          transition: 'all 0.2s ease',
+          opacity: isLoading ? 0.7 : 1
+        }}
+        secondaryAction={
+          <Checkbox
+            edge="end"
+            inputProps={{ 'aria-labelledby': labelId }}
+          />
+        }
+        disablePadding
+      >
+        <ListItemButton>
+          <ListItemAvatar>
+            <Avatar
+              alt={tab.title || 'Tab'}
+              src={tab.favIconUrl || undefined}
+              sx={{ width: 24, height: 24, position: 'relative' }}
+            >
+              {!tab.favIconUrl && 
+               (tab.title ? tab.title.charAt(0).toUpperCase() : 'T')}
+              
+              {/* Loading indicator */}
+              {isLoading && (
+                <div style={{
+                  position: 'absolute',
+                  top: -2,
+                  right: -2,
+                  width: 8,
+                  height: 8,
+                  borderRadius: '50%',
+                  backgroundColor: '#667eea',
+                  animation: 'pulse 1.5s infinite'
+                }} />
+              )}
+            </Avatar>
+          </ListItemAvatar>
+          <ListItemText 
+            id={labelId} 
+            primary={
+              <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                {tab.title || 'Untitled Tab'}
+                {isLoading && (
+                  <span style={{ 
+                    fontSize: '0.75rem', 
+                    color: '#667eea',
+                    fontStyle: 'italic'
+                  }}>
+                    Loading...
+                  </span>
+                )}
+              </div>
+            }
+            primaryTypographyProps={{
+              noWrap: true,
+              sx: { fontSize: '0.875rem' }
+            }}
+          />
+        </ListItemButton>
+      </ListItem>
+    );
+  };
+
+  // ===== MAIN RENDER =====
+  return (
+    <div className="sidepanel">
+      {/* Active Tab Header */}
+      {renderActiveTabHeader()}
 
       {/* Tabs List */}
       <List dense sx={{ width: '100%', bgcolor: 'background.paper' }}>
-            {tabs.map((tab) => {
-              const labelId = `checkbox-list-secondary-label-${tab.id}`;
-              return (
-                <ListItem
-                  key={tab.id}
-                  onMouseEnter={() => handleTabHover(tab.id)}
-                  onMouseLeave={handleTabHoverEnd}
-                  onClick={() => handleTabClick(tab.id)}
-                  sx={{
-                    backgroundColor: previewTabId === tab.id ? 'rgba(102, 126, 234, 0.1)' : 'transparent',
-                    borderLeft: previewTabId === tab.id ? '3px solid #667eea' : '3px solid transparent',
-                    transition: 'all 0.2s ease',
-                    opacity: tab.status === 'loading' ? 0.7 : 1
-                  }}
-                  secondaryAction={
-                    <Checkbox
-                      edge="end"
-                      inputProps={{ 'aria-labelledby': labelId }}
-                    />
-                  }
-                  disablePadding
-                >
-                  <ListItemButton>
-                    <ListItemAvatar>
-                      <Avatar
-                        alt={tab.title || 'Tab'}
-                        src={tab.favIconUrl || undefined}
-                        sx={{ 
-                          width: 24, 
-                          height: 24,
-                          position: 'relative'
-                        }}
-                      >
-                        {!tab.favIconUrl && (tab.title ? tab.title.charAt(0).toUpperCase() : 'T')}
-                        {tab.status === 'loading' && (
-                          <div style={{
-                            position: 'absolute',
-                            top: -2,
-                            right: -2,
-                            width: 8,
-                            height: 8,
-                            borderRadius: '50%',
-                            backgroundColor: '#667eea',
-                            animation: 'pulse 1.5s infinite'
-                          }} />
-                        )}
-                      </Avatar>
-                    </ListItemAvatar>
-                    <ListItemText 
-                      id={labelId} 
-                      primary={
-                        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                          {tab.title || 'Untitled Tab'}
-                          {tab.status === 'loading' && (
-                            <span style={{ 
-                              fontSize: '0.75rem', 
-                              color: '#667eea',
-                              fontStyle: 'italic'
-                            }}>
-                              Loading...
-                            </span>
-                          )}
-                        </div>
-                      }
-                      primaryTypographyProps={{
-                        noWrap: true,
-                        sx: { fontSize: '0.875rem' }
-                      }}
-                    />
-                  </ListItemButton>
-                </ListItem>
-              );
-            })}
-          </List>
+        {allTabs.map(renderTabItem)}
+      </List>
     </div>
   );
 }
