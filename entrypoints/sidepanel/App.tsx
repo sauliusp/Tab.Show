@@ -177,6 +177,7 @@ function App() {
     
     const labelId = `checkbox-list-secondary-label-${tab.id}`;
     const isPreviewTab = previewTabId === tab.id;
+    const isOriginalTab = originalTab?.id === tab.id;
     const isLoading = tab.status === 'loading';
 
     return (
@@ -186,10 +187,25 @@ function App() {
         onMouseLeave={handleTabHoverEnd}
         onClick={() => handleTabClick(tab.id!)}
         sx={{
-          backgroundColor: isPreviewTab ? 'rgba(102, 126, 234, 0.1)' : 'transparent',
-          borderLeft: isPreviewTab ? '3px solid #667eea' : '3px solid transparent',
+          backgroundColor: isPreviewTab 
+            ? 'rgba(102, 126, 234, 0.15)' 
+            : isOriginalTab 
+            ? 'rgba(76, 175, 80, 0.1)' 
+            : 'transparent',
+          borderLeft: isPreviewTab 
+            ? '3px solid #667eea' 
+            : isOriginalTab 
+            ? '3px solid #4caf50' 
+            : '3px solid transparent',
           transition: 'all 0.2s ease',
-          opacity: isLoading ? 0.7 : 1
+          opacity: isLoading ? 0.7 : 1,
+          '&:hover': {
+            backgroundColor: isPreviewTab 
+              ? 'rgba(102, 126, 234, 0.2)' 
+              : isOriginalTab 
+              ? 'rgba(76, 175, 80, 0.15)' 
+              : 'rgba(0, 0, 0, 0.04)'
+          }
         }}
         disablePadding
       >
@@ -198,7 +214,12 @@ function App() {
             <Avatar
               alt={tab.title || 'Tab'}
               src={tab.favIconUrl || undefined}
-              sx={{ width: 24, height: 24, position: 'relative' }}
+              sx={{ 
+                width: 24, 
+                height: 24, 
+                position: 'relative',
+                border: isOriginalTab ? '2px solid #4caf50' : 'none'
+              }}
             >
               {!tab.favIconUrl && 
                (tab.title ? tab.title.charAt(0).toUpperCase() : 'T')}
@@ -216,13 +237,40 @@ function App() {
                   animation: 'pulse 1.5s infinite'
                 }} />
               )}
+
+              {/* Original tab indicator */}
+              {isOriginalTab && (
+                <div style={{
+                  position: 'absolute',
+                  bottom: -2,
+                  right: -2,
+                  width: 12,
+                  height: 12,
+                  borderRadius: '50%',
+                  backgroundColor: '#4caf50',
+                  border: '2px solid white',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontSize: '8px',
+                  color: 'white',
+                  fontWeight: 'bold'
+                }}>
+                  ✓
+                </div>
+              )}
             </Avatar>
           </ListItemAvatar>
           <ListItemText 
             id={labelId} 
             primary={
               <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                {tab.title || 'Untitled Tab'}
+                <span style={{
+                  fontWeight: isOriginalTab ? '600' : 'normal',
+                  color: isOriginalTab ? '#2e7d32' : 'inherit'
+                }}>
+                  {tab.title || 'Untitled Tab'}
+                </span>
                 {isLoading && (
                   <span style={{ 
                     fontSize: '0.75rem', 
@@ -230,6 +278,30 @@ function App() {
                     fontStyle: 'italic'
                   }}>
                     Loading...
+                  </span>
+                )}
+                {isOriginalTab && (
+                  <span style={{
+                    fontSize: '0.7rem',
+                    backgroundColor: '#4caf50',
+                    color: 'white',
+                    padding: '2px 6px',
+                    borderRadius: '10px',
+                    fontWeight: '500'
+                  }}>
+                    Original
+                  </span>
+                )}
+                {isPreviewTab && (
+                  <span style={{
+                    fontSize: '0.7rem',
+                    backgroundColor: '#667eea',
+                    color: 'white',
+                    padding: '2px 6px',
+                    borderRadius: '10px',
+                    fontWeight: '500'
+                  }}>
+                    Preview
                   </span>
                 )}
               </div>
