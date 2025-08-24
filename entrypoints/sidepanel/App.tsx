@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import { useTheme } from '@mui/material/styles';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
@@ -17,6 +18,8 @@ interface Tab {
 }
 
 function App() {
+  const theme = useTheme();
+  
   // ===== STATE MANAGEMENT =====
   const [allTabs, setAllTabs] = useState<Tab[]>([]);
   const [originalTab, setOriginalTab] = useState<Tab | null>(null);
@@ -259,7 +262,10 @@ function App() {
             </div>
           </div>
           <div className="active-tab-status">
-            <span className="status-dot active"></span>
+            <span 
+              className="status-dot active" 
+              style={{ backgroundColor: theme.palette.custom.original }}
+            ></span>
             <span className="status-text">Active</span>
           </div>
         </div>
@@ -284,23 +290,23 @@ function App() {
         onClick={() => handleTabClick(tab.id!)}
         sx={{
           backgroundColor: isPreviewTab 
-            ? 'rgba(102, 126, 234, 0.15)' 
+            ? theme.palette.custom.preview + '26' // 15% opacity
             : isOriginalTab 
-            ? 'rgba(76, 175, 80, 0.1)' 
+            ? theme.palette.custom.original + '1A' // 10% opacity
             : 'transparent',
           borderLeft: isPreviewTab 
-            ? '3px solid #667eea' 
+            ? `3px solid ${theme.palette.custom.preview}` 
             : isOriginalTab 
-            ? '3px solid #4caf50' 
+            ? `3px solid ${theme.palette.custom.original}` 
             : '3px solid transparent',
           transition: 'all 0.2s ease',
           opacity: isLoading ? 0.7 : 1,
           '&:hover': {
             backgroundColor: isPreviewTab 
-              ? 'rgba(102, 126, 234, 0.2)' 
+              ? theme.palette.custom.preview + '33' // 20% opacity
               : isOriginalTab 
-              ? 'rgba(76, 175, 80, 0.15)' 
-              : 'rgba(0, 0, 0, 0.04)'
+              ? theme.palette.custom.original + '26' // 15% opacity
+              : theme.palette.action.hover
           }
         }}
         disablePadding
@@ -314,7 +320,7 @@ function App() {
                 width: 24, 
                 height: 24, 
                 position: 'relative',
-                border: isOriginalTab ? '2px solid #4caf50' : 'none'
+                border: isOriginalTab ? `2px solid ${theme.palette.custom.original}` : 'none'
               }}
             >
               {!tab.favIconUrl && 
@@ -329,7 +335,7 @@ function App() {
                   width: 8,
                   height: 8,
                   borderRadius: '50%',
-                  backgroundColor: '#667eea',
+                  backgroundColor: theme.palette.custom.loading,
                   animation: 'pulse 1.5s infinite'
                 }} />
               )}
@@ -343,7 +349,7 @@ function App() {
                   width: 12,
                   height: 12,
                   borderRadius: '50%',
-                  backgroundColor: '#4caf50',
+                  backgroundColor: theme.palette.custom.original,
                   border: '2px solid white',
                   display: 'flex',
                   alignItems: 'center',
@@ -363,14 +369,14 @@ function App() {
               <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                 <span style={{
                   fontWeight: isOriginalTab ? '600' : 'normal',
-                  color: isOriginalTab ? '#2e7d32' : 'inherit'
+                  color: isOriginalTab ? theme.palette.custom.original : theme.palette.text.primary
                 }}>
                   {tab.title || 'Untitled Tab'}
                 </span>
                 {isLoading && (
                   <span style={{ 
                     fontSize: '0.75rem', 
-                    color: '#667eea',
+                    color: theme.palette.custom.loading,
                     fontStyle: 'italic'
                   }}>
                     Loading...
@@ -379,7 +385,7 @@ function App() {
                 {isOriginalTab && (
                   <span style={{
                     fontSize: '0.7rem',
-                    backgroundColor: '#4caf50',
+                    backgroundColor: theme.palette.custom.original,
                     color: 'white',
                     padding: '2px 6px',
                     borderRadius: '10px',
@@ -391,14 +397,14 @@ function App() {
                 {isPreviewTab && (
                   <span style={{
                     fontSize: '0.7rem',
-                    backgroundColor: '#667eea',
+                    backgroundColor: theme.palette.custom.preview,
                     color: 'white',
                     padding: '2px 6px',
                     borderRadius: '10px',
                     fontWeight: '500'
                   }}>
                     Preview
-                  </span>
+                </span>
                 )}
               </div>
             }
