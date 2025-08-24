@@ -475,6 +475,9 @@ function App() {
         sx={{
           borderLeft: `3px solid ${visualState.borderColor}`,
           backgroundColor: visualState.backgroundColor,
+          paddingY: '3px',
+          paddingLeft: '16px',
+          paddingRight: '15px',
           opacity: visualState.opacity,
           transition: 'all 0.2s ease',
           position: 'relative', // Ensure proper positioning for secondary actions
@@ -490,85 +493,75 @@ function App() {
               : visualState.backgroundColor + '80' // Increased from 'dd' to '80' for more prominent hover
           }
         }}
-        disablePadding
+
       >
-        <ListItemButton sx={{ 
-          paddingLeft: '4px', // Reduced to match right side spacing
-          paddingRight: '4px', // Reduced to bring text closer to actions button
-          flex: 1, // Allow button to take available space
-          minWidth: 0 // Allow proper shrinking
-        }}>
-          {/* Checkbox temporarily commented out - will be re-enabled later
-          <Checkbox
-            onClick={(event) => handlePopoverShow(event, 'Bulk Actions: Under construction...')}
-            sx={{ 
-              padding: '4px',
-              marginRight: '8px',
-              flexShrink: 0 // Prevent checkbox from shrinking
-            }}
-          />
-          */}
-          
-          <ListItemAvatar sx={{ 
-            minWidth: '32px', // Reduce avatar container width to bring title closer to favicon
-            marginRight: '8px' // Reduce space between favicon and title
-          }}>
-            <Avatar
-              alt={tab.title || 'Tab'}
-              src={tab.favIconUrl || undefined}
-              sx={{ 
-                width: 24, 
-                height: 24, 
-                position: 'relative',
-                border: originalTab?.id === tab.id ? `2px solid ${theme.palette.custom.original}` : 'none',
-                filter: visualState.avatarFilter
-              }}
-            >
-              {!tab.favIconUrl && 
-               (tab.title ? tab.title.charAt(0).toUpperCase() : 'T')}
-              
-              {/* Render all avatar overlays */}
-              {visualState.avatarOverlays.map((overlay, index) => (
-                <React.Fragment key={`${overlay.type}-${index}`}>
-                  {renderAvatarOverlay(overlay)}
-                </React.Fragment>
-              ))}
-            </Avatar>
-          </ListItemAvatar>
-          
-          <ListItemText 
-            primary={
-              <span style={{
-                fontWeight: 'normal',
-                color: visualState.textColor,
-                fontSize: '0.875rem'
-              }}>
-                {tab.title || 'Untitled Tab'}
-              </span>
-            }
-            primaryTypographyProps={{
-              noWrap: true,
-              sx: { fontSize: '0.875rem' }
-            }}
-            sx={{
-              marginRight: 0, // Ensure no right margin on the text
-              minWidth: 0, // Allow text to shrink properly
-              flex: 1, // Take up available space
-              overflow: 'hidden', // Prevent text overflow
-              textOverflow: 'ellipsis', // Show ellipsis for long text
-              whiteSpace: 'nowrap' // Keep text on single line
-            }}
-          />
-        </ListItemButton>
+        {/* Checkbox temporarily commented out - will be re-enabled later
+        <Checkbox
+          onClick={(event) => handlePopoverShow(event, 'Bulk Actions: Under construction...')}
+          sx={{ 
+            padding: '4px',
+            marginRight: '8px',
+            flexShrink: 0 // Prevent checkbox from shrinking
+          }}
+        />
+        */}
         
-        {/* Secondary Action - Only More Options Button */}
-        <ListItemSecondaryAction>
-          <IconButton
+        <ListItemAvatar sx={{
+          minWidth: '32px', // Reduce avatar container width to bring title closer to favicon
+          marginRight: '10px' // Reduce space between favicon and title
+        }}>
+          <Avatar
+            alt={tab.title || 'Tab'}
+            src={tab.favIconUrl || undefined}
+            sx={{ 
+              width: 25, 
+              height: 25, 
+              position: 'relative',
+              border: originalTab?.id === tab.id ? `2px solid ${theme.palette.custom.original}` : 'none',
+              filter: visualState.avatarFilter
+            }}
+          >
+            {!tab.favIconUrl && 
+             (tab.title ? tab.title.charAt(0).toUpperCase() : 'T')}
+            
+            {/* Render all avatar overlays */}
+            {visualState.avatarOverlays.map((overlay, index) => (
+              <React.Fragment key={`${overlay.type}-${index}`}>
+                {renderAvatarOverlay(overlay)}
+              </React.Fragment>
+            ))}
+          </Avatar>
+        </ListItemAvatar>
+        
+        <ListItemText 
+          primary={
+            <span style={{
+              fontWeight: 'normal',
+              color: visualState.textColor,
+              fontSize: '0.875rem'
+            }}>
+              {tab.title || 'Untitled Tab'}
+            </span>
+          }
+          primaryTypographyProps={{
+            noWrap: true,
+            sx: { fontSize: '0.875rem' }
+          }}
+          sx={{
+            color: visualState.textColor,
+            paddingRight: 1,
+            flex: 1, // Take up available space
+            overflow: 'hidden', // Prevent text overflow
+            textOverflow: 'ellipsis', // Show ellipsis for long text
+            whiteSpace: 'nowrap' // Keep text on single line
+          }}
+        />
+        
+        <IconButton
             edge="end"
             onClick={(event) => handlePopoverShow(event, 'Tab Actions: Under construction...')}
             sx={{
-              padding: '4px',
-              marginRight: '4px', // Increased to match left side spacing
+              paddingY: 0,
               flexShrink: 0, // Prevent button from shrinking
               minWidth: '32px', // Ensure minimum button size
               minHeight: '32px' // Ensure minimum button size
@@ -576,7 +569,6 @@ function App() {
           >
             ⋮ {/* Using three dots character instead of icon */}
           </IconButton>
-        </ListItemSecondaryAction>
       </ListItem>
     );
   };
