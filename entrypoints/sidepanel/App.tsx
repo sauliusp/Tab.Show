@@ -24,6 +24,7 @@ function App() {
   const [allTabs, setAllTabs] = useState<Tab[]>([]);
   const [originalTab, setOriginalTab] = useState<Tab | null>(null);
   const [previewTabId, setPreviewTabId] = useState<number | null>(null);
+  const [originalTabIndex, setOriginalTabIndex] = useState<number>(-1);
 
   // ===== INITIALIZATION EFFECT =====
   useEffect(() => {
@@ -42,6 +43,12 @@ function App() {
         // Get all tabs in the current window
         const windowTabs = await browser.tabs.query({ currentWindow: true });
         setAllTabs(windowTabs as Tab[]);
+        
+        // Find the index of the original tab
+        if (activeTab && activeTab.id) {
+          const index = windowTabs.findIndex(tab => tab.id === activeTab.id);
+          setOriginalTabIndex(index);
+        }
       } catch (error) {
         console.error('Failed to initialize tabs information:', error);
       }
@@ -77,6 +84,14 @@ function App() {
         // Also update the originalTab if it's the one being updated
         if (originalTab?.id === tabId) {
           setOriginalTab(prev => prev ? { ...prev, ...updatedTab } : null);
+        }
+        
+        // Update original tab index if needed
+        if (originalTab?.id === tabId) {
+          const newIndex = allTabs.findIndex(tab => tab.id === tabId);
+          if (newIndex !== -1) {
+            setOriginalTabIndex(newIndex);
+          }
         }
       }
     };
@@ -268,11 +283,6 @@ function App() {
             : '3px solid transparent',
           transition: 'all 0.2s ease',
           opacity: isLoading ? 0.7 : 1,
-          // Make original tab sticky when scrolling
-          position: isOriginalTab ? 'sticky' : 'static',
-          top: isOriginalTab ? 0 : 'auto',
-          zIndex: isOriginalTab ? 10 : 'auto',
-          boxShadow: isOriginalTab ? '0 2px 8px rgba(0, 0, 0, 0.1)' : 'none',
           '&:hover': {
             backgroundColor: isPreviewTab && isOriginalTab
               ? theme.palette.secondary.main // 100% opacity secondary background when both original and preview
@@ -408,8 +418,73 @@ function App() {
   // ===== MAIN RENDER =====
   return (
     <div className="sidepanel">
-      {/* Tabs List */}
-      <List dense sx={{ width: '100%', bgcolor: 'background.paper' }}>
+      {/* Fixed Header - Always visible original tab */}
+      {originalTab && (
+        <div style={{
+          position: 'sticky',
+          top: 0,
+          zIndex: 20,
+          backgroundColor: theme.palette.background.paper,
+          borderBottom: `2px solid ${theme.palette.custom.original}`,
+          padding: '16px',
+          boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
+        }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+            <Avatar
+              alt={originalTab.title || 'Original Tab'}
+              src={originalTab.favIconUrl || undefined}
+              sx={{ 
+                width: 32, 
+                height: 32,
+                border: `2px solid ${theme.palette.custom.original}`
+              }}
+            >
+              {!originalTab.favIconUrl && 
+               (originalTab.title ? originalTab.title.charAt(0).toUpperCase() : 'T')}
+            </Avatar>
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <div style={{ 
+                fontWeight: 'bold', 
+                fontSize: '0.9rem',
+                color: theme.palette.text.primary,
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                whiteSpace: 'nowrap'
+              }}>
+                {originalTab.title || 'Untitled Tab'}
+              </div>
+              <div style={{ 
+                fontSize: '0.75rem', 
+                color: theme.palette.text.secondary,
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                whiteSpace: 'nowrap'
+              }}>
+                {originalTab.url || 'No URL'}
+              </div>
+            </div>
+            <div style={{
+              fontSize: '0.7rem',
+              backgroundColor: theme.palette.custom.original,
+              color: 'white',
+              padding: '4px 8px',
+              borderRadius: '12px',
+              fontWeight: '500',
+              whiteSpace: 'nowrap'
+            }}>
+              Original
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Scrollable Tabs List */}
+      <List dense sx={{ 
+        width: '100%', 
+        bgcolor: 'background.paper',
+        maxHeight: originalTab ? 'calc(100vh - 120px)' : '100vh', // Adjust based on header height
+        overflow: 'auto'
+      }}>
         {allTabs.map(renderTabItem)}
       </List>
     </div>
