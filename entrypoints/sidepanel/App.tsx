@@ -15,6 +15,7 @@ interface Tab {
   url?: string;
   favIconUrl?: string;
   status?: string;
+  lastAccessed?: number; // Timestamp of last access
 }
 
 function App() {
@@ -251,17 +252,197 @@ function App() {
     }
   }, [allTabs]);
 
+  // ===== VISUAL STATE HELPER =====
+  
+  const getTabVisualState = (tab: Tab) => {
+    const isPreviewTab = previewTabId === tab.id;
+    const isOriginalTab = originalTab?.id === tab.id;
+    const isLoading = tab.status === 'loading';
+    const hasErrors = tab.status === 'unloaded' || tab.status === 'error';
+    
+    // Determine if tab is stale (inactive for more than 7 days)
+    const isStale = tab.lastAccessed && (Date.now() - tab.lastAccessed) > 7 * 24 * 60 * 60 * 1000;
+    
+    const visualState = {
+      borderColor: 'transparent',
+      backgroundColor: 'transparent',
+      avatarOverlays: [] as Array<{type: string, color: string, position: string}>,
+      textColor: theme.palette.text.primary,
+      opacity: 1,
+      avatarFilter: 'none'
+    };
+    
+    // Apply state logic in priority order
+    
+    // 1. Original tab (highest priority)
+    if (isOriginalTab) {
+      visualState.borderColor = theme.palette.custom.original;
+      visualState.backgroundColor = theme.palette.custom.original + '15';
+      visualState.avatarOverlays.push({
+        type: 'checkmark',
+        color: theme.palette.custom.original,
+        position: 'bottom-right'
+      });
+    }
+    
+    // 2. Preview tab
+    if (isPreviewTab) {
+      visualState.borderColor = theme.palette.custom.preview;
+      visualState.backgroundColor = theme.palette.custom.preview + '15';
+      if (!isOriginalTab) {
+        visualState.avatarOverlays.push({
+          type: 'preview',
+          color: theme.palette.custom.preview,
+          position: 'top-right'
+        });
+      }
+    }
+    
+    // 3. Loading state
+    if (isLoading) {
+      visualState.avatarOverlays.push({
+        type: 'loading',
+        color: theme.palette.custom.loading,
+        position: 'top-right'
+      });
+    }
+    
+    // 4. Error state
+    if (hasErrors) {
+      visualState.borderColor = theme.palette.error.main;
+      visualState.backgroundColor = theme.palette.error.main + '15';
+      visualState.textColor = theme.palette.error.main;
+      visualState.avatarOverlays.push({
+        type: 'error',
+        color: theme.palette.error.main,
+        position: 'top-left'
+      });
+    }
+    
+    // 5. Stale state
+    if (isStale) {
+      if (!visualState.borderColor || visualState.borderColor === 'transparent') {
+        visualState.borderColor = theme.palette.warning.main;
+      }
+      if (!visualState.backgroundColor || visualState.backgroundColor === 'transparent') {
+        visualState.backgroundColor = theme.palette.warning.main + '15';
+      }
+      visualState.opacity = 0.6;
+      visualState.avatarFilter = 'grayscale(0.3) saturate(0.7)';
+      visualState.avatarOverlays.push({
+        type: 'stale',
+        color: theme.palette.warning.main,
+        position: 'bottom-left'
+      });
+    }
+    
+    // 6. Combined states - adjust background for multiple states
+    if (isOriginalTab && isPreviewTab) {
+      visualState.backgroundColor = theme.palette.secondary.main;
+      visualState.textColor = 'white';
+    }
+    
+    return visualState;
+  };
+
   // ===== RENDER HELPERS =====
+
+  // Render avatar overlay based on type and position
+  const renderAvatarOverlay = (overlay: {type: string, color: string, position: string}) => {
+    const positionStyles = {
+      'top-left': { top: -2, left: -2 },
+      'top-right': { top: -2, right: -2 },
+      'bottom-left': { bottom: -2, left: -2 },
+      'bottom-right': { bottom: -2, right: -2 }
+    };
+    
+    const size = overlay.type === 'checkmark' ? 12 : 8;
+    
+    switch (overlay.type) {
+      case 'checkmark':
+        return (
+          <div style={{
+            position: 'absolute',
+            ...positionStyles[overlay.position as keyof typeof positionStyles],
+            width: size,
+            height: size,
+            borderRadius: '50%',
+            backgroundColor: overlay.color,
+            border: '2px solid white',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            fontSize: '8px',
+            color: 'white',
+            fontWeight: 'bold'
+          }}>
+            ✓
+          </div>
+        );
+        
+      case 'loading':
+        return (
+          <div style={{
+            position: 'absolute',
+            ...positionStyles[overlay.position as keyof typeof positionStyles],
+            width: size,
+            height: size,
+            borderRadius: '50%',
+            backgroundColor: overlay.color,
+            animation: 'pulse 1.5s infinite'
+          }} />
+        );
+        
+      case 'error':
+        return (
+          <div style={{
+            position: 'absolute',
+            ...positionStyles[overlay.position as keyof typeof positionStyles],
+            width: size,
+            height: size,
+            borderRadius: '50%',
+            backgroundColor: overlay.color,
+            border: '1px solid white'
+          }} />
+        );
+        
+      case 'stale':
+        return (
+          <div style={{
+            position: 'absolute',
+            ...positionStyles[overlay.position as keyof typeof positionStyles],
+            width: size,
+            height: size,
+            borderRadius: '50%',
+            backgroundColor: overlay.color,
+            border: '1px solid white'
+          }} />
+        );
+        
+      case 'preview':
+        return (
+          <div style={{
+            position: 'absolute',
+            ...positionStyles[overlay.position as keyof typeof positionStyles],
+            width: size,
+            height: size,
+            borderRadius: '50%',
+            backgroundColor: overlay.color,
+            border: '1px solid white'
+          }} />
+        );
+        
+      default:
+        return null;
+    }
+  };
 
   // Render a single tab item
   const renderTabItem = (tab: Tab) => {
     if (!tab.id) return null; // Skip tabs without ID
     
-    const labelId = `checkbox-list-secondary-label-${tab.id}`;
-    const isPreviewTab = previewTabId === tab.id;
-    const isOriginalTab = originalTab?.id === tab.id;
-    const isLoading = tab.status === 'loading';
-
+    const visualState = getTabVisualState(tab);
+    
     return (
       <ListItem
         key={tab.id}
@@ -269,28 +450,20 @@ function App() {
         onMouseLeave={handleTabHoverEnd}
         onClick={() => handleTabClick(tab.id!)}
         sx={{
-          backgroundColor: isPreviewTab && isOriginalTab
-            ? theme.palette.secondary.main // 100% opacity secondary background when both original and preview
-            : isPreviewTab 
-            ? theme.palette.custom.preview + '26' // 15% opacity
-            : isOriginalTab 
-            ? theme.palette.secondary.main // 100% opacity secondary background
-            : 'transparent',
-          borderLeft: isPreviewTab 
-            ? `3px solid ${theme.palette.custom.preview}` 
-            : isOriginalTab 
-            ? `3px solid ${theme.palette.custom.original}` 
-            : '3px solid transparent',
+          borderLeft: `3px solid ${visualState.borderColor}`,
+          backgroundColor: visualState.backgroundColor,
+          opacity: visualState.opacity,
           transition: 'all 0.2s ease',
-          opacity: isLoading ? 0.7 : 1,
+          
+          // Add subtle pattern overlay for stale tabs
+          backgroundImage: visualState.opacity < 1 ? 'repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(0,0,0,0.02) 2px, rgba(0,0,0,0.02) 4px)' : 'none',
+          
           '&:hover': {
-            backgroundColor: isPreviewTab && isOriginalTab
-              ? theme.palette.secondary.main // 100% opacity secondary background when both original and preview
-              : isPreviewTab 
-              ? theme.palette.custom.preview + '33' // 20% opacity
-              : isOriginalTab 
-              ? theme.palette.secondary.main // 100% opacity secondary on hover
-              : theme.palette.action.hover
+            backgroundColor: visualState.backgroundColor === 'transparent' 
+              ? theme.palette.action.hover
+              : visualState.backgroundColor === theme.palette.secondary.main
+              ? theme.palette.secondary.main
+              : visualState.backgroundColor + 'dd' // Increase opacity on hover
           }
         }}
         disablePadding
@@ -304,106 +477,31 @@ function App() {
                 width: 24, 
                 height: 24, 
                 position: 'relative',
-                border: isOriginalTab ? `2px solid ${theme.palette.custom.original}` : 'none'
+                border: originalTab?.id === tab.id ? `2px solid ${theme.palette.custom.original}` : 'none',
+                filter: visualState.avatarFilter
               }}
             >
               {!tab.favIconUrl && 
                (tab.title ? tab.title.charAt(0).toUpperCase() : 'T')}
               
-              {/* Loading indicator */}
-              {isLoading && (
-                <div style={{
-                  position: 'absolute',
-                  top: -2,
-                  right: -2,
-                  width: 8,
-                  height: 8,
-                  borderRadius: '50%',
-                  backgroundColor: theme.palette.custom.loading,
-                  animation: 'pulse 1.5s infinite'
-                }} />
-              )}
-
-              {/* Original tab indicator */}
-              {isOriginalTab && (
-                <div style={{
-                  position: 'absolute',
-                  bottom: -2,
-                  right: -2,
-                  width: 12,
-                  height: 12,
-                  borderRadius: '50%',
-                  backgroundColor: theme.palette.custom.original,
-                  border: '2px solid white',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  fontSize: '8px',
-                  color: 'white',
-                  fontWeight: 'bold'
-                }}>
-                  ✓
-                </div>
-              )}
+              {/* Render all avatar overlays */}
+              {visualState.avatarOverlays.map((overlay, index) => (
+                <React.Fragment key={`${overlay.type}-${index}`}>
+                  {renderAvatarOverlay(overlay)}
+                </React.Fragment>
+              ))}
             </Avatar>
           </ListItemAvatar>
+          
           <ListItemText 
-            id={labelId} 
             primary={
-              <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                <span style={{
-                  fontWeight: 'normal',
-                  color: isPreviewTab && isOriginalTab 
-                    ? 'white' // White text when both original and preview
-                    : isPreviewTab 
-                    ? theme.palette.text.primary // Dark text for preview only
-                    : isOriginalTab 
-                    ? 'white' // White text for original only
-                    : theme.palette.text.primary // Default text color
-                }}>
-                  {tab.title || 'Untitled Tab'}
-                </span>
-                {isLoading && (
-                  <span style={{ 
-                    fontSize: '0.75rem', 
-                    color: isPreviewTab && isOriginalTab 
-                      ? 'white' // White text when both original and preview
-                      : isPreviewTab 
-                      ? theme.palette.custom.loading // Loading color for preview only
-                      : isOriginalTab 
-                      ? 'white' // White text for original only
-                      : theme.palette.custom.loading, // Default loading color
-                    fontStyle: 'italic'
-                  }}>
-                    Loading...
-                  </span>
-                )}
-                {isOriginalTab && (
-                  <span style={{
-                    fontSize: '0.7rem',
-                    backgroundColor: theme.palette.custom.original,
-                    color: 'white',
-                    padding: '2px 6px',
-                    borderRadius: '10px',
-                    fontWeight: '500'
-                  }}>
-                    Original
-                  </span>
-                )}
-                {isPreviewTab && (
-                  <span style={{
-                    fontSize: '0.7rem',
-                    backgroundColor: theme.palette.custom.preview,
-                    color: 'white',
-                    padding: '2px 6px',
-                    borderRadius: '10px',
-                    fontWeight: '500'
-                  }}>
-                    Preview
-                  </span>
-                )}
-
-              </div>
+              <span style={{
+                fontWeight: 'normal',
+                color: visualState.textColor,
+                fontSize: '0.875rem'
+              }}>
+                {tab.title || 'Untitled Tab'}
+              </span>
             }
             primaryTypographyProps={{
               noWrap: true,

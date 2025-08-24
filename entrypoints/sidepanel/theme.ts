@@ -9,6 +9,8 @@ declare module '@mui/material/styles' {
       loading: string;
       originalBackground: string;
       originalText: string;
+      stale: string;
+      error: string;
     };
   }
   interface PaletteOptions {
@@ -18,6 +20,8 @@ declare module '@mui/material/styles' {
       loading?: string;
       originalBackground?: string;
       originalText?: string;
+      stale?: string;
+      error?: string;
     };
   }
 }
@@ -45,6 +49,18 @@ const theme = createTheme({
       default: '#ffffff',
       paper: '#f8f9fa',
     },
+    error: {
+      main: '#ef4444', // Red for error states
+      light: '#f87171',
+      dark: '#dc2626',
+      contrastText: '#ffffff',
+    },
+    warning: {
+      main: '#f59e0b', // Amber for stale/inactive tabs
+      light: '#fbbf24',
+      dark: '#d97706',
+      contrastText: '#ffffff',
+    },
     // Custom colors for specific use cases
     custom: {
       preview: '#388697', // Secondary color for preview state
@@ -52,6 +68,8 @@ const theme = createTheme({
       loading: '#fa8334', // Primary color for loading state
       originalBackground: '#fa8334', // Primary background for original tab
       originalText: '#ffffff', // White text on primary background
+      stale: '#f59e0b', // Amber for stale tabs
+      error: '#ef4444', // Red for error tabs
     },
   },
   typography: {
@@ -106,6 +124,8 @@ if (typeof document !== 'undefined') {
   root.style.setProperty('--mui-custom-loading', theme.palette.custom.loading);
   root.style.setProperty('--mui-custom-original-background', theme.palette.custom.originalBackground);
   root.style.setProperty('--mui-custom-original-text', theme.palette.custom.originalText);
+  root.style.setProperty('--mui-custom-stale', theme.palette.custom.stale);
+  root.style.setProperty('--mui-custom-error', theme.palette.custom.error);
   root.style.setProperty('--mui-custom-preview-shadow', theme.palette.custom.preview + '66'); // 40% opacity
 }
 
