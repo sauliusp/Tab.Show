@@ -237,43 +237,6 @@ function App() {
   }, [allTabs]);
 
   // ===== RENDER HELPERS =====
-  
-  // Render the active tab header
-  const renderActiveTabHeader = () => {
-    if (!originalTab) return null;
-
-    return (
-      <div className="active-tab-header">
-        <div className="active-tab-content">
-          <div className="active-tab-avatar">
-            <Avatar
-              alt="Active Tab"
-              src={originalTab.favIconUrl || undefined}
-              sx={{ width: 32, height: 32, position: 'relative' }}
-            >
-              {!originalTab.favIconUrl && 
-               (originalTab.title ? originalTab.title.charAt(0).toUpperCase() : 'A')}
-            </Avatar>
-          </div>
-          <div className="active-tab-info">
-            <div className="active-tab-title">
-              {originalTab.title || 'Active Tab'}
-            </div>
-            <div className="active-tab-url">
-              {originalTab.url || ''}
-            </div>
-          </div>
-          <div className="active-tab-status">
-            <span 
-              className="status-dot active" 
-              style={{ backgroundColor: theme.palette.custom.original }}
-            ></span>
-            <span className="status-text">Active</span>
-          </div>
-        </div>
-      </div>
-    );
-  };
 
   // Render a single tab item
   const renderTabItem = (tab: Tab) => {
@@ -291,7 +254,9 @@ function App() {
         onMouseLeave={handleTabHoverEnd}
         onClick={() => handleTabClick(tab.id!)}
         sx={{
-          backgroundColor: isPreviewTab 
+          backgroundColor: isPreviewTab && isOriginalTab
+            ? theme.palette.secondary.main // 100% opacity secondary background when both original and preview
+            : isPreviewTab 
             ? theme.palette.custom.preview + '26' // 15% opacity
             : isOriginalTab 
             ? theme.palette.secondary.main // 100% opacity secondary background
@@ -303,8 +268,15 @@ function App() {
             : '3px solid transparent',
           transition: 'all 0.2s ease',
           opacity: isLoading ? 0.7 : 1,
+          // Make original tab sticky when scrolling
+          position: isOriginalTab ? 'sticky' : 'static',
+          top: isOriginalTab ? 0 : 'auto',
+          zIndex: isOriginalTab ? 10 : 'auto',
+          boxShadow: isOriginalTab ? '0 2px 8px rgba(0, 0, 0, 0.1)' : 'none',
           '&:hover': {
-            backgroundColor: isPreviewTab 
+            backgroundColor: isPreviewTab && isOriginalTab
+              ? theme.palette.secondary.main // 100% opacity secondary background when both original and preview
+              : isPreviewTab 
               ? theme.palette.custom.preview + '33' // 20% opacity
               : isOriginalTab 
               ? theme.palette.secondary.main // 100% opacity secondary on hover
@@ -371,14 +343,26 @@ function App() {
               <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                 <span style={{
                   fontWeight: 'normal',
-                  color: isPreviewTab ? theme.palette.text.primary : (isOriginalTab ? 'white' : theme.palette.text.primary)
+                  color: isPreviewTab && isOriginalTab 
+                    ? 'white' // White text when both original and preview
+                    : isPreviewTab 
+                    ? theme.palette.text.primary // Dark text for preview only
+                    : isOriginalTab 
+                    ? 'white' // White text for original only
+                    : theme.palette.text.primary // Default text color
                 }}>
                   {tab.title || 'Untitled Tab'}
                 </span>
                 {isLoading && (
                   <span style={{ 
                     fontSize: '0.75rem', 
-                    color: isPreviewTab ? theme.palette.custom.loading : (isOriginalTab ? 'white' : theme.palette.custom.loading),
+                    color: isPreviewTab && isOriginalTab 
+                      ? 'white' // White text when both original and preview
+                      : isPreviewTab 
+                      ? theme.palette.custom.loading // Loading color for preview only
+                      : isOriginalTab 
+                      ? 'white' // White text for original only
+                      : theme.palette.custom.loading, // Default loading color
                     fontStyle: 'italic'
                   }}>
                     Loading...
@@ -424,9 +408,6 @@ function App() {
   // ===== MAIN RENDER =====
   return (
     <div className="sidepanel">
-      {/* Active Tab Header */}
-      {renderActiveTabHeader()}
-
       {/* Tabs List */}
       <List dense sx={{ width: '100%', bgcolor: 'background.paper' }}>
         {allTabs.map(renderTabItem)}
