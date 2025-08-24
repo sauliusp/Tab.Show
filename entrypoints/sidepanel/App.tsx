@@ -493,8 +493,8 @@ function App() {
         disablePadding
       >
         <ListItemButton sx={{ 
-          paddingLeft: '8px', // Reduce left padding to bring content closer to left edge
-          paddingRight: '8px', // Minimal padding to bring text very close to actions button
+          paddingLeft: '4px', // Reduced to match right side spacing
+          paddingRight: '4px', // Reduced to bring text closer to actions button
           flex: 1, // Allow button to take available space
           minWidth: 0 // Allow proper shrinking
         }}>
@@ -568,7 +568,7 @@ function App() {
             onClick={(event) => handlePopoverShow(event, 'Tab Actions: Under construction...')}
             sx={{
               padding: '4px',
-              marginRight: '8px',
+              marginRight: '4px', // Increased to match left side spacing
               flexShrink: 0, // Prevent button from shrinking
               minWidth: '32px', // Ensure minimum button size
               minHeight: '32px' // Ensure minimum button size
