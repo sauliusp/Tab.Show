@@ -294,7 +294,7 @@ function App() {
           backgroundColor: isPreviewTab 
             ? theme.palette.custom.preview + '26' // 15% opacity
             : isOriginalTab 
-            ? theme.palette.custom.originalBackground + '99' // 60% opacity
+            ? theme.palette.secondary.main // 100% opacity secondary background
             : 'transparent',
           borderLeft: isPreviewTab 
             ? `3px solid ${theme.palette.custom.preview}` 
@@ -307,7 +307,7 @@ function App() {
             backgroundColor: isPreviewTab 
               ? theme.palette.custom.preview + '33' // 20% opacity
               : isOriginalTab 
-              ? theme.palette.custom.originalBackground + 'B3' // 70% opacity on hover
+              ? theme.palette.secondary.main // 100% opacity secondary on hover
               : theme.palette.action.hover
           }
         }}
@@ -370,15 +370,15 @@ function App() {
             primary={
               <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                 <span style={{
-                  fontWeight: isOriginalTab ? '600' : 'normal',
-                  color: theme.palette.text.primary
+                  fontWeight: 'normal',
+                  color: isPreviewTab ? theme.palette.text.primary : (isOriginalTab ? 'white' : theme.palette.text.primary)
                 }}>
                   {tab.title || 'Untitled Tab'}
                 </span>
                 {isLoading && (
                   <span style={{ 
                     fontSize: '0.75rem', 
-                    color: theme.palette.custom.loading,
+                    color: isPreviewTab ? theme.palette.custom.loading : (isOriginalTab ? 'white' : theme.palette.custom.loading),
                     fontStyle: 'italic'
                   }}>
                     Loading...
