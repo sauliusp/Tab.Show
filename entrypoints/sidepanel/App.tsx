@@ -123,6 +123,29 @@ function App() {
       }
     };
 
+    // Handle tab activation (when switching tabs via keyboard/mouse)
+    const handleTabActivated = async (activeInfo: any) => {
+      try {
+        // Only handle activations in the current window
+        if (activeInfo.windowId === (await browser.windows.getCurrent()).id) {
+          const activatedTabId = activeInfo.tabId;
+          
+          // If this is a different tab than our current preview, update the preview
+          if (previewTabId !== activatedTabId) {
+            setPreviewTabId(activatedTabId);
+          }
+          
+          // If we don't have an original tab set yet, set this as the original
+          if (!originalTab) {
+            const activatedTab = await browser.tabs.get(activatedTabId);
+            setOriginalTab(activatedTab as Tab);
+          }
+        }
+      } catch (error) {
+        console.error('Failed to handle tab activation:', error);
+      }
+    };
+
     // Handle window focus changes (tabs might have changed in other windows)
     const handleWindowFocusChanged = async (windowId: number) => {
       try {
@@ -142,6 +165,7 @@ function App() {
     browser.tabs.onCreated.addListener(handleTabCreated);
     browser.tabs.onMoved.addListener(handleTabMoved);
     browser.tabs.onReplaced.addListener(handleTabReplaced);
+    browser.tabs.onActivated.addListener(handleTabActivated);
     browser.windows.onFocusChanged.addListener(handleWindowFocusChanged);
     
     // Cleanup: remove all listeners when component unmounts
@@ -151,6 +175,7 @@ function App() {
       browser.tabs.onCreated.removeListener(handleTabCreated);
       browser.tabs.onMoved.removeListener(handleTabMoved);
       browser.tabs.onReplaced.removeListener(handleTabReplaced);
+      browser.tabs.onActivated.removeListener(handleTabActivated);
       browser.windows.onFocusChanged.removeListener(handleWindowFocusChanged);
     };
   }, [originalTab, previewTabId]); // Re-run when these values change
