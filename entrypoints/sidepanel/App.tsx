@@ -279,7 +279,7 @@ function App() {
     // 1. Original tab (highest priority)
     if (isOriginalTab) {
       visualState.borderColor = theme.palette.custom.original;
-      visualState.backgroundColor = theme.palette.custom.original + '15';
+      visualState.backgroundColor = theme.palette.custom.original + '40'; // Increased from '15' to '40'
       visualState.avatarOverlays.push({
         type: 'checkmark',
         color: theme.palette.custom.original,
@@ -290,7 +290,7 @@ function App() {
     // 2. Preview tab
     if (isPreviewTab) {
       visualState.borderColor = theme.palette.custom.preview;
-      visualState.backgroundColor = theme.palette.custom.preview + '15';
+      visualState.backgroundColor = theme.palette.custom.preview + '40'; // Increased from '15' to '40'
       if (!isOriginalTab) {
         visualState.avatarOverlays.push({
           type: 'preview',
@@ -312,7 +312,7 @@ function App() {
     // 4. Error state
     if (hasErrors) {
       visualState.borderColor = theme.palette.error.main;
-      visualState.backgroundColor = theme.palette.error.main + '15';
+      visualState.backgroundColor = theme.palette.error.main + '30'; // Increased from '15' to '30'
       visualState.textColor = theme.palette.error.main;
       visualState.avatarOverlays.push({
         type: 'error',
@@ -327,7 +327,7 @@ function App() {
         visualState.borderColor = theme.palette.warning.main;
       }
       if (!visualState.backgroundColor || visualState.backgroundColor === 'transparent') {
-        visualState.backgroundColor = theme.palette.warning.main + '15';
+        visualState.backgroundColor = theme.palette.warning.main + '30'; // Increased from '15' to '30'
       }
       visualState.opacity = 0.6;
       visualState.avatarFilter = 'grayscale(0.3) saturate(0.7)';
@@ -340,7 +340,7 @@ function App() {
     
     // 6. Combined states - adjust background for multiple states
     if (isOriginalTab && isPreviewTab) {
-      visualState.backgroundColor = theme.palette.secondary.main;
+      visualState.backgroundColor = theme.palette.secondary.main + '90'; // Increased opacity for combined state
       visualState.textColor = 'white';
     }
     
@@ -465,7 +465,7 @@ function App() {
               ? theme.palette.action.hover
               : visualState.backgroundColor === theme.palette.secondary.main
               ? theme.palette.secondary.main
-              : visualState.backgroundColor + 'dd' // Increase opacity on hover
+              : visualState.backgroundColor + '80' // Increased from 'dd' to '80' for more prominent hover
           }
         }}
         disablePadding
