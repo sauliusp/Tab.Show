@@ -498,6 +498,7 @@ function App() {
           flex: 1, // Allow button to take available space
           minWidth: 0 // Allow proper shrinking
         }}>
+          {/* Checkbox temporarily commented out - will be re-enabled later
           <Checkbox
             onClick={(event) => handlePopoverShow(event, 'Bulk Actions: Under construction...')}
             sx={{ 
@@ -506,6 +507,7 @@ function App() {
               flexShrink: 0 // Prevent checkbox from shrinking
             }}
           />
+          */}
           
           <ListItemAvatar sx={{ 
             minWidth: '32px', // Reduce avatar container width to bring title closer to favicon
