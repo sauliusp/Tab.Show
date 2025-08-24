@@ -582,8 +582,11 @@ function App() {
       <List dense sx={{ 
         width: '100%', 
         bgcolor: 'background.paper',
-        maxHeight: originalTab ? 'calc(100vh - 120px)' : '100vh', // Adjust based on header height
-        overflow: 'auto'
+        flex: 1, // Take up remaining space
+        overflow: 'auto',
+        paddingBottom: 0, // Remove any bottom padding
+        marginBottom: 0, // Remove any bottom margin
+        minHeight: 0 // Allow flex shrinking
       }}>
         {allTabs.map(renderTabItem)}
       </List>

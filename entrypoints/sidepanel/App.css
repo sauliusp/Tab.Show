@@ -3,7 +3,9 @@
   height: 100vh;
   background: var(--mui-background-default, #ffffff);
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  overflow-y: auto;
+  overflow: hidden; /* Change from overflow-y: auto to overflow: hidden */
+  display: flex;
+  flex-direction: column;
 }
 
 .header {
@@ -214,7 +216,14 @@
 
 /* Tabs list styling */
 .tabs-list {
-  margin-bottom: 30px;
+  margin-bottom: 0; /* Remove bottom margin */
+}
+
+/* Ensure the MUI List component fills available space */
+.sidepanel .MuiList-root {
+  flex: 1;
+  margin: 0;
+  padding: 0;
 }
 
 .tabs-list .MuiList-root {
