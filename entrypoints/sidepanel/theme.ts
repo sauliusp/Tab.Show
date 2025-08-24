@@ -7,6 +7,8 @@ declare module '@mui/material/styles' {
       preview: string;
       original: string;
       loading: string;
+      originalBackground: string;
+      originalText: string;
     };
   }
   interface PaletteOptions {
@@ -14,6 +16,8 @@ declare module '@mui/material/styles' {
       preview?: string;
       original?: string;
       loading?: string;
+      originalBackground?: string;
+      originalText?: string;
     };
   }
 }
@@ -46,6 +50,8 @@ const theme = createTheme({
       preview: '#388697', // Secondary color for preview state
       original: '#fa8334', // Primary color for original state
       loading: '#fa8334', // Primary color for loading state
+      originalBackground: '#fa8334', // Primary background for original tab
+      originalText: '#ffffff', // White text on primary background
     },
   },
   typography: {
@@ -98,6 +104,8 @@ if (typeof document !== 'undefined') {
   root.style.setProperty('--mui-custom-preview', theme.palette.custom.preview);
   root.style.setProperty('--mui-custom-original', theme.palette.custom.original);
   root.style.setProperty('--mui-custom-loading', theme.palette.custom.loading);
+  root.style.setProperty('--mui-custom-original-background', theme.palette.custom.originalBackground);
+  root.style.setProperty('--mui-custom-original-text', theme.palette.custom.originalText);
   root.style.setProperty('--mui-custom-preview-shadow', theme.palette.custom.preview + '66'); // 40% opacity
 }
 

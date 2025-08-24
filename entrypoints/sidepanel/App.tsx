@@ -214,7 +214,9 @@ function App() {
     try {
       if (originalTab && originalTab.id && previewTabId !== originalTab.id) {
         await browser.tabs.update(originalTab.id, { active: true });
-        setPreviewTabId(null);
+        // Don't immediately clear the preview - let it stay visible
+        // This prevents badge flickering and provides stable visual feedback
+        // The preview will only be cleared when a new tab is hovered or clicked
       }
     } catch (error) {
       console.error('Failed to return to original tab:', error);
@@ -292,7 +294,7 @@ function App() {
           backgroundColor: isPreviewTab 
             ? theme.palette.custom.preview + '26' // 15% opacity
             : isOriginalTab 
-            ? theme.palette.custom.original + '1A' // 10% opacity
+            ? theme.palette.custom.originalBackground + '99' // 60% opacity
             : 'transparent',
           borderLeft: isPreviewTab 
             ? `3px solid ${theme.palette.custom.preview}` 
@@ -305,7 +307,7 @@ function App() {
             backgroundColor: isPreviewTab 
               ? theme.palette.custom.preview + '33' // 20% opacity
               : isOriginalTab 
-              ? theme.palette.custom.original + '26' // 15% opacity
+              ? theme.palette.custom.originalBackground + 'B3' // 70% opacity on hover
               : theme.palette.action.hover
           }
         }}
@@ -369,7 +371,7 @@ function App() {
               <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                 <span style={{
                   fontWeight: isOriginalTab ? '600' : 'normal',
-                  color: isOriginalTab ? theme.palette.custom.original : theme.palette.text.primary
+                  color: theme.palette.text.primary
                 }}>
                   {tab.title || 'Untitled Tab'}
                 </span>
@@ -404,8 +406,9 @@ function App() {
                     fontWeight: '500'
                   }}>
                     Preview
-                </span>
+                  </span>
                 )}
+
               </div>
             }
             primaryTypographyProps={{
