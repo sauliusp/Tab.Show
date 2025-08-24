@@ -97,12 +97,14 @@ function App() {
       }
     };
 
-    // Handle new tab creation
+    // Handle new tab creation - refresh entire list to maintain order
     const handleTabCreated = async (tab: any) => {
       try {
-        // Only add tabs from the current window
+        // Only handle tabs from the current window
         if (tab.windowId === (await browser.windows.getCurrent()).id) {
-          setAllTabs(prevTabs => [...prevTabs, tab as Tab]);
+          // Instead of just adding the new tab, refresh the entire list to maintain order
+          const windowTabs = await browser.tabs.query({ currentWindow: true });
+          setAllTabs(windowTabs as Tab[]);
         }
       } catch (error) {
         console.error('Failed to handle tab creation:', error);
@@ -123,16 +125,16 @@ function App() {
     // Handle tab replacement (e.g., when navigating to a new page)
     const handleTabReplaced = async (addedTabId: number, removedTabId: number) => {
       try {
-        // Remove the old tab and add the new one
-        setAllTabs(prevTabs => prevTabs.filter(tab => tab.id !== removedTabId));
-        
-        // Get the new tab info and add it to the list
-        const newTab = await browser.tabs.get(addedTabId);
-        setAllTabs(prevTabs => [...prevTabs, newTab as Tab]);
+        // Refresh the entire tab list to maintain order
+        const windowTabs = await browser.tabs.query({ currentWindow: true });
+        setAllTabs(windowTabs as Tab[]);
         
         // Update references if needed
         if (originalTab?.id === removedTabId) {
-          setOriginalTab(newTab as Tab);
+          const newTab = windowTabs.find(tab => tab.id === addedTabId);
+          if (newTab) {
+            setOriginalTab(newTab as Tab);
+          }
         }
         if (previewTabId === removedTabId) {
           setPreviewTabId(addedTabId);
