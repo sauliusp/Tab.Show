@@ -21,6 +21,7 @@ export default defineConfig({
       'bookmarks',
       'storage',
       'history'
-    ]
+    ],
+    host_permissions: []
   }
 });

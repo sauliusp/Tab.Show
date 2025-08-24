@@ -503,7 +503,7 @@ function App() {
             marginRight: '8px',
             flexShrink: 0 // Prevent checkbox from shrinking
           }}
-        />
+        />  
         */}
         
         <ListItemAvatar sx={{
