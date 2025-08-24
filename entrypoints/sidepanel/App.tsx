@@ -70,6 +70,11 @@ function App() {
             tab.id === tabId ? { ...tab, ...updatedTab } : tab
           )
         );
+        
+        // Also update the originalTab if it's the one being updated
+        if (originalTab?.id === tabId) {
+          setOriginalTab(prev => prev ? { ...prev, ...updatedTab } : null);
+        }
       }
     };
 
