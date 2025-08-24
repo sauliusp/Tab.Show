@@ -5,7 +5,12 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
+import ListItemSecondaryAction from '@mui/material/ListItemSecondaryAction';
 import Avatar from '@mui/material/Avatar';
+import Checkbox from '@mui/material/Checkbox';
+import IconButton from '@mui/material/IconButton';
+import Tooltip from '@mui/material/Tooltip';
+import Popover from '@mui/material/Popover';
 import './App.css';
 
 // Types for better code clarity
@@ -26,6 +31,10 @@ function App() {
   const [originalTab, setOriginalTab] = useState<Tab | null>(null);
   const [previewTabId, setPreviewTabId] = useState<number | null>(null);
   const [originalTabIndex, setOriginalTabIndex] = useState<number>(-1);
+  
+  // Popover state for "Under construction" message
+  const [popoverAnchor, setPopoverAnchor] = useState<HTMLElement | null>(null);
+  const [popoverMessage, setPopoverMessage] = useState<string>('');
 
   // ===== INITIALIZATION EFFECT =====
   useEffect(() => {
@@ -439,6 +448,18 @@ function App() {
     }
   };
 
+  // Handle popover for "Under construction" message
+  const handlePopoverShow = (event: React.MouseEvent<HTMLElement>, message: string) => {
+    setPopoverAnchor(event.currentTarget);
+    setPopoverMessage(message);
+    
+    // Auto-hide after 2 seconds
+    setTimeout(() => {
+      setPopoverAnchor(null);
+      setPopoverMessage('');
+    }, 2000);
+  };
+
   // Render a single tab item
   const renderTabItem = (tab: Tab) => {
     if (!tab.id) return null; // Skip tabs without ID
@@ -456,6 +477,7 @@ function App() {
           backgroundColor: visualState.backgroundColor,
           opacity: visualState.opacity,
           transition: 'all 0.2s ease',
+          position: 'relative', // Ensure proper positioning for secondary actions
           
           // Add subtle pattern overlay for stale tabs
           backgroundImage: visualState.opacity < 1 ? 'repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(0,0,0,0.02) 2px, rgba(0,0,0,0.02) 4px)' : 'none',
@@ -470,8 +492,25 @@ function App() {
         }}
         disablePadding
       >
-        <ListItemButton>
-          <ListItemAvatar>
+        <ListItemButton sx={{ 
+          paddingLeft: '8px', // Reduce left padding to bring content closer to left edge
+          paddingRight: '8px', // Minimal padding to bring text very close to actions button
+          flex: 1, // Allow button to take available space
+          minWidth: 0 // Allow proper shrinking
+        }}>
+          <Checkbox
+            onClick={(event) => handlePopoverShow(event, 'Bulk Actions: Under construction...')}
+            sx={{ 
+              padding: '4px',
+              marginRight: '8px',
+              flexShrink: 0 // Prevent checkbox from shrinking
+            }}
+          />
+          
+          <ListItemAvatar sx={{ 
+            minWidth: '32px', // Reduce avatar container width to bring title closer to favicon
+            marginRight: '8px' // Reduce space between favicon and title
+          }}>
             <Avatar
               alt={tab.title || 'Tab'}
               src={tab.favIconUrl || undefined}
@@ -509,8 +548,33 @@ function App() {
               noWrap: true,
               sx: { fontSize: '0.875rem' }
             }}
+            sx={{
+              marginRight: 0, // Ensure no right margin on the text
+              minWidth: 0, // Allow text to shrink properly
+              flex: 1, // Take up available space
+              overflow: 'hidden', // Prevent text overflow
+              textOverflow: 'ellipsis', // Show ellipsis for long text
+              whiteSpace: 'nowrap' // Keep text on single line
+            }}
           />
         </ListItemButton>
+        
+        {/* Secondary Action - Only More Options Button */}
+        <ListItemSecondaryAction>
+          <IconButton
+            edge="end"
+            onClick={(event) => handlePopoverShow(event, 'Tab Actions: Under construction...')}
+            sx={{
+              padding: '4px',
+              marginRight: '8px',
+              flexShrink: 0, // Prevent button from shrinking
+              minWidth: '32px', // Ensure minimum button size
+              minHeight: '32px' // Ensure minimum button size
+            }}
+          >
+            ⋮ {/* Using three dots character instead of icon */}
+          </IconButton>
+        </ListItemSecondaryAction>
       </ListItem>
     );
   };
@@ -590,6 +654,34 @@ function App() {
       }}>
         {allTabs.map(renderTabItem)}
       </List>
+      
+      {/* Popover for "Under construction" message */}
+      <Popover
+        open={Boolean(popoverAnchor)}
+        anchorEl={popoverAnchor}
+        onClose={() => setPopoverAnchor(null)}
+        anchorOrigin={{
+          vertical: 'top',
+          horizontal: 'center',
+        }}
+        transformOrigin={{
+          vertical: 'bottom',
+          horizontal: 'center',
+        }}
+        sx={{
+          '& .MuiPopover-paper': {
+            backgroundColor: theme.palette.warning.main,
+            color: 'white',
+            padding: '8px 16px',
+            borderRadius: '8px',
+            fontSize: '0.875rem',
+            fontWeight: 500,
+            boxShadow: '0 4px 12px rgba(0,0,0,0.15)'
+          }
+        }}
+      >
+        {popoverMessage}
+      </Popover>
     </div>
   );
 }
