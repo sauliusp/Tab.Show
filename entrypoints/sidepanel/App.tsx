@@ -73,14 +73,80 @@ function App() {
       }
     };
 
-    // Register event listeners
+    // Handle new tab creation
+    const handleTabCreated = async (tab: any) => {
+      try {
+        // Only add tabs from the current window
+        if (tab.windowId === (await browser.windows.getCurrent()).id) {
+          setAllTabs(prevTabs => [...prevTabs, tab as Tab]);
+        }
+      } catch (error) {
+        console.error('Failed to handle tab creation:', error);
+      }
+    };
+
+    // Handle tab reordering/moving
+    const handleTabMoved = async (tabId: number, moveInfo: any) => {
+      try {
+        // Refresh the entire tab list to get the new order
+        const windowTabs = await browser.tabs.query({ currentWindow: true });
+        setAllTabs(windowTabs as Tab[]);
+      } catch (error) {
+        console.error('Failed to handle tab move:', error);
+      }
+    };
+
+    // Handle tab replacement (e.g., when navigating to a new page)
+    const handleTabReplaced = async (addedTabId: number, removedTabId: number) => {
+      try {
+        // Remove the old tab and add the new one
+        setAllTabs(prevTabs => prevTabs.filter(tab => tab.id !== removedTabId));
+        
+        // Get the new tab info and add it to the list
+        const newTab = await browser.tabs.get(addedTabId);
+        setAllTabs(prevTabs => [...prevTabs, newTab as Tab]);
+        
+        // Update references if needed
+        if (originalTab?.id === removedTabId) {
+          setOriginalTab(newTab as Tab);
+        }
+        if (previewTabId === removedTabId) {
+          setPreviewTabId(addedTabId);
+        }
+      } catch (error) {
+        console.error('Failed to handle tab replacement:', error);
+      }
+    };
+
+    // Handle window focus changes (tabs might have changed in other windows)
+    const handleWindowFocusChanged = async (windowId: number) => {
+      try {
+        if (windowId === (await browser.windows.getCurrent()).id) {
+          // Refresh tab list when our window gains focus
+          const windowTabs = await browser.tabs.query({ currentWindow: true });
+          setAllTabs(windowTabs as Tab[]);
+        }
+      } catch (error) {
+        console.error('Failed to handle window focus change:', error);
+      }
+    };
+
+    // Register all event listeners
     browser.tabs.onRemoved.addListener(handleTabRemoved);
     browser.tabs.onUpdated.addListener(handleTabUpdated);
+    browser.tabs.onCreated.addListener(handleTabCreated);
+    browser.tabs.onMoved.addListener(handleTabMoved);
+    browser.tabs.onReplaced.addListener(handleTabReplaced);
+    browser.windows.onFocusChanged.addListener(handleWindowFocusChanged);
     
-    // Cleanup: remove listeners when component unmounts
+    // Cleanup: remove all listeners when component unmounts
     return () => {
       browser.tabs.onRemoved.removeListener(handleTabRemoved);
       browser.tabs.onUpdated.removeListener(handleTabUpdated);
+      browser.tabs.onCreated.removeListener(handleTabCreated);
+      browser.tabs.onMoved.removeListener(handleTabMoved);
+      browser.tabs.onReplaced.removeListener(handleTabReplaced);
+      browser.windows.onFocusChanged.removeListener(handleWindowFocusChanged);
     };
   }, [originalTab, previewTabId]); // Re-run when these values change
 
