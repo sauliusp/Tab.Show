@@ -63,8 +63,8 @@ function App() {
     };
 
     const handleTabUpdated = (tabId: number, changeInfo: any, updatedTab: any) => {
-      // Only update when the page has finished loading
-      if (changeInfo.status === 'complete') {
+      // Update tab status for all status changes (loading, complete, unloaded)
+      if (changeInfo.status) {
         setAllTabs(prevTabs => 
           prevTabs.map(tab => 
             tab.id === tabId ? { ...tab, ...updatedTab } : tab
