@@ -5,6 +5,7 @@ export interface Tab {
   favIconUrl?: string;
   status?: string;
   lastAccessed?: number; // Timestamp of last access
+  groupId?: number; // ID of the tab group this tab belongs to
 }
 
 export interface TabVisualState {

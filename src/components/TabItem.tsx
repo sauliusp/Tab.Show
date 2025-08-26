@@ -16,6 +16,7 @@ interface TabItemProps {
   onTabHoverEnd: () => void;
   onTabClick: (tabId: number) => void;
   onCloseTab: (tabId: number) => void;
+  groupColor?: string; // Color of the tab group this tab belongs to
 }
 
 export function TabItem({
@@ -25,7 +26,8 @@ export function TabItem({
   onTabHover,
   onTabHoverEnd,
   onTabClick,
-  onCloseTab
+  onCloseTab,
+  groupColor
 }: TabItemProps) {
   const theme = useTheme();
   
@@ -105,7 +107,16 @@ export function TabItem({
       onMouseLeave={onTabHoverEnd}
       onClick={() => onTabClick(tab.id!)}
       sx={{
-        borderLeft: `3px solid ${visualState.borderColor}`,
+        borderLeft: `6px solid ${groupColor ? 
+          (groupColor === 'grey' ? '#8e8e93' : 
+           groupColor === 'blue' ? '#007aff' :
+           groupColor === 'red' ? '#ff3b30' :
+           groupColor === 'green' ? '#34c759' :
+           groupColor === 'yellow' ? '#ffcc00' :
+           groupColor === 'pink' ? '#ff2d92' :
+           groupColor === 'purple' ? '#af52de' :
+           groupColor === 'orange' ? '#ff9500' : '#8e8e93') 
+          : visualState.borderColor}`,
         backgroundColor: visualState.backgroundColor,
         paddingY: '3px',
         paddingLeft: '16px',

@@ -98,6 +98,31 @@ class TabService {
       return false;
     }
   }
+
+  /**
+   * Get all tab groups in the current window
+   */
+  async getTabGroups(): Promise<any[]> {
+    try {
+      const windowId = await this.getCurrentWindowId();
+      console.log('getTabGroups - windowId:', windowId);
+      if (windowId === null) return [];
+      
+      // Check if browser.tabGroups is available
+      if (!browser.tabGroups) {
+        console.log('browser.tabGroups is not available');
+        return [];
+      }
+      
+      console.log('Using browser.tabGroups API');
+      const groups = await browser.tabGroups.query({ windowId });
+      console.log('getTabGroups - browser.tabGroups.query result:', groups);
+      return groups;
+    } catch (error) {
+      console.error('Failed to get tab groups:', error);
+      return [];
+    }
+  }
 }
 
 export const tabService = TabService.getInstance();

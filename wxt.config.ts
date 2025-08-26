@@ -28,6 +28,7 @@ export default defineConfig({
       'sidePanel',
       'activeTab',
       'tabs',
+      'tabGroups',
       'bookmarks',
       'storage',
       'history'

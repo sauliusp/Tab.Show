@@ -12,6 +12,7 @@ function App() {
   // Use the custom hook for tab management
   const {
     allTabs,
+    tabGroups,
     originalTab,
     previewTabId,
     handleTabHover,
@@ -42,6 +43,7 @@ function App() {
       {/* Tab list */}
       <TabList
         allTabs={allTabs}
+        tabGroups={tabGroups}
         previewTabId={previewTabId}
         originalTab={originalTab}
         onTabHover={handleTabHover}
