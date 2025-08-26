@@ -11,7 +11,7 @@ interface TabListProps {
   onTabHover: (tabId: number) => void;
   onTabHoverEnd: () => void;
   onTabClick: (tabId: number) => void;
-  onShowPopover: (event: React.MouseEvent<HTMLElement>, message: string) => void;
+  onCloseTab: (tabId: number) => void;
 }
 
 export function TabList({
@@ -21,7 +21,7 @@ export function TabList({
   onTabHover,
   onTabHoverEnd,
   onTabClick,
-  onShowPopover
+  onCloseTab
 }: TabListProps) {
   const theme = useTheme();
   
@@ -44,7 +44,7 @@ export function TabList({
           onTabHover={onTabHover}
           onTabHoverEnd={onTabHoverEnd}
           onTabClick={onTabClick}
-          onShowPopover={onShowPopover}
+          onCloseTab={onCloseTab}
         />
       ))}
     </List>

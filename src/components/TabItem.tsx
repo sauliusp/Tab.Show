@@ -4,9 +4,9 @@ import ListItem from '@mui/material/ListItem';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import ListItemText from '@mui/material/ListItemText';
 import Avatar from '@mui/material/Avatar';
-import IconButton from '@mui/material/IconButton';
 import { Tab, TabVisualState, AvatarOverlay } from '../types/Tab';
 import { getTabVisualState } from '../utils/tabVisualState';
+import { TabItemActionButton } from './TabItemActionButton';
 
 interface TabItemProps {
   tab: Tab;
@@ -15,7 +15,7 @@ interface TabItemProps {
   onTabHover: (tabId: number) => void;
   onTabHoverEnd: () => void;
   onTabClick: (tabId: number) => void;
-  onShowPopover: (event: React.MouseEvent<HTMLElement>, message: string) => void;
+  onCloseTab: (tabId: number) => void;
 }
 
 export function TabItem({
@@ -25,7 +25,7 @@ export function TabItem({
   onTabHover,
   onTabHoverEnd,
   onTabClick,
-  onShowPopover
+  onCloseTab
 }: TabItemProps) {
   const theme = useTheme();
   
@@ -177,18 +177,10 @@ export function TabItem({
         }}
       />
       
-      <IconButton
-        edge="end"
-        onClick={(event) => onShowPopover(event, 'Tab Actions: Under construction...')}
-        sx={{
-          paddingY: 0,
-          flexShrink: 0,
-          minWidth: '32px',
-          minHeight: '32px'
-        }}
-      >
-        ⋮
-      </IconButton>
+      <TabItemActionButton 
+        tabId={tab.id} 
+        onCloseTab={onCloseTab}
+      />
     </ListItem>
   );
 }
