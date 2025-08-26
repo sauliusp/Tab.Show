@@ -3,6 +3,7 @@ import { useTheme } from '@mui/material/styles';
 import List from '@mui/material/List';
 import { Tab } from '../types/Tab';
 import { TabItem } from './TabItem';
+import { usePerformanceMonitor } from '../utils/performance';
 
 interface TabListProps {
   allTabs: Tab[];
@@ -26,6 +27,9 @@ export function TabList({
   onCloseTab
 }: TabListProps) {
   const theme = useTheme();
+  
+  // Performance monitoring
+  usePerformanceMonitor('TabList');
   
   // Debug logging
   console.log('TabList render:', { 

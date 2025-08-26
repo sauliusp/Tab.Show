@@ -11,7 +11,7 @@ interface TabItemActionButtonProps {
   onCloseTab: (tabId: number) => void;
 }
 
-export function TabItemActionButton({ tabId, onCloseTab }: TabItemActionButtonProps) {
+export const TabItemActionButton = React.memo(({ tabId, onCloseTab }: TabItemActionButtonProps) => {
   const [menuAnchor, setMenuAnchor] = useState<HTMLElement | null>(null);
 
   const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
@@ -61,4 +61,4 @@ export function TabItemActionButton({ tabId, onCloseTab }: TabItemActionButtonPr
       </Menu>
     </>
   );
-}
+});

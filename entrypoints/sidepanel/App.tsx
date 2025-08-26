@@ -4,6 +4,8 @@ import { useTabs } from '../../src/hooks/useTabs';
 import { Header } from '../../src/components/Header';
 import { TabList } from '../../src/components/TabList';
 import { tabService } from '../../src/services/TabService';
+import { clearVisualStateCache } from '../../src/utils/tabVisualState';
+import { PerformanceMetrics } from '../../src/components/PerformanceMetrics';
 import './App.css';
 
 function App() {
@@ -19,6 +21,11 @@ function App() {
     handleTabHoverEnd,
     handleTabClick
   } = useTabs();
+
+  // Clear visual state cache when theme changes to prevent stale cached values
+  React.useEffect(() => {
+    clearVisualStateCache();
+  }, [theme]);
 
   const handleCloseTab = async (tabId: number) => {
     try {
@@ -51,6 +58,11 @@ function App() {
         onTabClick={handleTabClick}
         onCloseTab={handleCloseTab}
       />
+
+      {/* Performance metrics (development only) */}
+      {process.env.NODE_ENV === 'development' && (
+        <PerformanceMetrics />
+      )}
     </div>
   );
 }

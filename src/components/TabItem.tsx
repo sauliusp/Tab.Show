@@ -7,6 +7,7 @@ import Avatar from '@mui/material/Avatar';
 import { Tab, TabVisualState, AvatarOverlay } from '../types/Tab';
 import { getTabVisualState } from '../utils/tabVisualState';
 import { TabItemActionButton } from './TabItemActionButton';
+import { usePerformanceMonitor } from '../utils/performance';
 
 interface TabItemProps {
   tab: Tab;
@@ -19,7 +20,22 @@ interface TabItemProps {
   groupColor?: string; // Color of the tab group this tab belongs to
 }
 
-export function TabItem({
+// Custom comparison function for React.memo
+function arePropsEqual(prevProps: TabItemProps, nextProps: TabItemProps): boolean {
+  return (
+    prevProps.tab.id === nextProps.tab.id &&
+    prevProps.tab.title === nextProps.tab.title &&
+    prevProps.tab.status === nextProps.tab.status &&
+    prevProps.tab.favIconUrl === nextProps.tab.favIconUrl &&
+    prevProps.tab.groupId === nextProps.tab.groupId &&
+    prevProps.tab.lastAccessed === nextProps.tab.lastAccessed &&
+    prevProps.previewTabId === nextProps.previewTabId &&
+    prevProps.originalTab?.id === nextProps.originalTab?.id &&
+    prevProps.groupColor === nextProps.groupColor
+  );
+}
+
+export const TabItem = React.memo(({
   tab,
   previewTabId,
   originalTab,
@@ -28,8 +44,11 @@ export function TabItem({
   onTabClick,
   onCloseTab,
   groupColor
-}: TabItemProps) {
+}: TabItemProps) => {
   const theme = useTheme();
+  
+  // Performance monitoring
+  usePerformanceMonitor('TabItem');
   
   if (!tab.id) return null;
   
@@ -233,4 +252,4 @@ export function TabItem({
       />
     </ListItem>
   );
-}
+}, arePropsEqual);

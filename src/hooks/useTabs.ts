@@ -74,13 +74,10 @@ export function useTabs() {
   const handleTabRemoved = useCallback((tabId: number) => {
     setAllTabs(prevTabs => prevTabs.filter(tab => tab.id !== tabId));
     
-    if (originalTab?.id === tabId) {
-      setOriginalTab(null);
-    }
-    if (previewTabId === tabId) {
-      setPreviewTabId(null);
-    }
-  }, [originalTab, previewTabId]);
+    // Batch these state updates together
+    setOriginalTab(prev => prev?.id === tabId ? null : prev);
+    setPreviewTabId(prev => prev === tabId ? null : prev);
+  }, []);
 
   const handleTabUpdated = useCallback((tabId: number, changeInfo: any, updatedTab: any) => {
     if (changeInfo.status || changeInfo.groupId) {
@@ -90,15 +87,15 @@ export function useTabs() {
         )
       );
       
+      // Batch original tab updates
       if (originalTab?.id === tabId) {
         setOriginalTab(prev => prev ? { ...prev, ...updatedTab } : null);
-      }
-      
-      if (originalTab?.id === tabId) {
-        const newIndex = allTabs.findIndex(tab => tab.id === tabId);
-        if (newIndex !== -1) {
-          setOriginalTabIndex(newIndex);
-        }
+        
+        // Update original tab index in the same update
+        setOriginalTabIndex(prev => {
+          const newIndex = allTabs.findIndex(tab => tab.id === tabId);
+          return newIndex !== -1 ? newIndex : prev;
+        });
       }
 
       // If groupId changed, refresh tab groups
