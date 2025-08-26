@@ -1,0 +1,61 @@
+---
+description: 
+globs:
+alwaysApply: true
+---
+# Service Creation Best Practices
+
+**Purpose:** Ensure all services are implemented as singletons to prevent multiple instances and maintain consistent state across the application.
+
+When creating services in this project, always follow these rules:
+
+## Singleton Pattern
+- All services must be implemented as singletons.
+- Do not export the class directly; instead, export a single instance.
+- Prevent direct instantiation from outside the module.
+- Use a private constructor to enforce singleton usage.
+- Provide a static `getInstance()` method if lazy initialization is needed, or export a default instance for eager initialization.
+
+## Example: Singleton Service
+```typescript
+// Good: Singleton pattern
+class TabService {
+  private static instance: TabService;
+  private constructor() {}
+  static getInstance() {
+    if (!TabService.instance) {
+      TabService.instance = new TabService();
+    }
+    return TabService.instance;
+  }
+  // ...service methods...
+}
+export const tabService = TabService.getInstance();
+```
+
+```typescript
+// Also acceptable: Eager singleton
+class EventBus {
+  private constructor() {}
+  // ...service methods...
+}
+export const eventBus = new EventBus();
+```
+
+## Anti-Pattern: Do NOT do this
+```typescript
+// ❌ Bad: Exporting the class allows multiple instances
+export class TabService {
+  // ...service methods...
+}
+// elsewhere: const a = new TabService(); const b = new TabService();
+```
+
+## Additional Service Guidelines
+- Services should not have side effects in their constructors.
+- Use dependency injection for external dependencies.
+- Keep services stateless where possible, or manage state internally.
+- Document all public methods with JSDoc.
+- Do not use global variables for service state.
+
+@src/services/
