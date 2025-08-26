@@ -14,6 +14,16 @@ export default defineConfig({
     action: {
       default_title: 'Toggle Narsheek Side Panel'
     },
+    commands: {
+      // This is a reserved command name for the extension action
+      '_execute_action': {
+        suggested_key: {
+          default: 'Ctrl+Shift+X',
+          mac: 'Command+Shift+X',
+        },
+        description: 'Toggle the side panel', 
+      },
+    },
     permissions: [
       'sidePanel',
       'activeTab',
