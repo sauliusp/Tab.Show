@@ -107,33 +107,72 @@ export function TabItem({
       onMouseLeave={onTabHoverEnd}
       onClick={() => onTabClick(tab.id!)}
       sx={{
-        borderLeft: `6px solid ${groupColor ? 
-          (groupColor === 'grey' ? '#8e8e93' : 
-           groupColor === 'blue' ? '#007aff' :
-           groupColor === 'red' ? '#ff3b30' :
-           groupColor === 'green' ? '#34c759' :
-           groupColor === 'yellow' ? '#ffcc00' :
-           groupColor === 'pink' ? '#ff2d92' :
-           groupColor === 'purple' ? '#af52de' :
-           groupColor === 'orange' ? '#ff9500' : '#8e8e93') 
-          : visualState.borderColor}`,
-        backgroundColor: visualState.backgroundColor,
+        backgroundColor: visualState.backgroundColor !== 'transparent' ? visualState.backgroundColor : 
+          (groupColor ? 
+            (groupColor === 'grey' ? 'rgba(142, 142, 147, 0.1)' : 
+             groupColor === 'blue' ? 'rgba(0, 122, 255, 0.1)' :
+             groupColor === 'red' ? 'rgba(255, 59, 48, 0.1)' :
+             groupColor === 'green' ? 'rgba(52, 199, 89, 0.1)' :
+             groupColor === 'yellow' ? 'rgba(255, 204, 0, 0.1)' :
+             groupColor === 'pink' ? 'rgba(255, 45, 146, 0.1)' :
+             groupColor === 'purple' ? 'rgba(175, 82, 222, 0.1)' :
+             groupColor === 'orange' ? 'rgba(255, 149, 0, 0.1)' : 'rgba(142, 142, 147, 0.1)')
+            : 'transparent'),
         paddingY: '3px',
-        paddingLeft: '16px',
-        paddingRight: '15px',
+        paddingLeft: '15px',
+        paddingRight: '20px',
         opacity: visualState.opacity,
         transition: 'all 0.2s ease',
         position: 'relative',
+        
+        // Use pseudo-elements for borders to avoid affecting layout
+        '&::before': {
+          content: '""',
+          position: 'absolute',
+          left: 0,
+          top: 0,
+          bottom: 0,
+          width: '5px',
+          backgroundColor: visualState.borderColor,
+          zIndex: 1
+        },
+        
+        '&::after': groupColor ? {
+          content: '""',
+          position: 'absolute',
+          right: 0,
+          top: 0,
+          bottom: 0,
+          width: '6px',
+          backgroundColor: groupColor === 'grey' ? '#8e8e93' : 
+                         groupColor === 'blue' ? '#007aff' :
+                         groupColor === 'red' ? '#ff3b30' :
+                         groupColor === 'green' ? '#34c759' :
+                         groupColor === 'yellow' ? '#ffcc00' :
+                         groupColor === 'pink' ? '#ff2d92' :
+                         groupColor === 'purple' ? '#af52de' :
+                         groupColor === 'orange' ? '#ff9500' : '#8e8e93',
+          zIndex: 1
+        } : {},
         
         // Add subtle pattern overlay for stale tabs
         backgroundImage: visualState.opacity < 1 ? 'repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(0,0,0,0.02) 2px, rgba(0,0,0,0.02) 4px)' : 'none',
         
         '&:hover': {
-          backgroundColor: visualState.backgroundColor === 'transparent' 
-            ? theme.palette.action.hover
-            : visualState.backgroundColor === theme.palette.secondary.main
-            ? theme.palette.secondary.main
-            : visualState.backgroundColor + '80'
+          backgroundColor: visualState.backgroundColor !== 'transparent' ? 
+            (visualState.backgroundColor === theme.palette.secondary.main
+              ? theme.palette.secondary.main
+              : visualState.backgroundColor + '80')
+            : (groupColor ? 
+                (groupColor === 'grey' ? 'rgba(142, 142, 147, 0.15)' : 
+                 groupColor === 'blue' ? 'rgba(0, 122, 255, 0.15)' :
+                 groupColor === 'red' ? 'rgba(255, 59, 48, 0.15)' :
+                 groupColor === 'green' ? 'rgba(52, 199, 89, 0.15)' :
+                 groupColor === 'yellow' ? 'rgba(255, 204, 0, 0.15)' :
+                 groupColor === 'pink' ? 'rgba(255, 45, 146, 0.15)' :
+                 groupColor === 'purple' ? 'rgba(175, 82, 222, 0.15)' :
+                 groupColor === 'orange' ? 'rgba(255, 149, 0, 0.15)' : 'rgba(142, 142, 147, 0.15)')
+                : theme.palette.action.hover)
         }
       }}
     >
