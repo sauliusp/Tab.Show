@@ -85,6 +85,19 @@ class TabService {
       return null;
     }
   }
+
+  /**
+   * Close a specific tab by ID
+   */
+  async closeTab(tabId: number): Promise<boolean> {
+    try {
+      await browser.tabs.remove(tabId);
+      return true;
+    } catch (error) {
+      console.error(`Failed to close tab ${tabId}:`, error);
+      return false;
+    }
+  }
 }
 
 export const tabService = TabService.getInstance();

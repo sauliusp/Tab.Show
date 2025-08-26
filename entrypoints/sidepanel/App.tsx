@@ -3,6 +3,7 @@ import { useTheme } from '@mui/material/styles';
 import { useTabs } from '../../src/hooks/useTabs';
 import { Header } from '../../src/components/Header';
 import { TabList } from '../../src/components/TabList';
+import { tabService } from '../../src/services/TabService';
 import './App.css';
 
 function App() {
@@ -18,9 +19,19 @@ function App() {
     handleTabClick
   } = useTabs();
 
-  const handleCloseTab = (tabId: number) => {
-    // TODO: Implement tab closing functionality
-    console.log(`Closing tab ${tabId}`);
+  const handleCloseTab = async (tabId: number) => {
+    try {
+      const success = await tabService.closeTab(tabId);
+      if (success) {
+        console.log(`Successfully closed tab ${tabId}`);
+        // The tab list will automatically update through the useTabs hook
+        // since it's listening to browser tab events
+      } else {
+        console.error(`Failed to close tab ${tabId}`);
+      }
+    } catch (error) {
+      console.error(`Error closing tab ${tabId}:`, error);
+    }
   };
 
   return (
