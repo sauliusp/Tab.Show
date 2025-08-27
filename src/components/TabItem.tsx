@@ -154,7 +154,7 @@ export const TabItem = React.memo(({
           left: 0,
           top: 0,
           bottom: 0,
-          width: '5px',
+          width: '6px',
           backgroundColor: visualState.borderColor,
           zIndex: 1
         },
@@ -166,14 +166,7 @@ export const TabItem = React.memo(({
           top: 0,
           bottom: 0,
           width: '6px',
-          backgroundColor: groupColor === 'grey' ? '#8e8e93' : 
-                         groupColor === 'blue' ? '#007aff' :
-                         groupColor === 'red' ? '#ff3b30' :
-                         groupColor === 'green' ? '#34c759' :
-                         groupColor === 'yellow' ? '#ffcc00' :
-                         groupColor === 'pink' ? '#ff2d92' :
-                         groupColor === 'purple' ? '#af52de' :
-                         groupColor === 'orange' ? '#ff9500' : '#8e8e93',
+          backgroundColor: groupColor,
           zIndex: 1
         } : {},
         
@@ -185,16 +178,8 @@ export const TabItem = React.memo(({
             (visualState.backgroundColor === theme.palette.secondary.main
               ? theme.palette.secondary.main
               : visualState.backgroundColor + '80')
-            : (groupColor ? 
-                (groupColor === 'grey' ? 'rgba(142, 142, 147, 0.15)' : 
-                 groupColor === 'blue' ? 'rgba(0, 122, 255, 0.15)' :
-                 groupColor === 'red' ? 'rgba(255, 59, 48, 0.15)' :
-                 groupColor === 'green' ? 'rgba(52, 199, 89, 0.15)' :
-                 groupColor === 'yellow' ? 'rgba(255, 204, 0, 0.15)' :
-                 groupColor === 'pink' ? 'rgba(255, 45, 146, 0.15)' :
-                 groupColor === 'purple' ? 'rgba(175, 82, 222, 0.15)' :
-                 groupColor === 'orange' ? 'rgba(255, 149, 0, 0.15)' : 'rgba(142, 142, 147, 0.15)')
-                : theme.palette.action.hover)
+            : (groupColor ? groupColor : theme.palette.action.hover),
+          // opacity: groupColor ? 0.15 : 1
         }
       }}
     >
