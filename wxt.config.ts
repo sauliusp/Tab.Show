@@ -7,7 +7,7 @@ export default defineConfig({
     name: 'Narsheek: Hover Tab Preview',
     short_name: 'Narsheek',
     description: 'Get instant full-page previews by hovering over links and tabs. Find, switch, and organize without losing focus.',
-    version: '0.5.0',
+    version: '0.6.0',
     side_panel: {
       default_path: 'sidepanel.html'
     },
