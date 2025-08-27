@@ -19,6 +19,15 @@ export interface TabVisualState {
   textColor: string;
   opacity: number;
   avatarFilter: string;
+  // New styling properties
+  listItemStyles: React.CSSProperties;
+  avatarStyles: React.CSSProperties;
+  textStyles: React.CSSProperties;
+  pseudoElementStyles: {
+    before: React.CSSProperties;
+    after?: React.CSSProperties;
+  };
+  hoverStyles: React.CSSProperties;
 }
 
 export interface AvatarOverlay {

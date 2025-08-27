@@ -55,7 +55,7 @@ export const TabItem = React.memo(({
   
   if (!tab.id) return null;
   
-  const visualState = getTabVisualState(tab, previewTabId, originalTab, theme);
+  const visualState = getTabVisualState(tab, previewTabId, originalTab, theme, groupColor);
   
   // Render avatar overlay based on type and position
   const renderAvatarOverlay = (overlay: AvatarOverlay) => {
@@ -129,58 +129,15 @@ export const TabItem = React.memo(({
       onMouseLeave={onTabHoverEnd}
       onClick={() => onTabClick(tab.id!)}
       sx={{
-        backgroundColor: visualState.backgroundColor !== 'transparent' ? visualState.backgroundColor : 
-          (groupColor ? 
-            (groupColor === 'grey' ? 'rgba(142, 142, 147, 0.1)' : 
-             groupColor === 'blue' ? 'rgba(0, 122, 255, 0.1)' :
-             groupColor === 'red' ? 'rgba(255, 59, 48, 0.1)' :
-             groupColor === 'green' ? 'rgba(52, 199, 89, 0.1)' :
-             groupColor === 'yellow' ? 'rgba(255, 204, 0, 0.1)' :
-             groupColor === 'pink' ? 'rgba(255, 45, 146, 0.1)' :
-             groupColor === 'purple' ? 'rgba(175, 82, 222, 0.1)' :
-             groupColor === 'orange' ? 'rgba(255, 149, 0, 0.1)' : 'rgba(142, 142, 147, 0.1)')
-            : 'transparent'),
-        paddingY: '3px',
-        paddingLeft: '15px',
-        paddingRight: '20px',
-        opacity: visualState.opacity,
-        transition: 'all 0.2s ease',
-        position: 'relative',
+        ...visualState.listItemStyles,
         
         // Use pseudo-elements for borders to avoid affecting layout
-        '&::before': {
-          content: '""',
-          position: 'absolute',
-          left: 0,
-          top: 0,
-          bottom: 0,
-          width: '6px',
-          backgroundColor: visualState.borderColor,
-          zIndex: 1
-        },
+        '&::before': visualState.pseudoElementStyles.before,
+        ...(visualState.pseudoElementStyles.after && {
+          '&::after': visualState.pseudoElementStyles.after
+        }),
         
-        '&::after': groupColor ? {
-          content: '""',
-          position: 'absolute',
-          right: 0,
-          top: 0,
-          bottom: 0,
-          width: '6px',
-          backgroundColor: groupColor,
-          zIndex: 1
-        } : {},
-        
-        // Add subtle pattern overlay for stale tabs
-        backgroundImage: visualState.opacity < 1 ? 'repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(0,0,0,0.02) 2px, rgba(0,0,0,0.02) 4px)' : 'none',
-        
-        '&:hover': {
-          backgroundColor: visualState.backgroundColor !== 'transparent' ? 
-            (visualState.backgroundColor === theme.palette.secondary.main
-              ? theme.palette.secondary.main
-              : visualState.backgroundColor + '80')
-            : (groupColor ? groupColor : theme.palette.action.hover),
-          // opacity: groupColor ? 0.15 : 1
-        }
+        '&:hover': visualState.hoverStyles
       }}
     >
       <ListItemAvatar sx={{
@@ -190,13 +147,7 @@ export const TabItem = React.memo(({
         <Avatar
           alt={tab.title || 'Tab'}
           src={tab.favIconUrl || undefined}
-          sx={{ 
-            width: 25, 
-            height: 25, 
-            position: 'relative',
-            border: originalTab?.id === tab.id ? `2px solid ${theme.palette.custom.original}` : 'none',
-            filter: visualState.avatarFilter
-          }}
+          sx={visualState.avatarStyles}
         >
           {!tab.favIconUrl && 
            (tab.title ? tab.title.charAt(0).toUpperCase() : 'T')}
@@ -212,11 +163,7 @@ export const TabItem = React.memo(({
       
       <ListItemText 
         primary={
-          <span style={{
-            fontWeight: 'normal',
-            color: visualState.textColor,
-            fontSize: '0.875rem'
-          }}>
+          <span style={visualState.textStyles}>
             {tab.title || 'Untitled Tab'}
           </span>
         }
