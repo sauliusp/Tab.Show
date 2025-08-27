@@ -1,0 +1,88 @@
+---
+description: 
+globs:
+alwaysApply: true
+---
+# React, TypeScript, and MUI: Enforceable Project Rules
+
+This document outlines the strict coding standards for our React/TypeScript projects using MUI. The AI MUST adhere to these rules without exception. The goal is to eliminate ambiguity and enforce a consistent, high-quality, and maintainable codebase.
+
+---
+
+### 1. Architecture & File Structure
+
+- **Feature-Based Organization**: Code MUST be organized by features. Page-level components go in `src/pages`. Reusable, generic components go in `src/components`.
+
+/src/
+├── components/   // Dumb, reusable components (e.g., StyledButton, Avatar)
+├── pages/        // Smart, top-level components for each route (e.g., HomePage, UserSettingsPage)
+├── hooks/        // Reusable custom hooks
+├── services/     // API logic
+├── types/        // Shared type definitions
+└── utils/        // Utility functions
+
+- **Component Folders**: Each component MUST be in its own `PascalCase` folder containing `ComponentName.tsx` and an `index.ts` file for simplified imports (`import { UserProfile } from '@/components/UserProfile'`).
+
+---
+
+### 2. Component Design & Responsibility
+
+- **Functional Components Only**: All components MUST be functional components using React Hooks. Class components are forbidden.
+- **Single Responsibility Principle (SRP)**: A component's purpose should be singular. As a hard guideline, a component's JSX should NOT exceed 150 lines. If it does, it MUST be refactored into smaller, logical sub-components.
+- **Composition over Configuration**: Leverage the `children` prop to create flexible, composable components. Use specific props for primitive data, but prefer composition for passing JSX content.
+- **MUI Styling Hierarchy**:
+1.  **`styled` utility**: Use for creating new, reusable, styled components. This is the preferred method for component-level styling.
+2.  **`sx` prop**: Use for one-off, instance-specific style overrides.
+3.  **Theme-Aware Design**: Always use `theme.palette`, `theme.spacing`, and `theme.typography`. Hardcoded values (e.g., `color: '#FFF'`, `margin: '10px'`) are strictly forbidden.
+
+---
+
+### 3. TypeScript & Props
+
+- **Strict Typing**: All component props, state, and function signatures MUST be strictly typed.
+- **`any` is Forbidden**: The `any` type is not allowed. Use `unknown` and perform type-checking if a type is genuinely unknown.
+- **DRY Types**: Utilize TypeScript's utility types (`Pick`, `Omit`, `Partial`) to derive new types from existing ones instead of creating redundant definitions.
+- **Event Handlers**: Event handlers MUST be correctly and specifically typed (e.g., `React.MouseEvent<HTMLButtonElement>`).
+
+---
+
+### 4. State Management Decision Tree
+
+Follow this hierarchy strictly. Do not skip steps.
+
+1.  **Start with Local State (`useState`)**: This is the default for all component state.
+2.  **Refactor to `useReducer`**: If state logic becomes complex (e.g., multiple `setState` calls in one handler, or the next state depends on the previous one), refactor to `useReducer`.
+3.  **Lift State Up**: If state needs to be shared by multiple components, first attempt to lift it to the nearest common ancestor.
+4.  **Use Context for Feature State**: Only if prop-drilling becomes excessive (passing props through 2+ intermediate layers) should you use `useContext`. The context should be scoped to a specific feature, not the entire app.
+5.  **Zustand/Redux for Global State Only**: A global state manager is reserved for truly global concerns: user authentication, theme, and application-wide notifications. Do not use it for local feature state.
+
+---
+
+### 5. Performance Optimization
+
+- **No Premature Optimization**: `React.memo`, `useCallback`, and `useMemo` are forbidden by default.
+- **Profile First**: These hooks should only be used to fix a *measured and confirmed* performance bottleneck identified with the React DevTools Profiler. The reason for their use MUST be documented with a code comment explaining the specific problem being solved.
+
+---
+
+### 6. Testing
+
+- **Mandatory Testing**: All new components, hooks, and utility functions MUST be accompanied by meaningful unit or integration tests using **Vitest** and **React Testing Library**.
+- **Test Coverage**: Logic-heavy functions and critical UI components must achieve a minimum of **80% test coverage**.
+- **User-Centric Tests**: Tests should focus on user interactions and outcomes (`getByRole`, `userEvent`), not implementation details. Avoid testing component internals.
+
+---
+
+### 7. Error Handling
+
+- **API Errors**: All API calls made within services or hooks MUST use `try/catch` blocks and handle error states gracefully. Loading, success, and error states must be managed.
+- **Render Errors**: Critical sections of the UI MUST be wrapped in a React **Error Boundary** to prevent the entire application from crashing due to a rendering error in one component.
+- **User Feedback**: Errors must always result in clear, user-facing feedback (e.g., using an MUI `Alert` or a snackbar component).
+
+---
+
+### 8. Accessibility (a11y)
+
+- **Semantic HTML**: Use semantic HTML elements (`<nav>`, `<main>`, `<button>`) over generic `<div>`s wherever possible.
+- **Keyboard Navigable**: All interactive elements MUST be accessible and operable via keyboard. This includes handling focus states correctly.
+- **ARIA Attributes**: Use appropriate ARIA (`Accessible Rich Internet Applications`) roles and attributes when building complex custom components that lack a native HTML equivalent. All form inputs must have a corresponding `<label>`.
