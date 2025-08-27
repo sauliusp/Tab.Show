@@ -17,6 +17,7 @@ interface TabItemProps {
   onTabHoverEnd: () => void;
   onTabClick: (tabId: number) => void;
   onCloseTab: (tabId: number) => void;
+  groupTitle?: string;
   groupColor?: string; // Color of the tab group this tab belongs to
 }
 
@@ -43,7 +44,8 @@ export const TabItem = React.memo(({
   onTabHoverEnd,
   onTabClick,
   onCloseTab,
-  groupColor
+  groupColor,
+  groupTitle
 }: TabItemProps) => {
   const theme = useTheme();
   
@@ -232,6 +234,7 @@ export const TabItem = React.memo(({
             {tab.title || 'Untitled Tab'}
           </span>
         }
+        secondary={groupTitle ? groupTitle : ''}
         primaryTypographyProps={{
           noWrap: true,
           sx: { fontSize: '0.875rem' }

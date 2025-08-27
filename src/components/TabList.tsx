@@ -48,10 +48,11 @@ export function TabList({
   // Track which groups we've already shown headers for
   const shownGroups = React.useRef(new Set<number>());
   
-  // Reset shown groups when tabs or groups change
+  // Reset shown groups only when tab groups change, not when individual tabs change
+  // This prevents flickering when closing individual tabs - group headers remain stable
   React.useEffect(() => {
     shownGroups.current.clear();
-  }, [allTabs, tabGroups]);
+  }, [tabGroups]);
   
   return (
     <List dense sx={{ 
@@ -73,30 +74,7 @@ export function TabList({
         }
         
         return (
-          <React.Fragment key={tab.id}>
-            {/* Show group header only for the first tab in a group */}
-            {isFirstTabInGroup && group && (
-              <div style={{
-                backgroundColor: group.color === 'grey' ? '#8e8e93' : 
-                               group.color === 'blue' ? '#007aff' :
-                               group.color === 'red' ? '#ff3b30' :
-                               group.color === 'green' ? '#34c759' :
-                               group.color === 'yellow' ? '#ffcc00' :
-                               group.color === 'pink' ? '#ff2d92' :
-                               group.color === 'purple' ? '#af52de' :
-                               group.color === 'orange' ? '#ff9500' : '#8e8e93',
-                color: 'white',
-                padding: '4px 8px',
-                fontSize: '12px',
-                fontWeight: 'bold',
-                borderRadius: '4px',
-                margin: '4px 8px',
-                textAlign: 'center'
-              }}>
-                {group.title || `Group ${group.id}`}
-              </div>
-            )}
-            
+          <React.Fragment key={tab.id}>            
             {/* Render the tab */}
             <TabItem
               tab={tab}
@@ -107,6 +85,7 @@ export function TabList({
               onTabClick={onTabClick}
               onCloseTab={onCloseTab}
               groupColor={group?.color}
+              groupTitle={group?.title}
             />
           </React.Fragment>
         );
