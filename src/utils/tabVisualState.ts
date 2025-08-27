@@ -95,7 +95,9 @@ export function getTabVisualState(
   // 1. Original tab (highest priority)
   if (isOriginalTab) {
     visualState.borderColor = theme.palette.custom.original;
-    visualState.backgroundColor = theme.palette.custom.original + '40';
+    visualState.backgroundColor = theme.palette.custom.original + 'CC'; // 80% opacity background
+    visualState.opacity = 1; // Tab item always full opacity
+    visualState.textColor = 'white'; // White text for better contrast
     visualState.avatarOverlays.push({
       type: 'checkmark',
       color: theme.palette.custom.original,
@@ -103,17 +105,17 @@ export function getTabVisualState(
     });
   }
   
-  // 2. Preview tab
-  if (isPreviewTab) {
+  // 2. Preview tab (only if not original to preserve original styling)
+  if (isPreviewTab && !isOriginalTab) {
     visualState.borderColor = theme.palette.custom.preview;
-    visualState.backgroundColor = theme.palette.custom.preview + '40';
-    if (!isOriginalTab) {
-      visualState.avatarOverlays.push({
-        type: 'preview',
-        color: theme.palette.custom.preview,
-        position: 'top-right'
-      });
-    }
+    visualState.backgroundColor = theme.palette.custom.preview + 'CC'; // 80% opacity background
+    visualState.opacity = 1; // Tab item always full opacity
+    visualState.textColor = 'white'; // White text for better contrast
+    visualState.avatarOverlays.push({
+      type: 'preview',
+      color: theme.palette.custom.preview,
+      position: 'top-right'
+    });
   }
   
   // 3. Loading state
@@ -128,7 +130,7 @@ export function getTabVisualState(
   // 4. Error state
   if (hasErrors) {
     visualState.borderColor = theme.palette.error.main;
-    visualState.backgroundColor = theme.palette.error.main + '30';
+    visualState.backgroundColor = theme.palette.error.main + 'CC'; // 80% opacity background
     visualState.textColor = theme.palette.error.main;
     visualState.avatarOverlays.push({
       type: 'error',
@@ -143,9 +145,9 @@ export function getTabVisualState(
       visualState.borderColor = theme.palette.warning.main;
     }
     if (!visualState.backgroundColor || visualState.backgroundColor === 'transparent') {
-      visualState.backgroundColor = theme.palette.warning.main + '30';
+      visualState.backgroundColor = theme.palette.warning.main + 'CC'; // 80% opacity background
     }
-    visualState.opacity = 0.6;
+    visualState.opacity = 0.6; // Keep reduced opacity for stale tabs
     visualState.avatarFilter = 'grayscale(0.3) saturate(0.7)';
     visualState.avatarOverlays.push({
       type: 'stale',
@@ -154,11 +156,8 @@ export function getTabVisualState(
     });
   }
   
-  // 6. Combined states - adjust background for multiple states
-  if (isOriginalTab && isPreviewTab) {
-    visualState.backgroundColor = theme.palette.secondary.main + '90';
-    visualState.textColor = 'white';
-  }
+  // Note: Preview styling is only applied when tab is NOT original
+  // This ensures original styling takes precedence and is preserved
   
   // Generate comprehensive styling
   const groupBgColor = getGroupBackgroundColor(groupColor);
