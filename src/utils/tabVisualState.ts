@@ -50,7 +50,14 @@ function getHoverBackgroundColor(
       : baseBackground + '80';
   }
   
-  return groupColor ? groupColor : theme.palette.action.hover;
+  // For group-colored tabs, use a slightly more opaque version of the group background
+  if (groupColor) {
+    const groupBgColor = getGroupBackgroundColor(groupColor);
+    // Make the hover color slightly more opaque by increasing the alpha
+    return groupBgColor.replace(/[\d.]+\)$/, '0.2)');
+  }
+  
+  return theme.palette.action.hover;
 }
 
 export function getTabVisualState(
