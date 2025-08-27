@@ -27,6 +27,7 @@ function getGroupBackgroundColor(groupColor?: string): string {
   const colorMap: Record<string, string> = {
     'grey': 'rgba(142, 142, 147, 0.1)',
     'blue': 'rgba(0, 122, 255, 0.1)',
+    'cyan': 'rgba(0, 199, 190, 0.1)',
     'red': 'rgba(255, 59, 48, 0.1)',
     'green': 'rgba(52, 199, 89, 0.1)',
     'yellow': 'rgba(255, 204, 0, 0.1)',
