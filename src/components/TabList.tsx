@@ -66,16 +66,10 @@ export function TabList({
     }}>
       {allTabs.map(tab => {
         const group = tab.groupId ? groupMap.get(tab.groupId) : null;
-        const isFirstTabInGroup = group && !shownGroups.current.has(tab.groupId!);
         
-        // Mark this group as shown if it's the first tab
-        if (isFirstTabInGroup) {
-          shownGroups.current.add(tab.groupId!);
-        }
         
         return (
           <React.Fragment key={tab.id}>            
-            {/* Render the tab */}
             <TabItem
               tab={tab}
               previewTabId={previewTabId}

@@ -32,7 +32,8 @@ function arePropsEqual(prevProps: TabItemProps, nextProps: TabItemProps): boolea
     prevProps.tab.lastAccessed === nextProps.tab.lastAccessed &&
     prevProps.previewTabId === nextProps.previewTabId &&
     prevProps.originalTab?.id === nextProps.originalTab?.id &&
-    prevProps.groupColor === nextProps.groupColor
+    prevProps.groupColor === nextProps.groupColor &&
+    prevProps.groupTitle === nextProps.groupTitle
   );
 }
 
@@ -234,7 +235,7 @@ export const TabItem = React.memo(({
             {tab.title || 'Untitled Tab'}
           </span>
         }
-        secondary={groupTitle ? groupTitle : ''}
+        secondary={groupTitle}
         primaryTypographyProps={{
           noWrap: true,
           sx: { fontSize: '0.875rem' }
