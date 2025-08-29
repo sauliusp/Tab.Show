@@ -33,6 +33,6 @@ export default defineConfig({
       'storage',
       'history'
     ],
-    host_permissions: [],
+    host_permissions: undefined
   }
 });
