@@ -29,7 +29,7 @@ export function TabList({
   const theme = useTheme();
   
   // Performance monitoring
-  usePerformanceMonitor('TabList');
+  // usePerformanceMonitor('TabList');
   
   // Debug logging
   console.log('TabList render:', { 

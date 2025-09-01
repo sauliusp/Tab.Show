@@ -228,7 +228,7 @@ export function useTabs() {
     }
   }, [allTabs]);
 
-  // Set up event listeners
+  // Set up event listeners - only run once on mount
   useEffect(() => {
     browser.tabs.onRemoved.addListener(handleTabRemoved);
     browser.tabs.onUpdated.addListener(handleTabUpdated);
@@ -264,11 +264,7 @@ export function useTabs() {
         browser.tabGroups.onRemoved.removeListener(handleTabGroupRemoved);
       }
     };
-  }, [
-    handleTabRemoved, handleTabUpdated, handleTabCreated, handleTabMoved,
-    handleTabReplaced, handleTabActivated, handleWindowFocusChanged, 
-    handleTabGroupCreated, handleTabGroupUpdated, handleTabGroupRemoved
-  ]);
+  }, []); // Empty dependency array - only run once on mount
 
   // Initialize on mount
   useEffect(() => {
