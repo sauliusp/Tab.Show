@@ -51,7 +51,7 @@ export const TabItem = React.memo(({
   const theme = useTheme();
   
   // Performance monitoring
-  // usePerformanceMonitor('TabItem');
+  usePerformanceMonitor('TabItem');
   
   if (!tab.id) return null;
   
