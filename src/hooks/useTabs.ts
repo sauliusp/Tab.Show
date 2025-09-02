@@ -210,7 +210,7 @@ export function useTabs() {
     }
   }, [originalTab, previewTabId]);
 
-  const handleTabHoverEnd = useCallback(async () => {
+  const handleSidePanelHoverEnd = useCallback(async () => {
     try {
       if (originalTab && originalTab.id && previewTabId !== originalTab.id) {
         await tabService.activateTab(originalTab.id);
@@ -282,7 +282,7 @@ export function useTabs() {
     previewTabId,
     originalTabIndex,
     handleTabHover,
-    handleTabHoverEnd,
+    handleSidePanelHoverEnd,
     handleTabClick,
     setOriginalTab,
     setPreviewTabId
