@@ -11,7 +11,6 @@ interface TabListProps {
   previewTabId: number | null;
   originalTab: Tab | null;
   onTabHover: (tabId: number) => void;
-  onTabHoverEnd: () => void;
   onTabClick: (tabId: number) => void;
   onCloseTab: (tabId: number) => void;
 }
@@ -20,16 +19,16 @@ export function TabList({
   allTabs,
   tabGroups,
   previewTabId,
+  
   originalTab,
   onTabHover,
-  onTabHoverEnd,
   onTabClick,
   onCloseTab
 }: TabListProps) {
   const theme = useTheme();
   
   // Performance monitoring
-  usePerformanceMonitor('TabList');
+  //usePerformanceMonitor('TabList');
   
   // Debug logging
   console.log('TabList render:', { 
@@ -75,7 +74,6 @@ export function TabList({
               previewTabId={previewTabId}
               originalTab={originalTab}
               onTabHover={onTabHover}
-              onTabHoverEnd={onTabHoverEnd}
               onTabClick={onTabClick}
               onCloseTab={onCloseTab}
               groupColor={group?.color}

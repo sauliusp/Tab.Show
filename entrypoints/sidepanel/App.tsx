@@ -43,7 +43,7 @@ function App() {
   };
 
   return (
-    <div className="sidepanel">
+    <div className="sidepanel" onMouseLeave={handleTabHoverEnd}>
       {/* Header with original tab information */}
       <Header originalTab={originalTab} />
 
@@ -54,7 +54,6 @@ function App() {
         previewTabId={previewTabId}
         originalTab={originalTab}
         onTabHover={handleTabHover}
-        onTabHoverEnd={handleTabHoverEnd}
         onTabClick={handleTabClick}
         onCloseTab={handleCloseTab}
       />

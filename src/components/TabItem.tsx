@@ -14,7 +14,6 @@ interface TabItemProps {
   previewTabId: number | null;
   originalTab: Tab | null;
   onTabHover: (tabId: number) => void;
-  onTabHoverEnd: () => void;
   onTabClick: (tabId: number) => void;
   onCloseTab: (tabId: number) => void;
   groupTitle?: string;
@@ -42,7 +41,6 @@ export const TabItem = React.memo(({
   previewTabId,
   originalTab,
   onTabHover,
-  onTabHoverEnd,
   onTabClick,
   onCloseTab,
   groupColor,
@@ -51,7 +49,7 @@ export const TabItem = React.memo(({
   const theme = useTheme();
   
   // Performance monitoring
-  usePerformanceMonitor('TabItem');
+  //usePerformanceMonitor('TabItem');
   
   if (!tab.id) return null;
   
@@ -126,7 +124,6 @@ export const TabItem = React.memo(({
   return (
     <ListItem
       onMouseEnter={() => onTabHover(tab.id!)}
-      onMouseLeave={onTabHoverEnd}
       onClick={() => onTabClick(tab.id!)}
       sx={{
         ...visualState.listItemStyles,
