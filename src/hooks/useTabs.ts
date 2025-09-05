@@ -2,12 +2,26 @@ import { useState, useEffect, useCallback } from 'react';
 import { Tab } from '../types/Tab';
 import { tabService } from '../services/TabService';
 
+const PREVIEW_MODE_TIMEOUT = 500;
+
+let previewModeTimeout: NodeJS.Timeout | null = null;
+
 export function useTabs() {
   const [allTabs, setAllTabs] = useState<Tab[]>([]);
   const [tabGroups, setTabGroups] = useState<any[]>([]);
   const [originalTab, setOriginalTab] = useState<Tab | null>(null);
   const [previewTabId, setPreviewTabId] = useState<number | null>(null);
   const [originalTabIndex, setOriginalTabIndex] = useState<number>(-1);
+
+  const isSwitchingOnHoverRef = useRef(false);
+  const hoverSwitchTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  
+  const clearHoverSwitchFlag = useCallback(() => {
+    isSwitchingOnHoverRef.current = false;
+    if (hoverSwitchTimeoutRef.current) {
+      clearTimeout(hoverSwitchTimeoutRef.current);
+    }
+  }, []);
 
   // Tab group event handlers
   const handleTabGroupUpdated = useCallback(async () => {
@@ -154,26 +168,23 @@ export function useTabs() {
   }, [originalTab, previewTabId]);
 
   const handleTabActivated = useCallback(async (activeInfo: any) => {
+    if (isSwitchingOnHoverRef.current) {
+      console.log(`Programmatic switch to tab ${activeInfo.tabId} detected. Resetting flag.`);
+      clearHoverSwitchFlag();
+      return; 
+    }
+
+    console.log(`MANUAL switch to tab ${activeInfo.tabId} detected (Keyboard or Mouse).`);
     try {
-      const currentWindowId = await tabService.getCurrentWindowId();
-      if (activeInfo.windowId === currentWindowId) {
-        const activatedTabId = activeInfo.tabId;
-        
-        if (previewTabId !== activatedTabId) {
-          setPreviewTabId(activatedTabId);
-        }
-        
-        if (!originalTab) {
-          const activatedTab = await tabService.getTabById(activatedTabId);
-          if (activatedTab) {
-            setOriginalTab(activatedTab);
-          }
-        }
+      const activatedTab = await tabService.getTabById(activeInfo.tabId);
+      if (activatedTab) {
+        setOriginalTab(activatedTab);
+        setPreviewTabId(null);
       }
     } catch (error) {
-      console.error('Failed to handle tab activation:', error);
+      console.error(`Failed to get tab info for tabId: ${activeInfo.tabId}`, error);
     }
-  }, [originalTab, previewTabId]);
+  }, [clearHoverSwitchFlag]);
 
   const handleWindowFocusChanged = useCallback(async (windowId: number) => {
     try {
@@ -192,33 +203,33 @@ export function useTabs() {
   }, []);
 
   // Tab interaction handlers
-  const handleTabHover = useCallback(async (tabId: number) => {
+  const handleTabHover = async (tabId: number) => {
+    const currentActiveTab = previewTabId || originalTab?.id;
+    if (tabId === currentActiveTab) {
+      return; // No action needed if hovering over the already active tab
+    }
+    
+    console.log(`Hover detected on tab ${tabId}. Preparing to preview.`);
+    
+    // 1. SET THE FLAG: Tell the hook a programmatic switch is about to happen.
+    isSwitchingOnHoverRef.current = true;
+    
+    // Set a failsafe timeout to reset the flag in case onActivated somehow fails to fire
+    hoverSwitchTimeoutRef.current = setTimeout(() => {
+      console.warn('Failsafe: Resetting hover flag.');
+      isSwitchingOnHoverRef.current = false;
+    }, 500);
+
     try {
-      if (!originalTab) {
-        const activeTab = await tabService.getActiveTab();
-        if (activeTab && activeTab.id && activeTab.id !== tabId) {
-          setOriginalTab(activeTab);
-        }
-      }
-      
-      if (previewTabId !== tabId) {
-        await tabService.activateTab(tabId);
-        setPreviewTabId(tabId);
-      }
+      // 2. PERFORM THE ACTION: Activate the tab. This will trigger onActivated.
+      await tabService.activateTab(tabId);
+      // 3. UPDATE STATE: After the action, update the UI state to reflect the preview.
+      setPreviewTabId(tabId);
     } catch (error) {
       console.error('Failed to preview tab on hover:', error);
+      clearHoverSwitchFlag(); // Clean up the flag on error
     }
-  }, [originalTab, previewTabId]);
-
-  const handleSidePanelHoverEnd = useCallback(async () => {
-    try {
-      if (originalTab && originalTab.id && previewTabId !== originalTab.id) {
-        await tabService.activateTab(originalTab.id);
-      }
-    } catch (error) {
-      console.error('Failed to return to original tab:', error);
-    }
-  }, [originalTab, previewTabId]);
+  };
 
   const handleTabClick = useCallback((tabId: number) => {
     const clickedTab = allTabs.find(tab => tab.id === tabId);
@@ -227,6 +238,29 @@ export function useTabs() {
       setPreviewTabId(null);
     }
   }, [allTabs]);
+
+  const handleSidePanelHoverEnd = useCallback(async () => {
+    if (originalTab?.id && previewTabId) {
+      console.log(`Hover ended. Returning to original tab ${originalTab.id}`);
+      
+      // 1. SET THE FLAG: A programmatic switch back is about to happen.
+      isSwitchingOnHoverRef.current = true;
+      
+      hoverSwitchTimeoutRef.current = setTimeout(() => {
+        isSwitchingOnHoverRef.current = false;
+      }, 500);
+
+      try {
+        // 2. PERFORM THE ACTION: Return to the original tab.
+        await tabService.activateTab(originalTab.id);
+        // 3. UPDATE STATE: End the preview session.
+        setPreviewTabId(null);
+      } catch (error) {
+        console.error('Failed to return to original tab:', error);
+        clearHoverSwitchFlag(); // Clean up the flag on error
+      }
+    }
+  }, [originalTab, previewTabId, clearHoverSwitchFlag]);
 
   // Set up event listeners
   useEffect(() => {
