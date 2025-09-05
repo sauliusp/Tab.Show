@@ -136,33 +136,33 @@ export function getTabVisualState(
   }
   
   // 4. Error state
-  if (hasErrors) {
-    visualState.borderColor = theme.palette.error.main;
-    visualState.backgroundColor = theme.palette.error.main + 'CC'; // 80% opacity background
-    visualState.textColor = theme.palette.error.main;
-    visualState.avatarOverlays.push({
-      type: 'error',
-      color: theme.palette.error.main,
-      position: 'top-left'
-    });
-  }
+  // if (hasErrors) {
+  //   visualState.borderColor = theme.palette.error.main;
+  //   visualState.backgroundColor = theme.palette.error.main + 'CC'; // 80% opacity background
+  //   visualState.textColor = theme.palette.error.main;
+  //   visualState.avatarOverlays.push({
+  //     type: 'error',
+  //     color: theme.palette.error.main,
+  //     position: 'top-left'
+  //   });
+  // }
   
   // 5. Stale state
-  if (isStale) {
-    if (!visualState.borderColor || visualState.borderColor === 'transparent') {
-      visualState.borderColor = theme.palette.warning.main;
-    }
-    if (!visualState.backgroundColor || visualState.backgroundColor === 'transparent') {
-      visualState.backgroundColor = theme.palette.warning.main + 'CC'; // 80% opacity background
-    }
-    visualState.opacity = 0.6; // Keep reduced opacity for stale tabs
-    visualState.avatarFilter = 'grayscale(0.3) saturate(0.7)';
-    visualState.avatarOverlays.push({
-      type: 'stale',
-      color: theme.palette.warning.main,
-      position: 'bottom-left'
-    });
-  }
+  // if (isStale) {
+  //   if (!visualState.borderColor || visualState.borderColor === 'transparent') {
+  //     visualState.borderColor = theme.palette.warning.main;
+  //   }
+  //   if (!visualState.backgroundColor || visualState.backgroundColor === 'transparent') {
+  //     visualState.backgroundColor = theme.palette.warning.main + 'CC'; // 80% opacity background
+  //   }
+  //   visualState.opacity = 0.6; // Keep reduced opacity for stale tabs
+  //   visualState.avatarFilter = 'grayscale(0.3) saturate(0.7)';
+  //   visualState.avatarOverlays.push({
+  //     type: 'stale',
+  //     color: theme.palette.warning.main,
+  //     position: 'bottom-left'
+  //   });
+  // }
   
   // Note: Preview styling is only applied when tab is NOT original
   // This ensures original styling takes precedence and is preserved
