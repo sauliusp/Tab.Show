@@ -3,11 +3,12 @@ import { defineConfig } from 'wxt';
 // See https://wxt.dev/api/config.html
 export default defineConfig({
   modules: ['@wxt-dev/module-react'],
+  publicDir: 'public',
   manifest: {
     name: 'Narsheek: Hover Tab Preview',
     short_name: 'Narsheek',
     description: 'Get instant full-page previews by hovering over links and tabs. Find, switch, and organize without losing focus.',
-    version: '0.6.1',
+    version: '0.7.0',
     side_panel: {
       default_path: 'sidepanel.html'
     },

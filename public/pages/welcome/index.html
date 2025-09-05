@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Narsheek</title>
+    <!-- Import Google Fonts for Material Design -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: rgba(0, 0, 0, 0.87);
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 24px;
+            background-color: #f5f5f5;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+        h1 {
+            font-size: 2.5rem; /* Larger for a welcome page */
+            font-weight: 500;
+            color: rgba(0, 0, 0, 0.87);
+        }
+        .subtitle {
+            font-size: 1.25rem;
+            color: rgba(0, 0, 0, 0.6);
+            margin-top: -16px;
+        }
+        .feature-section {
+            background-color: #ffffff;
+            border-radius: 4px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 1px 3px 0px rgba(0,0,0,0.12);
+        }
+        h2 {
+            font-size: 1.5rem;
+            font-weight: 500;
+            margin-top: 0;
+            color: #1976d2; /* MUI primary.main color */
+        }
+        p {
+            font-size: 1rem;
+            color: rgba(0, 0, 0, 0.75);
+        }
+        .shortcut-box {
+            background-color: #e3f2fd; /* Light blue, similar to MUI Alert info */
+            border: 1px solid #90caf9;
+            border-radius: 4px;
+            padding: 16px;
+            text-align: center;
+            margin-top: 16px;
+        }
+        .shortcut-box p {
+            margin: 0;
+            font-size: 1.1rem;
+        }
+        code {
+            background-color: rgba(0, 0, 0, 0.08);
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+        }
+        /* New style for the Pro Tip section */
+        .pro-tip-box {
+            background-color: #fff3e0; /* Light orange, similar to MUI Alert warning */
+            border: 1px solid #ffcc80;
+            border-radius: 4px;
+            padding: 20px;
+            margin-top: 24px;
+        }
+        .pro-tip-box h3 {
+            margin-top: 0;
+            font-size: 1.2rem;
+            color: #e65100; /* Darker orange for emphasis */
+        }
+        .pro-tip-box p {
+            font-size: 1rem;
+            margin-bottom: 4px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Welcome to Narsheek</h1>
+        <p class="subtitle">The effortless way to preview and manage your tabs without losing focus.</p>
+    </header>
+
+    <main>
+        <!-- "Getting Started" is now the first section -->
+        <section class="feature-section">
+            <h2>Getting Started</h2>
+            <p>Ready to go? Just open the Narsheek side panel with the keyboard shortcut:</p>
+            <div class="shortcut-box">
+                <p>Press <code>Command + Shift + X</code> (on Mac)</p>
+                <p style="margin-top: 8px;">or <code>Ctrl + Shift + X</code> (on Windows/Linux)</p>
+            </div>
+            
+            <!-- Enhanced "Pro Tip" section -->
+            <div class="pro-tip-box">
+                <h3>Pro Tip: Customize Your Shortcut</h3>
+                <p>You can change this shortcut anytime. Go to your browser's extension management page:</p>
+                <p><strong>Chrome/Edge/Brave:</strong> <code>chrome://extensions/shortcuts</code></p>
+                <p><strong>Firefox:</strong> Go to <code>about:addons</code>, click the ⚙️ icon, and select "Manage Extension Shortcuts."</p>
+            </div>
+        </section>
+
+        <section class="feature-section">
+            <h2>Tired of a Thousand Open Tabs?</h2>
+            <p>Modern browsing means juggling dozens of tabs, constantly breaking your concentration just to find the right one. Scanning tiny favicons and titles is a chore that scatters your attention and slows you down.</p>
+        </section>
+
+        <section class="feature-section">
+            <h2>Your Focus, Uninterrupted.</h2>
+            <p>Narsheek's core feature is **instant hover-to-preview**. Simply hover over a tab in the side panel to see its full content instantly. When you move your mouse away, you're right back where you started. No clicks, no context switching—just seamless flow.</p>
+            <p>You can also group related tabs and see which pages are already bookmarked, all within the same intuitive interface.</p>
+        </section>
+    </main>
+</body>
+</html>
+
