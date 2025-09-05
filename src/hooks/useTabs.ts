@@ -1,10 +1,9 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { Tab } from '../types/Tab';
 import { tabService } from '../services/TabService';
 
 const PREVIEW_MODE_TIMEOUT = 500;
-
-let previewModeTimeout: NodeJS.Timeout | null = null;
+const HOVER_SWITCH_TIMEOUT = 500;
 
 export function useTabs() {
   const [allTabs, setAllTabs] = useState<Tab[]>([]);
@@ -15,13 +14,50 @@ export function useTabs() {
 
   const isSwitchingOnHoverRef = useRef(false);
   const hoverSwitchTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-  
+
+  // Utility functions for common patterns
+  const logError = useCallback((context: string, error: unknown) => {
+    console.error(`Failed to ${context}:`, error);
+  }, []);
+
+  const refreshTabData = useCallback(async () => {
+    try {
+      const [windowTabs, groups] = await Promise.all([
+        tabService.getAllTabs(),
+        tabService.getTabGroups()
+      ]);
+      setAllTabs(windowTabs);
+      setTabGroups(groups);
+    } catch (error) {
+      logError('refresh tab data', error);
+    }
+  }, [logError]);
+
   const clearHoverSwitchFlag = useCallback(() => {
     isSwitchingOnHoverRef.current = false;
     if (hoverSwitchTimeoutRef.current) {
       clearTimeout(hoverSwitchTimeoutRef.current);
+      hoverSwitchTimeoutRef.current = null;
     }
   }, []);
+
+  const setHoverSwitchFlag = useCallback(() => {
+    isSwitchingOnHoverRef.current = true;
+    hoverSwitchTimeoutRef.current = setTimeout(() => {
+      console.warn('Failsafe: Resetting hover flag.');
+      isSwitchingOnHoverRef.current = false;
+    }, HOVER_SWITCH_TIMEOUT);
+  }, []);
+
+  const executeProgrammaticTabSwitch = useCallback(async (tabId: number, context: string) => {
+    try {
+      await tabService.activateTab(tabId);
+    } catch (error) {
+      logError(context, error);
+      clearHoverSwitchFlag();
+      throw error;
+    }
+  }, [logError, clearHoverSwitchFlag]);
 
   // Tab group event handlers
   const handleTabGroupUpdated = useCallback(async () => {
@@ -30,9 +66,9 @@ export function useTabs() {
       console.log('handleTabGroupUpdated - fetched groups:', groups);
       setTabGroups(groups);
     } catch (error) {
-      console.error('Failed to update tab groups:', error);
+      logError('update tab groups', error);
     }
-  }, []);
+  }, [logError]);
 
   const handleTabGroupCreated = useCallback(async () => {
     try {
@@ -40,9 +76,9 @@ export function useTabs() {
       console.log('handleTabGroupCreated - fetched groups:', groups);
       setTabGroups(groups);
     } catch (error) {
-      console.error('Failed to update tab groups after creation:', error);
+      logError('update tab groups after creation', error);
     }
-  }, []);
+  }, [logError]);
 
   const handleTabGroupRemoved = useCallback(async () => {
     try {
@@ -50,9 +86,9 @@ export function useTabs() {
       console.log('handleTabGroupRemoved - fetched groups:', groups);
       setTabGroups(groups);
     } catch (error) {
-      console.error('Failed to update tab groups after removal:', error);
+      logError('update tab groups after removal', error);
     }
-  }, []);
+  }, [logError]);
 
   // Initialize tabs information
   const initializeTabsInfo = useCallback(async () => {
@@ -80,9 +116,9 @@ export function useTabs() {
       setAllTabs(windowTabs);
       setTabGroups(groups);
     } catch (error) {
-      console.error('Failed to initialize tabs information:', error);
+      logError('initialize tabs information', error);
     }
-  }, []);
+  }, [logError]);
 
   // Tab event handlers
   const handleTabRemoved = useCallback((tabId: number) => {
@@ -123,30 +159,20 @@ export function useTabs() {
     try {
       const currentWindowId = await tabService.getCurrentWindowId();
       if (tab.windowId === currentWindowId) {
-        const [windowTabs, groups] = await Promise.all([
-          tabService.getAllTabs(),
-          tabService.getTabGroups()
-        ]);
-        setAllTabs(windowTabs);
-        setTabGroups(groups);
+        await refreshTabData();
       }
     } catch (error) {
-      console.error('Failed to handle tab creation:', error);
+      logError('handle tab creation', error);
     }
-  }, []);
+  }, [refreshTabData, logError]);
 
   const handleTabMoved = useCallback(async () => {
     try {
-      const [windowTabs, groups] = await Promise.all([
-        tabService.getAllTabs(),
-        tabService.getTabGroups()
-      ]);
-      setAllTabs(windowTabs);
-      setTabGroups(groups);
+      await refreshTabData();
     } catch (error) {
-      console.error('Failed to handle tab move:', error);
+      logError('handle tab move', error);
     }
-  }, []);
+  }, [refreshTabData, logError]);
 
   const handleTabReplaced = useCallback(async (addedTabId: number, removedTabId: number) => {
     try {
@@ -163,9 +189,9 @@ export function useTabs() {
         setPreviewTabId(addedTabId);
       }
     } catch (error) {
-      console.error('Failed to handle tab replacement:', error);
+      logError('handle tab replacement', error);
     }
-  }, [originalTab, previewTabId]);
+  }, [originalTab, previewTabId, logError]);
 
   const handleTabActivated = useCallback(async (activeInfo: any) => {
     if (isSwitchingOnHoverRef.current) {
@@ -182,28 +208,23 @@ export function useTabs() {
         setPreviewTabId(null);
       }
     } catch (error) {
-      console.error(`Failed to get tab info for tabId: ${activeInfo.tabId}`, error);
+      logError(`get tab info for tabId: ${activeInfo.tabId}`, error);
     }
-  }, [clearHoverSwitchFlag]);
+  }, [clearHoverSwitchFlag, logError]);
 
   const handleWindowFocusChanged = useCallback(async (windowId: number) => {
     try {
       const currentWindowId = await tabService.getCurrentWindowId();
       if (windowId === currentWindowId) {
-        const [windowTabs, groups] = await Promise.all([
-          tabService.getAllTabs(),
-          tabService.getTabGroups()
-        ]);
-        setAllTabs(windowTabs);
-        setTabGroups(groups);
+        await refreshTabData();
       }
     } catch (error) {
-      console.error('Failed to handle window focus change:', error);
+      logError('handle window focus change', error);
     }
-  }, []);
+  }, [refreshTabData, logError]);
 
   // Tab interaction handlers
-  const handleTabHover = async (tabId: number) => {
+  const handleTabHover = useCallback(async (tabId: number) => {
     const currentActiveTab = previewTabId || originalTab?.id;
     if (tabId === currentActiveTab) {
       return; // No action needed if hovering over the already active tab
@@ -212,24 +233,17 @@ export function useTabs() {
     console.log(`Hover detected on tab ${tabId}. Preparing to preview.`);
     
     // 1. SET THE FLAG: Tell the hook a programmatic switch is about to happen.
-    isSwitchingOnHoverRef.current = true;
-    
-    // Set a failsafe timeout to reset the flag in case onActivated somehow fails to fire
-    hoverSwitchTimeoutRef.current = setTimeout(() => {
-      console.warn('Failsafe: Resetting hover flag.');
-      isSwitchingOnHoverRef.current = false;
-    }, 500);
+    setHoverSwitchFlag();
 
     try {
       // 2. PERFORM THE ACTION: Activate the tab. This will trigger onActivated.
-      await tabService.activateTab(tabId);
+      await executeProgrammaticTabSwitch(tabId, 'preview tab on hover');
       // 3. UPDATE STATE: After the action, update the UI state to reflect the preview.
       setPreviewTabId(tabId);
     } catch (error) {
-      console.error('Failed to preview tab on hover:', error);
-      clearHoverSwitchFlag(); // Clean up the flag on error
+      // Error handling is already done in executeProgrammaticTabSwitch
     }
-  };
+  }, [previewTabId, originalTab, setHoverSwitchFlag, executeProgrammaticTabSwitch]);
 
   const handleTabClick = useCallback((tabId: number) => {
     const clickedTab = allTabs.find(tab => tab.id === tabId);
@@ -244,23 +258,18 @@ export function useTabs() {
       console.log(`Hover ended. Returning to original tab ${originalTab.id}`);
       
       // 1. SET THE FLAG: A programmatic switch back is about to happen.
-      isSwitchingOnHoverRef.current = true;
-      
-      hoverSwitchTimeoutRef.current = setTimeout(() => {
-        isSwitchingOnHoverRef.current = false;
-      }, 500);
+      setHoverSwitchFlag();
 
       try {
         // 2. PERFORM THE ACTION: Return to the original tab.
-        await tabService.activateTab(originalTab.id);
+        await executeProgrammaticTabSwitch(originalTab.id, 'return to original tab');
         // 3. UPDATE STATE: End the preview session.
         setPreviewTabId(null);
       } catch (error) {
-        console.error('Failed to return to original tab:', error);
-        clearHoverSwitchFlag(); // Clean up the flag on error
+        // Error handling is already done in executeProgrammaticTabSwitch
       }
     }
-  }, [originalTab, previewTabId, clearHoverSwitchFlag]);
+  }, [originalTab, previewTabId, setHoverSwitchFlag, executeProgrammaticTabSwitch]);
 
   // Set up event listeners
   useEffect(() => {
@@ -301,7 +310,8 @@ export function useTabs() {
   }, [
     handleTabRemoved, handleTabUpdated, handleTabCreated, handleTabMoved,
     handleTabReplaced, handleTabActivated, handleWindowFocusChanged, 
-    handleTabGroupCreated, handleTabGroupUpdated, handleTabGroupRemoved
+    handleTabGroupCreated, handleTabGroupUpdated, handleTabGroupRemoved,
+    clearHoverSwitchFlag
   ]);
 
   // Initialize on mount
