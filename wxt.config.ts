@@ -5,15 +5,15 @@ export default defineConfig({
   modules: ['@wxt-dev/module-react'],
   publicDir: 'public',
   manifest: {
-    name: 'Narsheek: Hover Tab Preview',
-    short_name: 'Narsheek',
+    name: 'TabSeek: Hover Tab Preview',
+    short_name: 'TabSeek',
     description: 'Get instant full-page previews by hovering over links and tabs. Find, switch, and organize without losing focus.',
     version: '0.7.0',
     side_panel: {
       default_path: 'sidepanel.html'
     },
     action: {
-      default_title: 'Toggle Narsheek Side Panel'
+      default_title: 'Toggle TabSeek Side Panel'
     },
     commands: {
       // This is a reserved command name for the extension action

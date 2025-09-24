@@ -1,6 +1,6 @@
 # Source Code Structure
 
-This directory contains all the shared business logic, components, and utilities for the Narsheek extension.
+This directory contains all the shared business logic, components, and utilities for the TabSeek extension.
 
 ## Directory Structure
 
