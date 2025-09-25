@@ -16,7 +16,6 @@ interface TabItemProps {
   onTabHover: (tabId: number) => void;
   onTabClick: (tabId: number) => void;
   onCloseTab: (tabId: number) => void;
-  groupTitle?: string;
   groupColor?: string; // Color of the tab group this tab belongs to
 }
 
@@ -31,8 +30,7 @@ function arePropsEqual(prevProps: TabItemProps, nextProps: TabItemProps): boolea
     prevProps.tab.lastAccessed === nextProps.tab.lastAccessed &&
     prevProps.previewTabId === nextProps.previewTabId &&
     prevProps.originalTab?.id === nextProps.originalTab?.id &&
-    prevProps.groupColor === nextProps.groupColor &&
-    prevProps.groupTitle === nextProps.groupTitle
+    prevProps.groupColor === nextProps.groupColor
   );
 }
 
@@ -43,8 +41,7 @@ export const TabItem = React.memo(({
   onTabHover,
   onTabClick,
   onCloseTab,
-  groupColor,
-  groupTitle
+  groupColor
 }: TabItemProps) => {
   const theme = useTheme();
   
@@ -53,7 +50,7 @@ export const TabItem = React.memo(({
   
   if (!tab.id) return null;
   
-  const visualState = getTabVisualState(tab, previewTabId, originalTab, theme, groupColor);
+  const visualState = getTabVisualState(tab, previewTabId, originalTab, theme);
   
   // Render avatar overlay based on type and position
   const renderAvatarOverlay = (overlay: AvatarOverlay) => {
@@ -144,7 +141,14 @@ export const TabItem = React.memo(({
         <Avatar
           alt={tab.title || 'Tab'}
           src={tab.favIconUrl || undefined}
-          sx={visualState.avatarStyles}
+          sx={{
+            ...visualState.avatarStyles,
+            border: originalTab?.id === tab.id 
+              ? `2px solid ${theme.palette.custom.original}` 
+              : groupColor 
+                ? `2px solid ${groupColor}`
+                : 'none'
+          }}
         >
           {!tab.favIconUrl && 
            (tab.title ? tab.title.charAt(0).toUpperCase() : 'T')}

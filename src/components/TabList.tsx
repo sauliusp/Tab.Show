@@ -1,73 +1,182 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useRef } from 'react';
 import { useTheme } from '@mui/material/styles';
 import { useVirtualizer } from '@tanstack/react-virtual';
-import { Tab } from '../types/Tab';
+import { 
+  List, 
+  ListItem, 
+  ListItemButton, 
+  ListItemIcon, 
+  ListItemText, 
+  Collapse,
+  Box,
+  Typography
+} from '@mui/material';
+import { ExpandLess, ExpandMore, Folder } from '@mui/icons-material';
+import { Tab, TabGroup, TabListItem, TabListState } from '../types/Tab';
 import { TabItem } from './TabItem';
-import { usePerformanceMonitor } from '../utils/performance';
 
 interface TabListProps {
-  allTabs: Tab[];
-  tabGroups: any[];
+  tabListState: TabListState;
   previewTabId: number | null;
   originalTab: Tab | null;
   onTabHover: (tabId: number) => void;
   onTabClick: (tabId: number) => void;
   onCloseTab: (tabId: number) => void;
+  onGroupToggle: (groupId: number) => void;
 }
 
 export function TabList({
-  allTabs,
-  tabGroups,
+  tabListState,
   previewTabId,
   originalTab,
   onTabHover,
   onTabClick,
-  onCloseTab
+  onCloseTab,
+  onGroupToggle
 }: TabListProps) {
   const theme = useTheme();
-  const parentRef = React.useRef<HTMLDivElement>(null);
+  const parentRef = useRef<HTMLDivElement>(null);
   
-  // Performance monitoring
-  //usePerformanceMonitor('TabList');
-  
-  // Debug logging
-  console.log('TabList render:', { 
-    allTabsCount: allTabs.length, 
-    tabGroupsCount: tabGroups.length,
-    tabGroups: tabGroups,
-    allTabs: allTabs.map(t => ({ id: t.id, title: t.title, groupId: t.groupId }))
-  });
-  
-  // Create a map of group IDs to group objects for quick lookup
-  const groupMap = useMemo(() => {
-    console.log('Creating groupMap from:', tabGroups);
-    return new Map(tabGroups.map(group => [group.id, group]));
-  }, [tabGroups]);
-  
-  // Create virtualized items with group information
+  // Create a flattened list of all visible items for virtualization
   const virtualItems = useMemo(() => {
-    return allTabs.map(tab => {
-      const group = tab.groupId ? groupMap.get(tab.groupId) : null;
-      return {
-        tab,
-        groupColor: group?.color,
-        groupTitle: group?.title
-      };
+    const items: Array<{
+      id: string;
+      type: 'tab' | 'group';
+      data: Tab | TabGroup;
+      parentId?: string;
+      isNested?: boolean;
+    }> = [];
+    
+    tabListState.itemOrder.forEach((itemId: string) => {
+      const item = tabListState.items[itemId];
+      if (!item) return;
+      
+      if (item.type === 'group') {
+        const group = item.data as TabGroup;
+        const isExpanded = tabListState.groupExpansionState[group.id] !== false;
+        
+        // Add group header
+        items.push({
+          id: item.id,
+          type: 'group',
+          data: group,
+          isNested: false
+        });
+        
+        // Add group tabs if expanded
+        if (isExpanded) {
+          const groupTabs = Object.values(tabListState.items)
+            .filter((tabItem: TabListItem) => tabItem.type === 'tab' && tabItem.parentId === `group-${group.id}`)
+            .map((tabItem: TabListItem) => tabItem.data as Tab);
+          
+          groupTabs.forEach(tab => {
+            items.push({
+              id: `tab-${tab.id}`,
+              type: 'tab',
+              data: tab,
+              parentId: `group-${group.id}`,
+              isNested: true
+            });
+          });
+        }
+      } else if (item.type === 'tab') {
+        // Ungrouped tab
+        items.push({
+          id: item.id,
+          type: 'tab',
+          data: item.data as Tab,
+          isNested: false
+        });
+      }
     });
-  }, [allTabs, groupMap]);
+    
+    return items;
+  }, [tabListState]);
   
   // Set up the virtualizer
   const virtualizer = useVirtualizer({
     count: virtualItems.length,
     getScrollElement: () => parentRef.current,
-    estimateSize: () => 38, // Estimated height of each tab item (matches MUI ListItem dense)
-    overscan: 5, // Render 5 extra items above and below the visible area
+    estimateSize: (index) => {
+      const item = virtualItems[index];
+      if (item.type === 'group') return 48; // Group header height
+      return 38; // Tab item height
+    },
+    overscan: 5,
   });
   
+  // Helper function to get group color
+  const getGroupColor = (color?: string) => {
+    const colorMap: Record<string, string> = {
+      'grey': '#8E8E93',
+      'blue': '#007AFF',
+      'cyan': '#00C7BE',
+      'red': '#FF3B30',
+      'green': '#34C759',
+      'yellow': '#FFCC00',
+      'pink': '#FF2D92',
+      'purple': '#AF52DE',
+      'orange': '#FF9500'
+    };
+    return colorMap[color || 'grey'] || '#8E8E93';
+  };
+  
+  // Render a virtual item
+  const renderVirtualItem = (virtualItem: any, groupColor?: string) => {
+    const { type, data, isNested } = virtualItem;
+    
+    if (type === 'group') {
+      const group = data as TabGroup;
+      const isExpanded = tabListState.groupExpansionState[group.id] !== false;
+      const groupColor = getGroupColor(group.color);
+      
+      return (
+        <ListItem disablePadding>
+          <ListItemButton 
+            onClick={() => onGroupToggle(group.id)}
+            sx={{
+              pl: 2,
+              pr: 2,
+              py: 1,
+              '&:hover': {
+                backgroundColor: theme.palette.action.hover
+              }
+            }}
+          >
+            <ListItemIcon sx={{ minWidth: 36 }}>
+              <Folder sx={{ color: groupColor, fontSize: 20 }} />
+            </ListItemIcon>
+            <ListItemText
+              primary={
+                <Typography variant="body2" sx={{ fontWeight: 500 }}>
+                  {group.title || 'Group'}
+                </Typography>
+              }
+            />
+            {isExpanded ? <ExpandLess /> : <ExpandMore />}
+          </ListItemButton>
+        </ListItem>
+      );
+    } else {
+      const tab = data as Tab;
+      return (
+        <TabItem
+          tab={tab}
+          previewTabId={previewTabId}
+          originalTab={originalTab}
+          onTabHover={onTabHover}
+          onTabClick={onTabClick}
+          onCloseTab={onCloseTab}
+          groupColor={groupColor}
+        />
+      );
+    }
+  };
+  
   return (
-    <div
+    <Box
       ref={parentRef}
-      style={{
+      sx={{
         height: '100%',
         width: '100%',
         overflow: 'auto',
@@ -84,11 +193,20 @@ export function TabList({
         }}
       >
         {virtualizer.getVirtualItems().map((virtualItem) => {
-          const { tab, groupColor, groupTitle } = virtualItems[virtualItem.index];
+          const item = virtualItems[virtualItem.index];
+          let groupColor: string | undefined;
+          
+          if (item.isNested && item.parentId) {
+            const groupItem = tabListState.items[item.parentId];
+            if (groupItem && groupItem.type === 'group') {
+              const group = groupItem.data as TabGroup;
+              groupColor = getGroupColor(group.color);
+            }
+          }
           
           return (
             <div
-              key={tab.id}
+              key={item.id}
               style={{
                 position: 'absolute',
                 top: 0,
@@ -96,22 +214,14 @@ export function TabList({
                 width: '100%',
                 height: `${virtualItem.size}px`,
                 transform: `translateY(${virtualItem.start}px)`,
+                paddingLeft: item.isNested ? theme.spacing(2) : 0,
               }}
             >
-              <TabItem
-                tab={tab}
-                previewTabId={previewTabId}
-                originalTab={originalTab}
-                onTabHover={onTabHover}
-                onTabClick={onTabClick}
-                onCloseTab={onCloseTab}
-                groupColor={groupColor}
-                groupTitle={groupTitle}
-              />
+              {renderVirtualItem(item, groupColor)}
             </div>
           );
         })}
       </div>
-    </div>
+    </Box>
   );
 }

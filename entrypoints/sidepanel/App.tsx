@@ -13,13 +13,13 @@ function App() {
   
   // Use the custom hook for tab management
   const {
-    allTabs,
-    tabGroups,
+    tabListState,
     originalTab,
     previewTabId,
     handleTabHover,
     handleSidePanelHoverEnd,
-    handleTabClick
+    handleTabClick,
+    handleGroupToggle
   } = useTabs();
 
   // Clear visual state cache when theme changes to prevent stale cached values
@@ -49,13 +49,13 @@ function App() {
 
       {/* Tab list */}
       <TabList
-        allTabs={allTabs}
-        tabGroups={tabGroups}
+        tabListState={tabListState}
         previewTabId={previewTabId}
         originalTab={originalTab}
         onTabHover={handleTabHover}
         onTabClick={handleTabClick}
         onCloseTab={handleCloseTab}
+        onGroupToggle={handleGroupToggle}
       />
 
       {/* Performance metrics (development only) */}

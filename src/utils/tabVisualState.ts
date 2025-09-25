@@ -6,8 +6,8 @@ const visualStateCache = new Map<string, TabVisualState>();
 const MAX_CACHE_SIZE = 1000; // Prevent memory leaks
 
 // Helper function to create cache key
-function createCacheKey(tab: Tab, previewTabId: number | null, originalTab: Tab | null, groupColor?: string): string {
-  return `${tab.id}-${previewTabId}-${originalTab?.id}-${tab.status}-${tab.lastAccessed}-${tab.groupId}-${groupColor}`;
+function createCacheKey(tab: Tab, previewTabId: number | null, originalTab: Tab | null): string {
+  return `${tab.id}-${previewTabId}-${originalTab?.id}-${tab.status}-${tab.lastAccessed}-${tab.groupId}`;
 }
 
 // Helper function to clean cache when it gets too large
@@ -20,42 +20,15 @@ function cleanCache(): void {
   }
 }
 
-// Helper function to get group background color
-function getGroupBackgroundColor(groupColor?: string): string {
-  if (!groupColor) return 'transparent';
-  
-  const colorMap: Record<string, string> = {
-    'grey': 'rgba(142, 142, 147, 0.1)',
-    'blue': 'rgba(0, 122, 255, 0.1)',
-    'cyan': 'rgba(0, 199, 190, 0.1)',
-    'red': 'rgba(255, 59, 48, 0.1)',
-    'green': 'rgba(52, 199, 89, 0.1)',
-    'yellow': 'rgba(255, 204, 0, 0.1)',
-    'pink': 'rgba(255, 45, 146, 0.1)',
-    'purple': 'rgba(175, 82, 222, 0.1)',
-    'orange': 'rgba(255, 149, 0, 0.1)'
-  };
-  
-  return colorMap[groupColor] || 'rgba(142, 142, 147, 0.1)';
-}
-
 // Helper function to get hover background color
 function getHoverBackgroundColor(
   baseBackground: string, 
-  groupColor: string | undefined, 
   theme: any
 ): string {
   if (baseBackground !== 'transparent') {
     return baseBackground === theme.palette.secondary.main
       ? theme.palette.secondary.main
       : baseBackground + '80';
-  }
-  
-  // For group-colored tabs, use a slightly more opaque version of the group background
-  if (groupColor) {
-    const groupBgColor = getGroupBackgroundColor(groupColor);
-    // Make the hover color slightly more opaque by increasing the alpha
-    return groupBgColor.replace(/[\d.]+\)$/, '0.2)');
   }
   
   return theme.palette.action.hover;
@@ -65,10 +38,9 @@ export function getTabVisualState(
   tab: Tab,
   previewTabId: number | null,
   originalTab: Tab | null,
-  theme: any,
-  groupColor?: string
+  theme: any
 ): TabVisualState {
-  const cacheKey = createCacheKey(tab, previewTabId, originalTab, groupColor);
+  const cacheKey = createCacheKey(tab, previewTabId, originalTab);
   
   // Check cache first
   if (visualStateCache.has(cacheKey)) {
@@ -167,15 +139,9 @@ export function getTabVisualState(
   // Note: Preview styling is only applied when tab is NOT original
   // This ensures original styling takes precedence and is preserved
   
-  // Generate comprehensive styling
-  const groupBgColor = getGroupBackgroundColor(groupColor);
-  const finalBackgroundColor = visualState.backgroundColor !== 'transparent' 
-    ? visualState.backgroundColor 
-    : groupBgColor;
-  
   // List item styles
   visualState.listItemStyles = {
-    backgroundColor: finalBackgroundColor,
+    backgroundColor: visualState.backgroundColor,
     paddingTop: '3px',
     paddingBottom: '3px',
     paddingLeft: '15px',
@@ -200,18 +166,6 @@ export function getTabVisualState(
     zIndex: 1
   };
   
-  if (groupColor) {
-    visualState.pseudoElementStyles.after = {
-      content: '""',
-      position: 'absolute' as const,
-      right: 0,
-      top: 0,
-      bottom: 0,
-      width: '6px',
-      backgroundColor: groupColor,
-      zIndex: 1
-    };
-  }
   
   // Avatar styles
   visualState.avatarStyles = {
@@ -231,7 +185,7 @@ export function getTabVisualState(
   
   // Hover styles
   visualState.hoverStyles = {
-    backgroundColor: getHoverBackgroundColor(visualState.backgroundColor, groupColor, theme)
+    backgroundColor: getHoverBackgroundColor(visualState.backgroundColor, theme)
   };
   
   // Cache the result and clean if necessary
