@@ -144,11 +144,26 @@ export function TabList({
             }}
           >
             <ListItemIcon sx={{ minWidth: 36 }}>
-              <Folder sx={{ color: groupColor, fontSize: 20 }} />
+              <Folder sx={{ color: groupColor, fontSize: 25 }} />
             </ListItemIcon>
+            
             <ListItemText
               primary={
-                <Typography variant="body2" sx={{ fontWeight: 500 }}>
+                <Typography 
+                  variant="body1" 
+                  sx={{ 
+                    backgroundColor: groupColor,
+                    padding: '2px 4px',
+                    borderRadius: '5px', 
+                    color: 'white',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                    whiteSpace: 'nowrap',
+                    maxWidth: 'calc(100% - 20px)',
+                    display: 'inline-block',
+                    float: 'left'
+                  }}
+                >
                   {group.title || 'Group'}
                 </Typography>
               }

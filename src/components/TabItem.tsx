@@ -144,9 +144,9 @@ export const TabItem = React.memo(({
           sx={{
             ...visualState.avatarStyles,
             border: originalTab?.id === tab.id 
-              ? `2px solid ${theme.palette.custom.original}` 
+              ? `3px solid ${theme.palette.custom.original}` 
               : groupColor 
-                ? `2px solid ${groupColor}`
+                ? `3px solid ${groupColor}`
                 : 'none'
           }}
         >
