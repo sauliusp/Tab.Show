@@ -8,7 +8,7 @@ export default defineConfig({
     name: 'TabGlance: Hover Tab Preview',
     short_name: 'TabGlance',
     description: 'Get instant full-page previews by hovering over links and tabs. Find, switch, and organize without losing focus.',
-    version: '0.7.0',
+    version: '0.7.1',
     side_panel: {
       default_path: 'sidepanel.html'
     },

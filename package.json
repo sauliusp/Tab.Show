@@ -2,7 +2,7 @@
   "name": "TabGlance: Hover Tab Preview",
   "description": "Get instant full-page previews by hovering over links and tabs. Find, switch, and organize without losing focus.",
   "private": true,
-  "version": "0.7.0",
+  "version": "0.7.1",
   "type": "module",
   "scripts": {
     "dev": "wxt",
