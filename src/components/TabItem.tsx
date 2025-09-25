@@ -164,7 +164,6 @@ export const TabItem = React.memo(({
             {tab.title || 'Untitled Tab'}
           </span>
         }
-        secondary={groupTitle}
         primaryTypographyProps={{
           noWrap: true,
           sx: { fontSize: '0.875rem' }

@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useTheme } from '@mui/material/styles';
-import List from '@mui/material/List';
+import { useVirtualizer } from '@tanstack/react-virtual';
 import { Tab } from '../types/Tab';
 import { TabItem } from './TabItem';
 import { usePerformanceMonitor } from '../utils/performance';
@@ -19,13 +19,13 @@ export function TabList({
   allTabs,
   tabGroups,
   previewTabId,
-  
   originalTab,
   onTabHover,
   onTabClick,
   onCloseTab
 }: TabListProps) {
   const theme = useTheme();
+  const parentRef = React.useRef<HTMLDivElement>(null);
   
   // Performance monitoring
   //usePerformanceMonitor('TabList');
@@ -39,49 +39,79 @@ export function TabList({
   });
   
   // Create a map of group IDs to group objects for quick lookup
-  const groupMap = React.useMemo(() => {
+  const groupMap = useMemo(() => {
     console.log('Creating groupMap from:', tabGroups);
     return new Map(tabGroups.map(group => [group.id, group]));
   }, [tabGroups]);
   
-  // Track which groups we've already shown headers for
-  const shownGroups = React.useRef(new Set<number>());
+  // Create virtualized items with group information
+  const virtualItems = useMemo(() => {
+    return allTabs.map(tab => {
+      const group = tab.groupId ? groupMap.get(tab.groupId) : null;
+      return {
+        tab,
+        groupColor: group?.color,
+        groupTitle: group?.title
+      };
+    });
+  }, [allTabs, groupMap]);
   
-  // Reset shown groups only when tab groups change, not when individual tabs change
-  // This prevents flickering when closing individual tabs - group headers remain stable
-  React.useEffect(() => {
-    shownGroups.current.clear();
-  }, [tabGroups]);
+  // Set up the virtualizer
+  const virtualizer = useVirtualizer({
+    count: virtualItems.length,
+    getScrollElement: () => parentRef.current,
+    estimateSize: () => 38, // Estimated height of each tab item (matches MUI ListItem dense)
+    overscan: 5, // Render 5 extra items above and below the visible area
+  });
   
   return (
-    <List dense sx={{ 
-      width: '100%', 
-      bgcolor: 'background.paper',
-      flex: 1,
-      overflow: 'auto',
-      paddingBottom: 0,
-      marginBottom: 0,
-      minHeight: 0
-    }}>
-      {allTabs.map(tab => {
-        const group = tab.groupId ? groupMap.get(tab.groupId) : null;
-        
-        
-        return (
-          <React.Fragment key={tab.id}>            
-            <TabItem
-              tab={tab}
-              previewTabId={previewTabId}
-              originalTab={originalTab}
-              onTabHover={onTabHover}
-              onTabClick={onTabClick}
-              onCloseTab={onCloseTab}
-              groupColor={group?.color}
-              groupTitle={group?.title}
-            />
-          </React.Fragment>
-        );
-      })}
-    </List>
+    <div
+      ref={parentRef}
+      style={{
+        height: '100%',
+        width: '100%',
+        overflow: 'auto',
+        backgroundColor: theme.palette.background.paper,
+        flex: 1,
+        minHeight: 0
+      }}
+    >
+      <div
+        style={{
+          height: `${virtualizer.getTotalSize()}px`,
+          width: '100%',
+          position: 'relative',
+        }}
+      >
+        {virtualizer.getVirtualItems().map((virtualItem) => {
+          const { tab, groupColor, groupTitle } = virtualItems[virtualItem.index];
+          
+          return (
+            <div
+              key={tab.id}
+              style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                width: '100%',
+                height: `${virtualItem.size}px`,
+                transform: `translateY(${virtualItem.start}px)`,
+              }}
+            >
+              <TabItem
+                tab={tab}
+                previewTabId={previewTabId}
+                originalTab={originalTab}
+                onTabHover={onTabHover}
+                onTabClick={onTabClick}
+                onCloseTab={onCloseTab}
+                groupColor={groupColor}
+                groupTitle={groupTitle}
+              />
+            </div>
+          );
+        })}
+      </div>
+    </div>
   );
 }
