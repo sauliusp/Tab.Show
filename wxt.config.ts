@@ -7,7 +7,7 @@ export default defineConfig({
   manifest: {
     name: 'TabGlance: Hover Tab Preview',
     short_name: 'TabGlance',
-    description: 'Get instant full-page previews by hovering over links and tabs. Find, switch, and organize without losing focus.',
+    description: 'Get instant full-page previews by hovering over tabs. Find, switch, and organize without losing focus.',
     version: '0.8.0',
     side_panel: {
       default_path: 'sidepanel.html'
