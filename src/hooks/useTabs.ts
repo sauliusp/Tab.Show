@@ -2,7 +2,6 @@ import { useState, useEffect, useCallback, useRef } from 'react';
 import { Tab, TabGroup, TabListItem, TabListState } from '../types/Tab';
 import { tabService } from '../services/TabService';
 
-const PREVIEW_MODE_TIMEOUT = 500;
 const HOVER_SWITCH_TIMEOUT = 500;
 
 export function useTabs() {

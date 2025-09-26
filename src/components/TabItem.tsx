@@ -124,6 +124,7 @@ export const TabItem = React.memo(({
       onClick={() => onTabClick(tab.id!)}
       sx={{
         ...visualState.listItemStyles,
+        cursor: 'pointer',
         
         // Use pseudo-elements for borders to avoid affecting layout
         '&::before': visualState.pseudoElementStyles.before,
