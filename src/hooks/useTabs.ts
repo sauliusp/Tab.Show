@@ -17,7 +17,6 @@ export function useTabs() {
 
   const isSwitchingOnHoverRef = useRef(false);
   const hoverSwitchTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const hoverClearTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   // Helper function to build tab list state from tabs and groups
   const buildTabListState = useCallback((tabs: Tab[], groups: TabGroup[]): TabListState => {
@@ -112,18 +111,7 @@ export function useTabs() {
   }, [logError, buildTabListState]);
 
   const clearHoverSwitchFlag = useCallback(() => {
-    // Clear any pending flag clearing timeout
-    if (hoverClearTimeoutRef.current) {
-      clearTimeout(hoverClearTimeoutRef.current);
-      hoverClearTimeoutRef.current = null;
-    }
-    
-    // Don't clear the flag immediately - delay it to handle rapid hover sequences
-    hoverClearTimeoutRef.current = setTimeout(() => {
-      isSwitchingOnHoverRef.current = false;
-      hoverClearTimeoutRef.current = null;
-    }, 50); // Very short delay to handle rapid hovers
-    
+    isSwitchingOnHoverRef.current = false;
     if (hoverSwitchTimeoutRef.current) {
       clearTimeout(hoverSwitchTimeoutRef.current);
       hoverSwitchTimeoutRef.current = null;
@@ -132,23 +120,9 @@ export function useTabs() {
 
   const setHoverSwitchFlag = useCallback(() => {
     isSwitchingOnHoverRef.current = true;
-    
-    // Clear any pending flag clearing timeout since we're starting a new hover sequence
-    if (hoverClearTimeoutRef.current) {
-      clearTimeout(hoverClearTimeoutRef.current);
-      hoverClearTimeoutRef.current = null;
-    }
-    
-    // Clear any existing failsafe timeout
-    if (hoverSwitchTimeoutRef.current) {
-      clearTimeout(hoverSwitchTimeoutRef.current);
-    }
-    
-    // Set failsafe timeout
     hoverSwitchTimeoutRef.current = setTimeout(() => {
       console.warn('Failsafe: Resetting hover flag.');
       isSwitchingOnHoverRef.current = false;
-      hoverSwitchTimeoutRef.current = null;
     }, HOVER_SWITCH_TIMEOUT);
   }, []);
 
@@ -512,14 +486,6 @@ export function useTabs() {
         browser.tabGroups.onCreated.removeListener(handleTabGroupCreated);
         browser.tabGroups.onUpdated.removeListener(handleTabGroupUpdated);
         browser.tabGroups.onRemoved.removeListener(handleTabGroupRemoved);
-      }
-      
-      // Clear timeouts
-      if (hoverSwitchTimeoutRef.current) {
-        clearTimeout(hoverSwitchTimeoutRef.current);
-      }
-      if (hoverClearTimeoutRef.current) {
-        clearTimeout(hoverClearTimeoutRef.current);
       }
     };
   }, [
