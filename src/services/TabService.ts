@@ -123,6 +123,41 @@ class TabService {
       return [];
     }
   }
+
+  /**
+   * Toggle the collapse state of a tab group
+   */
+  async toggleTabGroupCollapse(groupId: number): Promise<boolean> {
+    try {
+      // Check if browser.tabGroups is available
+      if (!browser.tabGroups) {
+        console.log('browser.tabGroups is not available');
+        return false;
+      }
+
+      // Get the current group state
+      const groups = await this.getTabGroups();
+      const group = groups.find(g => g.id === groupId);
+      
+      if (!group) {
+        console.error(`Group with ID ${groupId} not found`);
+        return false;
+      }
+
+      // Toggle the collapsed state
+      const newCollapsedState = !group.collapsed;
+      
+      console.log(`Toggling group ${groupId} collapsed state to:`, newCollapsedState);
+      
+      // Update the group
+      await browser.tabGroups.update(groupId, { collapsed: newCollapsedState });
+      
+      return true;
+    } catch (error) {
+      console.error(`Failed to toggle group ${groupId} collapse state:`, error);
+      return false;
+    }
+  }
 }
 
 export const tabService = TabService.getInstance();

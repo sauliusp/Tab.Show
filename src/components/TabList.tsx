@@ -164,7 +164,7 @@ export function TabList({
                     float: 'left'
                   }}
                 >
-                  {group.title || 'Group'}
+                  {group.title || 'Unnamed Group'}
                 </Typography>
               }
             />

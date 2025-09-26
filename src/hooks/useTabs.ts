@@ -148,10 +148,16 @@ export function useTabs() {
             .map(item => item.data as Tab),
           groups
         );
-        // Preserve existing expansion state
+        
+        // Update expansion state based on actual browser state
+        const updatedExpansionState: Record<number, boolean> = {};
+        groups.forEach(group => {
+          updatedExpansionState[group.id] = group.collapsed !== true;
+        });
+        
         return {
           ...newState,
-          groupExpansionState: { ...prevState.groupExpansionState, ...newState.groupExpansionState }
+          groupExpansionState: updatedExpansionState
         };
       });
     } catch (error) {
@@ -424,15 +430,27 @@ export function useTabs() {
   }, [originalTab, previewTabId, setHoverSwitchFlag, executeProgrammaticTabSwitch]);
 
   // Group expansion handler
-  const handleGroupToggle = useCallback((groupId: number) => {
-    setTabListState(prevState => ({
-      ...prevState,
-      groupExpansionState: {
-        ...prevState.groupExpansionState,
-        [groupId]: !prevState.groupExpansionState[groupId]
+  const handleGroupToggle = useCallback(async (groupId: number) => {
+    try {
+      // Toggle the group in the browser first
+      const success = await tabService.toggleTabGroupCollapse(groupId);
+      
+      if (success) {
+        // Update local state to reflect the change
+        setTabListState(prevState => ({
+          ...prevState,
+          groupExpansionState: {
+            ...prevState.groupExpansionState,
+            [groupId]: !prevState.groupExpansionState[groupId]
+          }
+        }));
+      } else {
+        console.error(`Failed to toggle group ${groupId} in browser`);
       }
-    }));
-  }, []);
+    } catch (error) {
+      logError(`toggle group ${groupId}`, error);
+    }
+  }, [logError]);
 
   // Set up event listeners
   useEffect(() => {
