@@ -17,6 +17,7 @@ export function useTabs() {
 
   const isSwitchingOnHoverRef = useRef(false);
   const hoverSwitchTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const isHoverOperationInProgressRef = useRef(false);
 
   // Helper function to build tab list state from tabs and groups
   const buildTabListState = useCallback((tabs: Tab[], groups: TabGroup[]): TabListState => {
@@ -119,6 +120,12 @@ export function useTabs() {
   }, []);
 
   const setHoverSwitchFlag = useCallback(() => {
+    // Clear any existing timeout before setting a new one
+    if (hoverSwitchTimeoutRef.current) {
+      clearTimeout(hoverSwitchTimeoutRef.current);
+      hoverSwitchTimeoutRef.current = null;
+    }
+    
     isSwitchingOnHoverRef.current = true;
     hoverSwitchTimeoutRef.current = setTimeout(() => {
       console.warn('Failsafe: Resetting hover flag.');
@@ -386,7 +393,16 @@ export function useTabs() {
       return; // No action needed if hovering over the already active tab
     }
     
+    // Prevent overlapping hover operations
+    if (isHoverOperationInProgressRef.current) {
+      console.log(`Hover operation already in progress, ignoring hover on tab ${tabId}`);
+      return;
+    }
+    
     console.log(`Hover detected on tab ${tabId}. Preparing to preview.`);
+    
+    // Mark hover operation as in progress
+    isHoverOperationInProgressRef.current = true;
     
     // 1. SET THE FLAG: Tell the hook a programmatic switch is about to happen.
     setHoverSwitchFlag();
@@ -398,6 +414,9 @@ export function useTabs() {
       setPreviewTabId(tabId);
     } catch (error) {
       // Error handling is already done in executeProgrammaticTabSwitch
+    } finally {
+      // Always clear the hover operation flag
+      isHoverOperationInProgressRef.current = false;
     }
   }, [previewTabId, originalTab, setHoverSwitchFlag, executeProgrammaticTabSwitch]);
 
@@ -414,6 +433,9 @@ export function useTabs() {
   const handleSidePanelHoverEnd = useCallback(async () => {
     if (originalTab?.id && previewTabId) {
       console.log(`Hover ended. Returning to original tab ${originalTab.id}`);
+      
+      // Clear any ongoing hover operations
+      isHoverOperationInProgressRef.current = false;
       
       // 1. SET THE FLAG: A programmatic switch back is about to happen.
       setHoverSwitchFlag();
