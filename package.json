@@ -1,6 +1,6 @@
 {
   "name": "TabGlance: Hover Tab Preview",
-  "description": "Get instant full-page previews by hovering over tabs. Find, switch, and organize without losing focus.",
+  "description": "Get instant full-page previews by hovering over tabs in the side panel. Find, switch, and organize without losing focus.",
   "private": true,
   "version": "0.8.0",
   "type": "module",
