@@ -1,6 +1,6 @@
 # Source Code Structure
 
-This directory contains all the shared business logic, components, and utilities for the TabGlance extension.
+This directory contains all the shared business logic, components, and utilities for the Tab.Show extension.
 
 ## Directory Structure
 

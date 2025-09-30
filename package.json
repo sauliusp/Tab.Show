@@ -1,8 +1,8 @@
 {
-  "name": "TabGlance: Hover Tab Preview",
-  "description": "Get instant full-page previews by hovering over tabs in the side panel. Find, switch, and organize without losing focus.",
+  "name": "Tab.Show | Hover. Preview. Focus.",
+  "description": "Full-page tab previews on hover, right from a side panel - so you can manage dozens of tabs without losing focus.",
   "private": true,
-  "version": "0.8.0",
+  "version": "0.8.1",
   "type": "module",
   "scripts": {
     "dev": "wxt",
