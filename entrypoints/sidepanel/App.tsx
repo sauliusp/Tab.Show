@@ -1,5 +1,7 @@
 import React from 'react';
 import { useTheme } from '@mui/material/styles';
+import { Button } from '@mui/material';
+import { LightbulbOutlined } from '@mui/icons-material';
 import { useTabs } from '../../src/hooks/useTabs';
 import { Header } from '../../src/components/Header';
 import { TabList } from '../../src/components/TabList';
@@ -42,6 +44,12 @@ function App() {
     }
   };
 
+  const handleSuggestFeature = () => {
+    // Open a new tab with a feature suggestion form
+    // You can replace this URL with your actual feature suggestion form
+    window.open('https://github.com/your-username/tabglance/issues/new?template=feature_request.md', '_blank');
+  };
+
   return (
     <div className="sidepanel" onMouseLeave={handleSidePanelHoverEnd}>
       {/* Header with original tab information */}
@@ -62,6 +70,39 @@ function App() {
       {process.env.NODE_ENV === 'development' && (
         <PerformanceMetrics />
       )}
+
+      {/* Floating Action Button for Feature Suggestions */}
+      <Button
+        variant="outlined"
+        color="secondary"
+        onClick={handleSuggestFeature}
+        sx={{
+          position: 'fixed',
+          bottom: 16,
+          right: 16,
+          zIndex: 1000,
+          borderRadius: 2,
+          boxShadow: 2,
+          textTransform: 'none',
+          fontWeight: '600',
+          backgroundColor: 'background.paper',  // Add this line
+          backdropFilter: 'blur(8px)',  
+          '&:hover': {
+            backgroundColor: 'primary.main',
+            color: 'primary.contrastText',
+            borderColor: 'primary.main',
+            boxShadow: 4,
+            transform: 'translateY(-2px)',
+          },
+          '&:active': {
+            backgroundColor: 'primary.dark',
+            borderColor: 'primary.dark',
+          },
+          transition: 'all 0.2s ease-in-out',
+        }}
+      >
+        Suggest a Feature
+      </Button>
     </div>
   );
 }
