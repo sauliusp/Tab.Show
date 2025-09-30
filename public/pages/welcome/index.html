@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Welcome to Tab.Show</title>
-    <!-- Import Google Fonts for Material Design -->
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
@@ -23,7 +23,7 @@
             margin-bottom: 48px;
         }
         h1 {
-            font-size: 2.5rem; /* Larger for a welcome page */
+            font-size: 2.5rem;
             font-weight: 500;
             color: rgba(0, 0, 0, 0.87);
         }
@@ -43,14 +43,14 @@
             font-size: 1.5rem;
             font-weight: 500;
             margin-top: 0;
-            color: #1976d2; /* MUI primary.main color */
+            color: #1976d2;
         }
         p {
             font-size: 1rem;
             color: rgba(0, 0, 0, 0.75);
         }
         .shortcut-box {
-            background-color: #e3f2fd; /* Light blue, similar to MUI Alert info */
+            background-color: #e3f2fd;
             border: 1px solid #90caf9;
             border-radius: 4px;
             padding: 16px;
@@ -67,60 +67,83 @@
             border-radius: 4px;
             font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
         }
-        /* New style for the Pro Tip section */
         .pro-tip-box {
-            background-color: #fff3e0; /* Light orange, similar to MUI Alert warning */
+            background-color: #fff3e0;
             border: 1px solid #ffcc80;
             border-radius: 4px;
             padding: 20px;
             margin-top: 24px;
         }
+        code {
+            color: #e65100;
+        }
         .pro-tip-box h3 {
             margin-top: 0;
             font-size: 1.2rem;
-            color: #e65100; /* Darker orange for emphasis */
+            color: #e65100;
         }
         .pro-tip-box p {
             font-size: 1rem;
             margin-bottom: 4px;
         }
+        ul {
+            margin: 0.5rem 0 0 1.2rem;
+        }
     </style>
 </head>
 <body>
     <header>
-        <h1>Welcome to Tab.Show</h1>
-        <p class="subtitle">The effortless way to preview and manage your tabs without losing focus.</p>
+        <h1>Preview tabs instantly. Stay focused.</h1>
+        <p class="subtitle">Tab.Show gives you full-page tab previews from a side panel. See before you switch and keep your place.</p>
     </header>
 
     <main>
-        <!-- "Getting Started" is now the first section -->
         <section class="feature-section">
-            <h2>Getting Started</h2>
-            <p>Ready to go? Just open the Tab.Show side panel with the keyboard shortcut:</p>
+            <h2>Getting started</h2>
+            <p>Open the Tab.Show side panel right now with:</p>
             <div class="shortcut-box">
-                <p>Press <code>Command + Shift + X</code> (on Mac)</p>
-                <p style="margin-top: 8px;">or <code>Ctrl + Shift + X</code> (on Windows/Linux)</p>
+                <p>Mac: <code>Command + Shift + X</code></p>
+                <p style="margin-top: 8px;">Windows/Linux: <code>Ctrl + Shift + X</code></p>
             </div>
-            
-            <!-- Enhanced "Pro Tip" section -->
-            <div class="pro-tip-box">
-                <h3>Pro Tip: Customize Your Shortcut</h3>
-                <p>You can change this shortcut anytime. Go to your browser's extension management page:</p>
-                <p><strong>Chrome/Edge/Brave:</strong> <code>chrome://extensions/shortcuts</code></p>
-                <p><strong>Firefox:</strong> Go to <code>about:addons</code>, click the ⚙️ icon, and select "Manage Extension Shortcuts."</p>
+
+            <p>Pro Tip: Customize your shortcut</p>
+            <div class="shortcut-box">
+                <p><code>chrome://extensions/shortcuts</code></p>
             </div>
         </section>
 
         <section class="feature-section">
-            <h2>Tired of a Thousand Open Tabs?</h2>
-            <p>Modern browsing means juggling dozens of tabs, constantly breaking your concentration just to find the right one. Scanning tiny favicons and titles is a chore that scatters your attention and slows you down.</p>
+            <h2>See it work instantly</h2>
+            <p><b>1.</b> Hover over any tab name → full-page preview pops up.</p>
+            <p><b>2.</b> Move your mouse away → you’re back on your original tab.</p>
+            <p><b>3.</b> Click only when you’re ready to switch.</p>
+            <p>That’s it. You’ve just saved yourself from tab chaos.</p>
         </section>
 
         <section class="feature-section">
-            <h2>Your Focus, Uninterrupted.</h2>
-            <p><b>Tab.Show's core feature is instant hover-to-preview. Simply hover over a tab in the side panel to see its full content instantly. When you move your mouse away, you're right back where you started. No clicks, no context switching - just seamless flow.</b></p>
+            <h2>Why it matters</h2>
+            <p><b>Clear previews:</b> no more guessing from tiny favicons.</p>
+            <p><b>Focus intact:</b> your original tab stays put until you decide.</p>
+            <p><b>Handles scale:</b> 30, 50, or 100 tabs - still manageable.</p>
+            <p><b>Zero bloat:</b> one purpose only - previews.</p>
+        </section>
+
+        <section class="feature-section">
+            <h2>Tips for power users</h2>
+            <p><b>Pin the side panel</b> for fast scanning during deep work.</p>
+            <p><b>Toggle with the shortcut</b> as you switch tasks - it becomes second nature.</p>
+            <p><b>Preview before committing</b> - no more misclicks, no wasted time.</p>
+        </section>
+
+        <section class="feature-section">
+            <h2>Privacy first</h2>
+            <p>Tab.Show does not collect your data. Built to cut clutter and protect your focus - nothing else.</p>
+        </section>
+
+        <section class="feature-section">
+            <h2>Feedback makes it better</h2>
+            <p>Got ideas or questions? Visit <a href="https://tab.show" target="_blank" rel="noopener">tab.show</a> for updates and contact options. Reviews on the Chrome Web Store help others discover Tab.Show too.</p>
         </section>
     </main>
 </body>
 </html>
-
