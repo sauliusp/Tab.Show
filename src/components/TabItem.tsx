@@ -120,6 +120,7 @@ export const TabItem = React.memo(({
 
   return (
     <ListItem
+      title={tab.url || tab.title || 'Untitled Tab'}
       onMouseEnter={() => onTabHover(tab.id!)}
       onClick={() => onTabClick(tab.id!)}
       sx={{
