@@ -72,6 +72,7 @@ function App() {
         target="_blank"
         rel="noopener noreferrer"
         title="Open Featurebase to suggest features"
+        onMouseEnter={handleSidePanelHoverEnd}
         sx={{
           position: 'fixed',
           bottom: 16,
