@@ -274,7 +274,7 @@ export function useTabs() {
   }, []);
 
   const handleTabUpdated = useCallback((tabId: number, changeInfo: any, updatedTab: any) => {
-    if (changeInfo.status || changeInfo.groupId) {
+    if (changeInfo.status || changeInfo.groupId || changeInfo.favIconUrl || changeInfo.title || changeInfo.url) {
       setTabListState(prevState => {
         const newItems = { ...prevState.items };
         const tabItemId = `tab-${tabId}`;
