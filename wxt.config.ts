@@ -8,7 +8,7 @@ export default defineConfig({
     name: 'Tab.Show | Hover. Preview. Focus.',
     short_name: 'Tab.Show | Hover. Preview. Focus.',
     description: 'Full-page tab previews on hover, right from a side panel - so you can manage dozens of tabs without losing focus.',
-    version: '0.8.1',
+    version: '0.8.2',
     side_panel: {
       default_path: 'sidepanel.html'
     },
