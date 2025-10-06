@@ -1,6 +1,7 @@
 import React from 'react';
 import { useTheme } from '@mui/material/styles';
 import { Link, Box, Tooltip } from '@mui/material';
+import { ActionLinkButton } from '../../src/components/ActionLinkButton';
 import { useTabs } from '../../src/hooks/useTabs';
 import { Header } from '../../src/components/Header';
 import { TabList } from '../../src/components/TabList';
@@ -13,6 +14,7 @@ import './App.css';
 function App() {
   const theme = useTheme();
   const [showCopiedTooltip, setShowCopiedTooltip] = React.useState(false);
+  const [hoverTooltipOpen, setHoverTooltipOpen] = React.useState(false);
   
   // Use the custom hook for tab management
   const {
@@ -39,7 +41,7 @@ function App() {
       // Hide tooltip after 2 seconds
       setTimeout(() => {
         setShowCopiedTooltip(false);
-      }, 2000);
+      }, 3000);
     } catch (error) {
       console.error('Failed to copy to clipboard:', error);
     }
@@ -94,95 +96,30 @@ function App() {
           flexDirection: 'row',
         }}
        >
-         {/* Tell a Friend Button */}
-         <Tooltip
-           title="✅ Link copied - you can paste it anywhere"
-           open={showCopiedTooltip}
-           placement="top"
-           arrow
-         >
-           <Link
-             href="#"
-             onClick={handleTellAFriend}
-             title="Share Tab.Show with friends"
-             onMouseEnter={handleSidePanelHoverEnd}
-             sx={{
-               display: 'inline-flex',
-               alignItems: 'center',
-               gap: 0.75, // 1 * 0.75 = 0.75
-               px: 1.5,   // 2 * 0.75 = 1.5
-               py: 0.75,  // 1 * 0.75 = 0.75
-               borderRadius: 1.5, // 2 * 0.75 = 1.5
-               boxShadow: 1.5,    // 2 * 0.75 = 1.5
-               textTransform: 'none',
-               fontWeight: '600',
-               textDecoration: 'none',
-               backgroundColor: 'background.paper',
-               backdropFilter: 'blur(8px)',
-               border: '1px solid',
-               borderColor: 'secondary.main',
-               color: 'secondary.main',
-               fontSize: '0.75rem', // Reduced font size
-               '&:hover': {
-                 backgroundColor: 'primary.main',
-                 color: 'primary.contrastText',
-                 borderColor: 'primary.main',
-                 boxShadow: 3, // 4 * 0.75 = 3
-                 transform: 'translateY(-1.5px)', // -2 * 0.75 = -1.5
-                 textDecoration: 'none',
-               },
-               '&:active': {
-                 backgroundColor: 'primary.dark',
-                 borderColor: 'primary.dark',
-               },
-               transition: 'all 0.2s ease-in-out',
-             }}
-           >
-             Tell a Friend 😊
-           </Link>
-         </Tooltip>
+        
+        <ActionLinkButton
+          href="#"
+          label="Tell a Friend 😊"
+          title="Copy Chrome Web Store link"
+          overrideTitle="Link copied ✅ - you can paste it anywhere"
+          extraOpen={showCopiedTooltip}
+          enterDelay={500}
+          placement="top"
+          onClick={handleTellAFriend}
+          onMouseEnter={handleSidePanelHoverEnd}
+        />
 
-         {/* Suggest a Feature Button */}
-         <Link
-           href={EXTENSION_URLS.FEATURE_REQUEST}
-           target="_blank"
-           rel="noopener noreferrer"
-           title="Open Featurebase to suggest features"
-           onMouseEnter={handleSidePanelHoverEnd}
-           sx={{
-             display: 'inline-flex',
-             alignItems: 'center',
-             gap: 0.75, // 1 * 0.75 = 0.75
-             px: 1.5,   // 2 * 0.75 = 1.5
-             py: 0.75,  // 1 * 0.75 = 0.75
-             borderRadius: 1.5, // 2 * 0.75 = 1.5
-             boxShadow: 1.5,    // 2 * 0.75 = 1.5
-             textTransform: 'none',
-             fontWeight: '600',
-             textDecoration: 'none',
-             backgroundColor: 'background.paper',
-             backdropFilter: 'blur(8px)',
-             border: '1px solid',
-             borderColor: 'secondary.main',
-             color: 'secondary.main',
-             fontSize: '0.75rem', // Reduced font size
-             '&:hover': {
-               backgroundColor: 'primary.main',
-               color: 'primary.contrastText',
-               borderColor: 'primary.main',
-               boxShadow: 3, // 4 * 0.75 = 3
-               transform: 'translateY(-1.5px)', // -2 * 0.75 = -1.5
-               textDecoration: 'none',
-             },
-             '&:active': {
-               backgroundColor: 'primary.dark',
-               borderColor: 'primary.dark',
-             },
-             transition: 'all 0.2s ease-in-out',
-           }}
-         >
-           Suggest Feature
-         </Link>
+        
+        <ActionLinkButton
+          href={EXTENSION_URLS.FEATURE_REQUEST}
+          target="_blank"
+          rel="noopener noreferrer"
+          label="Suggest Feature"
+          title="Tell me how I could make the product more useful to you"
+          enterDelay={500}
+          placement="top"
+          onMouseEnter={handleSidePanelHoverEnd}
+        />
       </Box>
     </div>
   );
