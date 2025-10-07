@@ -75,10 +75,22 @@ export function useTabs() {
     }
   }, [logError]);
   
-  const reorderTabs = useCallback(async (activeId: string, overId: string) => {
-    // This function will now contain all the logic to call browser APIs
-    // ...
-  }, [allTabs]);
+  // First, replace the reorderTabs function with this one.
+  // It will now handle the optimistic update.
+  const reorderTabs = useCallback((activeId: string, overId: string) => {
+    setAllTabs((prevTabs) => {
+      // This is a simplified version. A more robust solution might be needed
+      // if the flat list `itemOrder` logic was more complex.
+      const activeIndex = prevTabs.findIndex(t => `tab-${t.id}` === activeId);
+      const overIndex = prevTabs.findIndex(t => `tab-${t.id}` === overId);
+      if (activeIndex === -1 || overIndex === -1) return prevTabs;
+
+      const newTabs = [...prevTabs];
+      const [movedItem] = newTabs.splice(activeIndex, 1);
+      newTabs.splice(overIndex, 0, movedItem);
+      return newTabs;
+    });
+  }, []);
 
   const clearHoverSwitchFlag = useCallback(() => {
     isSwitchingOnHoverRef.current = false;
@@ -393,62 +405,89 @@ export function useTabs() {
     setOverDragItem(over);
   }, []);
 
-  const handleDragEnd = useCallback(async ({ active, over }: { active: any, over: any }) => {
-    if (!over || active.id === over.id) return;
+  // Second, replace the ENTIRE handleDragEnd function with this new logic.
+  const handleDragEnd = useCallback(async (event: any) => {
+    const { active, over } = event;
 
     setActiveDragItem(null);
     setOverDragItem(null);
 
-    const activeItem = flatTabList.find(i => i.id === active.id);
-    const overItem = flatTabList.find(i => i.id === over.id);
-    if (!activeItem || !overItem || activeItem.type !== 'tab') return;
-    
-    const tabIdToMove = (activeItem.data as Tab).id!;
-    const allBrowserTabs = await tabService.getAllTabs();
-    
-    let targetIndex = -1;
-    let targetGroupId: number | undefined = undefined;
-
-    if (overItem.type === 'tab') {
-        targetGroupId = (overItem.data as Tab).groupId;
-        targetIndex = allBrowserTabs.findIndex(t => t.id === (overItem.data as Tab).id);
-    } else { // Dropped on a group header
-        targetGroupId = (overItem.data as TabGroup).id;
-        const tabsInGroup = allBrowserTabs.filter(t => t.groupId === targetGroupId);
-        if (tabsInGroup.length > 0) {
-            targetIndex = allBrowserTabs.findIndex(t => t.id === tabsInGroup[tabsInGroup.length - 1].id) + 1;
-        } else {
-            // Find the first tab AFTER the group header in the browser's list
-            // This is complex, so let's approximate by finding the next tab in our flat list
-            const overItemIndex = flatTabList.findIndex(i => i.id === over.id);
-            const nextItem = flatTabList.slice(overItemIndex + 1).find(i => i.type === 'tab');
-            if (nextItem) {
-                targetIndex = allBrowserTabs.findIndex(t => t.id === (nextItem.data as Tab).id);
-            } else {
-                targetIndex = allBrowserTabs.length; // Move to the end
-            }
-        }
+    if (!active || !over || active.id === over.id) {
+      return;
     }
-    
-    if (targetIndex === -1) return;
 
-    const currentTab = allBrowserTabs.find(t => t.id === tabIdToMove);
-    if (currentTab?.groupId !== targetGroupId) {
-        if (targetGroupId !== undefined) {
-            await tabService.groupTab(tabIdToMove, targetGroupId);
-        } else {
-            await tabService.ungroupTab(tabIdToMove);
+    const activeId = active.id as string;
+    const overId = over.id as string;
+
+    // We only handle dragging tabs.
+    if (!activeId.startsWith('tab-')) return;
+
+    // --- 1. OPTIMISTIC UI UPDATE ---
+    // Get the visual state AFTER the drag has completed locally.
+    const oldOrder = flatTabList.map(item => item.id);
+    const oldIndex = oldOrder.indexOf(activeId);
+    const newIndexInVisualList = oldOrder.indexOf(overId);
+    const newVisualOrder = [...oldOrder];
+    const [movedItem] = newVisualOrder.splice(oldIndex, 1);
+    newVisualOrder.splice(newIndexInVisualList, 0, movedItem);
+
+    // Apply the optimistic update to the UI
+    // This is tricky because we can't just set the order. We need to re-order the source `allTabs` array.
+    // For now, the logic in `reorderTabs` will serve as our optimistic update.
+    reorderTabs(activeId, overId);
+
+    try {
+      // --- 2. ANALYZE THE NEW STATE & CALCULATE BROWSER ACTIONS ---
+      const tabIdToMove = parseInt(activeId.replace('tab-', ''));
+      const tabToMove = allTabs.find(t => t.id === tabIdToMove);
+
+      if (!tabToMove) throw new Error("Could not find tab data for the dragged item.");
+
+      // Find the new parent group, if any.
+      let newGroupId: number | undefined = undefined;
+      const finalVisualIndexOfActiveItem = newVisualOrder.indexOf(activeId);
+      for (let i = finalVisualIndexOfActiveItem; i >= 0; i--) {
+        const item = flatTabList.find(it => it.id === newVisualOrder[i]);
+        if (item?.type === 'group') {
+          newGroupId = (item.data as TabGroup).id;
+          break;
         }
+      }
+
+      // Calculate the final BROWSER index by counting only tabs.
+      let targetBrowserIndex = 0;
+      for (let i = 0; i < finalVisualIndexOfActiveItem; i++) {
+        const itemId = newVisualOrder[i];
+        if (itemId.startsWith('tab-')) {
+          targetBrowserIndex++;
+        }
+      }
+
+      // --- 3. EXECUTE BROWSER API CALLS ---
+      const needsGroupChange = tabToMove.groupId !== newGroupId;
+
+      if (needsGroupChange) {
+        if (newGroupId !== undefined) {
+          await tabService.groupTab(tabIdToMove, newGroupId);
+        } else {
+          await tabService.ungroupTab(tabIdToMove);
+        }
+      }
+      
+      // The browser's move index is absolute. We have already calculated it.
+      await tabService.moveTab(tabIdToMove, targetBrowserIndex);
+
+      // The browser's `onMoved` and `onUpdated` events will now fire.
+      // Our existing listeners will call `refreshTabData`, which will rebuild the state
+      // from the browser's source of truth, automatically correcting any minor
+      // discrepancies from our optimistic update.
+
+    } catch (error) {
+      console.error('Drag-and-drop operation failed. Reverting UI by refreshing.', error);
+      // On any failure, revert the optimistic update by fetching the real state.
+      await refreshTabData();
     }
-    
-    // The tab might have shifted after grouping, so we get a fresh index
-    const finalTabs = await tabService.getAllTabs();
-    const overTabInFinalList = finalTabs.find(t => t.id === (overItem.type === 'tab' ? (overItem.data as Tab).id : undefined));
-    const finalIndex = overTabInFinalList ? finalTabs.indexOf(overTabInFinalList) : targetIndex;
-
-    await tabService.moveTab(tabIdToMove, finalIndex);
-
-  }, [flatTabList, refreshTabData]);
+  }, [flatTabList, allTabs, refreshTabData, reorderTabs]);
 
   // Set up event listeners
   useEffect(() => {
