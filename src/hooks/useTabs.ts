@@ -13,6 +13,8 @@ export function useTabs() {
   const [originalTab, setOriginalTab] = useState<Tab | null>(null);
   const [previewTabId, setPreviewTabId] = useState<number | null>(null);
   const [originalTabIndex, setOriginalTabIndex] = useState<number>(-1);
+  const [activeDragItem, setActiveDragItem] = useState<any | null>(null);
+  const [overDragItem, setOverDragItem] = useState<any | null>(null);
 
   const isSwitchingOnHoverRef = useRef(false);
   const hoverSwitchTimeoutRef = useRef<NodeJS.Timeout | null>(null);
@@ -473,8 +475,21 @@ export function useTabs() {
     }
   }, [logError]);
 
+  const handleDragStart = useCallback((event: any) => {
+    setActiveDragItem(event.active);
+  }, []);
+
+  const handleDragOver = useCallback((event: any) => {
+    const { over } = event;
+    setOverDragItem(over);
+  }, []);
+
   const handleDragEnd = useCallback(async (event: any) => {
     const { active, over } = event;
+
+    // Reset tracking state
+    setActiveDragItem(null);
+    setOverDragItem(null);
 
     if (!active || !over || active.id === over.id) {
       return;
@@ -482,47 +497,86 @@ export function useTabs() {
 
     const activeId = active.id as string;
     const overId = over.id as string;
+    
+    const activeItem = tabListState.items[activeId];
+    const overItem = tabListState.items[overId];
 
-    // For now, only handle reordering of tabs (not groups)
-    if (!activeId.startsWith('tab-') || !overId.startsWith('tab-')) {
-      console.log('Drag ended but involved a non-tab item. Ignoring.');
+    // Determine the parent group IDs
+    const activeItemGroupId = activeItem?.parentId;
+    const overItemGroupId = overItem?.parentId;
+
+    // Scenario 1: Reordering within the same context (same group or both ungrouped)
+    if (activeItemGroupId === overItemGroupId) {
+      // This is the simple reorder we already implemented.
+      // Let's call the browser API directly.
+      try {
+        const allTabs = await tabService.getAllTabs();
+        const tabIdToMove = parseInt(activeId.replace('tab-', ''));
+        const overTabId = parseInt(overId.replace('tab-', ''));
+        const newIndex = allTabs.findIndex(t => t.id === overTabId);
+
+        if (newIndex !== -1) {
+          await tabService.moveTab(tabIdToMove, newIndex);
+        }
+      } catch (error) {
+        console.error('Error during simple reorder:', error);
+        await refreshTabData(); // Revert on error
+      }
       return;
     }
 
-    // This is an optimistic update to make the UI feel instant.
-    // The browser event will correct it if anything goes wrong.
-    setTabListState((prevState) => {
-      const oldIndex = prevState.itemOrder.indexOf(activeId);
-      const newIndex = prevState.itemOrder.indexOf(overId);
-      const newOrder = [...prevState.itemOrder];
-      const [movedItem] = newOrder.splice(oldIndex, 1);
-      newOrder.splice(newIndex, 0, movedItem);
-      return { ...prevState, itemOrder: newOrder };
-    });
-
+    // Scenario 2: Moving an item into or out of a group
     try {
-      // Get the ground truth of tab order directly from the browser
-      const currentTabs = await tabService.getAllTabs();
+      const tabIdToMove = parseInt(activeId.replace('tab-', ''));
+      let targetGroupId: number | null = null;
+      let newIndex = -1;
 
-      const tabIdToMove = parseInt(activeId.replace('tab-', ''), 10);
-      const overTabId = parseInt(overId.replace('tab-', ''), 10);
-
-      // Find the browser index of the tab we're dropping onto.
-      const newIndex = currentTabs.findIndex(tab => tab.id === overTabId);
-
-      if (newIndex !== -1) {
-        // Call the browser API to physically move the tab
-        await tabService.moveTab(tabIdToMove, newIndex);
-        // The onMoved listener will fire and trigger a full refresh, ensuring consistency.
+      // Find the new group and index
+      const allTabs = await tabService.getAllTabs();
+      const overTabId = parseInt(overId.replace('tab-', ''));
+      const overTab = allTabs.find(t => t.id === overTabId);
+      
+      if (overTab) {
+        newIndex = allTabs.findIndex(t => t.id === overTabId);
+        // The new group ID is the group ID of the item we are dropping on.
+        // If it's undefined, the tab becomes ungrouped.
+        targetGroupId = overTab.groupId ?? null; 
       } else {
-        console.warn('Could not determine new index for moved tab. Reverting.');
-        await refreshTabData(); // Revert optimistic update if something is wrong
+          // Handle dropping on a group header
+          if (overId.startsWith('group-')) {
+              targetGroupId = parseInt(overId.replace('group-', ''));
+              // Move it to the end of the group
+              const groupTabs = allTabs.filter(t => t.groupId === targetGroupId);
+              if (groupTabs.length > 0) {
+                   newIndex = allTabs.findIndex(t => t.id === groupTabs[groupTabs.length-1].id) +1;
+              } else {
+                   // if group is empty, find group header to determine index
+                   // for now, let's just move to the end of all tabs
+                   newIndex = -1;
+              }
+          }
       }
+
+
+      if (newIndex === -1) return;
+
+      // First, move the tab to its new group
+      if (targetGroupId !== null) {
+        await browser.tabs.group({ tabIds: tabIdToMove, groupId: targetGroupId });
+      } else {
+        // Ungroup the tab if it's dropped outside any group context
+        await browser.tabs.ungroup(tabIdToMove);
+      }
+      
+      // Then, move the tab to its final index
+      await tabService.moveTab(tabIdToMove, newIndex);
+
     } catch (error) {
-      console.error('An error occurred during tab move, reverting UI:', error);
-      await refreshTabData(); // Revert optimistic update on API error
+      console.error('Error during complex reorder:', error);
+      await refreshTabData();
     }
-  }, [refreshTabData]);
+
+  }, [tabListState, refreshTabData]);
 
   // Set up event listeners
   useEffect(() => {
@@ -583,6 +637,8 @@ export function useTabs() {
     handleGroupToggle,
     setOriginalTab,
     setPreviewTabId,
-    handleDragEnd
+    handleDragEnd,
+    handleDragStart,
+    handleDragOver
   };
 }

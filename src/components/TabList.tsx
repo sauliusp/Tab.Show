@@ -27,6 +27,8 @@ interface TabListProps {
   onCloseTab: (tabId: number) => void;
   onGroupToggle: (groupId: number) => void;
   onDragEnd: (event: any) => void; // <-- New prop
+  onDragStart: (event: any) => void;
+  onDragOver: (event: any) => void;
 }
 
 export function TabList({
@@ -37,7 +39,9 @@ export function TabList({
   onTabClick,
   onCloseTab,
   onGroupToggle,
-  onDragEnd // <-- New prop
+  onDragEnd, // <-- New prop
+  onDragStart,
+  onDragOver
 }: TabListProps) {
   const theme = useTheme();
   const parentRef = useRef<HTMLDivElement>(null);
@@ -209,6 +213,8 @@ export function TabList({
       sensors={sensors}
       collisionDetection={closestCenter}
       onDragEnd={onDragEnd}
+      onDragStart={onDragStart}
+      onDragOver={onDragOver}
     >
       <Box
         ref={parentRef}
