@@ -12,11 +12,12 @@ import {
   Typography
 } from '@mui/material';
 import { ExpandLess, ExpandMore, Folder } from '@mui/icons-material';
-import { DndContext, closestCenter, PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
+import { DndContext, closestCenter, PointerSensor, useSensor, useSensors, DragOverlay } from '@dnd-kit/core';
 import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable';
 
 import { Tab, TabGroup, TabListItem, TabListState } from '../types/Tab';
 import { SortableTabItem } from './SortableTabItem'; // <-- Import the new component
+import { TabItem } from './TabItem'; // Import the original TabItem
 
 interface TabListProps {
   tabListState: TabListState;
@@ -29,6 +30,7 @@ interface TabListProps {
   onDragEnd: (event: any) => void; // <-- New prop
   onDragStart: (event: any) => void;
   onDragOver: (event: any) => void;
+  activeDragItem: any | null;
 }
 
 export function TabList({
@@ -41,7 +43,8 @@ export function TabList({
   onGroupToggle,
   onDragEnd, // <-- New prop
   onDragStart,
-  onDragOver
+  onDragOver,
+  activeDragItem
 }: TabListProps) {
   const theme = useTheme();
   const parentRef = useRef<HTMLDivElement>(null);
@@ -212,9 +215,9 @@ export function TabList({
     <DndContext
       sensors={sensors}
       collisionDetection={closestCenter}
-      onDragEnd={onDragEnd}
       onDragStart={onDragStart}
       onDragOver={onDragOver}
+      onDragEnd={onDragEnd}
     >
       <Box
         ref={parentRef}
@@ -267,6 +270,29 @@ export function TabList({
           </div>
         </SortableContext>
       </Box>
+
+      <DragOverlay>
+        {activeDragItem ? (
+          (() => {
+            const item = tabListState.items[activeDragItem.id];
+            if (item && item.type === 'tab') {
+              const tab = item.data as Tab;
+              // Render a non-sortable TabItem for the overlay
+              return (
+                <TabItem
+                  tab={tab}
+                  previewTabId={previewTabId}
+                  originalTab={originalTab}
+                  onTabHover={() => {}} // No-op for overlay
+                  onTabClick={() => {}}   // No-op for overlay
+                  onCloseTab={() => {}}   // No-op for overlay
+                />
+              );
+            }
+            return null;
+          })()
+        ) : null}
+      </DragOverlay>
     </DndContext>
   );
 }

@@ -24,11 +24,13 @@ export function SortableTabItem(props: SortableTabItemProps) {
     setNodeRef,
     transform,
     transition,
+    isDragging, // <-- Get the isDragging state
   } = useSortable({ id: props.id });
 
   const style = {
     transform: CSS.Transform.toString(transform),
     transition,
+    opacity: isDragging ? 0 : 1, // <-- Hide the item when dragging
   };
 
   return (

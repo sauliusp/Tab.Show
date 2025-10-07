@@ -27,7 +27,8 @@ function App() {
     handleGroupToggle,
     handleDragEnd, // <-- Make sure to get this from the hook
     handleDragStart,
-    handleDragOver
+    handleDragOver,
+    activeDragItem
   } = useTabs();
 
   // Clear visual state cache when theme changes to prevent stale cached values
@@ -83,6 +84,7 @@ function App() {
         onDragEnd={handleDragEnd} // <-- Pass it here
         onDragStart={handleDragStart}
         onDragOver={handleDragOver}
+        activeDragItem={activeDragItem}
       />
 
       {/* Performance metrics (development only) */}

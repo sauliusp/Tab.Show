@@ -112,6 +112,24 @@ export function useTabs() {
     }
   }, [logError, buildTabListState]);
 
+  const reorderTabs = useCallback((activeId: string, overId: string) => {
+    setTabListState((prevState) => {
+      const oldIndex = prevState.itemOrder.indexOf(activeId);
+      const newIndex = prevState.itemOrder.indexOf(overId);
+      if (oldIndex === -1 || newIndex === -1) return prevState;
+
+      // Use a standard array move utility
+      const newOrder = [...prevState.itemOrder];
+      const [movedItem] = newOrder.splice(oldIndex, 1);
+      newOrder.splice(newIndex, 0, movedItem);
+
+      return {
+        ...prevState,
+        itemOrder: newOrder,
+      };
+    });
+  }, []);
+
   const clearHoverSwitchFlag = useCallback(() => {
     isSwitchingOnHoverRef.current = false;
     if (hoverSwitchTimeoutRef.current) {
@@ -507,6 +525,9 @@ export function useTabs() {
 
     // Scenario 1: Reordering within the same context (same group or both ungrouped)
     if (activeItemGroupId === overItemGroupId) {
+      // Perform optimistic update for same-context reorder
+      reorderTabs(activeId, overId);
+
       // This is the simple reorder we already implemented.
       // Let's call the browser API directly.
       try {
@@ -576,7 +597,7 @@ export function useTabs() {
       await refreshTabData();
     }
 
-  }, [tabListState, refreshTabData]);
+  }, [tabListState, refreshTabData, reorderTabs]);
 
   // Set up event listeners
   useEffect(() => {
@@ -639,6 +660,7 @@ export function useTabs() {
     setPreviewTabId,
     handleDragEnd,
     handleDragStart,
-    handleDragOver
+    handleDragOver,
+    reorderTabs
   };
 }
