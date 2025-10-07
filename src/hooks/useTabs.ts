@@ -505,7 +505,6 @@ export function useTabs() {
   const handleDragEnd = useCallback(async (event: any) => {
     const { active, over } = event;
 
-    // Reset tracking state
     setActiveDragItem(null);
     setOverDragItem(null);
 
@@ -515,89 +514,90 @@ export function useTabs() {
 
     const activeId = active.id as string;
     const overId = over.id as string;
-    
-    const activeItem = tabListState.items[activeId];
-    const overItem = tabListState.items[overId];
 
-    // Determine the parent group IDs
-    const activeItemGroupId = activeItem?.parentId;
-    const overItemGroupId = overItem?.parentId;
+    // --- Perform an optimistic UI update ---
+    // This makes the UI feel instant, and it will be corrected by the
+    // browser event listeners if the API calls fail.
+    reorderTabs(activeId, overId);
 
-    // Scenario 1: Reordering within the same context (same group or both ungrouped)
-    if (activeItemGroupId === overItemGroupId) {
-      // Perform optimistic update for same-context reorder
-      reorderTabs(activeId, overId);
-
-      // This is the simple reorder we already implemented.
-      // Let's call the browser API directly.
-      try {
-        const allTabs = await tabService.getAllTabs();
-        const tabIdToMove = parseInt(activeId.replace('tab-', ''));
-        const overTabId = parseInt(overId.replace('tab-', ''));
-        const newIndex = allTabs.findIndex(t => t.id === overTabId);
-
-        if (newIndex !== -1) {
-          await tabService.moveTab(tabIdToMove, newIndex);
-        }
-      } catch (error) {
-        console.error('Error during simple reorder:', error);
-        await refreshTabData(); // Revert on error
-      }
-      return;
-    }
-
-    // Scenario 2: Moving an item into or out of a group
     try {
-      const tabIdToMove = parseInt(activeId.replace('tab-', ''));
-      let targetGroupId: number | null = null;
-      let newIndex = -1;
-
-      // Find the new group and index
       const allTabs = await tabService.getAllTabs();
-      const overTabId = parseInt(overId.replace('tab-', ''));
-      const overTab = allTabs.find(t => t.id === overTabId);
+      const tabIdToMove = parseInt(activeId.replace('tab-', ''));
       
-      if (overTab) {
-        newIndex = allTabs.findIndex(t => t.id === overTabId);
-        // The new group ID is the group ID of the item we are dropping on.
-        // If it's undefined, the tab becomes ungrouped.
-        targetGroupId = overTab.groupId ?? null; 
-      } else {
-          // Handle dropping on a group header
-          if (overId.startsWith('group-')) {
-              targetGroupId = parseInt(overId.replace('group-', ''));
-              // Move it to the end of the group
-              const groupTabs = allTabs.filter(t => t.groupId === targetGroupId);
-              if (groupTabs.length > 0) {
-                   newIndex = allTabs.findIndex(t => t.id === groupTabs[groupTabs.length-1].id) +1;
-              } else {
-                   // if group is empty, find group header to determine index
-                   // for now, let's just move to the end of all tabs
-                   newIndex = -1;
+      const activeItem = tabListState.items[activeId];
+      let overItem = tabListState.items[overId];
+
+      if (!activeItem || !overItem) return;
+
+      // Determine the final browser index for the move
+      let newIndex = -1;
+      // Determine the target group for the move
+      let targetGroupId: number | undefined = undefined;
+
+      if (overItem.type === 'tab') {
+        const overTabData = overItem.data as Tab;
+        newIndex = allTabs.findIndex(t => t.id === overTabData.id);
+        targetGroupId = overTabData.groupId;
+      } else if (overItem.type === 'group') {
+        const overGroupData = overItem.data as TabGroup;
+        targetGroupId = overGroupData.id;
+        
+        // Find the last tab in the target group to place the new tab after it
+        const tabsInGroup = allTabs.filter(t => t.groupId === targetGroupId);
+        if (tabsInGroup.length > 0) {
+          const lastTab = tabsInGroup[tabsInGroup.length - 1];
+          newIndex = allTabs.findIndex(t => t.id === lastTab.id);
+        } else {
+          // If group is empty, find the group's position relative to other tabs
+          // This is complex, so for now, we'll find the first tab after the group.
+          const groupIndexInOrder = tabListState.itemOrder.indexOf(overId);
+          let nextTabId: number | undefined;
+          for (let i = groupIndexInOrder + 1; i < tabListState.itemOrder.length; i++) {
+              const nextItemId = tabListState.itemOrder[i];
+              if (nextItemId.startsWith('tab-')) {
+                  nextTabId = parseInt(nextItemId.replace('tab-',''));
+                  break;
               }
           }
-      }
-
-
-      if (newIndex === -1) return;
-
-      // First, move the tab to its new group
-      if (targetGroupId !== null) {
-        await browser.tabs.group({ tabIds: tabIdToMove, groupId: targetGroupId });
-      } else {
-        // Ungroup the tab if it's dropped outside any group context
-        await browser.tabs.ungroup(tabIdToMove);
+          if (nextTabId) {
+            newIndex = allTabs.findIndex(t => t.id === nextTabId);
+          } else {
+            newIndex = allTabs.length - 1; // Drop at the end
+          }
+        }
       }
       
-      // Then, move the tab to its final index
+      if (newIndex === -1) {
+          throw new Error("Could not determine the new index for the tab.");
+      }
+
+      const currentTab = allTabs.find(t => t.id === tabIdToMove);
+      const isChangingGroup = currentTab?.groupId !== targetGroupId;
+
+      // --- Execute Browser API Calls ---
+      
+      if (isChangingGroup) {
+        if (targetGroupId !== undefined) {
+          // Moving into a new group
+          await tabService.groupTab(tabIdToMove, targetGroupId);
+        } else {
+          // Moving out to become ungrouped
+          await tabService.ungroupTab(tabIdToMove);
+        }
+      }
+
+      // Finally, move the tab to its correct index
       await tabService.moveTab(tabIdToMove, newIndex);
+      
+      // The browser's onMoved and onUpdated events will trigger our listeners
+      // in useTabs.ts, which will then rebuild the state from the source of truth.
 
     } catch (error) {
-      console.error('Error during complex reorder:', error);
+      console.error('Drag-and-drop operation failed. Reverting optimistic update.', error);
+      // If any API call fails, trigger a full refresh to revert the UI
       await refreshTabData();
     }
-
-  }, [tabListState, refreshTabData, reorderTabs]);
+  }, [tabListState, reorderTabs, refreshTabData]);
 
   // Set up event listeners
   useEffect(() => {

@@ -171,6 +171,30 @@ class TabService {
       throw error;
     }
   }
+
+  /**
+   * Assigns a tab to a specific group.
+   */
+  async groupTab(tabId: number, groupId: number): Promise<void> {
+    try {
+      await browser.tabs.group({ tabIds: [tabId], groupId });
+    } catch (error) {
+      console.error(`Failed to group tab ${tabId} into group ${groupId}:`, error);
+      throw error;
+    }
+  }
+
+  /**
+   * Removes a tab from its current group.
+   */
+  async ungroupTab(tabId: number): Promise<void> {
+    try {
+      await browser.tabs.ungroup([tabId]);
+    } catch (error) {
+      console.error(`Failed to ungroup tab ${tabId}:`, error);
+      throw error;
+    }
+  }
 }
 
 export const tabService = TabService.getInstance();
