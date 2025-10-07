@@ -30,7 +30,8 @@ export function SortableTabItem(props: SortableTabItemProps) {
   const style = {
     transform: CSS.Transform.toString(transform),
     transition,
-    opacity: isDragging ? 0 : 1, // <-- Hide the item when dragging
+    opacity: isDragging ? 0.4 : 1, // <-- CHANGE: Use 0.4 instead of 0
+    zIndex: isDragging ? 0 : 1, // Ensure the placeholder is behind the overlay
   };
 
   return (

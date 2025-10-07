@@ -9,7 +9,8 @@ import {
   ListItemText, 
   Collapse,
   Box,
-  Typography
+  Typography,
+  Paper
 } from '@mui/material';
 import { ExpandLess, ExpandMore, Folder } from '@mui/icons-material';
 import { DndContext, closestCenter, PointerSensor, useSensor, useSensors, DragOverlay } from '@dnd-kit/core';
@@ -271,22 +272,29 @@ export function TabList({
         </SortableContext>
       </Box>
 
-      <DragOverlay>
+      <DragOverlay dropAnimation={null}>
         {activeDragItem ? (
           (() => {
             const item = tabListState.items[activeDragItem.id];
             if (item && item.type === 'tab') {
               const tab = item.data as Tab;
-              // Render a non-sortable TabItem for the overlay
               return (
-                <TabItem
-                  tab={tab}
-                  previewTabId={previewTabId}
-                  originalTab={originalTab}
-                  onTabHover={() => {}} // No-op for overlay
-                  onTabClick={() => {}}   // No-op for overlay
-                  onCloseTab={() => {}}   // No-op for overlay
-                />
+                // Wrap the TabItem in a Paper component for elevation and background
+                <Paper
+                  elevation={4}
+                  sx={{
+                    width: parentRef.current?.getBoundingClientRect().width, // Match the width of the list
+                  }}
+                >
+                  <TabItem
+                    tab={tab}
+                    previewTabId={previewTabId}
+                    originalTab={originalTab}
+                    onTabHover={() => {}}
+                    onTabClick={() => {}}
+                    onCloseTab={() => {}}
+                  />
+                </Paper>
               );
             }
             return null;
