@@ -2,173 +2,81 @@ import React, { useMemo, useRef } from 'react';
 import { useTheme } from '@mui/material/styles';
 import { useVirtualizer } from '@tanstack/react-virtual';
 import { 
-  List, 
   ListItem, 
   ListItemButton, 
   ListItemIcon, 
   ListItemText, 
-  Collapse,
   Box,
   Typography,
   Paper
 } from '@mui/material';
-import { ExpandLess, ExpandMore, Folder } from '@mui/icons-material';
+import { ExpandLess, ExpandMore, Folder, DragIndicator } from '@mui/icons-material';
 import { DndContext, closestCenter, PointerSensor, useSensor, useSensors, DragOverlay } from '@dnd-kit/core';
-import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable';
+import { SortableContext, useSortable, verticalListSortingStrategy } from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
 
-import { Tab, TabGroup, TabListItem, TabListState } from '../types/Tab';
-import { SortableTabItem } from './SortableTabItem'; // <-- Import the new component
-import { TabItem } from './TabItem'; // Import the original TabItem
+import { Tab, TabGroup } from '../types/Tab';
+import { TabItem } from './TabItem';
+import { FlatListItem } from '../hooks/useTabs';
 
 interface TabListProps {
-  tabListState: TabListState;
+  flatTabList: FlatListItem[];
   previewTabId: number | null;
   originalTab: Tab | null;
+  activeDragItem: any | null;
   onTabHover: (tabId: number) => void;
   onTabClick: (tabId: number) => void;
   onCloseTab: (tabId: number) => void;
   onGroupToggle: (groupId: number) => void;
-  onDragEnd: (event: any) => void; // <-- New prop
+  onDragEnd: (event: any) => void;
   onDragStart: (event: any) => void;
   onDragOver: (event: any) => void;
-  activeDragItem: any | null;
 }
 
-export function TabList({
-  tabListState,
-  previewTabId,
-  originalTab,
-  onTabHover,
-  onTabClick,
-  onCloseTab,
-  onGroupToggle,
-  onDragEnd, // <-- New prop
-  onDragStart,
-  onDragOver,
-  activeDragItem
-}: TabListProps) {
-  const theme = useTheme();
-  const parentRef = useRef<HTMLDivElement>(null);
-  
-  const sensors = useSensors(
-    useSensor(PointerSensor, {
-      activationConstraint: {
-        distance: 8,
-      },
-    })
-  );
-  
-  // Create a flattened list of all visible items for virtualization
-  const virtualItems = useMemo(() => {
-    const items: Array<{
-      id: string;
-      type: 'tab' | 'group';
-      data: Tab | TabGroup;
-      parentId?: string;
-      isNested?: boolean;
-    }> = [];
-    
-    tabListState.itemOrder.forEach((itemId: string) => {
-      const item = tabListState.items[itemId];
-      if (!item) return;
-      
-      if (item.type === 'group') {
-        const group = item.data as TabGroup;
-        const isExpanded = tabListState.groupExpansionState[group.id] !== false;
-        
-        // Add group header
-        items.push({
-          id: item.id,
-          type: 'group',
-          data: group,
-          isNested: false
-        });
-        
-        // Add group tabs if expanded
-        if (isExpanded) {
-          const groupTabs = Object.values(tabListState.items)
-            .filter((tabItem: TabListItem) => tabItem.type === 'tab' && tabItem.parentId === `group-${group.id}`)
-            .map((tabItem: TabListItem) => tabItem.data as Tab);
-          
-          groupTabs.forEach(tab => {
-            items.push({
-              id: `tab-${tab.id}`,
-              type: 'tab',
-              data: tab,
-              parentId: `group-${group.id}`,
-              isNested: true
-            });
-          });
-        }
-      } else if (item.type === 'tab') {
-        // Ungrouped tab
-        items.push({
-          id: item.id,
-          type: 'tab',
-          data: item.data as Tab,
-          isNested: false
-        });
-      }
-    });
-    
-    return items;
-  }, [tabListState]);
-  
-  // Set up the virtualizer
-  const virtualizer = useVirtualizer({
-    count: virtualItems.length,
-    getScrollElement: () => parentRef.current,
-    estimateSize: (index) => {
-      const item = virtualItems[index];
-      if (item.type === 'group') return 48; // Group header height
-      return 38; // Tab item height
-    },
-    overscan: 5,
-  });
-  
-  // Helper function to get group color
-  const getGroupColor = (color?: string) => {
-    const colorMap: Record<string, string> = {
-      'grey': '#8E8E93',
-      'blue': '#007AFF',
-      'cyan': '#00C7BE',
-      'red': '#FF3B30',
-      'green': '#34C759',
-      'yellow': '#FFCC00',
-      'pink': '#FF2D92',
-      'purple': '#AF52DE',
-      'orange': '#FF9500'
-    };
-    return colorMap[color || 'grey'] || '#8E8E93';
+const getGroupColor = (color?: string) => {
+  const colorMap: Record<string, string> = {
+    'grey': '#8E8E93',
+    'blue': '#007AFF',
+    'cyan': '#00C7BE',
+    'red': '#FF3B30',
+    'green': '#34C759',
+    'yellow': '#FFCC00',
+    'pink': '#FF2D92',
+    'purple': '#AF52DE',
+    'orange': '#FF9500'
   };
-  
-  // Render a virtual item
-  const renderVirtualItem = (virtualItem: any, groupColor?: string) => {
-    const { type, data, isNested } = virtualItem;
-    
-    if (type === 'group') {
-      const group = data as TabGroup;
-      const isExpanded = tabListState.groupExpansionState[group.id] !== false;
-      const groupColor = getGroupColor(group.color);
-      
-      return (
+  return colorMap[color || 'grey'] || '#8E8E93';
+};
+
+function SortableItem(props: any) {
+  const { item, onGroupToggle, ...rest } = props;
+  const theme = useTheme();
+
+  const { isDragging, attributes, listeners, setNodeRef, transform, transition } = useSortable({
+    id: item.id,
+    disabled: item.type === 'group',
+  });
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+    opacity: isDragging ? 0.4 : 1,
+  };
+
+  if (item.type === 'group') {
+    const group = item.data as TabGroup;
+    const groupColor = getGroupColor(group.color);
+    return (
+      <div ref={setNodeRef} style={style}>
         <ListItem disablePadding>
-          <ListItemButton 
-            onClick={() => onGroupToggle(group.id)}
-            sx={{
-              pl: 2,
-              pr: 2,
-              py: 1,
-              '&:hover': {
-                backgroundColor: theme.palette.action.hover
-              }
-            }}
-          >
-            <ListItemIcon sx={{ minWidth: 36 }}>
-              <Folder sx={{ color: groupColor, fontSize: 25 }} />
-            </ListItemIcon>
-            
-            <ListItemText
+           <ListItemButton 
+             onClick={() => onGroupToggle(group.id)}
+             sx={{ pl: 2, pr: 2, py: 1, '&:hover': { backgroundColor: theme.palette.action.hover } }}
+           >
+             <ListItemIcon sx={{ minWidth: 36 }}>
+               <Folder sx={{ color: groupColor, fontSize: 25 }} />
+             </ListItemIcon>
+             <ListItemText
               primary={
                 <Typography 
                   variant="body1" 
@@ -189,28 +97,60 @@ export function TabList({
                 </Typography>
               }
             />
-            {isExpanded ? <ExpandLess /> : <ExpandMore />}
-          </ListItemButton>
-        </ListItem>
-      );
-    } else {
-      const tab = data as Tab;
-      // Use SortableTabItem for tabs
-      return (
-        <SortableTabItem
-          id={`tab-${tab.id}`}
-          tab={tab}
-          previewTabId={previewTabId}
-          originalTab={originalTab}
-          onTabHover={onTabHover}
+            {/* This needs groupExpansionState to work */}
+            {/* {isExpanded ? <ExpandLess /> : <ExpandMore />} */}
+           </ListItemButton>
+         </ListItem>
+      </div>
+    );
+  }
   
-          onTabClick={onTabClick}
-          onCloseTab={onCloseTab}
-          groupColor={groupColor}
-        />
-      );
-    }
-  };
+  return (
+    <div ref={setNodeRef} style={style} {...attributes} {...listeners}>
+        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+            <Box sx={{ cursor: 'grab', display: 'flex', alignItems: 'center', paddingLeft: 1 }}>
+                <DragIndicator color="action" />
+            </Box>
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <TabItem tab={item.data as Tab} {...rest} />
+            </div>
+        </Box>
+    </div>
+  );
+}
+
+
+export function TabList(props: TabListProps) {
+  const {
+    flatTabList,
+    previewTabId,
+    originalTab,
+    activeDragItem,
+    onDragEnd,
+    onDragStart,
+    onDragOver,
+  } = props;
+  const theme = useTheme();
+  const parentRef = useRef<HTMLDivElement>(null);
+  
+  const sensors = useSensors(
+    useSensor(PointerSensor, {
+      activationConstraint: {
+        distance: 8,
+      },
+    })
+  );
+  
+  const virtualizer = useVirtualizer({
+    count: flatTabList.length,
+    getScrollElement: () => parentRef.current,
+    estimateSize: (index) => {
+      const item = flatTabList[index];
+      if (item.type === 'group') return 48;
+      return 38;
+    },
+    overscan: 5,
+  });
   
   return (
     <DndContext
@@ -231,7 +171,7 @@ export function TabList({
           minHeight: 0
         }}
       >
-        <SortableContext items={tabListState.itemOrder} strategy={verticalListSortingStrategy}>
+        <SortableContext items={flatTabList.map(item => item.id)} strategy={verticalListSortingStrategy}>
           <div
             style={{
               height: `${virtualizer.getTotalSize()}px`,
@@ -240,17 +180,7 @@ export function TabList({
             }}
           >
             {virtualizer.getVirtualItems().map((virtualItem) => {
-              const item = virtualItems[virtualItem.index];
-              let groupColor: string | undefined;
-              
-              if (item.isNested && item.parentId) {
-                const groupItem = tabListState.items[item.parentId];
-                if (groupItem && groupItem.type === 'group') {
-                  const group = groupItem.data as TabGroup;
-                  groupColor = getGroupColor(group.color);
-                }
-              }
-              
+              const item = flatTabList[virtualItem.index];
               return (
                 <div
                   key={item.id}
@@ -261,10 +191,9 @@ export function TabList({
                     width: '100%',
                     height: `${virtualItem.size}px`,
                     transform: `translateY(${virtualItem.start}px)`,
-                    paddingLeft: item.isNested ? theme.spacing(2) : 0,
                   }}
                 >
-                  {renderVirtualItem(item, groupColor)}
+                  <SortableItem item={item} {...props} />
                 </div>
               );
             })}
@@ -275,15 +204,14 @@ export function TabList({
       <DragOverlay dropAnimation={null}>
         {activeDragItem ? (
           (() => {
-            const item = tabListState.items[activeDragItem.id];
+            const item = flatTabList.find(i => i.id === activeDragItem.id);
             if (item && item.type === 'tab') {
               const tab = item.data as Tab;
               return (
-                // Wrap the TabItem in a Paper component for elevation and background
                 <Paper
                   elevation={4}
                   sx={{
-                    width: parentRef.current?.getBoundingClientRect().width, // Match the width of the list
+                    width: parentRef.current?.getBoundingClientRect().width,
                   }}
                 >
                   <TabItem
