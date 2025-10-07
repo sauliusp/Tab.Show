@@ -158,6 +158,19 @@ class TabService {
       return false;
     }
   }
+
+  /**
+   * Move a tab to a new position within the window
+   */
+  async moveTab(tabId: number, newIndex: number): Promise<void> {
+    try {
+      await browser.tabs.move(tabId, { index: newIndex });
+    } catch (error) {
+      console.error(`Failed to move tab ${tabId} to index ${newIndex}:`, error);
+      // We can re-throw the error if we want the caller to handle it
+      throw error;
+    }
+  }
 }
 
 export const tabService = TabService.getInstance();

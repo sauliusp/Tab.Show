@@ -24,7 +24,8 @@ function App() {
     handleTabHover,
     handleSidePanelHoverEnd,
     handleTabClick,
-    handleGroupToggle
+    handleGroupToggle,
+    handleDragEnd // <-- Make sure to get this from the hook
   } = useTabs();
 
   // Clear visual state cache when theme changes to prevent stale cached values
@@ -77,6 +78,7 @@ function App() {
         onTabClick={handleTabClick}
         onCloseTab={handleCloseTab}
         onGroupToggle={handleGroupToggle}
+        onDragEnd={handleDragEnd} // <-- Pass it here
       />
 
       {/* Performance metrics (development only) */}

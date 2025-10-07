@@ -12,8 +12,11 @@ import {
   Typography
 } from '@mui/material';
 import { ExpandLess, ExpandMore, Folder } from '@mui/icons-material';
+import { DndContext, closestCenter, PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
+import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable';
+
 import { Tab, TabGroup, TabListItem, TabListState } from '../types/Tab';
-import { TabItem } from './TabItem';
+import { SortableTabItem } from './SortableTabItem'; // <-- Import the new component
 
 interface TabListProps {
   tabListState: TabListState;
@@ -23,6 +26,7 @@ interface TabListProps {
   onTabClick: (tabId: number) => void;
   onCloseTab: (tabId: number) => void;
   onGroupToggle: (groupId: number) => void;
+  onDragEnd: (event: any) => void; // <-- New prop
 }
 
 export function TabList({
@@ -32,10 +36,19 @@ export function TabList({
   onTabHover,
   onTabClick,
   onCloseTab,
-  onGroupToggle
+  onGroupToggle,
+  onDragEnd // <-- New prop
 }: TabListProps) {
   const theme = useTheme();
   const parentRef = useRef<HTMLDivElement>(null);
+  
+  const sensors = useSensors(
+    useSensor(PointerSensor, {
+      activationConstraint: {
+        distance: 8,
+      },
+    })
+  );
   
   // Create a flattened list of all visible items for virtualization
   const virtualItems = useMemo(() => {
@@ -174,12 +187,15 @@ export function TabList({
       );
     } else {
       const tab = data as Tab;
+      // Use SortableTabItem for tabs
       return (
-        <TabItem
+        <SortableTabItem
+          id={`tab-${tab.id}`}
           tab={tab}
           previewTabId={previewTabId}
           originalTab={originalTab}
           onTabHover={onTabHover}
+  
           onTabClick={onTabClick}
           onCloseTab={onCloseTab}
           groupColor={groupColor}
@@ -189,54 +205,62 @@ export function TabList({
   };
   
   return (
-    <Box
-      ref={parentRef}
-      sx={{
-        height: '100%',
-        width: '100%',
-        overflow: 'auto',
-        backgroundColor: theme.palette.background.paper,
-        flex: 1,
-        minHeight: 0
-      }}
+    <DndContext
+      sensors={sensors}
+      collisionDetection={closestCenter}
+      onDragEnd={onDragEnd}
     >
-      <div
-        style={{
-          height: `${virtualizer.getTotalSize()}px`,
+      <Box
+        ref={parentRef}
+        sx={{
+          height: '100%',
           width: '100%',
-          position: 'relative',
+          overflow: 'auto',
+          backgroundColor: theme.palette.background.paper,
+          flex: 1,
+          minHeight: 0
         }}
       >
-        {virtualizer.getVirtualItems().map((virtualItem) => {
-          const item = virtualItems[virtualItem.index];
-          let groupColor: string | undefined;
-          
-          if (item.isNested && item.parentId) {
-            const groupItem = tabListState.items[item.parentId];
-            if (groupItem && groupItem.type === 'group') {
-              const group = groupItem.data as TabGroup;
-              groupColor = getGroupColor(group.color);
-            }
-          }
-          
-          return (
-            <div
-              key={item.id}
-              style={{
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                width: '100%',
-                height: `${virtualItem.size}px`,
-                transform: `translateY(${virtualItem.start}px)`,
-                paddingLeft: item.isNested ? theme.spacing(2) : 0,
-              }}
-            >
-              {renderVirtualItem(item, groupColor)}
-            </div>
-          );
-        })}
-      </div>
-    </Box>
+        <SortableContext items={tabListState.itemOrder} strategy={verticalListSortingStrategy}>
+          <div
+            style={{
+              height: `${virtualizer.getTotalSize()}px`,
+              width: '100%',
+              position: 'relative',
+            }}
+          >
+            {virtualizer.getVirtualItems().map((virtualItem) => {
+              const item = virtualItems[virtualItem.index];
+              let groupColor: string | undefined;
+              
+              if (item.isNested && item.parentId) {
+                const groupItem = tabListState.items[item.parentId];
+                if (groupItem && groupItem.type === 'group') {
+                  const group = groupItem.data as TabGroup;
+                  groupColor = getGroupColor(group.color);
+                }
+              }
+              
+              return (
+                <div
+                  key={item.id}
+                  style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    width: '100%',
+                    height: `${virtualItem.size}px`,
+                    transform: `translateY(${virtualItem.start}px)`,
+                    paddingLeft: item.isNested ? theme.spacing(2) : 0,
+                  }}
+                >
+                  {renderVirtualItem(item, groupColor)}
+                </div>
+              );
+            })}
+          </div>
+        </SortableContext>
+      </Box>
+    </DndContext>
   );
 }

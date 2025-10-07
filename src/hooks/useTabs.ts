@@ -473,6 +473,57 @@ export function useTabs() {
     }
   }, [logError]);
 
+  const handleDragEnd = useCallback(async (event: any) => {
+    const { active, over } = event;
+
+    if (!active || !over || active.id === over.id) {
+      return;
+    }
+
+    const activeId = active.id as string;
+    const overId = over.id as string;
+
+    // For now, only handle reordering of tabs (not groups)
+    if (!activeId.startsWith('tab-') || !overId.startsWith('tab-')) {
+      console.log('Drag ended but involved a non-tab item. Ignoring.');
+      return;
+    }
+
+    // This is an optimistic update to make the UI feel instant.
+    // The browser event will correct it if anything goes wrong.
+    setTabListState((prevState) => {
+      const oldIndex = prevState.itemOrder.indexOf(activeId);
+      const newIndex = prevState.itemOrder.indexOf(overId);
+      const newOrder = [...prevState.itemOrder];
+      const [movedItem] = newOrder.splice(oldIndex, 1);
+      newOrder.splice(newIndex, 0, movedItem);
+      return { ...prevState, itemOrder: newOrder };
+    });
+
+    try {
+      // Get the ground truth of tab order directly from the browser
+      const currentTabs = await tabService.getAllTabs();
+
+      const tabIdToMove = parseInt(activeId.replace('tab-', ''), 10);
+      const overTabId = parseInt(overId.replace('tab-', ''), 10);
+
+      // Find the browser index of the tab we're dropping onto.
+      const newIndex = currentTabs.findIndex(tab => tab.id === overTabId);
+
+      if (newIndex !== -1) {
+        // Call the browser API to physically move the tab
+        await tabService.moveTab(tabIdToMove, newIndex);
+        // The onMoved listener will fire and trigger a full refresh, ensuring consistency.
+      } else {
+        console.warn('Could not determine new index for moved tab. Reverting.');
+        await refreshTabData(); // Revert optimistic update if something is wrong
+      }
+    } catch (error) {
+      console.error('An error occurred during tab move, reverting UI:', error);
+      await refreshTabData(); // Revert optimistic update on API error
+    }
+  }, [refreshTabData]);
+
   // Set up event listeners
   useEffect(() => {
     browser.tabs.onRemoved.addListener(handleTabRemoved);
@@ -531,6 +582,7 @@ export function useTabs() {
     handleTabClick,
     handleGroupToggle,
     setOriginalTab,
-    setPreviewTabId
+    setPreviewTabId,
+    handleDragEnd
   };
 }
