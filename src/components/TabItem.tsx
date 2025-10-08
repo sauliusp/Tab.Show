@@ -18,6 +18,7 @@ interface TabItemProps {
   onTabClick: (tabId: number) => void;
   onCloseTab: (tabId: number) => void;
   groupColor?: string; // Color of the tab group this tab belongs to
+  isDragActive?: boolean;
 }
 
 // Custom comparison function for React.memo
@@ -31,7 +32,8 @@ function arePropsEqual(prevProps: TabItemProps, nextProps: TabItemProps): boolea
     prevProps.tab.lastAccessed === nextProps.tab.lastAccessed &&
     prevProps.previewTabId === nextProps.previewTabId &&
     prevProps.originalTab?.id === nextProps.originalTab?.id &&
-    prevProps.groupColor === nextProps.groupColor
+    prevProps.groupColor === nextProps.groupColor &&
+    prevProps.isDragActive === nextProps.isDragActive
   );
 }
 
@@ -42,7 +44,8 @@ export const TabItem = React.memo(({
   onTabHover,
   onTabClick,
   onCloseTab,
-  groupColor
+  groupColor,
+  isDragActive = false
 }: TabItemProps) => {
   const theme = useTheme();
   
@@ -123,7 +126,11 @@ export const TabItem = React.memo(({
   return (
     <ListItem
       title={tab.url || tab.title || 'Untitled Tab'}
-      onMouseEnter={() => onTabHover(tab.id!)}
+      onMouseEnter={() => {
+        if (!isDragActive) {
+          onTabHover(tab.id!);
+        }
+      }}
       onClick={() => onTabClick(tab.id!)}
       sx={{
         ...visualState.listItemStyles,

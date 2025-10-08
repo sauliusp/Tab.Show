@@ -75,23 +75,6 @@ export function useTabs() {
     }
   }, [logError]);
   
-  // First, replace the reorderTabs function with this one.
-  // It will now handle the optimistic update.
-  const reorderTabs = useCallback((activeId: string, overId: string) => {
-    setAllTabs((prevTabs) => {
-      // This is a simplified version. A more robust solution might be needed
-      // if the flat list `itemOrder` logic was more complex.
-      const activeIndex = prevTabs.findIndex(t => `tab-${t.id}` === activeId);
-      const overIndex = prevTabs.findIndex(t => `tab-${t.id}` === overId);
-      if (activeIndex === -1 || overIndex === -1) return prevTabs;
-
-      const newTabs = [...prevTabs];
-      const [movedItem] = newTabs.splice(activeIndex, 1);
-      newTabs.splice(overIndex, 0, movedItem);
-      return newTabs;
-    });
-  }, []);
-
   const clearHoverSwitchFlag = useCallback(() => {
     isSwitchingOnHoverRef.current = false;
     if (hoverSwitchTimeoutRef.current) {
@@ -313,6 +296,9 @@ export function useTabs() {
 
   // Tab interaction handlers
   const handleTabHover = useCallback(async (tabId: number) => {
+    if (activeDragItem) {
+      return;
+    }
     const currentActiveTab = previewTabId || originalTab?.id;
     if (tabId === currentActiveTab) {
       return; // No action needed if hovering over the already active tab
@@ -343,7 +329,7 @@ export function useTabs() {
       // Always clear the hover operation flag
       isHoverOperationInProgressRef.current = false;
     }
-  }, [previewTabId, originalTab, setHoverSwitchFlag, executeProgrammaticTabSwitch]);
+  }, [previewTabId, originalTab, setHoverSwitchFlag, executeProgrammaticTabSwitch, activeDragItem]);
 
   const handleTabClick = useCallback((tabId: number) => {
     const tabItemId = `tab-${tabId}`;
@@ -412,73 +398,148 @@ export function useTabs() {
     setActiveDragItem(null);
     setOverDragItem(null);
 
-    if (!active || !over || active.id === over.id) {
+    if (!active || !over) {
       return;
     }
 
-    const activeId = active.id as string;
-    const overId = over.id as string;
+    const activeId = String(active.id);
+    const overId = String(over.id);
 
-    if (!activeId.startsWith('tab-')) return; // We only support dragging tabs
+    if (activeId === overId || !activeId.startsWith('tab-')) {
+      return;
+    }
 
-    // --- 1. Perform Optimistic UI Update ---
-    reorderTabs(activeId, overId);
+    const itemsById = new Map(flatTabList.map(item => [item.id, item]));
+    const activeItem = itemsById.get(activeId);
 
-    try {
-      // --- 2. Analyze the desired final state ---
-      const tabListAfterDrag = [...flatTabList.map(item => item.id)];
-      const oldIndex = tabListAfterDrag.indexOf(activeId);
-      const newIndex = tabListAfterDrag.indexOf(overId);
-      const [movedItem] = tabListAfterDrag.splice(oldIndex, 1);
-      tabListAfterDrag.splice(newIndex, 0, movedItem);
+    if (!activeItem || activeItem.type !== 'tab') {
+      return;
+    }
 
-      const allBrowserTabs = await tabService.getAllTabs();
-      const tabIdToMove = parseInt(activeId.replace('tab-', ''), 10);
-      const tabToMove = allBrowserTabs.find(t => t.id === tabIdToMove);
+    const orderBefore = flatTabList.map(item => item.id);
+    const activeIndex = orderBefore.indexOf(activeId);
+    const overIndex = orderBefore.indexOf(overId);
 
-      if (!tabToMove) throw new Error('Tab to move not found');
-      
-      const finalVisualIndex = tabListAfterDrag.indexOf(activeId);
+    if (activeIndex === -1 || overIndex === -1) {
+      return;
+    }
 
-      // Determine the new group ID by looking backwards from the new position
-      let newGroupId: number | undefined = undefined;
-      for (let i = finalVisualIndex - 1; i >= 0; i--) {
-        const itemId = tabListAfterDrag[i];
-        if (itemId.startsWith('group-')) {
-          newGroupId = parseInt(itemId.replace('group-', ''), 10);
+    const withoutActive = orderBefore.filter(id => id !== activeId);
+    const overItem = itemsById.get(overId);
+    const overIndexWithoutActive = withoutActive.indexOf(overId);
+    let insertionIndex: number;
+
+    if (overItem?.type === 'group') {
+      insertionIndex = overIndexWithoutActive + 1;
+    } else if (overIndexWithoutActive === -1) {
+      insertionIndex = withoutActive.length;
+    } else {
+      insertionIndex = overIndexWithoutActive;
+      if (activeIndex < overIndex) {
+        insertionIndex += 1;
+      }
+    }
+
+    insertionIndex = Math.max(0, Math.min(insertionIndex, withoutActive.length));
+
+    const updatedOrder = [
+      ...withoutActive.slice(0, insertionIndex),
+      activeId,
+      ...withoutActive.slice(insertionIndex)
+    ];
+
+    const finalIndex = updatedOrder.indexOf(activeId);
+
+    const targetBrowserIndex = updatedOrder
+      .slice(0, finalIndex)
+      .reduce((count, id) => count + (id.startsWith('tab-') ? 1 : 0), 0);
+
+    const tabToMove = activeItem.data as Tab;
+    const tabIdToMove = tabToMove.id;
+
+    if (tabIdToMove === undefined) {
+      return;
+    }
+
+    const normalizeGroupId = (groupId?: number) =>
+      groupId === undefined || groupId === -1 ? undefined : groupId;
+
+    let forcedGroup: number | 'ungroup' | null = null;
+    if (overItem?.type === 'group') {
+      forcedGroup = (overItem.data as TabGroup).id;
+    } else if (overItem?.type === 'tab') {
+      const overTab = overItem.data as Tab;
+      const normalized = normalizeGroupId(overTab.groupId);
+      forcedGroup = normalized ?? 'ungroup';
+    }
+
+    const determineGroupFromOrder = (): number | undefined => {
+      let encounteredUngrouped = false;
+      for (let i = finalIndex - 1; i >= 0; i--) {
+        const itemId = updatedOrder[i];
+        const item = itemsById.get(itemId);
+        if (!item) continue;
+        if (item.type === 'group') {
+          if (encounteredUngrouped) {
+            return undefined;
+          }
+          return (item.data as TabGroup).id;
+        }
+        const tab = item.data as Tab;
+        const tabGroupId = normalizeGroupId(tab.groupId);
+        if (!tabGroupId) {
+          encounteredUngrouped = true;
           break;
         }
+        return tabGroupId;
       }
+      return undefined;
+    };
 
-      // Determine the target browser index by counting only tabs before the new position
-      let targetBrowserIndex = 0;
-      for (let i = 0; i < finalVisualIndex; i++) {
-        if (tabListAfterDrag[i].startsWith('tab-')) {
-          targetBrowserIndex++;
-        }
-      }
-      
-      // --- 3. Execute Browser API Calls ---
-      const needsGroupChange = tabToMove.groupId !== newGroupId;
+    let newGroupId: number | undefined;
+    if (forcedGroup === 'ungroup') {
+      newGroupId = undefined;
+    } else if (typeof forcedGroup === 'number') {
+      newGroupId = forcedGroup;
+    } else {
+      newGroupId = determineGroupFromOrder();
+    }
 
-      // Perform grouping/ungrouping first, as this can affect indices
-      if (needsGroupChange) {
+    const originalBrowserIndex = orderBefore
+      .slice(0, activeIndex)
+      .reduce((count, id) => count + (id.startsWith('tab-') ? 1 : 0), 0);
+
+    const currentGroupId = normalizeGroupId(tabToMove.groupId);
+
+    if (currentGroupId === newGroupId && originalBrowserIndex === targetBrowserIndex) {
+      return;
+    }
+
+    setAllTabs(prevTabs => {
+      const filtered = prevTabs.filter(tab => tab.id !== tabIdToMove);
+      const updatedTab: Tab = { ...tabToMove, groupId: newGroupId };
+      const safeIndex = Math.max(0, Math.min(targetBrowserIndex, filtered.length));
+      const nextTabs = [...filtered];
+      nextTabs.splice(safeIndex, 0, updatedTab);
+      return nextTabs;
+    });
+
+    try {
+      if (currentGroupId !== newGroupId) {
         if (newGroupId !== undefined) {
           await tabService.groupTab(tabIdToMove, newGroupId);
-        } else {
+        } else if (currentGroupId !== undefined) {
           await tabService.ungroupTab(tabIdToMove);
         }
       }
-      
-      // Now, perform the move. The browser handles index adjustments automatically
-      // after a group operation, so our calculated index should be correct.
+
       await tabService.moveTab(tabIdToMove, targetBrowserIndex);
 
     } catch (error) {
       console.error('Drag-and-drop failed. Reverting UI.', error);
-      await refreshTabData(); // Revert optimistic update on any failure
+      await refreshTabData();
     }
-  }, [flatTabList, refreshTabData, reorderTabs]);
+  }, [flatTabList, refreshTabData]);
 
   // Set up event listeners
   useEffect(() => {
@@ -543,6 +604,7 @@ export function useTabs() {
   return {
     flatTabList,
     allGroups,
+    groupExpansionState,
     originalTab,
     previewTabId,
     activeDragItem,
@@ -552,7 +614,6 @@ export function useTabs() {
     handleGroupToggle,
     handleDragEnd,
     handleDragStart,
-    handleDragOver,
-    reorderTabs
+    handleDragOver
   };
 }
