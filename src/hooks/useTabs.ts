@@ -427,10 +427,27 @@ export function useTabs() {
     const withoutActive = orderBefore.filter(id => id !== activeId);
     const overItem = itemsById.get(overId);
     const overIndexWithoutActive = withoutActive.indexOf(overId);
+    const activeRect = event.active?.rect?.current;
+    const translatedRect = activeRect?.translated ?? activeRect?.initial ?? null;
+    const overRect = over.rect;
+
+    const shouldInsertAfterGroup = (() => {
+      if (overItem?.type !== 'group') {
+        return false;
+      }
+      if (translatedRect) {
+        const activeCenter = translatedRect.top + translatedRect.height / 2;
+        const overCenter = overRect.top + overRect.height / 2;
+        return activeCenter >= overCenter;
+      }
+      return activeIndex > overIndex;
+    })();
+
     let insertionIndex: number;
 
     if (overItem?.type === 'group') {
-      insertionIndex = overIndexWithoutActive + 1;
+      const baseIndex = overIndexWithoutActive === -1 ? withoutActive.length : overIndexWithoutActive;
+      insertionIndex = shouldInsertAfterGroup ? baseIndex + 1 : baseIndex;
     } else if (overIndexWithoutActive === -1) {
       insertionIndex = withoutActive.length;
     } else {
@@ -466,7 +483,9 @@ export function useTabs() {
 
     let forcedGroup: number | 'ungroup' | null = null;
     if (overItem?.type === 'group') {
-      forcedGroup = (overItem.data as TabGroup).id;
+      if (shouldInsertAfterGroup) {
+        forcedGroup = (overItem.data as TabGroup).id;
+      }
     } else if (overItem?.type === 'tab') {
       const overTab = overItem.data as Tab;
       const normalized = normalizeGroupId(overTab.groupId);
