@@ -31,6 +31,7 @@ interface TabListProps {
   onDragEnd: (event: any) => void;
   onDragStart: (event: any) => void;
   onDragOver: (event: any) => void;
+  handleSidePanelHoverEnd: () => void;
 }
 
 const getGroupColor = (color?: string) => {
@@ -108,7 +109,10 @@ function SortableItem(props: any) {
   return (
     <div ref={setNodeRef} style={style} {...attributes} {...listeners}>
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
-            <Box sx={{ cursor: 'grab', display: 'flex', alignItems: 'center', padding: "0 3px", alignSelf: "stretch", backgroundColor: theme.palette.grey[100] }}>
+            <Box 
+              sx={{ cursor: 'grab', display: 'flex', alignItems: 'center', padding: "0 3px", alignSelf: "stretch", backgroundColor: theme.palette.grey[100] }}
+              onMouseEnter={props.handleSidePanelHoverEnd}
+            >
                 <DragIndicator color="action" />
             </Box>
       

@@ -85,6 +85,7 @@ function App() {
         onDragEnd={handleDragEnd}
         onDragStart={handleDragStart}
         onDragOver={handleDragOver}
+        handleSidePanelHoverEnd={handleSidePanelHoverEnd}
       />
 
       {/* Performance metrics (development only) */}
