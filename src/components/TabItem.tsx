@@ -136,6 +136,7 @@ export const TabItem = React.memo(({
         '&:hover': visualState.hoverStyles
       }}
     >
+
       <ListItemAvatar sx={{
         minWidth: '32px',
         marginRight: '10px'

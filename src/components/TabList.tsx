@@ -108,10 +108,11 @@ function SortableItem(props: any) {
   return (
     <div ref={setNodeRef} style={style} {...attributes} {...listeners}>
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
-            <Box sx={{ cursor: 'grab', display: 'flex', alignItems: 'center', paddingLeft: 1 }}>
+            <Box sx={{ cursor: 'grab', display: 'flex', alignItems: 'center', padding: "0 3px", alignSelf: "stretch", backgroundColor: theme.palette.grey[100] }}>
                 <DragIndicator color="action" />
             </Box>
-            <div style={{ flex: 1, minWidth: 0 }}>
+      
+            <div style={{ flex: 1, minWidth: 0, alignSelf: "stretch" }}>
               <TabItem tab={item.data as Tab} {...rest} />
             </div>
         </Box>
