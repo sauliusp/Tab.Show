@@ -4,6 +4,7 @@ import ListItem from '@mui/material/ListItem';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import ListItemText from '@mui/material/ListItemText';
 import Avatar from '@mui/material/Avatar';
+import { Folder } from '@mui/icons-material';
 import { Tab, TabVisualState, AvatarOverlay } from '../types/Tab';
 import { getTabVisualState } from '../utils/tabVisualState';
 import { TabItemActionButton } from './TabItemActionButton';
@@ -51,6 +52,7 @@ export const TabItem = React.memo(({
   if (!tab.id) return null;
   
   const visualState = getTabVisualState(tab, previewTabId, originalTab, theme);
+  const isGrouped = tab.groupId && groupColor;
   
   // Render avatar overlay based on type and position
   const renderAvatarOverlay = (overlay: AvatarOverlay) => {
@@ -137,20 +139,15 @@ export const TabItem = React.memo(({
       }}
     >
 
-      <ListItemAvatar sx={{
-        minWidth: '32px',
-        marginRight: '10px'
-      }}>
+        <ListItemAvatar sx={{
+          minWidth: '32px',
+          marginRight: isGrouped ? '5px' : '8px'
+        }}>
         <Avatar
           alt={tab.title || 'Tab'}
           src={tab.favIconUrl || undefined}
           sx={{
-            ...visualState.avatarStyles,
-            border: originalTab?.id === tab.id 
-              ? `3px solid ${theme.palette.custom.original}` 
-              : groupColor 
-                ? `3px solid ${groupColor}`
-                : 'none'
+            ...visualState.avatarStyles
           }}
         >
           {!tab.favIconUrl && 
@@ -167,8 +164,19 @@ export const TabItem = React.memo(({
       
       <ListItemText 
         primary={
-          <span style={visualState.textStyles}>
-            {tab.title || 'Untitled Tab'}
+          <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            {isGrouped && (
+              <Folder 
+                sx={{ 
+                  fontSize: '20px', 
+                  color: groupColor,
+                  flexShrink: 0
+                }} 
+              />
+            )}
+            <span style={visualState.textStyles}>
+              {tab.title || 'Untitled Tab'}
+            </span>
           </span>
         }
         primaryTypographyProps={{

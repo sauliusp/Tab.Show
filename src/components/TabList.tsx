@@ -21,6 +21,7 @@ import { FlatListItem } from '../hooks/useTabs';
 
 interface TabListProps {
   flatTabList: FlatListItem[];
+  allGroups: TabGroup[];
   previewTabId: number | null;
   originalTab: Tab | null;
   activeDragItem: any | null;
@@ -50,7 +51,7 @@ const getGroupColor = (color?: string) => {
 };
 
 function SortableItem(props: any) {
-  const { item, onGroupToggle, ...rest } = props;
+  const { item, onGroupToggle, groupColor, ...rest } = props;
   const theme = useTheme();
 
   const { isDragging, attributes, listeners, setNodeRef, transform, transition } = useSortable({
@@ -106,18 +107,25 @@ function SortableItem(props: any) {
     );
   }
   
+  const tab = item.data as Tab;
+
   return (
-    <div ref={setNodeRef} style={style} {...attributes} {...listeners}>
-        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+    <div ref={setNodeRef} style={style}>
+        <Box sx={{ display: 'flex', alignItems: 'center', width: '100%' }}>
             <Box 
-              sx={{ cursor: 'grab', display: 'flex', alignItems: 'center', padding: "0 3px", alignSelf: "stretch", backgroundColor: theme.palette.grey[100] }}
-              onMouseEnter={props.handleSidePanelHoverEnd}
+              {...attributes} 
+              {...listeners} 
+              sx={{ cursor: 'grab', display: 'flex', alignItems: 'center', pl: 1, py: 1 }}
             >
                 <DragIndicator color="action" />
             </Box>
-      
-            <div style={{ flex: 1, minWidth: 0, alignSelf: "stretch" }}>
-              <TabItem tab={item.data as Tab} {...rest} />
+
+            <div style={{ flex: 1, minWidth: 0, pointerEvents: isDragging ? 'none' : 'auto' }}>
+              <TabItem
+                tab={tab}
+                groupColor={groupColor}
+                {...rest}
+              />
             </div>
         </Box>
     </div>
@@ -128,6 +136,7 @@ function SortableItem(props: any) {
 export function TabList(props: TabListProps) {
   const {
     flatTabList,
+    allGroups,
     previewTabId,
     originalTab,
     activeDragItem,
@@ -145,6 +154,15 @@ export function TabList(props: TabListProps) {
       },
     })
   );
+  
+  // Create a memoized map for quick color lookups
+  const groupColorMap = useMemo(() => {
+    const map = new Map<number, string>();
+    allGroups.forEach(group => {
+      map.set(group.id, getGroupColor(group.color));
+    });
+    return map;
+  }, [allGroups]);
   
   const virtualizer = useVirtualizer({
     count: flatTabList.length,
@@ -186,6 +204,12 @@ export function TabList(props: TabListProps) {
           >
             {virtualizer.getVirtualItems().map((virtualItem) => {
               const item = flatTabList[virtualItem.index];
+              if (!item) return null;
+
+              // Calculate groupColor for tabs
+              const tabData = item.type === 'tab' ? (item.data as Tab) : null;
+              const groupColor = tabData?.groupId ? groupColorMap.get(tabData.groupId) : undefined;
+
               return (
                 <div
                   key={item.id}
@@ -198,7 +222,7 @@ export function TabList(props: TabListProps) {
                     transform: `translateY(${virtualItem.start}px)`,
                   }}
                 >
-                  <SortableItem item={item} {...props} />
+                  <SortableItem item={item} groupColor={groupColor} {...props} />
                 </div>
               );
             })}

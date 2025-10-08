@@ -19,6 +19,7 @@ function App() {
   // Use the custom hook for tab management
   const {
     flatTabList,
+    allGroups,
     originalTab,
     previewTabId,
     activeDragItem,
@@ -75,6 +76,7 @@ function App() {
       {/* Tab list */}
       <TabList
         flatTabList={flatTabList}
+        allGroups={allGroups}
         previewTabId={previewTabId}
         originalTab={originalTab}
         activeDragItem={activeDragItem}
