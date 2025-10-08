@@ -20,6 +20,7 @@ function App() {
   const {
     flatTabList,
     allGroups,
+    groupExpansionState,
     originalTab,
     previewTabId,
     activeDragItem,
@@ -77,6 +78,7 @@ function App() {
       <TabList
         flatTabList={flatTabList}
         allGroups={allGroups}
+        groupExpansionState={groupExpansionState}
         previewTabId={previewTabId}
         originalTab={originalTab}
         activeDragItem={activeDragItem}

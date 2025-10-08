@@ -22,6 +22,7 @@ import { FlatListItem } from '../hooks/useTabs';
 interface TabListProps {
   flatTabList: FlatListItem[];
   allGroups: TabGroup[];
+  groupExpansionState: Record<number, boolean>;
   previewTabId: number | null;
   originalTab: Tab | null;
   activeDragItem: any | null;
@@ -51,7 +52,18 @@ const getGroupColor = (color?: string) => {
 };
 
 function SortableItem(props: any) {
-  const { item, onGroupToggle, groupColor, ...rest } = props;
+  const {
+    item,
+    onGroupToggle,
+    groupColor,
+    groupExpansionState,
+    isDragActive,
+    previewTabId,
+    originalTab,
+    onTabHover,
+    onTabClick,
+    onCloseTab,
+  } = props;
   const theme = useTheme();
 
   const { isDragging, attributes, listeners, setNodeRef, transform, transition } = useSortable({
@@ -68,12 +80,19 @@ function SortableItem(props: any) {
   if (item.type === 'group') {
     const group = item.data as TabGroup;
     const groupColor = getGroupColor(group.color);
+    const isExpanded = groupExpansionState[group.id] !== false;
     return (
       <div ref={setNodeRef} style={style}>
         <ListItem disablePadding>
-           <ListItemButton 
+           <ListItemButton
              onClick={() => onGroupToggle(group.id)}
-             sx={{ pl: 2, pr: 2, py: 1, '&:hover': { backgroundColor: theme.palette.action.hover } }}
+             sx={{
+               pl: 2,
+               pr: 1.5,
+               py: 1.25,
+               alignItems: 'center',
+               '&:hover': { backgroundColor: theme.palette.action.hover }
+             }}
            >
              <ListItemIcon sx={{ minWidth: 36 }}>
                <Folder sx={{ color: groupColor, fontSize: 25 }} />
@@ -99,8 +118,9 @@ function SortableItem(props: any) {
                 </Typography>
               }
             />
-            {/* This needs groupExpansionState to work */}
-            {/* {isExpanded ? <ExpandLess /> : <ExpandMore />} */}
+            <Box sx={{ display: 'flex', alignItems: 'center', pl: 1 }}>
+              {isExpanded ? <ExpandLess fontSize="small" /> : <ExpandMore fontSize="small" />}
+            </Box>
            </ListItemButton>
          </ListItem>
       </div>
@@ -124,7 +144,12 @@ function SortableItem(props: any) {
               <TabItem
                 tab={tab}
                 groupColor={groupColor}
-                {...rest}
+                isDragActive={isDragActive}
+                previewTabId={previewTabId}
+                originalTab={originalTab}
+                onTabHover={onTabHover}
+                onTabClick={onTabClick}
+                onCloseTab={onCloseTab}
               />
             </div>
         </Box>
@@ -137,15 +162,21 @@ export function TabList(props: TabListProps) {
   const {
     flatTabList,
     allGroups,
+    groupExpansionState,
     previewTabId,
     originalTab,
     activeDragItem,
+    onTabHover,
+    onTabClick,
+    onCloseTab,
+    onGroupToggle,
     onDragEnd,
     onDragStart,
     onDragOver,
   } = props;
   const theme = useTheme();
   const parentRef = useRef<HTMLDivElement>(null);
+  const isDragActive = Boolean(activeDragItem);
   
   const sensors = useSensors(
     useSensor(PointerSensor, {
@@ -169,11 +200,18 @@ export function TabList(props: TabListProps) {
     getScrollElement: () => parentRef.current,
     estimateSize: (index) => {
       const item = flatTabList[index];
-      if (item.type === 'group') return 48;
-      return 38;
+      if (item.type === 'group') return 56;
+      return 40;
     },
     overscan: 5,
+    getItemKey: (index) => flatTabList[index]?.id ?? index,
   });
+
+  const measureElement = React.useCallback((node: HTMLDivElement | null) => {
+    if (node) {
+      virtualizer.measureElement(node);
+    }
+  }, [virtualizer]);
   
   return (
     <DndContext
@@ -213,6 +251,7 @@ export function TabList(props: TabListProps) {
               return (
                 <div
                   key={item.id}
+                  ref={measureElement}
                   style={{
                     position: 'absolute',
                     top: 0,
@@ -222,7 +261,18 @@ export function TabList(props: TabListProps) {
                     transform: `translateY(${virtualItem.start}px)`,
                   }}
                 >
-                  <SortableItem item={item} groupColor={groupColor} {...props} />
+                  <SortableItem
+                    item={item}
+                    groupColor={groupColor}
+                    groupExpansionState={groupExpansionState}
+                    isDragActive={isDragActive}
+                    previewTabId={previewTabId}
+                    originalTab={originalTab}
+                    onTabHover={onTabHover}
+                    onTabClick={onTabClick}
+                    onCloseTab={onCloseTab}
+                    onGroupToggle={onGroupToggle}
+                  />
                 </div>
               );
             })}
