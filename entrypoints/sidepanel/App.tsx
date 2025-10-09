@@ -9,12 +9,14 @@ import { tabService } from '../../src/services/TabService';
 import { clearVisualStateCache } from '../../src/utils/tabVisualState';
 import { PerformanceMetrics } from '../../src/components/PerformanceMetrics';
 import { EXTENSION_URLS } from '../../src/parameters';
+import { SettingsOverlay } from '../../src/components/SettingsOverlay';
 import './App.css';
 
 function App() {
   const theme = useTheme();
   const [showCopiedTooltip, setShowCopiedTooltip] = React.useState(false);
   const [hoverTooltipOpen, setHoverTooltipOpen] = React.useState(false);
+  const [isSettingsOpen, setIsSettingsOpen] = React.useState(false);
   
   // Use the custom hook for tab management
   const {
@@ -66,7 +68,15 @@ function App() {
   return (
     <div className="sidepanel" onMouseLeave={handleSidePanelHoverEnd}>
       {/* Header with original tab information */}
-      <Header originalTab={originalTab} />
+      <Header 
+        originalTab={originalTab} 
+        onOpenSettings={() => setIsSettingsOpen(true)} 
+      />
+
+      <SettingsOverlay 
+        open={isSettingsOpen} 
+        onClose={() => setIsSettingsOpen(false)} 
+      />
 
       {/* Tab list */}
       <TabList

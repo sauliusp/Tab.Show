@@ -30,9 +30,7 @@ export default defineConfig({
       'activeTab',
       'tabs',
       'tabGroups',
-      'bookmarks',
       'storage',
-      'history'
     ],
     host_permissions: undefined
   }

@@ -51,6 +51,7 @@ export const TabItem = React.memo(({
   if (!tab.id) return null;
   
   const visualState = getTabVisualState(tab, previewTabId, originalTab, theme);
+  const isOriginalTab = originalTab?.id === tab.id;
   
   // Render avatar overlay based on type and position
   const renderAvatarOverlay = (overlay: AvatarOverlay) => {
@@ -187,6 +188,7 @@ export const TabItem = React.memo(({
       <TabItemActionButton 
         tabId={tab.id} 
         onCloseTab={onCloseTab}
+        iconColor={isOriginalTab ? theme.palette.common.white : undefined}
       />
     </ListItem>
   );

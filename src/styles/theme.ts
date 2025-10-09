@@ -1,4 +1,5 @@
-import { createTheme, Theme } from '@mui/material/styles';
+import { createTheme, Theme, darken, lighten } from '@mui/material/styles';
+import { ColorPairing, getDefaultColorPairing } from '../constants/colorPairings';
 
 // Extend the Material UI theme to include custom colors
 declare module '@mui/material/styles' {
@@ -26,93 +27,114 @@ declare module '@mui/material/styles' {
   }
 }
 
-// Custom color palette based on the specified colors
-const theme = createTheme({
-  palette: {
-    primary: {
-      main: '#fa8334', // Orange
-      light: '#fb9d5c',
-      dark: '#e06a1a',
-      contrastText: '#ffffff',
-    },
-    secondary: {
-      main: '#388697', // Teal
-      light: '#5a9ba8',
-      dark: '#276b78',
-      contrastText: '#ffffff',
-    },
-    text: {
-      primary: '#271033', // Dark purple
-      secondary: '#5a4a5f',
-    },
-    background: {
-      default: '#ffffff',
-      paper: '#f8f9fa',
-    },
-    error: {
-      main: '#ef4444', // Red for error states
-      light: '#f87171',
-      dark: '#dc2626',
-      contrastText: '#ffffff',
-    },
-    warning: {
-      main: '#f59e0b', // Amber for stale/inactive tabs
-      light: '#fbbf24',
-      dark: '#d97706',
-      contrastText: '#ffffff',
-    },
-    // Custom colors for specific use cases
-    custom: {
-      preview: '#388697', // Secondary color for preview state
-      original: '#fa8334', // Primary color for original state
-      loading: '#fa8334', // Primary color for loading state
-      originalBackground: '#fa8334', // Primary background for original tab
-      originalText: '#ffffff', // White text on primary background
-      stale: '#f59e0b', // Amber for stale tabs
-      error: '#ef4444', // Red for error tabs
-    },
-  },
-  typography: {
-    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
-    fontSize: 14,
-    body1: {
-      fontSize: '0.875rem',
-    },
-    body2: {
-      fontSize: '0.75rem',
-    },
-  },
-  components: {
-    MuiListItem: {
-      styleOverrides: {
-        root: {
-          '&.Mui-selected': {
-            backgroundColor: 'rgba(250, 131, 52, 0.08)',
-          },
-        },
-      },
-    },
-    MuiListItemButton: {
-      styleOverrides: {
-        root: {
-          '&:hover': {
-            backgroundColor: 'rgba(250, 131, 52, 0.04)',
-          },
-        },
-      },
-    },
-    MuiAvatar: {
-      styleOverrides: {
-        root: {
-          fontSize: '0.75rem',
-        },
-      },
-    },
-  },
-});
+const BASE_BACKGROUND = '#ffffff';
+const BASE_PAPER = '#f8f9fa';
+const BASE_TEXT_PRIMARY = '#271033';
+const BASE_TEXT_SECONDARY = '#5a4a5f';
 
-// Apply CSS custom properties to document root for CSS access
-if (typeof document !== 'undefined') {
+export function createAppTheme(colorPairing: ColorPairing): Theme {
+  const { colors } = colorPairing;
+
+  const primaryLight = lighten(colors.primary, 0.15);
+  const primaryDark = darken(colors.primary, 0.25);
+  const secondaryLight = lighten(colors.secondary, 0.2);
+  const secondaryDark = darken(colors.secondary, 0.2);
+  const textDisabled = lighten(BASE_TEXT_SECONDARY, 0.45);
+
+  const theme = createTheme({
+    palette: {
+      mode: 'light',
+      primary: {
+        main: colors.primary,
+        light: primaryLight,
+        dark: primaryDark,
+        contrastText: colors.textPrimary,
+      },
+      secondary: {
+        main: colors.secondary,
+        light: secondaryLight,
+        dark: secondaryDark,
+        contrastText: colors.textPrimary,
+      },
+      text: {
+        primary: BASE_TEXT_PRIMARY,
+        secondary: BASE_TEXT_SECONDARY,
+        disabled: textDisabled,
+      },
+      background: {
+        default: BASE_BACKGROUND,
+        paper: BASE_PAPER,
+      },
+      error: {
+        main: '#ef4444',
+        light: '#f87171',
+        dark: '#dc2626',
+        contrastText: '#ffffff',
+      },
+      warning: {
+        main: '#f59e0b',
+        light: '#fbbf24',
+        dark: '#d97706',
+        contrastText: '#ffffff',
+      },
+      custom: {
+        preview: colors.secondary,
+        original: colors.primary,
+        loading: colors.primary,
+        originalBackground: colors.primary,
+        originalText: '#ffffff',
+        stale: '#f59e0b',
+        error: '#ef4444',
+      },
+    },
+    typography: {
+      fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+      fontSize: 14,
+      body1: {
+        fontSize: '0.875rem',
+      },
+      body2: {
+        fontSize: '0.75rem',
+      },
+    },
+    components: {
+      MuiListItem: {
+        styleOverrides: {
+          root: {
+            '&.Mui-selected': {
+              backgroundColor: colors.primary + '14',
+            },
+          },
+        },
+      },
+      MuiListItemButton: {
+        styleOverrides: {
+          root: {
+            '&:hover': {
+              backgroundColor: colors.secondary + '1a',
+            },
+          },
+        },
+      },
+      MuiAvatar: {
+        styleOverrides: {
+          root: {
+            fontSize: '0.75rem',
+          },
+        },
+      },
+    },
+  });
+
+  applyThemeCssVariables(theme);
+  return theme;
+}
+
+export function applyThemeCssVariables(theme: Theme): void {
+  if (typeof document === 'undefined') {
+    return;
+  }
+
   const root = document.documentElement;
   root.style.setProperty('--mui-background-default', theme.palette.background.default);
   root.style.setProperty('--mui-text-primary', theme.palette.text.primary);
@@ -126,7 +148,9 @@ if (typeof document !== 'undefined') {
   root.style.setProperty('--mui-custom-original-text', theme.palette.custom.originalText);
   root.style.setProperty('--mui-custom-stale', theme.palette.custom.stale);
   root.style.setProperty('--mui-custom-error', theme.palette.custom.error);
-  root.style.setProperty('--mui-custom-preview-shadow', theme.palette.custom.preview + '66'); // 40% opacity
+  root.style.setProperty('--mui-custom-preview-shadow', theme.palette.custom.preview + '66');
 }
 
-export default theme;
+export function getDefaultTheme(): Theme {
+  return createAppTheme(getDefaultColorPairing());
+}

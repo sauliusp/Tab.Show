@@ -1,13 +1,17 @@
 import React from 'react';
 import { useTheme } from '@mui/material/styles';
 import Avatar from '@mui/material/Avatar';
+import IconButton from '@mui/material/IconButton';
+import Tooltip from '@mui/material/Tooltip';
+import SettingsIcon from '@mui/icons-material/Settings';
 import { Tab } from '../types/Tab';
 
 interface HeaderProps {
   originalTab: Tab | null;
+  onOpenSettings: () => void;
 }
 
-export function Header({ originalTab }: HeaderProps) {
+export function Header({ originalTab, onOpenSettings }: HeaderProps) {
   const theme = useTheme();
   
   if (!originalTab) return null;
@@ -67,6 +71,22 @@ export function Header({ originalTab }: HeaderProps) {
         }}>
           Original
         </div>
+        <Tooltip title="Open settings" placement="bottom" arrow>
+          <IconButton
+            aria-label="open settings"
+            onClick={onOpenSettings}
+            sx={{
+              color: theme.palette.text.secondary,
+              border: `1px solid ${theme.palette.divider}`,
+              '&:hover': {
+                backgroundColor: theme.palette.action.hover,
+              },
+            }}
+            size="small"
+          >
+            <SettingsIcon fontSize="small" />
+          </IconButton>
+        </Tooltip>
       </div>
     </div>
   );

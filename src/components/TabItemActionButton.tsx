@@ -9,9 +9,10 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 interface TabItemActionButtonProps {
   tabId: number;
   onCloseTab: (tabId: number) => void;
+  iconColor?: string;
 }
 
-export const TabItemActionButton = React.memo(({ tabId, onCloseTab }: TabItemActionButtonProps) => {
+export const TabItemActionButton = React.memo(({ tabId, onCloseTab, iconColor }: TabItemActionButtonProps) => {
   const [menuAnchor, setMenuAnchor] = useState<HTMLElement | null>(null);
 
   const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
@@ -37,7 +38,8 @@ export const TabItemActionButton = React.memo(({ tabId, onCloseTab }: TabItemAct
           paddingY: 0,
           flexShrink: 0,
           minWidth: '32px',
-          minHeight: '32px'
+          minHeight: '32px',
+          ...(iconColor ? { color: iconColor } : {})
         }}
       >
         <MoreVertIcon />

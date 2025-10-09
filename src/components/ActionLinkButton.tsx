@@ -66,20 +66,11 @@ export function ActionLinkButton(props: ActionLinkButtonProps) {
           backgroundColor: 'background.paper',
           backdropFilter: 'blur(8px)',
           border: '1px solid',
-          borderColor: 'secondary.main',
-          color: 'secondary.main',
           fontSize: '0.75rem',
           '&:hover': {
-            backgroundColor: 'primary.main',
-            color: 'primary.contrastText',
-            borderColor: 'primary.main',
             boxShadow: 3,
             transform: 'translateY(-1.5px)',
-            textDecoration: 'none',
-          },
-          '&:active': {
-            backgroundColor: 'primary.dark',
-            borderColor: 'primary.dark',
+            textDecoration: 'none',  
           },
           transition: 'all 0.2s ease-in-out',
         }}
