@@ -84,7 +84,7 @@ export function Header({ originalTab, onOpenSettings }: HeaderProps) {
             }}
             size="small"
           >
-            <SettingsIcon fontSize="small" />
+            <SettingsIcon fontSize="small" color="secondary" />
           </IconButton>
         </Tooltip>
       </div>

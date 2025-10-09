@@ -30,7 +30,7 @@ export const COLOR_PAIRINGS: ColorPairing[] = [
   },
   {
     id: 'ink-porcelain-signal-blue',
-    name: 'Ink Black + Porcelain + Signal Blue',
+    name: 'Ink Black + Signal Blue',
     comment: 'Crisp contrast with a dependable, modern tech accent.',
     colors: {
       background: '#F8FAFC',
@@ -43,7 +43,7 @@ export const COLOR_PAIRINGS: ColorPairing[] = [
   },
   {
     id: 'graphite-soft-clay-electric-coral',
-    name: 'Graphite + Soft Clay + Electric Coral',
+    name: 'Graphite + Electric Coral',
     comment: 'Warm neutrals with coral bursts to draw quick focus.',
     colors: {
       background: '#FCF7F4',
@@ -69,7 +69,7 @@ export const COLOR_PAIRINGS: ColorPairing[] = [
   },
   {
     id: 'slate-spruce-seafoam',
-    name: 'Slate Stone + Spruce + Seafoam',
+    name: 'Slate Stone + Seafoam',
     comment: 'Balanced slate core with calm spruce and seafoam cues.',
     colors: {
       background: '#F5F7FA',
