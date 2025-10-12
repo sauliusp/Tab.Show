@@ -29,8 +29,7 @@ export default defineConfig({
       'sidePanel',
       'activeTab',
       'tabs',
-      'tabGroups',
-      'storage',
+      'tabGroups'
     ],
     host_permissions: undefined
   }
