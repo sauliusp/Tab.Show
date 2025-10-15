@@ -5,10 +5,10 @@ export default defineConfig({
   modules: ['@wxt-dev/module-react'],
   publicDir: 'public',
   manifest: {
-    name: 'Tab.Show | Hover. Preview. Focus.',
-    short_name: 'Tab.Show | Hover. Preview. Focus.',
+    name: 'Tab.Show | Full-Page Tab Previews',
+    short_name: 'Tab.Show | Full-Page Tab Previews',
     description: 'Full-page tab previews on hover, right from a side panel - so you can manage dozens of tabs without losing focus.',
-    version: '0.9.0',
+    version: '0.9.1',
     side_panel: {
       default_path: 'sidepanel.html'
     },
