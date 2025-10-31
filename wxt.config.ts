@@ -5,9 +5,9 @@ export default defineConfig({
   modules: ['@wxt-dev/module-react'],
   publicDir: 'public',
   manifest: {
-    name: 'Tab.Show | Full-Page Tab Previews',
-    short_name: 'Tab.Show | Full-Page Tab Previews',
-    description: 'Full-page tab previews on hover, right from a side panel - so you can manage dozens of tabs without losing focus.',
+    name: 'Tab.Show | Vertical Tabs in a Side Panel with Full-Page Previews on Hover',
+    short_name: 'Tab.Show',
+    description: 'Vertical tabs with thumbnails and titles in a side panel. Hover tabs to view a full-page preview without switching. Click to switch.',
     version: '0.9.1',
     side_panel: {
       default_path: 'sidepanel.html'

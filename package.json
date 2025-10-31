@@ -1,6 +1,6 @@
 {
-  "name": "Tab.Show | Full-Page Tab Previews",
-  "description": "Full-page tab previews on hover, right from a side panel - so you can manage dozens of tabs without losing focus.",
+  "name": "Tab.Show | Vertical Tabs in a Side Panel with Full-Page Previews on Hover",
+  "description": "Vertical tabs with thumbnails and titles in a side panel. Hover tabs to view a full-page preview without switching. Click to switch.",
   "private": true,
   "version": "0.9.1",
   "type": "module",
