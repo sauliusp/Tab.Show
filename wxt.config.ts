@@ -7,8 +7,8 @@ export default defineConfig({
   manifest: {
     name: 'Tab.Show | Vertical Tabs in a Side Panel with Full-Page Previews on Hover',
     short_name: 'Tab.Show',
-    description: 'Vertical tabs with thumbnails and titles in a side panel. Hover tabs to view a full-page preview without switching. Click to switch.',
-    version: '0.9.1',
+    description: 'Vertical tabs with site icons and titles in a side panel. Hover tabs to view a full-page preview without switching. Click to switch.',
+    version: '0.9.2',
     side_panel: {
       default_path: 'sidepanel.html'
     },

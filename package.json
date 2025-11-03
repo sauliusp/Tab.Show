@@ -1,8 +1,8 @@
 {
   "name": "Tab.Show | Vertical Tabs in a Side Panel with Full-Page Previews on Hover",
-  "description": "Vertical tabs with thumbnails and titles in a side panel. Hover tabs to view a full-page preview without switching. Click to switch.",
+  "description": "Vertical tabs with site icons and titles in a side panel. Hover tabs to view a full-page preview without switching. Click to switch.",
   "private": true,
-  "version": "0.9.1",
+  "version": "0.9.2",
   "type": "module",
   "scripts": {
     "dev": "wxt",
