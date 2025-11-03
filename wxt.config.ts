@@ -5,15 +5,15 @@ export default defineConfig({
   modules: ['@wxt-dev/module-react'],
   publicDir: 'public',
   manifest: {
-    name: 'Tab.Show | Vertical Tabs in a Side Panel with Full-Page Previews on Hover',
-    short_name: 'Tab.Show',
-    description: 'Vertical tabs with site icons and titles in a side panel. Hover tabs to view a full-page preview without switching. Click to switch.',
+    name: 'TabShow | Point at Tabs in a Side Panel to See Full Pages Without Switching',
+    short_name: 'TabShow',
+    description: 'Vertical tabs with site icons and titles. Move your mouse over tabs to see a full page preview without switching. Click to switch.',
     version: '0.9.2',
     side_panel: {
       default_path: 'sidepanel.html'
     },
     action: {
-      default_title: 'Toggle Tab.Show Side Panel'
+      default_title: 'Toggle TabShow Side Panel'
     },
     commands: {
       // This is a reserved command name for the extension action
@@ -31,6 +31,5 @@ export default defineConfig({
       'tabs',
       'tabGroups'
     ],
-    host_permissions: undefined
   }
 });

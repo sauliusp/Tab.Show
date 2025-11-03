@@ -1,6 +1,6 @@
 {
-  "name": "Tab.Show | Vertical Tabs in a Side Panel with Full-Page Previews on Hover",
-  "description": "Vertical tabs with site icons and titles in a side panel. Hover tabs to view a full-page preview without switching. Click to switch.",
+  "name": "TabShow | Point at Tabs in a Side Panel to See Full Pages Without Switching",
+  "description": "Vertical tabs with site icons and titles. Move your mouse over tabs to see a full page preview without switching. Click to switch.",
   "private": true,
   "version": "0.9.2",
   "type": "module",
