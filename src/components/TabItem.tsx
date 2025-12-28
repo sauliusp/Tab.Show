@@ -4,10 +4,10 @@ import ListItem from '@mui/material/ListItem';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import ListItemText from '@mui/material/ListItemText';
 import Avatar from '@mui/material/Avatar';
+import CircularProgress from '@mui/material/CircularProgress';
 import { Tab, TabVisualState, AvatarOverlay } from '../types/Tab';
 import { getTabVisualState } from '../utils/tabVisualState';
 import { TabItemActionButton } from './TabItemActionButton';
-import { usePerformanceMonitor } from '../utils/performance';
 
 interface TabItemProps {
   tab: Tab;
@@ -52,6 +52,16 @@ export const TabItem = React.memo(({
   
   const visualState = getTabVisualState(tab, previewTabId, originalTab, theme);
   const isOriginalTab = originalTab?.id === tab.id;
+  const [isHovered, setIsHovered] = React.useState(false);
+  const isPreviewTab = previewTabId === tab.id;
+  const showHoverSpinner = isHovered && !isPreviewTab && !isOriginalTab;
+  const avatarBorder = isOriginalTab
+    ? `3px solid ${theme.palette.custom.original}`
+    : showHoverSpinner
+      ? 'none'
+      : groupColor
+        ? `3px solid ${groupColor}`
+        : 'none';
   
   // Render avatar overlay based on type and position
   const renderAvatarOverlay = (overlay: AvatarOverlay) => {
@@ -122,7 +132,11 @@ export const TabItem = React.memo(({
   return (
     <ListItem
       title={tab.url || tab.title || 'Untitled Tab'}
-      onMouseEnter={() => onTabHover(tab.id!)}
+      onMouseEnter={() => {
+        setIsHovered(true);
+        onTabHover(tab.id!);
+      }}
+      onMouseLeave={() => setIsHovered(false)}
       onClick={() => onTabClick(tab.id!)}
       sx={{
         ...visualState.listItemStyles,
@@ -143,25 +157,31 @@ export const TabItem = React.memo(({
       }}>
         <Avatar
           alt={tab.title || 'Tab'}
-          src={tab.favIconUrl || undefined}
+          src={!showHoverSpinner ? tab.favIconUrl || undefined : undefined}
           sx={{
             ...visualState.avatarStyles,
-            border: originalTab?.id === tab.id 
-              ? `3px solid ${theme.palette.custom.original}` 
-              : groupColor 
-                ? `3px solid ${groupColor}`
-                : 'none'
+            border: avatarBorder
           }}
         >
-          {!tab.favIconUrl && 
-           (tab.title ? tab.title.charAt(0).toUpperCase() : 'T')}
+          {showHoverSpinner ? (
+            <CircularProgress
+              enableTrackSlot
+              variant="indeterminate"
+              color="primary"
+              size={24}
+              thickness={6}
+            />
+          ) : (
+            !tab.favIconUrl && (tab.title ? tab.title.charAt(0).toUpperCase() : 'T')
+          )}
           
-          {/* Render all avatar overlays */}
-          {visualState.avatarOverlays.map((overlay, index) => (
-            <React.Fragment key={`${overlay.type}-${index}`}>
-              {renderAvatarOverlay(overlay)}
-            </React.Fragment>
-          ))}
+          {!showHoverSpinner && (
+            visualState.avatarOverlays.map((overlay, index) => (
+              <React.Fragment key={`${overlay.type}-${index}`}>
+                {renderAvatarOverlay(overlay)}
+              </React.Fragment>
+            ))
+          )}
         </Avatar>
       </ListItemAvatar>
       

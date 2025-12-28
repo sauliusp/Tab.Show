@@ -60,17 +60,7 @@ export function Header({ originalTab, onOpenSettings }: HeaderProps) {
             {originalTab.url || 'No URL'}
           </div>
         </div>
-        <div style={{
-          fontSize: '0.7rem',
-          backgroundColor: theme.palette.custom.original,
-          color: 'white',
-          padding: '4px 8px',
-          borderRadius: '12px',
-          fontWeight: '500',
-          whiteSpace: 'nowrap'
-        }}>
-          Original
-        </div>
+
         <Tooltip title="Open settings" placement="bottom" arrow>
           <IconButton
             aria-label="open settings"
@@ -84,7 +74,7 @@ export function Header({ originalTab, onOpenSettings }: HeaderProps) {
             }}
             size="small"
           >
-            <SettingsIcon fontSize="small" color="secondary" />
+            <SettingsIcon fontSize="small" color="primary" />
           </IconButton>
         </Tooltip>
       </div>
