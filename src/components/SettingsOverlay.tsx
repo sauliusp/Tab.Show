@@ -66,6 +66,28 @@ export function SettingsOverlay({ open, onClose }: SettingsOverlayProps) {
       </Box>
 
       <Box sx={{ p: 2, overflowY: 'auto' }}>
+        <Box sx={{ mb: 2.5 }}>
+          <Typography variant="subtitle2" sx={{ color: theme.palette.text.secondary, mb: 1 }}>
+            Hover preview delay
+          </Typography>
+          <Typography variant="body2" sx={{ color: theme.palette.text.primary, mb: 1 }}>
+            {`${(hoverPreviewDelayMs / 1000).toFixed(2)}s (${hoverPreviewDelayMs} ms)`}
+          </Typography>
+          <Slider
+            value={hoverPreviewDelayMs}
+            onChange={handleHoverDelayChange}
+            min={0}
+            max={1000}
+            step={50}
+            valueLabelDisplay="auto"
+            valueLabelFormat={(value) => `${value} ms`}
+            aria-label="Hover preview delay in milliseconds"
+          />
+          <Typography variant="caption" sx={{ color: theme.palette.text.secondary }}>
+            Increase the delay to avoid accidental previews when you brush past the sidebar.
+          </Typography>
+        </Box>
+
         <Typography variant="subtitle2" sx={{ color: theme.palette.text.secondary, mb: 1.5 }}>
           Choose your color pairing
         </Typography>
@@ -113,28 +135,6 @@ export function SettingsOverlay({ open, onClose }: SettingsOverlayProps) {
           })}
         </RadioGroup>
 
-        <Box sx={{ mt: 2.5 }}>
-          <Typography variant="subtitle2" sx={{ color: theme.palette.text.secondary, mb: 1 }}>
-            Hover preview delay
-          </Typography>
-          <Typography variant="body2" sx={{ color: theme.palette.text.primary, mb: 1 }}>
-            {`${(hoverPreviewDelayMs / 1000).toFixed(2)}s (${hoverPreviewDelayMs} ms)`}
-          </Typography>
-          <Slider
-            value={hoverPreviewDelayMs}
-            onChange={handleHoverDelayChange}
-            min={0}
-            max={1000}
-            step={50}
-            valueLabelDisplay="auto"
-            valueLabelFormat={(value) => `${value} ms`}
-            aria-label="Hover preview delay in milliseconds"
-          />
-          <Typography variant="caption" sx={{ color: theme.palette.text.secondary }}>
-            Increase the delay to avoid accidental previews when you brush past the sidebar.
-          </Typography>
-        </Box>
-
         <Box
           sx={{
             display: 'flex',
@@ -148,8 +148,7 @@ export function SettingsOverlay({ open, onClose }: SettingsOverlayProps) {
             variant="subtitle1"
             sx={{
               color: theme.palette.text.primary,
-              display: 'flex',
-              alignItems: 'center',
+
               gap: 0.75,
             }}
           >
@@ -159,7 +158,7 @@ export function SettingsOverlay({ open, onClose }: SettingsOverlayProps) {
               target="_blank"
               rel="noopener noreferrer"
               underline="hover"
-              sx={{ color: theme.palette.secondary.main, fontWeight: 600 }}
+              sx={{ color: theme.palette.secondary.main, fontWeight: 600, marginLeft: 1 }}
             >
               Suggest here.
             </Link>
