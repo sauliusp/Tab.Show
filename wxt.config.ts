@@ -8,7 +8,7 @@ export default defineConfig({
     name: 'TabShow | Point at Tabs in a Side Panel to See Full Pages Without Switching',
     short_name: 'TabShow',
     description: 'Vertical tabs with site icons and titles. Move your mouse over tabs to see a full page preview without switching. Click to switch.',
-    version: '0.9.2',
+    version: '1.0.0',
     side_panel: {
       default_path: 'sidepanel.html'
     },
