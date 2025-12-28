@@ -56,7 +56,7 @@ export function ActionLinkButton(props: ActionLinkButtonProps) {
           display: 'inline-flex',
           alignItems: 'center',
           gap: 0.75,
-          px: 1.5,
+          px: 1,
           py: 0.75,
           borderRadius: 1.5,
           boxShadow: 1.5,
