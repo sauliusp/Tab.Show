@@ -1,10 +1,15 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { Tab, TabGroup, TabListItem, TabListState } from '../types/Tab';
 import { tabService } from '../services/TabService';
+import { DEFAULT_HOVER_PREVIEW_DELAY_MS } from '../services/UserSettingsService';
 
 const HOVER_SWITCH_TIMEOUT = 500;
 
-export function useTabs() {
+interface UseTabsOptions {
+  hoverPreviewDelayMs?: number;
+}
+
+export function useTabs({ hoverPreviewDelayMs = DEFAULT_HOVER_PREVIEW_DELAY_MS }: UseTabsOptions = {}) {
   const [tabListState, setTabListState] = useState<TabListState>({
     items: {},
     itemOrder: [],
@@ -17,6 +22,8 @@ export function useTabs() {
   const isSwitchingOnHoverRef = useRef(false);
   const hoverSwitchTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const isHoverOperationInProgressRef = useRef(false);
+  const hoverPreviewDelayTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const pendingHoverTabIdRef = useRef<number | null>(null);
 
   // Helper function to build tab list state from tabs and groups
   const buildTabListState = useCallback((tabs: Tab[], groups: TabGroup[]): TabListState => {
@@ -116,6 +123,14 @@ export function useTabs() {
       clearTimeout(hoverSwitchTimeoutRef.current);
       hoverSwitchTimeoutRef.current = null;
     }
+  }, []);
+
+  const clearHoverPreviewDelayTimeout = useCallback(() => {
+    if (hoverPreviewDelayTimeoutRef.current) {
+      clearTimeout(hoverPreviewDelayTimeoutRef.current);
+      hoverPreviewDelayTimeoutRef.current = null;
+    }
+    pendingHoverTabIdRef.current = null;
   }, []);
 
   const setHoverSwitchFlag = useCallback(() => {
@@ -386,7 +401,7 @@ export function useTabs() {
   }, [refreshTabData, logError]);
 
   // Tab interaction handlers
-  const handleTabHover = useCallback(async (tabId: number) => {
+  const performTabHover = useCallback(async (tabId: number) => {
     const currentActiveTab = previewTabId || originalTab?.id;
     if (tabId === currentActiveTab) {
       return; // No action needed if hovering over the already active tab
@@ -419,6 +434,42 @@ export function useTabs() {
     }
   }, [previewTabId, originalTab, setHoverSwitchFlag, executeProgrammaticTabSwitch]);
 
+  const handleTabHover = useCallback((tabId: number) => {
+    const currentActiveTab = previewTabId || originalTab?.id;
+    if (tabId === currentActiveTab) {
+      clearHoverPreviewDelayTimeout();
+      return;
+    }
+
+    pendingHoverTabIdRef.current = tabId;
+
+    if (hoverPreviewDelayMs <= 0) {
+      clearHoverPreviewDelayTimeout();
+      void performTabHover(tabId);
+      return;
+    }
+
+    if (hoverPreviewDelayTimeoutRef.current) {
+      clearTimeout(hoverPreviewDelayTimeoutRef.current);
+      hoverPreviewDelayTimeoutRef.current = null;
+    }
+
+    hoverPreviewDelayTimeoutRef.current = setTimeout(() => {
+      hoverPreviewDelayTimeoutRef.current = null;
+      if (pendingHoverTabIdRef.current !== tabId) {
+        return;
+      }
+      pendingHoverTabIdRef.current = null;
+      void performTabHover(tabId);
+    }, hoverPreviewDelayMs);
+  }, [
+    previewTabId,
+    originalTab,
+    hoverPreviewDelayMs,
+    performTabHover,
+    clearHoverPreviewDelayTimeout
+  ]);
+
   const handleTabClick = useCallback((tabId: number) => {
     const tabItemId = `tab-${tabId}`;
     const tabItem = tabListState.items[tabItemId];
@@ -430,6 +481,7 @@ export function useTabs() {
   }, [tabListState]);
 
   const handleSidePanelHoverEnd = useCallback(async () => {
+    clearHoverPreviewDelayTimeout();
     if (originalTab?.id && previewTabId) {
       console.log(`Hover ended. Returning to original tab ${originalTab.id}`);
       
@@ -448,7 +500,7 @@ export function useTabs() {
         // Error handling is already done in executeProgrammaticTabSwitch
       }
     }
-  }, [originalTab, previewTabId, setHoverSwitchFlag, executeProgrammaticTabSwitch]);
+  }, [originalTab, previewTabId, setHoverSwitchFlag, executeProgrammaticTabSwitch, clearHoverPreviewDelayTimeout]);
 
   // Group expansion handler
   const handleGroupToggle = useCallback(async (groupId: number) => {
@@ -520,6 +572,12 @@ export function useTabs() {
   useEffect(() => {
     initializeTabsInfo();
   }, [initializeTabsInfo]);
+
+  useEffect(() => {
+    return () => {
+      clearHoverPreviewDelayTimeout();
+    };
+  }, [clearHoverPreviewDelayTimeout]);
 
   return {
     tabListState,

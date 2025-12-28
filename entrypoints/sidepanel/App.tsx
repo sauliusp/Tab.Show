@@ -10,6 +10,7 @@ import { clearVisualStateCache } from '../../src/utils/tabVisualState';
 import { PerformanceMetrics } from '../../src/components/PerformanceMetrics';
 import { EXTENSION_URLS } from '../../src/parameters';
 import { SettingsOverlay } from '../../src/components/SettingsOverlay';
+import { useUserSettings } from '../../src/contexts/UserSettingsContext';
 import './App.css';
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
   const [showCopiedTooltip, setShowCopiedTooltip] = React.useState(false);
   const [hoverTooltipOpen, setHoverTooltipOpen] = React.useState(false);
   const [isSettingsOpen, setIsSettingsOpen] = React.useState(false);
+  const { hoverPreviewDelayMs } = useUserSettings();
   
   // Use the custom hook for tab management
   const {
@@ -27,7 +29,7 @@ function App() {
     handleSidePanelHoverEnd,
     handleTabClick,
     handleGroupToggle
-  } = useTabs();
+  } = useTabs({ hoverPreviewDelayMs });
 
   // Clear visual state cache when theme changes to prevent stale cached values
   React.useEffect(() => {

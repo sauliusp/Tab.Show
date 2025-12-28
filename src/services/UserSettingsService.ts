@@ -1,9 +1,11 @@
 import { ColorPairing, DEFAULT_COLOR_PAIRING_ID, getColorPairingById } from '../constants/colorPairings';
 
 const STORAGE_KEY = 'tab.show.userSettings';
+export const DEFAULT_HOVER_PREVIEW_DELAY_MS = 250;
 
 export interface UserSettings {
   colorPairingId: string;
+  hoverPreviewDelayMs: number;
 }
 
 class UserSettingsService {
@@ -21,7 +23,14 @@ class UserSettingsService {
     return UserSettingsService.instance;
   }
 
-  private readSettings(): UserSettings | null {
+  private getDefaultSettings(): UserSettings {
+    return {
+      colorPairingId: DEFAULT_COLOR_PAIRING_ID,
+      hoverPreviewDelayMs: DEFAULT_HOVER_PREVIEW_DELAY_MS
+    };
+  }
+
+  private readSettings(): Partial<UserSettings> | null {
     if (!this.storageAvailable) {
       return null;
     }
@@ -33,17 +42,39 @@ class UserSettingsService {
       }
 
       const parsed = JSON.parse(raw) as Partial<UserSettings> & { colorPairing?: { id?: string } };
+      const settings: Partial<UserSettings> = {};
+
       if (parsed && typeof parsed.colorPairingId === 'string') {
-        return { colorPairingId: parsed.colorPairingId };
+        settings.colorPairingId = parsed.colorPairingId;
+      } else if (parsed?.colorPairing?.id) {
+        settings.colorPairingId = parsed.colorPairing.id;
       }
-      if (parsed?.colorPairing?.id) {
-        return { colorPairingId: parsed.colorPairing.id };
+
+      if (typeof parsed?.hoverPreviewDelayMs === 'number' && Number.isFinite(parsed.hoverPreviewDelayMs) && parsed.hoverPreviewDelayMs >= 0) {
+        settings.hoverPreviewDelayMs = parsed.hoverPreviewDelayMs;
       }
-      return null;
+
+      return Object.keys(settings).length ? settings : null;
     } catch (error) {
       console.warn('Failed to parse user settings from localStorage, falling back to defaults.', error);
       return null;
     }
+  }
+
+  private getSettings(): UserSettings {
+    const storedSettings = this.readSettings();
+    return {
+      ...this.getDefaultSettings(),
+      ...(storedSettings ?? {})
+    };
+  }
+
+  private normalizeHoverPreviewDelayMs(delayMs: number): number {
+    if (!Number.isFinite(delayMs) || delayMs < 0) {
+      return DEFAULT_HOVER_PREVIEW_DELAY_MS;
+    }
+
+    return Math.round(delayMs);
   }
 
   private writeSettings(settings: UserSettings): void {
@@ -64,12 +95,27 @@ class UserSettingsService {
   }
 
   getColorPairingId(): string {
-    const storedSettings = this.readSettings();
-    return storedSettings?.colorPairingId ?? DEFAULT_COLOR_PAIRING_ID;
+    return this.getSettings().colorPairingId;
+  }
+
+  getHoverPreviewDelayMs(): number {
+    return this.getSettings().hoverPreviewDelayMs;
   }
 
   saveColorPairingId(colorPairingId: string): void {
-    this.writeSettings({ colorPairingId });
+    const currentSettings = this.getSettings();
+    this.writeSettings({
+      ...currentSettings,
+      colorPairingId
+    });
+  }
+
+  saveHoverPreviewDelayMs(hoverPreviewDelayMs: number): void {
+    const currentSettings = this.getSettings();
+    this.writeSettings({
+      ...currentSettings,
+      hoverPreviewDelayMs: this.normalizeHoverPreviewDelayMs(hoverPreviewDelayMs)
+    });
   }
 }
 

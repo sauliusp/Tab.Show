@@ -1,8 +1,9 @@
 import React from 'react';
-import { Box, Typography, IconButton, RadioGroup, FormControlLabel, Radio, Button, Link } from '@mui/material';
+import { Box, Typography, IconButton, RadioGroup, FormControlLabel, Radio, Button, Link, Slider } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import CloseIcon from '@mui/icons-material/Close';
 import { useColorScheme } from '../contexts/ColorSchemeContext';
+import { useUserSettings } from '../contexts/UserSettingsContext';
 import { EXTENSION_URLS } from '../parameters';
 
 interface SettingsOverlayProps {
@@ -13,9 +14,15 @@ interface SettingsOverlayProps {
 export function SettingsOverlay({ open, onClose }: SettingsOverlayProps) {
   const theme = useTheme();
   const { colorPairingId, availablePairings, setColorPairingById } = useColorScheme();
+  const { hoverPreviewDelayMs, setHoverPreviewDelayMs } = useUserSettings();
 
   const handleSelectionChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setColorPairingById(event.target.value);
+  };
+
+  const handleHoverDelayChange = (_event: Event, value: number | number[]) => {
+    const delayMs = Array.isArray(value) ? value[0] : value;
+    setHoverPreviewDelayMs(delayMs);
   };
 
   return (
@@ -105,6 +112,28 @@ export function SettingsOverlay({ open, onClose }: SettingsOverlayProps) {
             );
           })}
         </RadioGroup>
+
+        <Box sx={{ mt: 2.5 }}>
+          <Typography variant="subtitle2" sx={{ color: theme.palette.text.secondary, mb: 1 }}>
+            Hover preview delay
+          </Typography>
+          <Typography variant="body2" sx={{ color: theme.palette.text.primary, mb: 1 }}>
+            {`${(hoverPreviewDelayMs / 1000).toFixed(2)}s (${hoverPreviewDelayMs} ms)`}
+          </Typography>
+          <Slider
+            value={hoverPreviewDelayMs}
+            onChange={handleHoverDelayChange}
+            min={0}
+            max={1000}
+            step={50}
+            valueLabelDisplay="auto"
+            valueLabelFormat={(value) => `${value} ms`}
+            aria-label="Hover preview delay in milliseconds"
+          />
+          <Typography variant="caption" sx={{ color: theme.palette.text.secondary }}>
+            Increase the delay to avoid accidental previews when you brush past the sidebar.
+          </Typography>
+        </Box>
 
         <Box
           sx={{
