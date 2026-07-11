@@ -29,7 +29,8 @@ export default defineConfig({
       'sidePanel',
       'activeTab',
       'tabs',
-      'tabGroups'
+      'tabGroups',
+      'favicon'
     ],
   }
 });

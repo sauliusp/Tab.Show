@@ -44,6 +44,7 @@ export function SettingsOverlay({ open, onClose }: SettingsOverlayProps) {
         transition: 'transform 0.3s ease, box-shadow 0.3s ease',
         zIndex: 1200,
         pointerEvents: open ? 'auto' : 'none',
+        visibility: open ? 'visible' : 'hidden',
         display: 'flex',
         flexDirection: 'column',
       }}

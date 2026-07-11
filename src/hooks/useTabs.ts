@@ -7,9 +7,10 @@ const HOVER_SWITCH_TIMEOUT = 500;
 
 interface UseTabsOptions {
   hoverPreviewDelayMs?: number;
+  allWindows?: boolean;
 }
 
-export function useTabs({ hoverPreviewDelayMs = DEFAULT_HOVER_PREVIEW_DELAY_MS }: UseTabsOptions = {}) {
+export function useTabs({ hoverPreviewDelayMs = DEFAULT_HOVER_PREVIEW_DELAY_MS, allWindows = false }: UseTabsOptions = {}) {
   const [tabListState, setTabListState] = useState<TabListState>({
     items: {},
     itemOrder: [],
@@ -24,6 +25,12 @@ export function useTabs({ hoverPreviewDelayMs = DEFAULT_HOVER_PREVIEW_DELAY_MS }
   const isHoverOperationInProgressRef = useRef(false);
   const hoverPreviewDelayTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const pendingHoverTabIdRef = useRef<number | null>(null);
+  const hostWindowIdRef = useRef<number | null>(null);
+  const initializedRef = useRef(false);
+  const refreshGenerationRef = useRef(0);
+  const interactionGenerationRef = useRef(0);
+  const tabSwitchQueueRef = useRef<Promise<void>>(Promise.resolve());
+  const programmaticTargetTabIdRef = useRef<number | null>(null);
 
   // Helper function to build tab list state from tabs and groups
   const buildTabListState = useCallback((tabs: Tab[], groups: TabGroup[]): TabListState => {
@@ -42,7 +49,7 @@ export function useTabs({ hoverPreviewDelayMs = DEFAULT_HOVER_PREVIEW_DELAY_MS }
       
       const tabItemId = `tab-${tab.id}`;
       
-      if (tab.groupId && groupMap.has(tab.groupId)) {
+      if (tab.groupId !== undefined && tab.groupId >= 0 && groupMap.has(tab.groupId)) {
         // This tab belongs to a group
         const group = groupMap.get(tab.groupId)!;
         
@@ -81,17 +88,6 @@ export function useTabs({ hoverPreviewDelayMs = DEFAULT_HOVER_PREVIEW_DELAY_MS }
       }
     });
 
-    console.log('buildTabListState - tabs order:', tabs.map((t, i) => ({ index: i, id: t.id, title: t.title, groupId: t.groupId })));
-    console.log('buildTabListState - itemOrder:', itemOrder);
-    console.log('buildTabListState - items:', Object.keys(items).map(id => ({
-      id,
-      type: items[id].type,
-      parentId: items[id].parentId,
-      title: items[id].type === 'tab' 
-        ? (items[id].data as Tab).title 
-        : (items[id].data as TabGroup).title
-    })));
-
     return {
       items,
       itemOrder,
@@ -105,20 +101,24 @@ export function useTabs({ hoverPreviewDelayMs = DEFAULT_HOVER_PREVIEW_DELAY_MS }
   }, []);
 
   const refreshTabData = useCallback(async () => {
+    const generation = ++refreshGenerationRef.current;
     try {
       const [windowTabs, groups] = await Promise.all([
-        tabService.getAllTabs(),
-        tabService.getTabGroups()
+        tabService.getAllTabs(allWindows),
+        tabService.getTabGroups(allWindows)
       ]);
-      const newTabListState = buildTabListState(windowTabs, groups);
-      setTabListState(newTabListState);
+      if (generation === refreshGenerationRef.current) {
+        const newTabListState = buildTabListState(windowTabs, groups);
+        setTabListState(newTabListState);
+      }
     } catch (error) {
       logError('refresh tab data', error);
     }
-  }, [logError, buildTabListState]);
+  }, [logError, buildTabListState, allWindows]);
 
   const clearHoverSwitchFlag = useCallback(() => {
     isSwitchingOnHoverRef.current = false;
+    programmaticTargetTabIdRef.current = null;
     if (hoverSwitchTimeoutRef.current) {
       clearTimeout(hoverSwitchTimeoutRef.current);
       hoverSwitchTimeoutRef.current = null;
@@ -157,10 +157,20 @@ export function useTabs({ hoverPreviewDelayMs = DEFAULT_HOVER_PREVIEW_DELAY_MS }
     }
   }, [logError, clearHoverSwitchFlag]);
 
+  const queueProgrammaticTabSwitch = useCallback((tabId: number, context: string) => {
+    const operation = tabSwitchQueueRef.current.then(() => {
+      programmaticTargetTabIdRef.current = tabId;
+      setHoverSwitchFlag();
+      return executeProgrammaticTabSwitch(tabId, context);
+    });
+    tabSwitchQueueRef.current = operation.catch(() => undefined);
+    return operation;
+  }, [executeProgrammaticTabSwitch, setHoverSwitchFlag]);
+
   // Tab group event handlers
   const handleTabGroupUpdated = useCallback(async () => {
     try {
-      const groups = await tabService.getTabGroups();
+      const groups = await tabService.getTabGroups(allWindows);
       console.log('handleTabGroupUpdated - fetched groups:', groups);
       setTabListState(prevState => {
         const newState = buildTabListState(
@@ -184,11 +194,11 @@ export function useTabs({ hoverPreviewDelayMs = DEFAULT_HOVER_PREVIEW_DELAY_MS }
     } catch (error) {
       logError('update tab groups', error);
     }
-  }, [logError, buildTabListState]);
+  }, [logError, buildTabListState, allWindows]);
 
   const handleTabGroupCreated = useCallback(async () => {
     try {
-      const groups = await tabService.getTabGroups();
+      const groups = await tabService.getTabGroups(allWindows);
       console.log('handleTabGroupCreated - fetched groups:', groups);
       setTabListState(prevState => {
         const newState = buildTabListState(
@@ -206,11 +216,11 @@ export function useTabs({ hoverPreviewDelayMs = DEFAULT_HOVER_PREVIEW_DELAY_MS }
     } catch (error) {
       logError('update tab groups after creation', error);
     }
-  }, [logError, buildTabListState]);
+  }, [logError, buildTabListState, allWindows]);
 
   const handleTabGroupRemoved = useCallback(async () => {
     try {
-      const groups = await tabService.getTabGroups();
+      const groups = await tabService.getTabGroups(allWindows);
       console.log('handleTabGroupRemoved - fetched groups:', groups);
       setTabListState(prevState => {
         const newState = buildTabListState(
@@ -228,26 +238,19 @@ export function useTabs({ hoverPreviewDelayMs = DEFAULT_HOVER_PREVIEW_DELAY_MS }
     } catch (error) {
       logError('update tab groups after removal', error);
     }
-  }, [logError, buildTabListState]);
+  }, [logError, buildTabListState, allWindows]);
 
   // Initialize tabs information
   const initializeTabsInfo = useCallback(async () => {
     try {
       const [activeTab, windowTabs, groups] = await Promise.all([
         tabService.getActiveTab(),
-        tabService.getAllTabs(),
-        tabService.getTabGroups()
+        tabService.getAllTabs(allWindows),
+        tabService.getTabGroups(allWindows)
       ]);
       
-      console.log('initializeTabsInfo - fetched data:', {
-        activeTab: activeTab?.id,
-        windowTabsCount: windowTabs.length,
-        groupsCount: groups.length,
-        groups: groups,
-        windowTabs: windowTabs.map(t => ({ id: t.id, title: t.title, groupId: t.groupId }))
-      });
-      
-      if (activeTab && activeTab.id) {
+      hostWindowIdRef.current = await tabService.getCurrentWindowId();
+      if (!initializedRef.current && activeTab && activeTab.id) {
         setOriginalTab(activeTab);
         const index = windowTabs.findIndex(tab => tab.id === activeTab.id);
         setOriginalTabIndex(index);
@@ -255,10 +258,11 @@ export function useTabs({ hoverPreviewDelayMs = DEFAULT_HOVER_PREVIEW_DELAY_MS }
       
       const newTabListState = buildTabListState(windowTabs, groups);
       setTabListState(newTabListState);
+      initializedRef.current = true;
     } catch (error) {
       logError('initialize tabs information', error);
     }
-  }, [logError, buildTabListState]);
+  }, [logError, buildTabListState, allWindows]);
 
   // Tab event handlers
   const handleTabRemoved = useCallback((tabId: number) => {
@@ -289,7 +293,7 @@ export function useTabs({ hoverPreviewDelayMs = DEFAULT_HOVER_PREVIEW_DELAY_MS }
   }, []);
 
   const handleTabUpdated = useCallback((tabId: number, changeInfo: any, updatedTab: any) => {
-    if (changeInfo.status || changeInfo.groupId || changeInfo.favIconUrl || changeInfo.title || changeInfo.url) {
+    if (changeInfo.status || changeInfo.groupId !== undefined || changeInfo.favIconUrl || changeInfo.title || changeInfo.url || changeInfo.pinned !== undefined || changeInfo.audible !== undefined || changeInfo.mutedInfo || changeInfo.discarded !== undefined) {
       setTabListState(prevState => {
         const newItems = { ...prevState.items };
         const tabItemId = `tab-${tabId}`;
@@ -322,7 +326,7 @@ export function useTabs({ hoverPreviewDelayMs = DEFAULT_HOVER_PREVIEW_DELAY_MS }
       }
 
       // If groupId changed, refresh tab groups
-      if (changeInfo.groupId) {
+      if (changeInfo.groupId !== undefined) {
         handleTabGroupUpdated();
       }
     }
@@ -331,13 +335,13 @@ export function useTabs({ hoverPreviewDelayMs = DEFAULT_HOVER_PREVIEW_DELAY_MS }
   const handleTabCreated = useCallback(async (tab: any) => {
     try {
       const currentWindowId = await tabService.getCurrentWindowId();
-      if (tab.windowId === currentWindowId) {
+      if (allWindows || tab.windowId === currentWindowId) {
         await refreshTabData();
       }
     } catch (error) {
       logError('handle tab creation', error);
     }
-  }, [refreshTabData, logError]);
+  }, [refreshTabData, logError, allWindows]);
 
   const handleTabMoved = useCallback(async () => {
     try {
@@ -350,8 +354,8 @@ export function useTabs({ hoverPreviewDelayMs = DEFAULT_HOVER_PREVIEW_DELAY_MS }
   const handleTabReplaced = useCallback(async (addedTabId: number, removedTabId: number) => {
     try {
       const [windowTabs, groups] = await Promise.all([
-        tabService.getAllTabs(),
-        tabService.getTabGroups()
+        tabService.getAllTabs(allWindows),
+        tabService.getTabGroups(allWindows)
       ]);
       const newTabListState = buildTabListState(windowTabs, groups);
       setTabListState(newTabListState);
@@ -368,14 +372,16 @@ export function useTabs({ hoverPreviewDelayMs = DEFAULT_HOVER_PREVIEW_DELAY_MS }
     } catch (error) {
       logError('handle tab replacement', error);
     }
-  }, [originalTab, previewTabId, logError, buildTabListState]);
+  }, [originalTab, previewTabId, logError, buildTabListState, allWindows]);
 
   const handleTabActivated = useCallback(async (activeInfo: any) => {
-    if (isSwitchingOnHoverRef.current) {
+    if (isSwitchingOnHoverRef.current && programmaticTargetTabIdRef.current === activeInfo.tabId) {
       console.log(`Programmatic switch to tab ${activeInfo.tabId} detected. Resetting flag.`);
       clearHoverSwitchFlag();
       return; 
     }
+
+    if (isSwitchingOnHoverRef.current) clearHoverSwitchFlag();
 
     console.log(`MANUAL switch to tab ${activeInfo.tabId} detected (Keyboard or Mouse).`);
     try {
@@ -391,25 +397,27 @@ export function useTabs({ hoverPreviewDelayMs = DEFAULT_HOVER_PREVIEW_DELAY_MS }
 
   const handleWindowFocusChanged = useCallback(async (windowId: number) => {
     try {
-      const currentWindowId = await tabService.getCurrentWindowId();
-      if (windowId === currentWindowId) {
+      if (allWindows || windowId === hostWindowIdRef.current) {
         await refreshTabData();
       }
     } catch (error) {
       logError('handle window focus change', error);
     }
-  }, [refreshTabData, logError]);
+  }, [refreshTabData, logError, allWindows]);
 
   // Tab interaction handlers
-  const performTabHover = useCallback(async (tabId: number) => {
+  const performTabHover = useCallback(async (tabId: number, generation: number) => {
     const currentActiveTab = previewTabId || originalTab?.id;
     if (tabId === currentActiveTab) {
       return; // No action needed if hovering over the already active tab
     }
-    
-    // Prevent overlapping hover operations
-    if (isHoverOperationInProgressRef.current) {
-      console.log(`Hover operation already in progress, ignoring hover on tab ${tabId}`);
+
+    // Activating a tab in another window requires focusing that window. A hover
+    // preview must never pull a different Chrome window to the foreground; users
+    // can still explicitly click the row to switch windows.
+    const hoveredItem = tabListState.items[`tab-${tabId}`];
+    const hoveredTab = hoveredItem?.type === 'tab' ? hoveredItem.data as Tab : null;
+    if (hoveredTab?.windowId !== undefined && hoveredTab.windowId !== hostWindowIdRef.current) {
       return;
     }
     
@@ -418,23 +426,21 @@ export function useTabs({ hoverPreviewDelayMs = DEFAULT_HOVER_PREVIEW_DELAY_MS }
     // Mark hover operation as in progress
     isHoverOperationInProgressRef.current = true;
     
-    // 1. SET THE FLAG: Tell the hook a programmatic switch is about to happen.
-    setHoverSwitchFlag();
-
     try {
       // 2. PERFORM THE ACTION: Activate the tab. This will trigger onActivated.
-      await executeProgrammaticTabSwitch(tabId, 'preview tab on hover');
+      await queueProgrammaticTabSwitch(tabId, 'preview tab on hover');
       // 3. UPDATE STATE: After the action, update the UI state to reflect the preview.
-      setPreviewTabId(tabId);
+      if (generation === interactionGenerationRef.current) setPreviewTabId(tabId);
     } catch (error) {
       // Error handling is already done in executeProgrammaticTabSwitch
     } finally {
       // Always clear the hover operation flag
       isHoverOperationInProgressRef.current = false;
     }
-  }, [previewTabId, originalTab, setHoverSwitchFlag, executeProgrammaticTabSwitch]);
+  }, [previewTabId, originalTab, tabListState.items, queueProgrammaticTabSwitch]);
 
   const handleTabHover = useCallback((tabId: number) => {
+    const generation = ++interactionGenerationRef.current;
     const currentActiveTab = previewTabId || originalTab?.id;
     if (tabId === currentActiveTab) {
       clearHoverPreviewDelayTimeout();
@@ -445,7 +451,7 @@ export function useTabs({ hoverPreviewDelayMs = DEFAULT_HOVER_PREVIEW_DELAY_MS }
 
     if (hoverPreviewDelayMs <= 0) {
       clearHoverPreviewDelayTimeout();
-      void performTabHover(tabId);
+      void performTabHover(tabId, generation);
       return;
     }
 
@@ -460,7 +466,7 @@ export function useTabs({ hoverPreviewDelayMs = DEFAULT_HOVER_PREVIEW_DELAY_MS }
         return;
       }
       pendingHoverTabIdRef.current = null;
-      void performTabHover(tabId);
+      void performTabHover(tabId, generation);
     }, hoverPreviewDelayMs);
   }, [
     previewTabId,
@@ -470,17 +476,56 @@ export function useTabs({ hoverPreviewDelayMs = DEFAULT_HOVER_PREVIEW_DELAY_MS }
     clearHoverPreviewDelayTimeout
   ]);
 
-  const handleTabClick = useCallback((tabId: number) => {
+  const handleTabHoverEnd = useCallback((tabId: number) => {
+    if (pendingHoverTabIdRef.current === tabId) {
+      interactionGenerationRef.current += 1;
+      clearHoverPreviewDelayTimeout();
+    }
+  }, [clearHoverPreviewDelayTimeout]);
+
+  const cancelPendingPreview = useCallback(() => {
+    interactionGenerationRef.current += 1;
+    clearHoverPreviewDelayTimeout();
+  }, [clearHoverPreviewDelayTimeout]);
+
+  const handleTabClick = useCallback(async (tabId: number) => {
+    interactionGenerationRef.current += 1;
+    clearHoverPreviewDelayTimeout();
     const tabItemId = `tab-${tabId}`;
     const tabItem = tabListState.items[tabItemId];
     if (tabItem && tabItem.type === 'tab') {
       const clickedTab = tabItem.data as Tab;
-      setOriginalTab(clickedTab);
-      setPreviewTabId(null);
+      try {
+        await queueProgrammaticTabSwitch(tabId, 'select tab');
+        setOriginalTab(clickedTab);
+        setPreviewTabId(null);
+        await tabService.closeSidePanel(hostWindowIdRef.current ?? undefined);
+      } catch (error) {
+        logError('select tab and close side panel', error);
+      }
     }
-  }, [tabListState]);
+  }, [tabListState, clearHoverPreviewDelayTimeout, queueProgrammaticTabSwitch, logError]);
+
+  const handleCancel = useCallback(async () => {
+    interactionGenerationRef.current += 1;
+    clearHoverPreviewDelayTimeout();
+    if (originalTab?.id) {
+      try {
+        await queueProgrammaticTabSwitch(originalTab.id, 'restore original tab');
+      } catch {
+        // Closing the panel is still the least surprising fallback.
+      }
+    }
+    setPreviewTabId(null);
+    try {
+      await tabService.closeSidePanel(hostWindowIdRef.current ?? undefined);
+    } catch (error) {
+      logError('close side panel', error);
+    }
+  }, [originalTab, clearHoverPreviewDelayTimeout, queueProgrammaticTabSwitch, logError]);
 
   const handleSidePanelHoverEnd = useCallback(async () => {
+    interactionGenerationRef.current += 1;
     clearHoverPreviewDelayTimeout();
     if (originalTab?.id && previewTabId) {
       console.log(`Hover ended. Returning to original tab ${originalTab.id}`);
@@ -489,18 +534,16 @@ export function useTabs({ hoverPreviewDelayMs = DEFAULT_HOVER_PREVIEW_DELAY_MS }
       isHoverOperationInProgressRef.current = false;
       
       // 1. SET THE FLAG: A programmatic switch back is about to happen.
-      setHoverSwitchFlag();
-
       try {
         // 2. PERFORM THE ACTION: Return to the original tab.
-        await executeProgrammaticTabSwitch(originalTab.id, 'return to original tab');
+        await queueProgrammaticTabSwitch(originalTab.id, 'return to original tab');
         // 3. UPDATE STATE: End the preview session.
         setPreviewTabId(null);
       } catch (error) {
         // Error handling is already done in executeProgrammaticTabSwitch
       }
     }
-  }, [originalTab, previewTabId, setHoverSwitchFlag, executeProgrammaticTabSwitch, clearHoverPreviewDelayTimeout]);
+  }, [originalTab, previewTabId, queueProgrammaticTabSwitch, clearHoverPreviewDelayTimeout]);
 
   // Group expansion handler
   const handleGroupToggle = useCallback(async (groupId: number) => {
@@ -570,8 +613,9 @@ export function useTabs({ hoverPreviewDelayMs = DEFAULT_HOVER_PREVIEW_DELAY_MS }
 
   // Initialize on mount
   useEffect(() => {
-    initializeTabsInfo();
-  }, [initializeTabsInfo]);
+    if (!initializedRef.current) void initializeTabsInfo();
+    else void refreshTabData();
+  }, [initializeTabsInfo, refreshTabData]);
 
   useEffect(() => {
     return () => {
@@ -585,8 +629,11 @@ export function useTabs({ hoverPreviewDelayMs = DEFAULT_HOVER_PREVIEW_DELAY_MS }
     previewTabId,
     originalTabIndex,
     handleTabHover,
+    handleTabHoverEnd,
+    cancelPendingPreview,
     handleSidePanelHoverEnd,
     handleTabClick,
+    handleCancel,
     handleGroupToggle,
     setOriginalTab,
     setPreviewTabId

@@ -88,7 +88,7 @@ export function createAppTheme(colorPairing: ColorPairing): Theme {
       },
     },
     typography: {
-      fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+      fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, sans-serif',
       fontSize: 14,
       body1: {
         fontSize: '0.875rem',
