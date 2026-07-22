@@ -55,6 +55,23 @@ describe('side-panel browser-rendered interaction', () => {
     expect(mock.close).toHaveBeenCalledWith({ windowId: 10 });
   });
 
+  it('previews search results with arrow keys and restores the original tab with Escape', async () => {
+    const mock = browserWith150Tabs();
+    vi.stubGlobal('browser', mock.api);
+    render(<UserSettingsProvider><ColorSchemeProvider><App /></ColorSchemeProvider></UserSettingsProvider>);
+    const search = screen.getByRole('textbox', { name: 'Search tabs' });
+    await waitFor(() => expect(screen.getByText(/150 tabs/)).toBeVisible());
+    fireEvent.change(search, { target: { value: 'QA Tab 00' } });
+    await waitFor(() => expect(screen.getByText(/9 tabs/)).toBeVisible());
+
+    fireEvent.keyDown(search, { key: 'ArrowDown' });
+    await waitFor(() => expect(mock.update).toHaveBeenCalledWith(2, { active: true }));
+
+    fireEvent.keyDown(search, { key: 'Escape' });
+    await waitFor(() => expect(mock.update).toHaveBeenCalledWith(1, { active: true }));
+    expect(mock.close).toHaveBeenCalledWith({ windowId: 10 });
+  });
+
   it('does not hijack keyboard input intended for the sort control', async () => {
     const mock = browserWith150Tabs();
     vi.stubGlobal('browser', mock.api);

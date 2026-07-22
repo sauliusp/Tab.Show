@@ -1,289 +1,94 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>What's New in TabShow</title>
-    <!-- Import Google Fonts for Material Design -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Roboto', -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-            line-height: 1.6;
-            color: #1F1C3D;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 24px;
-            background-color: #F4F4FA;
-        }
-        header {
-            text-align: center;
-            margin-bottom: 48px;
-        }
-        h1 {
-            font-size: 2.125rem;
-            font-weight: 400;
-            color: #1F1C3D;
-        }
-        .version-section {
-            background-color: #ffffff;
-            border-radius: 4px;
-            padding: 24px;
-            margin-bottom: 24px;
-            box-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 1px 3px 0px rgba(0,0,0,0.12);
-        }
-        .version-header {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 4px;
-        }
-        h2 {
-            font-size: 1.5rem;
-            font-weight: 500;
-            margin-top: 0;
-            margin-bottom: 0;
-            color: #2C2A4A;
-        }
-        .date {
-            color: #5E5A80;
-            font-size: 0.875rem;
-            margin-top: 0;
-            margin-bottom: 16px;
-        }
-        ul {
-            padding-left: 20px;
-            margin: 0;
-        }
-        li {
-            margin-bottom: 8px;
-            font-size: 1rem;
-        }
-        li:last-child {
-            margin-bottom: 0;
-        }
-        code {
-            background-color: rgba(0, 0, 0, 0.08);
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
-        }
-        .tag {
-            display: inline-block;
-            padding: 4px 10px;
-            font-size: 0.8125rem;
-            font-weight: 500;
-            border-radius: 16px;
-            color: #fff;
-            margin-right: 8px;
-            line-height: 1.5;
-        }
-        .tag-feature { background-color: #4caf50; }
-        .tag-fix { background-color: #f44336; }
-        .tag-improvement { background-color: #2196f3; }
-        .current-version-chip {
-            font-size: 0.8125rem;
-            font-weight: 500;
-            color: #1F1C3D;
-            background-color: #F4A259;
-            padding: 3px 8px;
-            border-radius: 16px;
-            line-height: 1.4;
-        }
-    </style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>TabShow 2.0 — What’s new</title>
+  <link rel="stylesheet" href="../shared.css">
 </head>
 <body>
-    <header>
-        <h1>What's New in TabShow</h1>
-        <p style="text-align: center; margin-top: 16px; font-size: 1.1rem; color: #5E5A80;">
-            See something missing? I'd love to hear your ideas! 
-            <a href="https://narsheek.featurebase.app/" target="_blank" rel="noopener noreferrer" style="color: #F4A259; text-decoration: none; font-weight: 500;">Suggest a feature 😊 →</a>
-        </p>
-    </header>
+  <header class="topbar shell">
+    <a class="brand" href="#top" aria-label="TabShow home"><img src="../../icon/48.png" width="30" height="30" alt=""><span>TabShow</span></a>
+    <span class="status-pill status-update">Version 2.0</span>
+  </header>
 
-    <main>
-        <!-- Add a new section at the TOP for each release -->
-        <section class="version-section">
-            <div class="version-header">
-                <h2>Version 1.0.0 🍾</h2>
-                <span class="current-version-chip">Current Version</span>
-            </div>
-            <p class="date">Released on December 29, 2025</p>
-            <ul>
-                <li>
-                    <span class="tag tag-feature">NEW</span>
-                    Added a hover delay control with a loading hint and placed it in the Settings panel, so you can increase the delay to avoid accidental previews when you brush past the sidebar and find the option quickly. Thanks <span style="color: #F4A259;">@rickgordon</span> for this idea in the <a href="https://narsheek.featurebase.app/" target="_blank" rel="noopener noreferrer">Feature Suggestion Board</a> 🙏! 
-                </li>
-                <li>
-                    <span class="tag tag-improvement">IMPROVEMENT</span>
-                    Added a new “Try Settings” button and replaced “Tell a Friend” with “Rate Extension,” linking directly to the review page.
-                </li>
-            </ul>
-        </section>
-        <section class="version-section">
-            <div class="version-header">
-                <h2>Version 0.9.1</h2>
-            </div>
-            <p class="date">Released on October 16, 2025</p>
-            <ul>
-                <li>
-                    <span class="tag tag-improvement">IMPROVEMENT</span>
-                    Updated extension icon for better visibility and clarity. 
-                </li>
-                
-                <li>
-                    <span class="tag tag-improvement">IMPROVEMENT</span>
-                    Updated Chrome Web Store <a href="https://chromewebstore.google.com/detail/tabshow-hover-preview-foc/njdjagodlomkhingeecipnlnnhnipkho" target="_blank" rel="noopener noreferrer">listing page</a>.
-                </li>
-            </ul>
-        </section>
-        <section class="version-section">
-            <div class="version-header">
-                <h2>Version 0.9.0</h2>
-            </div>
-            <p class="date">Released on October 9, 2025</p>
-            <ul>
-                <li>
-                    <span class="tag tag-feature">NEW</span>
-                    💣💣 Settings Panel: Added a settings panel where you can switch between different color themes. Access it through the settings icon in the top-right corner of the side panel (Thanks Ausra 🙏). 
-                </li>
+  <main id="top">
+    <section class="update-hero shell">
+      <p class="eyebrow">The biggest TabShow update yet</p>
+      <h1>Meet your new<br><span>tab command center.</span></h1>
+      <p class="lede">TabShow 2.0 keeps the hover preview you know, then adds the speed and control to find any tab across your entire browser.</p>
+      <div class="hero-actions centered">
+        <button class="button button-primary" type="button" data-open-panel>Try TabShow 2.0 <span aria-hidden="true">→</span></button>
+        <span class="shortcut-pair shortcut-pair-compact">
+          <span class="shortcut-option" aria-label="Mac: Command + Shift + X"><small>Mac</small><span class="keys"><kbd>⌘</kbd><kbd>Shift</kbd><kbd>X</kbd></span></span>
+          <span class="shortcut-option" aria-label="Windows and Linux: Ctrl + Shift + X"><small>Windows / Linux</small><span class="keys"><kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>X</kbd></span></span>
+        </span>
+      </div>
+      <p class="action-note centered" data-panel-status>Your colors and hover delay are still here.</p>
+    </section>
 
-                <li>
-                    <span class="tag tag-improvement">IMPROVEMENT</span>
-                    Default Color Update: Updated the default color scheme to "Charcoal Violet + Amber" for a more natural and professional appearance. 
-                </li>
-                
-                <li>
-                    <span class="tag tag-improvement">IMPROVEMENT</span>
-                    Tell a Friend Button: Added a convenient "Tell a Friend 😊" button that copies the Chrome Web Store link. Please test it out by telling a friend about TabShow! 🙏
-                </li>
-                <li>
-                    <span class="tag tag-fix">FIX</span>
-                    Fixed an issue where the tab list wasn't updating to show the correct favicons and page titles when you navigated to new webpages - now it always displays the current, accurate information for each tab.
-                </li>
-            </ul>
-        </section>
+    <section class="bento shell" aria-label="Highlights in TabShow 2.0">
+      <article class="bento-card bento-search">
+        <span class="number">01</span><p class="eyebrow">Find, don’t scan</p><h2>Search every open tab.</h2>
+        <p>Type a title, web address, or domain. Results narrow as you type, and the virtualized list stays usable with large tab collections.</p>
+        <div class="demo-search"><span>⌕</span><strong>design</strong><kbd>Enter</kbd></div>
+      </article>
+      <article class="bento-card bento-windows">
+        <span class="number">02</span><p class="eyebrow">One view, every window</p><h2>No more window hunting.</h2>
+        <p>See tabs from all Chrome windows in one organized list. Click a tab in another window to jump straight to it.</p>
+        <div class="scope-demo"><span>Current window</span><strong>All windows</strong></div>
+      </article>
+      <article class="bento-card bento-sort">
+        <span class="number">03</span><p class="eyebrow">Your order</p><h2>Sort for the task.</h2>
+        <p>Choose current order, recently used, recently added (approx.), domain, or tab group.</p>
+        <ul class="sort-list"><li>Recently used <span>Most relevant</span></li><li>By domain <span>Related tabs</span></li><li>By tab group <span>Your structure</span></li></ul>
+      </article>
+      <article class="bento-card bento-keyboard">
+        <span class="number">04</span><p class="eyebrow">Keyboard controls</p><h2>Move through search results without the mouse.</h2>
+        <p>With the search field focused, use the arrow keys to preview, Enter to select, or Escape to return to the original tab and close the panel.</p>
+        <div class="key-flow"><span><kbd>↑</kbd><kbd>↓</kbd><small>Preview</small></span><span><kbd>Enter</kbd><small>Switch</small></span><span><kbd>Esc</kbd><small>Go back</small></span></div>
+      </article>
+    </section>
 
-        <section class="version-section">
-            <div class="version-header">
-                <h2>Version 0.8.1</h2>
-            </div>
-            <p class="date">Released on October 1, 2025</p>
-            <ul>
-                <li>
-                    <span class="tag tag-feature">NEW</span>
-                    Yet Another Name Change! Extension is now called TabShow (yes, again!) because it's catchier and I actually managed to snag the tab.show domain - turns out .show is a real top-level domain! 🎉
-                </li>
-                <li>
-                    <span class="tag tag-feature">NEW</span>
-                    Feature Request Button: Added a convenient <a href="https://narsheek.featurebase.app/" target="_blank" rel="noopener noreferrer">Suggest a Feature</a> link in the bottom-right corner to easily share your ideas and feedback.
-                </li>
-                <li>
-                    <span class="tag tag-improvement">IMPROVEMENT</span>
-                    Better Tab Information: Hover over any tab in the list to see the full website address in a helpful tooltip.
-                </li>
-            </ul>
-        </section>
+    <section class="details-section shell">
+      <div class="section-heading compact"><p class="eyebrow">More thoughtful everywhere</p><h2>A calmer, clearer panel.</h2></div>
+      <div class="detail-list">
+        <div><span>◉</span><p><strong>Safer previews</strong>Fast pointer movement no longer leaves a stale preview behind.</p></div>
+        <div><span>◎</span><p><strong>More context</strong>See each tab’s domain, group, audio, pinned, sleeping, and duplicate status at a glance.</p></div>
+        <div><span>↗</span><p><strong>Clear window behavior</strong>Current-window tabs preview on hover; other-window tabs clearly offer click-to-switch.</p></div>
+        <div><span>✓</span><p><strong>Better feedback</strong>Purposeful loading, empty, and no-results states replace uncertainty.</p></div>
+      </div>
+    </section>
 
-        <section class="version-section">
-            <div class="version-header">
-                <h2>Version 0.8.0</h2>
-            </div>
-            <p class="date">Released on September 26, 2025</p>
-            <ul>
-                <li>
-                    <span class="tag tag-feature">NEW</span>
-                    Tab Groups Redesigned: Tab groups now look and work exactly like they do in your browser's tab bar, with proper nesting, colors, and expand/collapse functionality (Thanks Paulius 🙏).
-                </li>
-                <li>
-                    <span class="tag tag-improvement">IMPROVEMENT</span>
-                    Enhanced User Interface: Tab items now show a pointer cursor when you hover over them, making it clearer that they're clickable (Thanks Dmitry 🙏).
-                </li>
-                <li>
-                    <span class="tag tag-fix">Fix</span>
-                    Smoother Hover Experience: Fixed issues with rapid hovering that could cause tabs to switch unexpectedly, making the preview feature more reliable.
-                </li>
-            </ul>
-        </section>
+    <section class="shortcut-section shell" aria-labelledby="update-shortcut-title">
+      <div class="shortcut-card update-shortcut">
+        <div><p class="eyebrow">A ten-second upgrade</p><h2 id="update-shortcut-title">Choose a shortcut you’ll actually use.</h2><p>Suggested defaults are <strong>Command + Shift + X</strong> on Mac and <strong>Ctrl + Shift + X</strong> on Windows or Linux. Chrome may leave the shortcut unassigned if it conflicts with another extension.</p></div>
+        <div class="shortcut-howto"><p>Paste this into Chrome, find TabShow, then click the pencil beside <strong>Toggle the side panel</strong>.</p><button class="copy-field" type="button" data-copy-shortcuts><code>chrome://extensions/shortcuts</code><span data-copy-label>Copy</span></button></div>
+      </div>
+    </section>
 
-        <section class="version-section">
-            <div class="version-header">
-                <h2>Version 0.7.1</h2>
-            </div>
-            <p class="date">Released on September 25, 2025</p>
-            <ul>
-                <li>
-                    <span class="tag tag-feature">New</span>
-                    Extension renamed from Narsheek to TabGlance - a more catchy name that clearly communicates the core functionality.
-                </li>
-                <li>
-                    <span class="tag tag-improvement">IMPROVEMENT</span>
-                    Drastically improved tab list performance - now works smoothly even with 200+ tabs open.
-                </li>
-            </ul>
-        </section>
+    <section class="closing-cta shell">
+      <img src="../../icon/96.png" width="64" height="64" alt="">
+      <div><h2>Ready to see 2.0 in action?</h2><p>Open the panel and search for a tab.</p></div>
+      <button class="button button-primary" type="button" data-open-panel>Open TabShow <span aria-hidden="true">→</span></button>
+    </section>
 
-        <section class="version-section">
-            <div class="version-header">
-                <h2>Version 0.7.0</h2>
-            </div>
-            <p class="date">Released on September 5, 2025</p>
-            <ul>
-                <li>
-                    <span class="tag tag-improvement">IMPROVEMENT</span>
-                    Smarter Previews: TabGlance now intelligently distinguishes between hover-previews and manual tab switches, making the original tab logic more robust and reliable.
-                </li>
-                <li>
-                    <span class="tag tag-improvement">IMPROVEMENT</span>
-                    Significant performance upgrades to make tab loading and list rendering even faster.
-                </li>
-                <li>
-                    <span class="tag tag-feature">NEW</span>
-                    Added this "What's New" page to keep you informed about the latest updates after every release.
-                </li>
-                <li>
-                    <span class="tag tag-feature">NEW</span>
-                    A new Welcome Page for first-time users to help them get started with the core features and shortcuts.
-                </li>
-            </ul>
-        </section>
+    <section class="history shell">
+      <details>
+        <summary><span>Previous releases</span><small>Versions 0.5–1.0</small></summary>
+        <div class="history-content">
+          <article><h3>1.0.0</h3><p>Added adjustable hover delay, preview loading feedback, faster access to settings, and a direct rating link.</p></article>
+          <article><h3>0.9</h3><p>Introduced color settings, improved live titles and favicons, and refreshed the TabShow identity and store listing.</p></article>
+          <article><h3>0.8</h3><p>Redesigned tab groups, improved hover reliability, and added full-address tooltips and the feedback board.</p></article>
+          <article><h3>0.7</h3><p>Made large tab collections dramatically faster and added the welcome and release pages.</p></article>
+          <article><h3>0.5–0.6</h3><p>Launched hover preview, tab closing, keyboard access, and visual tab groups.</p></article>
+        </div>
+      </details>
+    </section>
+  </main>
 
-        <section class="version-section">
-            <h2>Version 0.6.0</h2>
-            <p class="date">Released on August 29, 2025</p>
-            <ul>
-                <li>
-                    <span class="tag tag-feature">NEW</span>
-                    Close Tabs Directly: You can now close tabs directly from the side panel list, streamlining your workflow.
-                </li>
-                <li>
-                    <span class="tag tag-feature">NEW</span>
-                    Default Keyboard Shortcut: The side panel can now be toggled with <code>Command+Shift+X</code> (Mac) or <code>Ctrl+Shift+X</code> (Windows).
-                </li>
-                <li>
-                    <span class="tag tag-feature">NEW</span>
-                    Tab Group Display: Your existing tab groups are now visually represented in the side panel for better organization.
-                </li>
-                <li>
-                    <span class="tag tag-fix">FIX</span>
-                    Resolved several minor bugs related to edge cases in tab management.
-                </li>
-            </ul>
-        </section>
-        
-        <section class="version-section">
-            <h2>Version 0.5.0</h2>
-            <p class="date">Released on August 22, 2025</p>
-            <ul>
-                <li>
-                    <span class="tag tag-feature">NEW</span>
-                    Initial Release: Welcome to TabGlance! The core hover-to-preview functionality is here to change the way you manage tabs.
-                </li>
-            </ul>
-        </section>
-    </main>
-
+  <footer class="footer shell"><span>TabShow 2.0 · Built for focus.</span><a href="https://narsheek.featurebase.app/" target="_blank" rel="noopener noreferrer">Tell us what to build next ↗</a></footer>
+  <script src="../onboarding.js"></script>
 </body>
 </html>

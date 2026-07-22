@@ -1,152 +1,126 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome to TabShow</title>
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Roboto', -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-            line-height: 1.6;
-            color: #1F1C3D;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 24px;
-            background-color: #F4F4FA;
-        }
-        header {
-            text-align: center;
-            margin-bottom: 48px;
-        }
-        h1 {
-            font-size: 2.5rem;
-            font-weight: 500;
-            color: #1F1C3D;
-        }
-        .subtitle {
-            font-size: 1.25rem;
-            color: #5E5A80;
-            margin-top: -16px;
-        }
-        .feature-section {
-            background-color: #ffffff;
-            border-radius: 4px;
-            padding: 24px;
-            margin-bottom: 24px;
-            box-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 1px 3px 0px rgba(0,0,0,0.12);
-        }
-        h2 {
-            font-size: 1.5rem;
-            font-weight: 500;
-            margin-top: 0;
-            color: #2C2A4A;
-        }
-        p {
-            font-size: 1rem;
-            color: #5E5A80;
-        }
-        .shortcut-box {
-            background-color: #F4A259;
-            border: 1px solid #F4A259;
-            border-radius: 4px;
-            padding: 16px;
-            text-align: center;
-            margin-top: 16px;
-            color: #1F1C3D;
-        }
-        .shortcut-box p {
-            margin: 0;
-            font-size: 1.1rem;
-            color: #1F1C3D;
-        }
-        code {
-            background-color: rgba(0, 0, 0, 0.08);
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
-        }
-        .pro-tip-box {
-            background-color: #F4A259;
-            border: 1px solid #F4A259;
-            border-radius: 4px;
-            padding: 20px;
-            margin-top: 24px;
-        }
-        code {
-            color: #1F1C3D;
-        }
-        .pro-tip-box h3 {
-            margin-top: 0;
-            font-size: 1.2rem;
-            color: #1F1C3D;
-        }
-        .pro-tip-box p {
-            font-size: 1rem;
-            margin-bottom: 4px;
-            color: #1F1C3D;
-        }
-        ul {
-            margin: 0.5rem 0 0 1.2rem;
-        }
-    </style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>Welcome to TabShow</title>
+  <link rel="stylesheet" href="../shared.css">
 </head>
 <body>
-    <header>
-        <h1>Preview tabs instantly. Stay focused.</h1>
-        <p class="subtitle">TabShow gives you full-page tab previews from a side panel. See before you switch and keep your place.</p>
-    </header>
+  <header class="topbar shell">
+    <a class="brand" href="#top" aria-label="TabShow home">
+      <img src="../../icon/48.png" width="30" height="30" alt="">
+      <span>TabShow</span>
+    </a>
+    <span class="status-pill"><span aria-hidden="true">✓</span> Installed</span>
+  </header>
 
-    <main>
-        <section class="feature-section">
-            <h2>Getting started</h2>
-            <p>Open the TabShow side panel right now with:</p>
-            <div class="shortcut-box">
-                <p>Mac: <code>Command + Shift + X</code></p>
-                <p style="margin-top: 8px;">Windows/Linux: <code>Ctrl + Shift + X</code></p>
-            </div>
+  <main id="top">
+    <section class="hero shell welcome-hero">
+      <div class="hero-copy">
+        <p class="eyebrow">Welcome to TabShow</p>
+        <h1>Find the right tab.<br><span>Without losing your place.</span></h1>
+        <p class="lede">Your tabs now live in a fast, searchable side panel. Hover to preview a page, then click only when it is the one you want.</p>
+        <div class="hero-actions">
+          <button class="button button-primary" type="button" data-open-panel>
+            Open TabShow now <span aria-hidden="true">→</span>
+          </button>
+          <span class="or">or use</span>
+          <span class="shortcut-pair shortcut-pair-compact">
+            <span class="shortcut-option" aria-label="Mac: Command + Shift + X"><small>Mac</small><span class="keys"><kbd>⌘</kbd><kbd>Shift</kbd><kbd>X</kbd></span></span>
+            <span class="shortcut-option" aria-label="Windows and Linux: Ctrl + Shift + X"><small>Windows / Linux</small><span class="keys"><kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>X</kbd></span></span>
+          </span>
+        </div>
+        <p class="action-note" data-panel-status>One click. No setup form.</p>
+      </div>
 
-            <p>Pro Tip: Customize your shortcut</p>
-            <div class="shortcut-box">
-                <p><code>chrome://extensions/shortcuts</code></p>
-            </div>
-        </section>
+      <div class="product-shot" role="img" aria-label="TabShow side panel showing current and all-window controls, search, sorting, and a list of tabs">
+        <div class="shot-toolbar">
+          <div class="scope-control"><span class="scope-active">▣&nbsp; Current window</span><span>▤&nbsp; All windows</span></div>
+          <span class="gear" aria-hidden="true">⚙</span>
+        </div>
+        <div class="shot-search">⌕ <span>Search tabs</span></div>
+        <div class="shot-meta"><span>Current order⌄</span><small>24 tabs</small></div>
+        <div class="window-label"><b>◉ Live preview · Current window</b><small>Hover a tab to preview it instantly</small></div>
+        <div class="fake-tab is-original"><span class="fake-favicon violet">T</span><span><b>TabShow — Welcome</b><small>tab.show</small></span><em>Original</em></div>
+        <div class="fake-tab is-preview"><span class="fake-favicon amber">D</span><span><b>Design notes</b><small>docs.google.com</small></span><em>Preview</em></div>
+        <div class="fake-tab"><span class="fake-favicon blue">L</span><span><b>Launch plan</b><small>linear.app</small></span></div>
+        <div class="cursor" aria-hidden="true">↖</div>
+      </div>
+    </section>
 
-        <section class="feature-section">
-            <h2>See it work instantly</h2>
-            <p><b>1.</b> Hover over any tab name → full-page preview pops up.</p>
-            <p><b>2.</b> Move your mouse away → you’re back on your original tab.</p>
-            <p><b>3.</b> Click only when you’re ready to switch.</p>
-            <p>That’s it. You’ve just saved yourself from tab chaos.</p>
-        </section>
+    <section class="quickstart shell" aria-labelledby="quickstart-title">
+      <div class="section-heading">
+        <p class="eyebrow">Your first preview</p>
+        <h2 id="quickstart-title">You’ll get it in three moves.</h2>
+        <p>Try this now—the panel can stay open beside this page.</p>
+      </div>
+      <ol class="steps">
+        <li>
+          <span class="step-number">1</span>
+          <div><h3>Open the side panel</h3><p>Use the button above, the toolbar icon, or the keyboard shortcut.</p></div>
+        </li>
+        <li>
+          <span class="step-number">2</span>
+          <div><h3>Point at another tab</h3><p>Its full page appears. Move your pointer out of the side panel and TabShow returns you to where you started.</p></div>
+        </li>
+        <li>
+          <span class="step-number">3</span>
+          <div><h3>Click when it’s the one</h3><p>TabShow commits the switch and closes the panel. That’s the whole workflow.</p></div>
+        </li>
+      </ol>
+    </section>
 
-        <section class="feature-section">
-            <h2>Why it matters</h2>
-            <p><b>Clear previews:</b> no more guessing from tiny favicons.</p>
-            <p><b>Focus intact:</b> your original tab stays put until you decide.</p>
-            <p><b>Handles scale:</b> 30, 50, or 100 tabs - still manageable.</p>
-            <p><b>Zero bloat:</b> one purpose only - previews.</p>
-        </section>
+    <section class="shortcut-section shell" aria-labelledby="shortcut-title">
+      <div class="shortcut-card">
+        <div>
+          <p class="eyebrow">Make it muscle memory</p>
+          <h2 id="shortcut-title">Put TabShow one keystroke away.</h2>
+          <p>TabShow suggests these defaults. Chrome may leave one unassigned if another extension already uses it.</p>
+          <div class="shortcut-pair shortcut-pair-large">
+            <span class="shortcut-option" aria-label="Mac: Command + Shift + X"><small>Mac</small><span class="keys keys-large"><kbd>⌘</kbd><kbd>Shift</kbd><kbd>X</kbd></span></span>
+            <span class="shortcut-option" aria-label="Windows and Linux: Ctrl + Shift + X"><small>Windows / Linux</small><span class="keys keys-large"><kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>X</kbd></span></span>
+          </div>
+        </div>
+        <div class="shortcut-howto">
+          <h3>Change the shortcut</h3>
+          <ol>
+            <li>Copy this Chrome address.</li>
+            <li>Paste it into the address bar and press Enter.</li>
+            <li>Find TabShow, click the pencil, then press your preferred keys.</li>
+          </ol>
+          <button class="copy-field" type="button" data-copy-shortcuts aria-label="Copy chrome extensions shortcuts address">
+            <code>chrome://extensions/shortcuts</code><span data-copy-label>Copy</span>
+          </button>
+        </div>
+      </div>
+    </section>
 
-        <section class="feature-section">
-            <h2>Tips for power users</h2>
-            <p><b>Pin the side panel</b> for fast scanning during deep work.</p>
-            <p><b>Toggle with the shortcut</b> as you switch tasks - it becomes second nature.</p>
-            <p><b>Preview before committing</b> - no more misclicks, no wasted time.</p>
-        </section>
+    <section class="feature-section shell" aria-labelledby="next-title">
+      <div class="section-heading compact">
+        <p class="eyebrow">When you’re ready</p>
+        <h2 id="next-title">Three ways to move even faster.</h2>
+      </div>
+      <div class="feature-grid">
+        <article><span class="feature-icon">⌕</span><h3>Type to find anything</h3><p>Search tab titles, web addresses, or domains. While the search field is focused, <kbd>↑</kbd> <kbd>↓</kbd> previews another result and <kbd>Enter</kbd> selects it.</p></article>
+        <article><span class="feature-icon">▤</span><h3>Reach every window</h3><p>Switch from <strong>Current window</strong> to <strong>All windows</strong>. Tabs elsewhere are click-to-switch, so hovering never steals window focus.</p></article>
+        <article><span class="feature-icon">↕</span><h3>Sort the way you think</h3><p>Use current order, recently used, recently added (approx.), domain, or tab group. Your window scope and panel settings stay saved.</p></article>
+      </div>
+      <div class="tip-row"><span><kbd>Esc</kbd> restores your original tab and closes TabShow.</span><span>Use <strong>⚙ Settings</strong> to tune hover delay and colors.</span></div>
+    </section>
 
-        <section class="feature-section">
-            <h2>Privacy first</h2>
-            <p>TabShow does not collect your data. Built to cut clutter and protect your focus - nothing else.</p>
-        </section>
+    <section class="closing-cta shell">
+      <img src="../../icon/96.png" width="64" height="64" alt="">
+      <div><h2>Your tabs are ready.</h2><p>Open TabShow and make your first preview.</p></div>
+      <button class="button button-primary" type="button" data-open-panel>Open TabShow <span aria-hidden="true">→</span></button>
+    </section>
+  </main>
 
-        <section class="feature-section">
-            <h2>Feedback makes it better</h2>
-            <p>Have a feature idea? <a href="https://narsheek.featurebase.app/" target="_blank" rel="noopener noreferrer" style="color: #F4A259; text-decoration: none; font-weight: 500;">Suggest a feature 😊 →</a></p>
-        </section>
-    </main>
+  <footer class="footer shell">
+    <span>Private by design. Your tab data stays in your browser.</span>
+    <a href="https://narsheek.featurebase.app/" target="_blank" rel="noopener noreferrer">Suggest an improvement ↗</a>
+  </footer>
+  <script src="../onboarding.js"></script>
 </body>
 </html>
