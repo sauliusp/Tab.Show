@@ -111,6 +111,14 @@ kbd { min-width: 28px; min-height: 27px; display: inline-grid; place-items: cent
 .closing-cta div { flex: 1; }
 .closing-cta h2 { margin-bottom: 4px; font-size: 22px; }
 .closing-cta p { margin: 0; color: var(--muted); }
+
+.community-cta { margin-top: -46px; margin-bottom: 64px; padding: 28px 30px; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); display: flex; align-items: center; justify-content: space-between; gap: 32px; }
+.community-cta h2 { margin: 4px 0 8px; font-size: clamp(1.45rem, 2.4vw, 2rem); }
+.community-cta p { margin: 0; max-width: 720px; color: var(--muted); }
+.community-actions { display: flex; align-items: center; gap: 16px; flex: 0 0 auto; }
+.button-secondary { border: 1px solid var(--rule); color: var(--ink); background: transparent; }
+.quiet-link { color: var(--muted); font-weight: 700; text-decoration: none; white-space: nowrap; }
+.quiet-link:hover { color: var(--ink); text-decoration: underline; }
 .footer { min-height: 90px; display: flex; align-items: center; justify-content: space-between; color: #817789; border-top: 1px solid var(--line); font-size: 12px; }
 .footer a { color: var(--violet); font-weight: 750; text-decoration: none; }
 
@@ -182,6 +190,8 @@ kbd { min-width: 28px; min-height: 27px; display: inline-grid; place-items: cent
   .shortcut-howto { padding: 18px 15px; }
   .closing-cta { align-items: flex-start; flex-wrap: wrap; margin-bottom: 58px; }
   .closing-cta div { min-width: calc(100% - 90px); }
+  .community-cta { margin-top: -24px; align-items: flex-start; flex-direction: column; padding: 24px 0; }
+  .community-actions { align-items: flex-start; flex-direction: column; }
   .footer { align-items: flex-start; flex-direction: column; justify-content: center; gap: 9px; }
   .update-hero { padding-top: 72px; }
   .bento-card { min-height: 370px; padding: 28px 24px; }

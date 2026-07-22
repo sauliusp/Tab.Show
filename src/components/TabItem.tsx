@@ -27,6 +27,8 @@ interface TabItemProps {
   highlighted?: boolean;
   duplicateCount?: number;
   isOtherWindow?: boolean;
+  pointerPreviewEnabled?: boolean;
+  onPointerIntent?: (tabId: number) => void;
 }
 
 // Custom comparison function for React.memo
@@ -49,6 +51,7 @@ function arePropsEqual(prevProps: TabItemProps, nextProps: TabItemProps): boolea
     prevProps.highlighted === nextProps.highlighted &&
     prevProps.duplicateCount === nextProps.duplicateCount &&
     prevProps.isOtherWindow === nextProps.isOtherWindow
+    && prevProps.pointerPreviewEnabled === nextProps.pointerPreviewEnabled
   );
 }
 
@@ -63,7 +66,9 @@ export const TabItem = React.memo(({
   groupColor,
   highlighted,
   duplicateCount = 1,
-  isOtherWindow = false
+  isOtherWindow = false,
+  pointerPreviewEnabled = true,
+  onPointerIntent
 }: TabItemProps) => {
   const theme = useTheme();
   
@@ -163,12 +168,22 @@ export const TabItem = React.memo(({
 
   return (
     <ListItem
+      id={`tab-option-${tab.id}`}
+      aria-current={highlighted ? 'true' : undefined}
       title={isOtherWindow
         ? 'Another Chrome window — click to switch. Hover preview is unavailable.'
         : tab.url || tab.title || 'Untitled Tab'}
       onMouseEnter={() => {
         setIsHovered(true);
-        onTabHover(tab.id!);
+        if (pointerPreviewEnabled) {
+          onPointerIntent?.(tab.id!);
+          if (!onPointerIntent) onTabHover(tab.id!);
+        }
+      }}
+      onMouseMove={() => {
+        if (!pointerPreviewEnabled) {
+          onPointerIntent?.(tab.id!);
+        }
       }}
       onMouseLeave={() => {
         setIsHovered(false);

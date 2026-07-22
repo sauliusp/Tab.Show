@@ -114,6 +114,20 @@ describe('useTabs interaction contract', () => {
     expect(result.current.previewTabId).toBeNull();
   });
 
+  it('honors the full 1000 ms pointer preview delay', async () => {
+    const mock = createBrowserMock();
+    vi.stubGlobal('browser', mock.browserMock);
+    const { result } = renderHook(() => useTabs({ hoverPreviewDelayMs: 1000 }));
+    await settleInitialization();
+    mock.updateTab.mockClear();
+
+    act(() => { result.current.handleTabHover(2); });
+    await act(async () => { await vi.advanceTimersByTimeAsync(999); });
+    expect(mock.updateTab).not.toHaveBeenCalled();
+    await act(async () => { await vi.advanceTimersByTimeAsync(1); });
+    expect(mock.updateTab).toHaveBeenCalledWith(2, { active: true });
+  });
+
   it('restores the origin when the pointer leaves during an in-flight preview activation', async () => {
     const mock = createBrowserMock();
     let resolvePreview!: () => void;

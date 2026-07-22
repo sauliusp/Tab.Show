@@ -31,7 +31,8 @@ interface TabListProps {
   allWindows: boolean;
   currentWindowId: number | null;
   highlightedTabId: number | null;
-  onHighlight: (tabId: number) => void;
+  pointerPreviewEnabled: boolean;
+  onPointerIntent: (tabId: number) => void;
 }
 
 export function TabList({
@@ -49,7 +50,8 @@ export function TabList({
   allWindows,
   currentWindowId,
   highlightedTabId,
-  onHighlight
+  pointerPreviewEnabled,
+  onPointerIntent
 }: TabListProps) {
   const theme = useTheme();
   const parentRef = useRef<HTMLDivElement>(null);
@@ -250,6 +252,8 @@ export function TabList({
           highlighted={highlightedTabId === tab.id}
           duplicateCount={duplicateCounts.get(getDuplicateKey(tab)) ?? 1}
           isOtherWindow={allWindows && tab.windowId !== currentWindowId}
+          pointerPreviewEnabled={pointerPreviewEnabled}
+          onPointerIntent={onPointerIntent}
         />
       );
     }
@@ -257,6 +261,7 @@ export function TabList({
   
   return (
     <Box
+      id="tab-results"
       ref={parentRef}
       sx={{
         height: '100%',
@@ -310,7 +315,6 @@ export function TabList({
           return (
             <div
               key={item.id}
-              onMouseEnter={() => item.type === 'tab' && onHighlight((item.data as Tab).id!)}
               style={{
                 position: 'absolute',
                 top: 0,

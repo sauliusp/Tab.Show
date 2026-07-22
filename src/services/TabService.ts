@@ -58,7 +58,8 @@ class TabService {
    */
   async activateTab(tabId: number): Promise<void> {
     const tab = await browser.tabs.get(tabId);
-    if (typeof tab.windowId === 'number') {
+    const currentWindowId = await this.getCurrentWindowId();
+    if (typeof tab.windowId === 'number' && tab.windowId !== currentWindowId) {
       await browser.windows.update(tab.windowId, { focused: true });
     }
     await browser.tabs.update(tabId, { active: true });

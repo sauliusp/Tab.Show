@@ -10,7 +10,10 @@ interface UseTabsOptions {
   allWindows?: boolean;
 }
 
-export function useTabs({ hoverPreviewDelayMs = DEFAULT_HOVER_PREVIEW_DELAY_MS, allWindows = false }: UseTabsOptions = {}) {
+export function useTabs({
+  hoverPreviewDelayMs = DEFAULT_HOVER_PREVIEW_DELAY_MS,
+  allWindows = false
+}: UseTabsOptions = {}) {
   const [isLoading, setIsLoading] = useState(true);
   const [tabListState, setTabListState] = useState<TabListState>({
     items: {},

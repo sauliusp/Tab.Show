@@ -55,7 +55,7 @@ describe('side-panel browser-rendered interaction', () => {
     expect(mock.close).toHaveBeenCalledWith({ windowId: 10 });
   });
 
-  it('previews search results with arrow keys and restores the original tab with Escape', async () => {
+  it('navigates search results with arrow keys and restores the original tab with Escape', async () => {
     const mock = browserWith150Tabs();
     vi.stubGlobal('browser', mock.api);
     render(<UserSettingsProvider><ColorSchemeProvider><App /></ColorSchemeProvider></UserSettingsProvider>);
@@ -65,11 +65,77 @@ describe('side-panel browser-rendered interaction', () => {
     await waitFor(() => expect(screen.getByText(/9 tabs/)).toBeVisible());
 
     fireEvent.keyDown(search, { key: 'ArrowDown' });
-    await waitFor(() => expect(mock.update).toHaveBeenCalledWith(2, { active: true }));
+    expect(search).toHaveAttribute('aria-activedescendant', 'tab-option-2');
+    expect(mock.update).not.toHaveBeenCalled();
 
     fireEvent.keyDown(search, { key: 'Escape' });
     await waitFor(() => expect(mock.update).toHaveBeenCalledWith(1, { active: true }));
     expect(mock.close).toHaveBeenCalledWith({ windowId: 10 });
+  });
+
+  it('keeps keyboard selection immediate and switch-free when pointer delay is one second', async () => {
+    window.localStorage.setItem('tab.show.userSettings', JSON.stringify({ hoverPreviewDelayMs: 1000 }));
+    const mock = browserWith150Tabs();
+    vi.stubGlobal('browser', mock.api);
+    render(<UserSettingsProvider><ColorSchemeProvider><App /></ColorSchemeProvider></UserSettingsProvider>);
+    const search = screen.getByRole('textbox', { name: 'Search tabs' });
+    await waitFor(() => expect(screen.getByText(/150 tabs/)).toBeVisible());
+    fireEvent.change(search, { target: { value: 'QA Tab 00' } });
+    await waitFor(() => expect(screen.getByText(/9 tabs/)).toBeVisible());
+    mock.update.mockClear();
+
+    fireEvent.keyDown(search, { key: 'ArrowDown' });
+    expect(search).toHaveAttribute('aria-activedescendant', 'tab-option-2');
+    expect(mock.update).not.toHaveBeenCalled();
+    fireEvent.keyDown(search, { key: 'Enter' });
+    await waitFor(() => expect(mock.update).toHaveBeenCalledWith(2, { active: true }));
+    expect(mock.close).toHaveBeenCalledWith({ windowId: 10 });
+  });
+
+  it('does not wrap from the first result to the last on ArrowUp', async () => {
+    const mock = browserWith150Tabs();
+    vi.stubGlobal('browser', mock.api);
+    render(<UserSettingsProvider><ColorSchemeProvider><App /></ColorSchemeProvider></UserSettingsProvider>);
+    const search = screen.getByRole('textbox', { name: 'Search tabs' });
+    await waitFor(() => expect(screen.getByText(/150 tabs/)).toBeVisible());
+    fireEvent.change(search, { target: { value: 'QA Tab 00' } });
+    await waitFor(() => expect(screen.getByText(/9 tabs/)).toBeVisible());
+    mock.update.mockClear();
+
+    fireEvent.keyDown(search, { key: 'ArrowUp' });
+    expect(search).toHaveAttribute('aria-activedescendant', 'tab-option-1');
+    expect(mock.update).not.toHaveBeenCalledWith(9, { active: true });
+  });
+
+  it('opens the first exact search result with Enter without requiring an arrow key', async () => {
+    const mock = browserWith150Tabs();
+    vi.stubGlobal('browser', mock.api);
+    render(<UserSettingsProvider><ColorSchemeProvider><App /></ColorSchemeProvider></UserSettingsProvider>);
+    const search = screen.getByRole('textbox', { name: 'Search tabs' });
+    await waitFor(() => expect(screen.getByText(/150 tabs/)).toBeVisible());
+    fireEvent.change(search, { target: { value: 'figma.example/final-target' } });
+    await waitFor(() => expect(screen.getByText(/1 tab/)).toBeVisible());
+    mock.update.mockClear();
+
+    fireEvent.keyDown(search, { key: 'Enter' });
+    await waitFor(() => expect(mock.update).toHaveBeenCalledWith(150, { active: true }));
+    expect(mock.close).toHaveBeenCalledWith({ windowId: 10 });
+  });
+
+  it('does nothing on Enter with no matches and ignores IME composition Enter', async () => {
+    const mock = browserWith150Tabs();
+    vi.stubGlobal('browser', mock.api);
+    render(<UserSettingsProvider><ColorSchemeProvider><App /></ColorSchemeProvider></UserSettingsProvider>);
+    const search = screen.getByRole('textbox', { name: 'Search tabs' });
+    await waitFor(() => expect(screen.getByText(/150 tabs/)).toBeVisible());
+
+    fireEvent.keyDown(search, { key: 'Enter', keyCode: 229, isComposing: true });
+    expect(mock.update).not.toHaveBeenCalled();
+    fireEvent.change(search, { target: { value: 'zzzz-no-such-tab-qa' } });
+    await screen.findByText('No tabs match your search');
+    fireEvent.keyDown(search, { key: 'Enter' });
+    expect(mock.update).not.toHaveBeenCalled();
+    expect(mock.close).not.toHaveBeenCalled();
   });
 
   it('does not hijack keyboard input intended for the sort control', async () => {
