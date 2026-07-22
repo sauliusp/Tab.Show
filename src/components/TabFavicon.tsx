@@ -3,17 +3,8 @@ import Avatar from '@mui/material/Avatar';
 import { SxProps, Theme } from '@mui/material/styles';
 import { Tab } from '../types/Tab';
 
-function faviconProxyUrl(pageUrl?: string): string | undefined {
-  if (!pageUrl || !/^https?:|^chrome:|^file:|^ftp:/i.test(pageUrl)) return undefined;
-  try {
-    return (browser.runtime.getURL as (path: string) => string)(`/_favicon/?pageUrl=${encodeURIComponent(pageUrl)}&size=32`);
-  } catch {
-    return undefined;
-  }
-}
-
 export function getFaviconCandidates(tab: Tab): string[] {
-  return [...new Set([tab.favIconUrl, faviconProxyUrl(tab.url)].filter((value): value is string => Boolean(value)))];
+  return tab.favIconUrl ? [tab.favIconUrl] : [];
 }
 
 interface TabFaviconProps {
@@ -25,7 +16,7 @@ interface TabFaviconProps {
 }
 
 export function TabFavicon({ tab, alt, sx, children, showImage = true }: TabFaviconProps) {
-  const candidates = React.useMemo(() => getFaviconCandidates(tab), [tab.favIconUrl, tab.url]);
+  const candidates = React.useMemo(() => getFaviconCandidates(tab), [tab.favIconUrl]);
   const [candidateIndex, setCandidateIndex] = React.useState(0);
 
   React.useEffect(() => setCandidateIndex(0), [candidates.join('|')]);

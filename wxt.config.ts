@@ -28,8 +28,7 @@ export default defineConfig({
     permissions: [
       'sidePanel',
       'tabs',
-      'tabGroups',
-      'favicon'
+      'tabGroups'
     ],
   }
 });

@@ -54,7 +54,6 @@ Use these explanations in the Dashboard Privacy section and on the future `/priv
 | `sidePanel` | Displays TabShow beside the page you are viewing. |
 | `tabs` | Reads open-tab titles, URLs, favicons, window membership, and status so TabShow can list, search, sort, preview, switch, and close tabs. It does not grant access to webpage contents. |
 | `tabGroups` | Reads tab-group names, colors, membership, and collapsed state so existing Chrome groups can be represented and expanded or collapsed from TabShow. |
-| `favicon` | Uses Chrome's local favicon cache when a tab does not provide a usable site icon. |
 
 The previously declared `activeTab` permission had no implementation use and has been removed from the 2.0 manifest rather than given a cosmetic justification.
 

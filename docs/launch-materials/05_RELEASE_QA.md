@@ -7,15 +7,15 @@ Verified on 2026-07-22.
 - `npm test`: 7 files, 36 tests passed.
 - `npm run compile`: passed.
 - `npm run zip`: passed with WXT 0.20.27.
-- Production contents: 575,586 uncompressed bytes across 14 files and six directory entries.
-- Release ZIP: `.output/tabshow-2.0.0-chrome.zip`, 185,905 bytes (185.91 kB as reported by WXT).
-- SHA-256: `5159f4fa1b69a074854a2b75f9b2d939eeb9dc3a74bd299104ac4fd7ba77b002`.
+- Production contents: 575,382 uncompressed bytes across 14 files and six directory entries.
+- Release ZIP: `.output/tabshow-2.0.0-chrome.zip`, 185,788 bytes (185.79 kB as reported by WXT).
+- SHA-256: `1104a5b6d7505e78f7742dae63503d34deec291f49431331a64151bcb535c962`.
 - Manifest: MV3, version 2.0.0, correct title and 106-character summary.
-- Permissions: `sidePanel`, `tabs`, `tabGroups`, `favicon`; no `host_permissions`; no `activeTab`.
+- Permissions: `sidePanel`, `tabs`, `tabGroups`; no `host_permissions`; no `activeTab`; no update permission warning.
 - Required 16/32/48/96/128 icons present.
 - No source maps or source files in the ZIP.
 
-Known non-blocking warning: the minified side-panel JavaScript chunk is 530,904 bytes (530.90 kB as reported by WXT) and exceeds Vite's 500 kB warning threshold. This is a maintainability/performance follow-up and a reason not to publish unmeasured “ultralight” or “zero impact” claims.
+Known non-blocking warning: the minified side-panel JavaScript chunk is 530,710 bytes (530.71 kB as reported by WXT) and exceeds Vite's 500 kB warning threshold. This is a maintainability/performance follow-up and a reason not to publish unmeasured “ultralight” or “zero impact” claims.
 
 ## Store and website assets
 
