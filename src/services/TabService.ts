@@ -15,9 +15,9 @@ class TabService {
   /**
    * Get all tabs in the current window
    */
-  async getAllTabs(): Promise<Tab[]> {
+  async getAllTabs(allWindows = false): Promise<Tab[]> {
     try {
-      return await browser.tabs.query({ currentWindow: true }) as Tab[];
+      return await browser.tabs.query(allWindows ? {} : { currentWindow: true }) as Tab[];
     } catch (error) {
       console.error('Failed to get all tabs:', error);
       return [];
@@ -57,11 +57,12 @@ class TabService {
    * Update a tab to be active
    */
   async activateTab(tabId: number): Promise<void> {
-    try {
-      await browser.tabs.update(tabId, { active: true });
-    } catch (error) {
-      console.error(`Failed to activate tab ${tabId}:`, error);
+    const tab = await browser.tabs.get(tabId);
+    const currentWindowId = await this.getCurrentWindowId();
+    if (typeof tab.windowId === 'number' && tab.windowId !== currentWindowId) {
+      await browser.windows.update(tab.windowId, { focused: true });
     }
+    await browser.tabs.update(tabId, { active: true });
   }
 
   /**
@@ -102,26 +103,41 @@ class TabService {
   /**
    * Get all tab groups in the current window
    */
-  async getTabGroups(): Promise<any[]> {
+  async getTabGroups(allWindows = false): Promise<any[]> {
     try {
-      const windowId = await this.getCurrentWindowId();
-      console.log('getTabGroups - windowId:', windowId);
-      if (windowId === null) return [];
-      
       // Check if browser.tabGroups is available
       if (!browser.tabGroups) {
         console.log('browser.tabGroups is not available');
         return [];
       }
       
-      console.log('Using browser.tabGroups API');
-      const groups = await browser.tabGroups.query({ windowId });
-      console.log('getTabGroups - browser.tabGroups.query result:', groups);
+      let groups: any[];
+      if (allWindows) {
+        groups = await browser.tabGroups.query({});
+      } else {
+        const windowId = await this.getCurrentWindowId();
+        if (windowId === null) return [];
+        groups = await browser.tabGroups.query({ windowId });
+      }
       return groups;
     } catch (error) {
       console.error('Failed to get tab groups:', error);
       return [];
     }
+  }
+
+  async closeSidePanel(windowId?: number): Promise<void> {
+    const sidePanel = browser.sidePanel as typeof browser.sidePanel & { close?: (options?: { windowId?: number }) => Promise<void> };
+    if (typeof sidePanel.close === 'function') {
+      const targetWindowId = windowId ?? await this.getCurrentWindowId();
+      try {
+        await sidePanel.close(targetWindowId === null ? undefined : { windowId: targetWindowId });
+        return;
+      } catch (error) {
+        console.warn('Native side panel close failed; falling back to closing the panel document.', error);
+      }
+    }
+    window.close();
   }
 
   /**
@@ -136,7 +152,7 @@ class TabService {
       }
 
       // Get the current group state
-      const groups = await this.getTabGroups();
+      const groups = await this.getTabGroups(true);
       const group = groups.find(g => g.id === groupId);
       
       if (!group) {

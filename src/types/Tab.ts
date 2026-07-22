@@ -6,6 +6,14 @@ export interface Tab {
   status?: string;
   lastAccessed?: number; // Timestamp of last access
   groupId?: number; // ID of the tab group this tab belongs to
+  windowId?: number;
+  index?: number;
+  active?: boolean;
+  pinned?: boolean;
+  audible?: boolean;
+  discarded?: boolean;
+  mutedInfo?: { muted: boolean };
+  openerTabId?: number;
 }
 
 export interface TabGroup {
@@ -15,6 +23,8 @@ export interface TabGroup {
   collapsed?: boolean;
   windowId: number;
 }
+
+export type TabSortMode = 'current' | 'recently-used' | 'recently-opened' | 'domain' | 'group';
 
 export interface TabListItem {
   id: string; // Unique identifier for the list item

@@ -5,10 +5,10 @@ export default defineConfig({
   modules: ['@wxt-dev/module-react'],
   publicDir: 'public',
   manifest: {
-    name: 'TabShow | Point at Tabs in a Side Panel to See Full Pages Without Switching',
+    name: 'TabShow — Live Tab Preview',
     short_name: 'TabShow',
-    description: 'Vertical tabs with site icons and titles. Move your mouse over tabs to see a full page preview without switching. Click to switch.',
-    version: '1.0.0',
+    description: 'Search or point at open tabs to preview the live page, then switch or snap back without losing your place.',
+    version: '2.0.0',
     side_panel: {
       default_path: 'sidepanel.html'
     },
@@ -27,7 +27,6 @@ export default defineConfig({
     },
     permissions: [
       'sidePanel',
-      'activeTab',
       'tabs',
       'tabGroups'
     ],

@@ -1,7 +1,9 @@
 import React from 'react';
-import { Box, Typography, IconButton, RadioGroup, FormControlLabel, Radio, Button, Link, Slider } from '@mui/material';
+import { Box, Typography, IconButton, RadioGroup, FormControlLabel, Radio, Button, Slider } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import CloseIcon from '@mui/icons-material/Close';
+import LightbulbRounded from '@mui/icons-material/LightbulbRounded';
+import StarRounded from '@mui/icons-material/StarRounded';
 import { useColorScheme } from '../contexts/ColorSchemeContext';
 import { useUserSettings } from '../contexts/UserSettingsContext';
 import { EXTENSION_URLS } from '../parameters';
@@ -44,6 +46,7 @@ export function SettingsOverlay({ open, onClose }: SettingsOverlayProps) {
         transition: 'transform 0.3s ease, box-shadow 0.3s ease',
         zIndex: 1200,
         pointerEvents: open ? 'auto' : 'none',
+        visibility: open ? 'visible' : 'hidden',
         display: 'flex',
         flexDirection: 'column',
       }}
@@ -135,6 +138,41 @@ export function SettingsOverlay({ open, onClose }: SettingsOverlayProps) {
           })}
         </RadioGroup>
 
+        <Box sx={{ mt: 1, pt: 2, borderTop: `1px solid ${theme.palette.divider}` }}>
+          <Typography variant="subtitle2" sx={{ color: theme.palette.text.primary }}>
+            Help improve TabShow
+          </Typography>
+          <Typography variant="caption" sx={{ color: theme.palette.text.secondary, display: 'block', mt: 0.5, mb: 1.25 }}>
+            Share what would make your tab workflow better—or leave a quick review if TabShow has earned five stars.
+          </Typography>
+          <Box sx={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 1 }}>
+            <Button
+              component="a"
+              href={EXTENSION_URLS.FEATURE_REQUEST}
+              target="_blank"
+              rel="noopener noreferrer"
+              size="small"
+              variant="outlined"
+              startIcon={<LightbulbRounded sx={{ fontSize: 16 }} />}
+              sx={{ textTransform: 'none', fontSize: 11.5 }}
+            >
+              Share an idea
+            </Button>
+            <Button
+              component="a"
+              href={EXTENSION_URLS.CHROME_WEB_STORE_REVIEW}
+              target="_blank"
+              rel="noopener noreferrer"
+              size="small"
+              variant="text"
+              startIcon={<StarRounded sx={{ fontSize: 16 }} />}
+              sx={{ textTransform: 'none', fontSize: 11.5, color: theme.palette.text.secondary }}
+            >
+              Rate TabShow
+            </Button>
+          </Box>
+        </Box>
+
         <Box
           sx={{
             display: 'flex',
@@ -142,27 +180,9 @@ export function SettingsOverlay({ open, onClose }: SettingsOverlayProps) {
             alignItems: 'center',
             textAlign: 'center',
             gap: 1.5,
+            mt: 2,
           }}
         >
-          <Typography
-            variant="subtitle1"
-            sx={{
-              color: theme.palette.text.primary,
-
-              gap: 0.75,
-            }}
-          >
-            Want more settings?
-            <Link
-              href={EXTENSION_URLS.FEATURE_REQUEST}
-              target="_blank"
-              rel="noopener noreferrer"
-              underline="hover"
-              sx={{ color: theme.palette.secondary.main, fontWeight: 600, marginLeft: 1 }}
-            >
-              Suggest here.
-            </Link>
-          </Typography>
           <Button
             size="medium"
             variant="contained"

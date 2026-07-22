@@ -4,6 +4,8 @@ import { DEFAULT_HOVER_PREVIEW_DELAY_MS, userSettingsService } from '../services
 interface UserSettingsContextValue {
   hoverPreviewDelayMs: number;
   setHoverPreviewDelayMs: (delayMs: number) => void;
+  allWindows: boolean;
+  setAllWindows: (allWindows: boolean) => void;
 }
 
 const UserSettingsContext = React.createContext<UserSettingsContextValue | undefined>(undefined);
@@ -12,10 +14,15 @@ export function UserSettingsProvider({ children }: { children: React.ReactNode }
   const [hoverPreviewDelayMs, setHoverPreviewDelayMsState] = React.useState<number>(() => (
     userSettingsService.getHoverPreviewDelayMs()
   ));
+  const [allWindows, setAllWindows] = React.useState<boolean>(() => userSettingsService.getAllWindows());
 
   React.useEffect(() => {
     userSettingsService.saveHoverPreviewDelayMs(hoverPreviewDelayMs);
   }, [hoverPreviewDelayMs]);
+
+  React.useEffect(() => {
+    userSettingsService.saveAllWindows(allWindows);
+  }, [allWindows]);
 
   const setHoverPreviewDelayMs = React.useCallback((delayMs: number) => {
     const safeDelayMs = Number.isFinite(delayMs)
@@ -27,8 +34,10 @@ export function UserSettingsProvider({ children }: { children: React.ReactNode }
 
   const contextValue = React.useMemo<UserSettingsContextValue>(() => ({
     hoverPreviewDelayMs,
-    setHoverPreviewDelayMs
-  }), [hoverPreviewDelayMs, setHoverPreviewDelayMs]);
+    setHoverPreviewDelayMs,
+    allWindows,
+    setAllWindows
+  }), [hoverPreviewDelayMs, setHoverPreviewDelayMs, allWindows]);
 
   return (
     <UserSettingsContext.Provider value={contextValue}>

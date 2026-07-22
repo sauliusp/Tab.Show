@@ -1,10 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
+import CloseRounded from '@mui/icons-material/CloseRounded';
 import IconButton from '@mui/material/IconButton';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import CloseIcon from '@mui/icons-material/Close';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
+import Tooltip from '@mui/material/Tooltip';
 
 interface TabItemActionButtonProps {
   tabId: number;
@@ -12,55 +9,24 @@ interface TabItemActionButtonProps {
   iconColor?: string;
 }
 
-export const TabItemActionButton = React.memo(({ tabId, onCloseTab, iconColor }: TabItemActionButtonProps) => {
-  const [menuAnchor, setMenuAnchor] = useState<HTMLElement | null>(null);
-
-  const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
-    event.stopPropagation(); // Prevent tab selection when clicking menu button
-    setMenuAnchor(event.currentTarget);
-  };
-
-  const handleMenuClose = () => {
-    setMenuAnchor(null);
-  };
-
-  const handleCloseTab = () => {
-    handleMenuClose();
-    onCloseTab(tabId);
-  };
-
-  return (
-    <>
-      <IconButton
-        edge="end"
-        onClick={handleMenuOpen}
-        sx={{
-          paddingY: 0,
-          flexShrink: 0,
-          minWidth: '32px',
-          minHeight: '32px',
-          ...(iconColor ? { color: iconColor } : {})
-        }}
-      >
-        <MoreVertIcon />
-      </IconButton>
-
-      {/* Menu for tab actions */}
-      <Menu
-        anchorEl={menuAnchor}
-        open={Boolean(menuAnchor)}
-        onClose={handleMenuClose}
-        transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-        anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
-        onClick={(event) => event.stopPropagation()}
-      >
-        <MenuItem onClick={handleCloseTab}>
-          <ListItemIcon>
-            <CloseIcon fontSize="small" />
-          </ListItemIcon>
-          Close Tab
-        </MenuItem>
-      </Menu>
-    </>
-  );
-});
+export const TabItemActionButton = React.memo(({ tabId, onCloseTab, iconColor }: TabItemActionButtonProps) => (
+  <Tooltip title="Close tab" placement="left">
+    <IconButton
+      aria-label="Close tab"
+      size="small"
+      onClick={(event) => {
+        event.stopPropagation();
+        onCloseTab(tabId);
+      }}
+      sx={{
+        ml: 0.25,
+        p: 0.5,
+        flexShrink: 0,
+        color: iconColor ?? 'text.secondary',
+        '&:hover': { backgroundColor: 'action.hover' }
+      }}
+    >
+      <CloseRounded sx={{ fontSize: 17 }} />
+    </IconButton>
+  </Tooltip>
+));

@@ -6,6 +6,7 @@ export const DEFAULT_HOVER_PREVIEW_DELAY_MS = 250;
 export interface UserSettings {
   colorPairingId: string;
   hoverPreviewDelayMs: number;
+  allWindows: boolean;
 }
 
 class UserSettingsService {
@@ -26,7 +27,8 @@ class UserSettingsService {
   private getDefaultSettings(): UserSettings {
     return {
       colorPairingId: DEFAULT_COLOR_PAIRING_ID,
-      hoverPreviewDelayMs: DEFAULT_HOVER_PREVIEW_DELAY_MS
+      hoverPreviewDelayMs: DEFAULT_HOVER_PREVIEW_DELAY_MS,
+      allWindows: false
     };
   }
 
@@ -52,6 +54,10 @@ class UserSettingsService {
 
       if (typeof parsed?.hoverPreviewDelayMs === 'number' && Number.isFinite(parsed.hoverPreviewDelayMs) && parsed.hoverPreviewDelayMs >= 0) {
         settings.hoverPreviewDelayMs = parsed.hoverPreviewDelayMs;
+      }
+
+      if (typeof parsed?.allWindows === 'boolean') {
+        settings.allWindows = parsed.allWindows;
       }
 
       return Object.keys(settings).length ? settings : null;
@@ -102,6 +108,10 @@ class UserSettingsService {
     return this.getSettings().hoverPreviewDelayMs;
   }
 
+  getAllWindows(): boolean {
+    return this.getSettings().allWindows;
+  }
+
   saveColorPairingId(colorPairingId: string): void {
     const currentSettings = this.getSettings();
     this.writeSettings({
@@ -115,6 +125,14 @@ class UserSettingsService {
     this.writeSettings({
       ...currentSettings,
       hoverPreviewDelayMs: this.normalizeHoverPreviewDelayMs(hoverPreviewDelayMs)
+    });
+  }
+
+  saveAllWindows(allWindows: boolean): void {
+    const currentSettings = this.getSettings();
+    this.writeSettings({
+      ...currentSettings,
+      allWindows
     });
   }
 }

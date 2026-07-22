@@ -1,9 +1,7 @@
 import React from 'react';
-import { useTheme } from '@mui/material/styles';
-import Avatar from '@mui/material/Avatar';
-import IconButton from '@mui/material/IconButton';
-import Tooltip from '@mui/material/Tooltip';
-import SettingsIcon from '@mui/icons-material/Settings';
+import { Box, IconButton, Tooltip, Typography } from '@mui/material';
+import SettingsRounded from '@mui/icons-material/SettingsRounded';
+import TabRounded from '@mui/icons-material/TabRounded';
 import { Tab } from '../types/Tab';
 
 interface HeaderProps {
@@ -12,72 +10,33 @@ interface HeaderProps {
 }
 
 export function Header({ originalTab, onOpenSettings }: HeaderProps) {
-  const theme = useTheme();
-  
-  if (!originalTab) return null;
-  
   return (
-    <div style={{
-      position: 'sticky',
-      top: 0,
-      zIndex: 20,
-      backgroundColor: theme.palette.background.paper,
-      borderBottom: `2px solid ${theme.palette.custom.original}`,
-      padding: '16px',
-      boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
-    }}>
-      <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-        <Avatar
-          alt={originalTab.title || 'Original Tab'}
-          src={originalTab.favIconUrl || undefined}
-          sx={{ 
-            width: 32, 
-            height: 32,
-            border: `2px solid ${theme.palette.custom.original}`
-          }}
-        >
-          {!originalTab.favIconUrl && 
-           (originalTab.title ? originalTab.title.charAt(0).toUpperCase() : 'T')}
-        </Avatar>
-        <div style={{ flex: 1, minWidth: 0 }}>
-          <div style={{ 
-            fontWeight: 'bold', 
-            fontSize: '0.9rem',
-            color: theme.palette.text.primary,
-            overflow: 'hidden',
-            textOverflow: 'ellipsis',
-            whiteSpace: 'nowrap'
-          }}>
-            {originalTab.title || 'Untitled Tab'}
-          </div>
-          <div style={{ 
-            fontSize: '0.75rem', 
-            color: theme.palette.text.secondary,
-            overflow: 'hidden',
-            textOverflow: 'ellipsis',
-            whiteSpace: 'nowrap'
-          }}>
-            {originalTab.url || 'No URL'}
-          </div>
-        </div>
-
-        <Tooltip title="Open settings" placement="bottom" arrow>
-          <IconButton
-            aria-label="open settings"
-            onClick={onOpenSettings}
-            sx={{
-              color: theme.palette.text.secondary,
-              border: `1px solid ${theme.palette.divider}`,
-              '&:hover': {
-                backgroundColor: theme.palette.action.hover,
-              },
-            }}
-            size="small"
-          >
-            <SettingsIcon fontSize="small" color="primary" />
-          </IconButton>
-        </Tooltip>
-      </div>
-    </div>
+    <Box sx={{ px: 1.5, pt: 1.5, pb: 1, display: 'flex', alignItems: 'center', gap: 1.25 }}>
+      <Box sx={{
+        width: 34,
+        height: 34,
+        borderRadius: 2,
+        display: 'grid',
+        placeItems: 'center',
+        color: 'common.white',
+        background: theme => `linear-gradient(145deg, ${theme.palette.primary.light}, ${theme.palette.primary.main})`,
+        boxShadow: '0 6px 18px rgba(44, 42, 74, 0.22)'
+      }}>
+        <TabRounded sx={{ fontSize: 21 }} />
+      </Box>
+      <Box sx={{ minWidth: 0, flex: 1 }}>
+        <Typography sx={{ fontSize: 18, lineHeight: 1.1, fontWeight: 850, letterSpacing: -0.35 }}>
+          TabShow
+        </Typography>
+        <Typography noWrap sx={{ mt: 0.2, fontSize: 10.5, color: 'text.secondary' }}>
+          {originalTab ? `Previewing from ${originalTab.title || 'current tab'}` : 'Instant tab preview'}
+        </Typography>
+      </Box>
+      <Tooltip title="Settings">
+        <IconButton aria-label="open settings" onClick={onOpenSettings} size="small" sx={{ border: 1, borderColor: 'divider' }}>
+          <SettingsRounded fontSize="small" />
+        </IconButton>
+      </Tooltip>
+    </Box>
   );
 }
