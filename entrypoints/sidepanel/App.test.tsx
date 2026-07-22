@@ -78,6 +78,25 @@ describe('side-panel browser-rendered interaction', () => {
     expect(screen.getByRole('dialog', { name: 'User Settings' })).toBeVisible();
   });
 
+  it('shows clear loading and empty-search states instead of a blank list', async () => {
+    const loadingMock = browserWith150Tabs();
+    loadingMock.api.tabs.query = vi.fn(() => new Promise(() => undefined));
+    vi.stubGlobal('browser', loadingMock.api);
+    const loadingRender = render(<UserSettingsProvider><ColorSchemeProvider><App /></ColorSchemeProvider></UserSettingsProvider>);
+    expect(screen.getByText('Loading tabs…')).toBeVisible();
+    expect(screen.getByText('Loading…')).toBeVisible();
+    expect(screen.queryByText(/0 tabs/)).not.toBeInTheDocument();
+    loadingRender.unmount();
+
+    const loadedMock = browserWith150Tabs();
+    vi.stubGlobal('browser', loadedMock.api);
+    render(<UserSettingsProvider><ColorSchemeProvider><App /></ColorSchemeProvider></UserSettingsProvider>);
+    await waitFor(() => expect(screen.getByText(/150 tabs/)).toBeVisible());
+    fireEvent.change(screen.getByRole('textbox', { name: 'Search tabs' }), { target: { value: 'zzzz-no-such-tab-qa' } });
+    expect(await screen.findByText('No tabs match your search')).toBeVisible();
+    expect(screen.getByText('Try a different title, URL, or domain.')).toBeVisible();
+  });
+
   it('clearly marks tabs that require switching to another window', async () => {
     const mock = browserWith150Tabs(true);
     vi.stubGlobal('browser', mock.api);

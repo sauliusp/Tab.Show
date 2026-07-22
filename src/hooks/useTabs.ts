@@ -11,6 +11,7 @@ interface UseTabsOptions {
 }
 
 export function useTabs({ hoverPreviewDelayMs = DEFAULT_HOVER_PREVIEW_DELAY_MS, allWindows = false }: UseTabsOptions = {}) {
+  const [isLoading, setIsLoading] = useState(true);
   const [tabListState, setTabListState] = useState<TabListState>({
     items: {},
     itemOrder: [],
@@ -31,6 +32,9 @@ export function useTabs({ hoverPreviewDelayMs = DEFAULT_HOVER_PREVIEW_DELAY_MS, 
   const interactionGenerationRef = useRef(0);
   const tabSwitchQueueRef = useRef<Promise<void>>(Promise.resolve());
   const programmaticTargetTabIdRef = useRef<number | null>(null);
+  const inFlightPreviewTabIdRef = useRef<number | null>(null);
+  const restorationQueuedRef = useRef(false);
+  const committingSelectionRef = useRef(false);
 
   // Helper function to build tab list state from tabs and groups
   const buildTabListState = useCallback((tabs: Tab[], groups: TabGroup[]): TabListState => {
@@ -261,6 +265,8 @@ export function useTabs({ hoverPreviewDelayMs = DEFAULT_HOVER_PREVIEW_DELAY_MS, 
       initializedRef.current = true;
     } catch (error) {
       logError('initialize tabs information', error);
+    } finally {
+      setIsLoading(false);
     }
   }, [logError, buildTabListState, allWindows]);
 
@@ -425,6 +431,7 @@ export function useTabs({ hoverPreviewDelayMs = DEFAULT_HOVER_PREVIEW_DELAY_MS, 
     
     // Mark hover operation as in progress
     isHoverOperationInProgressRef.current = true;
+    inFlightPreviewTabIdRef.current = tabId;
     
     try {
       // 2. PERFORM THE ACTION: Activate the tab. This will trigger onActivated.
@@ -436,6 +443,9 @@ export function useTabs({ hoverPreviewDelayMs = DEFAULT_HOVER_PREVIEW_DELAY_MS, 
     } finally {
       // Always clear the hover operation flag
       isHoverOperationInProgressRef.current = false;
+      if (inFlightPreviewTabIdRef.current === tabId) {
+        inFlightPreviewTabIdRef.current = null;
+      }
     }
   }, [previewTabId, originalTab, tabListState.items, queueProgrammaticTabSwitch]);
 
@@ -489,8 +499,10 @@ export function useTabs({ hoverPreviewDelayMs = DEFAULT_HOVER_PREVIEW_DELAY_MS, 
   }, [clearHoverPreviewDelayTimeout]);
 
   const handleTabClick = useCallback(async (tabId: number) => {
+    committingSelectionRef.current = true;
     interactionGenerationRef.current += 1;
     clearHoverPreviewDelayTimeout();
+    setPreviewTabId(null);
     const tabItemId = `tab-${tabId}`;
     const tabItem = tabListState.items[tabItemId];
     if (tabItem && tabItem.type === 'tab') {
@@ -501,8 +513,11 @@ export function useTabs({ hoverPreviewDelayMs = DEFAULT_HOVER_PREVIEW_DELAY_MS, 
         setPreviewTabId(null);
         await tabService.closeSidePanel(hostWindowIdRef.current ?? undefined);
       } catch (error) {
+        committingSelectionRef.current = false;
         logError('select tab and close side panel', error);
       }
+    } else {
+      committingSelectionRef.current = false;
     }
   }, [tabListState, clearHoverPreviewDelayTimeout, queueProgrammaticTabSwitch, logError]);
 
@@ -527,7 +542,9 @@ export function useTabs({ hoverPreviewDelayMs = DEFAULT_HOVER_PREVIEW_DELAY_MS, 
   const handleSidePanelHoverEnd = useCallback(async () => {
     interactionGenerationRef.current += 1;
     clearHoverPreviewDelayTimeout();
-    if (originalTab?.id && previewTabId) {
+    const previewMayBeActive = previewTabId !== null || inFlightPreviewTabIdRef.current !== null;
+    if (originalTab?.id && previewMayBeActive && !committingSelectionRef.current && !restorationQueuedRef.current) {
+      restorationQueuedRef.current = true;
       console.log(`Hover ended. Returning to original tab ${originalTab.id}`);
       
       // Clear any ongoing hover operations
@@ -541,6 +558,8 @@ export function useTabs({ hoverPreviewDelayMs = DEFAULT_HOVER_PREVIEW_DELAY_MS, 
         setPreviewTabId(null);
       } catch (error) {
         // Error handling is already done in executeProgrammaticTabSwitch
+      } finally {
+        restorationQueuedRef.current = false;
       }
     }
   }, [originalTab, previewTabId, queueProgrammaticTabSwitch, clearHoverPreviewDelayTimeout]);
@@ -624,6 +643,7 @@ export function useTabs({ hoverPreviewDelayMs = DEFAULT_HOVER_PREVIEW_DELAY_MS, 
   }, [clearHoverPreviewDelayTimeout]);
 
   return {
+    isLoading,
     tabListState,
     originalTab,
     previewTabId,

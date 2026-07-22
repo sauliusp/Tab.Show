@@ -17,6 +17,7 @@ import { TabItem } from './TabItem';
 import { getDuplicateCounts, getDuplicateKey, selectTabs } from '../utils/tabSelectors';
 
 interface TabListProps {
+  isLoading: boolean;
   tabListState: TabListState;
   previewTabId: number | null;
   originalTab: Tab | null;
@@ -34,6 +35,7 @@ interface TabListProps {
 }
 
 export function TabList({
+  isLoading,
   tabListState,
   previewTabId,
   originalTab,
@@ -123,6 +125,12 @@ export function TabList({
     },
     overscan: 5,
   });
+
+  const emptyState = isLoading
+    ? { title: 'Loading tabs…', detail: 'Getting your Chrome windows ready.' }
+    : query.trim()
+      ? { title: 'No tabs match your search', detail: 'Try a different title, URL, or domain.' }
+      : { title: 'No tabs in this scope', detail: allWindows ? 'Open a tab to see it here.' : 'Try All windows or open a tab in this window.' };
 
   React.useEffect(() => {
     const index = virtualItems.findIndex(item => item.type === 'tab' && (item.data as Tab).id === highlightedTabId);
@@ -259,6 +267,27 @@ export function TabList({
         minHeight: 0
       }}
     >
+      {virtualItems.length === 0 ? (
+        <Box
+          role="status"
+          aria-live="polite"
+          sx={{
+            minHeight: 180,
+            height: '100%',
+            px: 3,
+            display: 'grid',
+            placeContent: 'center',
+            textAlign: 'center'
+          }}
+        >
+          <Typography sx={{ fontSize: 13, fontWeight: 800, color: 'text.primary' }}>
+            {emptyState.title}
+          </Typography>
+          <Typography sx={{ mt: 0.5, fontSize: 11.5, lineHeight: 1.45, color: 'text.secondary' }}>
+            {emptyState.detail}
+          </Typography>
+        </Box>
+      ) : (
       <div
         style={{
           height: `${virtualizer.getTotalSize()}px`,
@@ -297,6 +326,7 @@ export function TabList({
           );
         })}
       </div>
+      )}
     </Box>
   );
 }

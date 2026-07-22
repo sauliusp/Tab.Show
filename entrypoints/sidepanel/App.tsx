@@ -27,6 +27,7 @@ function App() {
   
   // Use the custom hook for tab management
   const {
+    isLoading,
     tabListState,
     originalTab,
     previewTabId,
@@ -179,13 +180,16 @@ function App() {
             <MenuItem value="group">By tab group</MenuItem>
           </Select>
           <Typography sx={{ ml: 'auto', fontSize: 10.5, color: 'text.secondary', textAlign: 'right' }}>
-            {matchingTabs.length} {matchingTabs.length === 1 ? 'tab' : 'tabs'}{allWindows ? ` · ${matchingWindowCount} windows` : ''}
+            {isLoading
+              ? 'Loading…'
+              : `${matchingTabs.length} ${matchingTabs.length === 1 ? 'tab' : 'tabs'}${allWindows ? ` · ${matchingWindowCount} windows` : ''}`}
           </Typography>
         </Box>
       </Box>
 
       {/* Tab list */}
       <TabList
+        isLoading={isLoading}
         tabListState={tabListState}
         previewTabId={previewTabId}
         originalTab={originalTab}

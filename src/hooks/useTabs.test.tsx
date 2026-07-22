@@ -114,6 +114,62 @@ describe('useTabs interaction contract', () => {
     expect(result.current.previewTabId).toBeNull();
   });
 
+  it('restores the origin when the pointer leaves during an in-flight preview activation', async () => {
+    const mock = createBrowserMock();
+    let resolvePreview!: () => void;
+    const previewActivation = new Promise<void>(resolve => { resolvePreview = resolve; });
+    mock.updateTab.mockImplementation(async (tabId: number) => {
+      if (tabId === 2) await previewActivation;
+      mock.events.activated.emit({ tabId, windowId: 10 });
+      return mock.tabs.find(tab => tab.id === tabId)!;
+    });
+    vi.stubGlobal('browser', mock.browserMock);
+    const { result } = renderHook(() => useTabs({ hoverPreviewDelayMs: 0 }));
+    await settleInitialization();
+    mock.updateTab.mockClear();
+
+    act(() => { result.current.handleTabHover(2); });
+    await act(async () => { await Promise.resolve(); });
+    expect(mock.updateTab).toHaveBeenCalledWith(2, { active: true });
+
+    let leavePromise!: Promise<void>;
+    act(() => { leavePromise = result.current.handleSidePanelHoverEnd(); });
+    await act(async () => {
+      resolvePreview();
+      await leavePromise;
+    });
+
+    expect(mock.updateTab.mock.calls.map(([tabId]) => tabId)).toEqual([2, 1]);
+    expect(result.current.previewTabId).toBeNull();
+  });
+
+  it('lets an explicit click win over an in-flight preview activation', async () => {
+    const mock = createBrowserMock();
+    let resolvePreview!: () => void;
+    const previewActivation = new Promise<void>(resolve => { resolvePreview = resolve; });
+    mock.updateTab.mockImplementation(async (tabId: number) => {
+      if (tabId === 2) await previewActivation;
+      mock.events.activated.emit({ tabId, windowId: 10 });
+      return mock.tabs.find(tab => tab.id === tabId)!;
+    });
+    vi.stubGlobal('browser', mock.browserMock);
+    const { result } = renderHook(() => useTabs({ hoverPreviewDelayMs: 0 }));
+    await settleInitialization();
+    mock.updateTab.mockClear();
+
+    act(() => { result.current.handleTabHover(2); });
+    await act(async () => { await Promise.resolve(); });
+    let clickPromise!: Promise<void>;
+    act(() => { clickPromise = result.current.handleTabClick(4); });
+    await act(async () => {
+      resolvePreview();
+      await clickPromise;
+    });
+
+    expect(mock.updateTab.mock.calls.map(([tabId]) => tabId)).toEqual([2, 4]);
+    expect(mock.close).toHaveBeenCalledWith({ windowId: 10 });
+  });
+
   it('cancels a delayed preview when search or sorting changes intent', async () => {
     const mock = createBrowserMock();
     vi.stubGlobal('browser', mock.browserMock);
