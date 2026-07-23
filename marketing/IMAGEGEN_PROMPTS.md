@@ -59,3 +59,9 @@ Prompt: Create an ultra-wide flagship technology-magazine spread on warm ivory p
 Final source: `source/imagegen/editorial/website-social-background.png`
 
 Prompt: Create a bespoke 1200×630-safe TabShow social-card background. From far-left and lower-left, a compact tangle of slim paper tabs and ribbons resolves into one precise amber guide line toward the right. Preserve a calm headline field and a pristine right-side stage for the real appshot. High-end technology magazine cover, warm ivory paper, charcoal violet and amber, subtle dimension, exceptional sharpness.
+
+## Product Hunt thumbnail
+
+Final source: `source/imagegen/product-hunt/thumbnail-background.png`
+
+Prompt: Create a refined, minimal square editorial 3D background expressing browser-tab overload resolving into clarity. Use a warm ivory paper canvas with a restrained arrangement of thin browser-tab-shaped layers near the lower-left and upper-right edges. A few deep ink-violet layers and one signal-orange layer should create a clean directional flow toward the center. Keep the central 55% quiet for the authentic TabShow icon. Premium product-magazine art direction, tactile matte paper and polymer, crisp studio rendering, subtle shadows, strong silhouette at thumbnail size. No text, letters, numbers, logos, fake UI, computer, browser chrome, neon, glassmorphism, tiny details, or visual clutter.

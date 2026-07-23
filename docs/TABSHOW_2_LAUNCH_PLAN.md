@@ -302,6 +302,7 @@ The complete local plan is now represented by these release artifacts:
 - Explicit approval gates: `docs/launch-materials/06_LAUNCH_CHECKLIST.md`
 - Authentic appshots, ImageGen editorial sources, compositor, final assets, and prompts: `marketing/`
 - Multi-route SEO implementation: `website/`
+- Product Hunt submission, launch operations, reply bank, thumbnail, and six-frame gallery: `docs/launch-materials/07_PRODUCT_HUNT_LAUNCH_KIT.md` and `marketing/output/product-hunt/`
 - Chrome upload package: `.output/tabshow-2.0.0-chrome.zip`
 
 Phases 1–6 are complete locally, and the website publishing/domain-cutover portion of phase 9 is complete in production. Analytics and Search Console remain follow-up work. Phases 7–8 and 10 still require explicit external authorization and live-environment verification. No Developer Dashboard state has been changed.

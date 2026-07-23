@@ -26,4 +26,16 @@ The final campaign uses two deliberately separate source layers:
 - `website/public/images/store-01-preview.png` through `store-05-context.png` — high-resolution product campaign images.
 - `website/public/images/tabshow-social-card.png` — 1200×630 bespoke Open Graph image.
 
+## Product Hunt outputs
+
+- `output/product-hunt/tabshow-producthunt-thumbnail-240x240.png` — required square thumbnail.
+- `output/product-hunt/gallery/01-cover.png` through `06-context-and-sorting.png` — 1270×760 launch story using authentic 2.0 appshots.
+- `output/product-hunt/SUBMISSION.md` — exact ready-to-paste submission fields and maker comment.
+
+Rebuild the Product Hunt package with:
+
+```bash
+/Users/spetreikis/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3 marketing/render_product_hunt_assets.py
+```
+
 The final prompts and source-to-output map are in `IMAGEGEN_PROMPTS.md`. Visual QA captures are in `qa/`. The earlier renderer and simulated-UI imagegen experiments are retained only as superseded working history; no production surface references them.
