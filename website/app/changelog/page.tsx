@@ -121,7 +121,7 @@ export default function ChangelogPage() {
         <p className="eyebrow"><span /> September 2026</p>
         <h2>Version 2.1</h2>
         <h3>Local Tab Chaos Score</h3>
-        <p>A compact, color-coded score summarizes open tabs, windows, duplicates, tab age, domains, and Chrome groups. Open it for local statistics, quick wins, and trend history that remains in the browser.</p>
+        <p>A compact, color-coded score summarizes open-tab volume, window sprawl, duplicates, long-neglected tabs, and tabs outside Chrome groups. Open it for local statistics, quick wins, and trend history that remains in the browser.</p>
         <h3>Dark, light, and system appearance</h3>
         <p>Choose an explicit appearance or follow the operating system. Active and preview colors adapt so user-selected palettes remain readable in dark mode.</p>
         <h3>Feedback and sharing in the panel</h3>
@@ -142,7 +142,7 @@ export default function ChangelogPage() {
         <h3>Keyboard selection and switching</h3>
         <p>Arrow keys select results, Enter opens the selected tab, and Escape returns to the original tab. Live preview remains a hover interaction.</p>
         <h3>All-window awareness</h3>
-        <p>Choose an explicit All windows scope with matching tab and window counts. Tabs from another window switch only on click, preventing hover from stealing focus.</p>
+        <p>Choose an explicit All windows scope with complete tab and window totals. Tabs from another window switch only on click, preventing hover from stealing focus.</p>
         <h3>Flexible sorting</h3>
         <p>Keep Chrome's current order or sort by recently used, recently added (approximate), domain, or tab group.</p>
         <h3>Richer tab context</h3>

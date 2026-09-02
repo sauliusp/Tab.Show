@@ -4,11 +4,39 @@ import { tabService } from '../services/TabService';
 import { ChaosTrend, tabChaosHistoryService } from '../services/TabChaosHistoryService';
 import { calculateTabChaos, TabChaosStats } from '../utils/tabChaos';
 
+interface ChaosTrendBaseline {
+  previousScore: number | null;
+  previousTabCount: number | null;
+  bestScore: number;
+  checkInStreak: number;
+}
+
+function getTrendMessage(scoreDelta: number | null): string {
+  if (scoreDelta === null) return 'First local check-in. This becomes more useful over time.';
+  if (scoreDelta < 0) return `Down ${Math.abs(scoreDelta)} point${Math.abs(scoreDelta) === 1 ? '' : 's'} since your last check.`;
+  if (scoreDelta > 0) return `Up ${scoreDelta} point${scoreDelta === 1 ? '' : 's'} since your last check.`;
+  return 'Steady since your last check.';
+}
+
+function deriveLiveTrend(stats: TabChaosStats, baseline: ChaosTrendBaseline): ChaosTrend {
+  const scoreDelta = baseline.previousScore === null ? null : stats.score - baseline.previousScore;
+  const tabsDelta = baseline.previousTabCount === null ? null : stats.totalTabs - baseline.previousTabCount;
+  return {
+    previousScore: baseline.previousScore,
+    scoreDelta,
+    tabsDelta,
+    bestScore: baseline.bestScore,
+    checkInStreak: baseline.checkInStreak,
+    message: getTrendMessage(scoreDelta),
+  };
+}
+
 export function useTabChaos() {
   const [stats, setStats] = React.useState<TabChaosStats | null>(null);
   const [trend, setTrend] = React.useState<ChaosTrend | null>(null);
   const [isLoading, setIsLoading] = React.useState(true);
   const recordedRef = React.useRef(false);
+  const trendBaselineRef = React.useRef<ChaosTrendBaseline | null>(null);
   const refreshTimeoutRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
   const refreshGenerationRef = React.useRef(0);
 
@@ -29,7 +57,16 @@ export function useTabChaos() {
       setStats(nextStats);
       if (!recordedRef.current) {
         recordedRef.current = true;
-        setTrend(tabChaosHistoryService.recordCheckIn(nextStats));
+        const nextTrend = tabChaosHistoryService.recordCheckIn(nextStats);
+        trendBaselineRef.current = {
+          previousScore: nextTrend.previousScore,
+          previousTabCount: nextTrend.tabsDelta === null ? null : nextStats.totalTabs - nextTrend.tabsDelta,
+          bestScore: nextTrend.bestScore,
+          checkInStreak: nextTrend.checkInStreak,
+        };
+        setTrend(nextTrend);
+      } else if (trendBaselineRef.current) {
+        setTrend(deriveLiveTrend(nextStats, trendBaselineRef.current));
       }
     } catch (error) {
       if (generation === refreshGenerationRef.current) {

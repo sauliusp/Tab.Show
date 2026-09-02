@@ -28,7 +28,7 @@ What you can do:
 - Sort tabs by browser order, recent use, recent addition, domain, or group.
 - Navigate with the keyboard: Arrow keys select, Enter opens, and Escape returns. Hover a current-window tab to preview it.
 - See useful context including tab groups, pinned tabs, audio, muted and sleeping states, and duplicates.
-- Check a local-only Tab Chaos Score based on open tabs, windows, duplicates, tab age, domains, and groups.
+- Check a local-only Tab Chaos Score based on open-tab volume, window sprawl, duplicates, long-neglected tabs, and tabs outside groups.
 - Choose dark, light, or system appearance while keeping selected and preview colors readable.
 - Close tabs directly from the side panel.
 

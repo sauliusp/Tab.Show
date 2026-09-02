@@ -185,7 +185,9 @@ export function getTabVisualState(
   
   // Hover styles
   visualState.hoverStyles = {
-    backgroundColor: getHoverBackgroundColor(visualState.backgroundColor, theme)
+    backgroundColor: isOriginalTab
+      ? visualState.backgroundColor
+      : getHoverBackgroundColor(visualState.backgroundColor, theme)
   };
   
   // Cache the result and clean if necessary

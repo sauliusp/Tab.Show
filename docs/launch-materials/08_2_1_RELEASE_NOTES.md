@@ -8,7 +8,7 @@ TabShow 2.1 adds a local-only Tab Chaos Score, dark and light appearance control
 
 ## What's new
 
-- A compact, color-coded Tab Chaos Score based on open tabs, windows, duplicates, tab age, domains, and Chrome groups.
+- A compact, color-coded Tab Chaos Score based on open-tab volume, window sprawl, duplicates, long-neglected tabs, and tabs outside Chrome groups.
 - Local trend history so returning users can see whether their tab session is becoming calmer or busier.
 - Dark, light, and system appearance modes.
 - Theme-aware selected and preview colors that remain visible in dark mode.
@@ -35,9 +35,9 @@ TabShow 2.1 adds a local-only Tab Chaos Score, dark, light, and system themes, p
 
 ## Release verification
 
-- Extension tests: 14 files and 58 tests passed.
+- Extension tests: 15 files and 61 tests passed.
 - TypeScript compilation: passed.
 - Production Chrome MV3 build, ZIP integrity, manifest version, permissions, and host-permission inspection: passed.
-- Website lint, production build, and 6 rendered-page test groups: passed.
+- Website lint, production build, and 7 rendered-page test groups: passed.
 - Chrome side-panel regression QA: actual Chrome passed the 420×800 release captures, 150-tab and four-window state, preview and dark-mode states, and a 320×800 narrow-panel check.
-- Pull request: [#3](https://github.com/sauliusp/Tab.Show/pull/3); findings from two Codex review passes are addressed, and the next review is pending.
+- Pull request: [#3](https://github.com/sauliusp/Tab.Show/pull/3); all accepted findings from the Codex review loop were resolved before release handoff.

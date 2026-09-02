@@ -105,4 +105,88 @@ describe('useTabChaos tab movement events', () => {
 
     unmount();
   });
+
+  it('recomputes the displayed trend from live stats without recording another check-in', async () => {
+    vi.useFakeTimers();
+    window.localStorage.setItem('tab.show.chaosHistory.v1', JSON.stringify({
+      observations: [{
+        timestamp: new Date(2026, 7, 31, 12).getTime(),
+        day: '2026-08-31',
+        score: 25,
+        tabCount: 10,
+      }],
+      bestScore: 20,
+    }));
+    const setItem = vi.spyOn(Storage.prototype, 'setItem');
+    const onRemoved = event();
+    const initialTabs = Array.from({ length: 40 }, (_, index) => ({
+      id: index + 1,
+      windowId: 10,
+      index,
+      active: index === 0,
+      url: `https://initial.example/${index}`,
+    }));
+    const refreshedTabs = Array.from({ length: 15 }, (_, index) => ({
+      id: index + 1,
+      windowId: 10,
+      index,
+      active: index === 0,
+      url: `https://refreshed.example/${index}`,
+    }));
+    const browserMock = {
+      tabs: {
+        query: vi.fn()
+          .mockResolvedValueOnce(initialTabs)
+          .mockResolvedValueOnce(refreshedTabs),
+        onCreated: event(),
+        onRemoved,
+        onUpdated: event(),
+        onMoved: event(),
+        onDetached: event(),
+        onAttached: event(),
+        onActivated: event(),
+      },
+      windows: {
+        getCurrent: vi.fn(async () => ({ id: 10 })),
+        onFocusChanged: event(),
+      },
+      tabGroups: {
+        query: vi.fn(async () => []),
+        onCreated: event(),
+        onUpdated: event(),
+        onRemoved: event(),
+      },
+    };
+    vi.stubGlobal('browser', browserMock);
+
+    const { result, unmount } = renderHook(() => useTabChaos());
+    await act(async () => { await Promise.resolve(); });
+    const initialScore = result.current.stats!.score;
+    expect(result.current.trend?.scoreDelta).toBe(initialScore - 25);
+    expect(setItem).toHaveBeenCalledTimes(1);
+
+    onRemoved.emit(41, {});
+    await act(async () => {
+      await vi.advanceTimersByTimeAsync(120);
+      await Promise.resolve();
+    });
+
+    expect(result.current.stats?.totalTabs).toBe(15);
+    expect(result.current.trend).toMatchObject({
+      previousScore: 25,
+      scoreDelta: result.current.stats!.score - 25,
+      tabsDelta: 5,
+      bestScore: 20,
+    });
+    expect(result.current.trend?.message).toBe(
+      result.current.stats!.score < 25
+        ? `Down ${25 - result.current.stats!.score} points since your last check.`
+        : result.current.stats!.score > 25
+          ? `Up ${result.current.stats!.score - 25} points since your last check.`
+          : 'Steady since your last check.',
+    );
+    expect(setItem).toHaveBeenCalledTimes(1);
+
+    unmount();
+  });
 });

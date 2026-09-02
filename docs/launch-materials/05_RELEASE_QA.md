@@ -4,19 +4,19 @@ Verified on 2026-09-02.
 
 ## Extension
 
-- `npm test -- --run`: 14 files, 58 tests passed.
+- `npm test -- --run`: 15 files, 61 tests passed.
 - `npm run compile`: passed.
 - `npm run build`: passed with WXT 0.20.27.
 - `npm run zip`: passed with WXT 0.20.27.
-- Production contents: 620,027 uncompressed bytes across 20 archive entries.
-- Release ZIP: `.output/tabshow-2.1.0-chrome.zip`, 198,249 bytes.
-- SHA-256: `ad0f18c2c4ef583d466b716b866edeaad3628040eebf4dd0ce28139e7b08e9fe`.
+- Production contents: 620,777 uncompressed bytes across 20 archive entries.
+- Release ZIP: `.output/tabshow-2.1.0-chrome.zip`, 198,423 bytes.
+- SHA-256: `a395fb9033d29519f18e612198f8e5e28dcad43a9354f48defa7fa1c4da7dc20`.
 - Manifest: MV3, version 2.1.0, correct title and summary.
 - Permissions: `sidePanel`, `tabs`, `tabGroups`; no `host_permissions`; no `activeTab`; no new permission warning.
 - Required 16/32/48/96/128 icons present.
 - Archive integrity check passed with no corrupt entries.
 
-The minified side-panel JavaScript chunk is 574,670 bytes and exceeds Vite's 500 kB warning threshold. This is a non-blocking maintainability and performance follow-up. Do not publish unmeasured "ultralight" or "zero impact" claims.
+The minified side-panel JavaScript chunk is 575,444 bytes and exceeds Vite's 500 kB warning threshold. This is a non-blocking maintainability and performance follow-up. Do not publish unmeasured "ultralight" or "zero impact" claims.
 
 ## Product regression coverage
 
@@ -29,13 +29,15 @@ The minified side-panel JavaScript chunk is 574,670 bytes and exceeds Vite's 500
 - Chaos history retains the all-time best beyond the 90-day rolling observation window and coalesces repeated same-day openings so streaks remain accurate.
 - Chrome internal pages are grouped under clear `Chrome` and `Chrome extension` labels rather than internal component names.
 - Chaos overlay focus, Escape close, focus restoration, and severity-color text contrast are covered.
+- Live Chaos trends update against the prior check-in when tabs change without writing duplicate history entries.
+- Original-tab hover backgrounds retain readable text contrast in every palette and appearance mode.
 - Dark, light, and system appearance persistence plus theme-aware selected and preview colors are covered.
 - Suggest a feature and Tell a friend panel actions are covered, including clipboard confirmation.
 
 ## Website
 
 - `npm run lint`: passed.
-- `npm test`: production build passed; 6 rendered-output test groups passed.
+- `npm test`: production build passed; 7 rendered-output test groups passed.
 - Nine routes included in the build.
 - Unique titles and canonicals verified.
 - The privacy page discloses the 90 local Chaos check-ins, all-time best retention, fields stored, and deletion routes.

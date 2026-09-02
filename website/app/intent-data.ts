@@ -36,7 +36,7 @@ export const lostTabPage: IntentPageData = {
     { title: "Prevent the next hunt without reorganizing everything", paragraphs: ["You do not need a perfect tab system to benefit. Existing Chrome groups remain visible, and sort modes let you use browser order, recent use, recent addition, domain, or group when one view becomes more useful than another.", "TabShow is not a promise to eliminate tab overload. It makes the overload more searchable and makes recognition less disruptive."] },
   ],
   faq: [
-    { q: "How do I search all open tabs in Chrome?", a: "Open TabShow, choose All windows, and search by title, URL, or domain. The result count shows how many tabs and windows match." },
+    { q: "How do I search all open tabs in Chrome?", a: "Open TabShow, choose All windows, and search by title, URL, or domain. Search narrows the visible list while the tab and window totals continue to show the complete selected scope." },
     { q: "Can I find a tab if I remember only the website?", a: "Yes. Search matches domains and URLs as well as page titles." },
     { q: "Will searching change my current tab?", a: "No. Typing and Arrow-key selection leave the current page alone. Hovering a current-window result starts a temporary preview; moving away or pressing Escape restores the original tab." },
   ],

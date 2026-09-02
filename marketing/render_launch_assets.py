@@ -158,7 +158,7 @@ def browser_scene(draw, box, mode):
     elif mode == "search":
         wrapped(draw, (x1 + 42, y1 + 82), "Search every open tab", 25, content_right - x1 - 76, INK, True, 2)
         wrapped(draw, (x1 + 42, y1 + 146), "Title, URL, or domain. Across every window.", 13, content_right - x1 - 76, MUTED, False, 4)
-        for i, (label, value) in enumerate((("QUERY", "design"), ("RESULTS", "3 tabs"), ("WINDOWS", "2"))):
+        for i, (label, value) in enumerate((("QUERY", "design"), ("OPEN TABS", "12"), ("WINDOWS", "2"))):
             bx = x1 + 42 + i * 94
             rounded(draw, (bx, y1 + 214, bx + 82, y1 + 282), 12, "#F2EEE3", RULE)
             text(draw, (bx + 12, y1 + 226), label, 8, MUTED, True)

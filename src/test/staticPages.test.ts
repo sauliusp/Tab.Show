@@ -50,6 +50,8 @@ describe('v2.1 update page', () => {
     expect(html).toContain('Suggest a feature');
     expect(html).toContain('Tell a friend');
     expect(html).toContain('Version 2.0');
+    expect(html).not.toContain('<small>Results</small>');
+    expect(html).not.toMatch(/tab age, domains|domains, and (?:Chrome )?groups/i);
     expect(html).not.toMatch(/⌘\s*[123]/);
   });
 });

@@ -95,6 +95,14 @@ test("changelog preserves the complete user-facing release history", async () =>
   }
   assert.match(changelog, /Featurebase feedback board/);
   assert.match(changelog, /hover-to-preview interaction/);
+  assert.doesNotMatch(changelog, /tab age, domains|domains, and Chrome groups/i);
+});
+
+test("search copy keeps full-scope totals distinct from filtered results", async () => {
+  const lostTabPage = await (await render("/find-lost-chrome-tab")).text();
+  assert.match(lostTabPage, /Search narrows the visible list/);
+  assert.match(lostTabPage, /complete selected scope/);
+  assert.doesNotMatch(lostTabPage, /result count shows how many tabs and windows match/i);
 });
 
 test("robots and sitemap expose the intended public surface", async () => {
