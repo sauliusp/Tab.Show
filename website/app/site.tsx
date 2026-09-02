@@ -51,7 +51,7 @@ export function StoreButton({ content, label = "Add to Chrome" }: { content: str
 }
 
 export function ProductImage({ src, alt, priority = false }: { src: string; alt: string; priority?: boolean }) {
-  return <figure className="product-visual"><img src={src} alt={alt} width="1584" height="990" loading={priority ? "eager" : "lazy"} fetchPriority={priority ? "high" : "auto"} /></figure>;
+  return <figure className="product-visual"><img src={src} alt={alt} width="1280" height="800" loading={priority ? "eager" : "lazy"} fetchPriority={priority ? "high" : "auto"} /></figure>;
 }
 
 export function Community() {

@@ -10,42 +10,52 @@ Why: brand-first, memorable, and explicit about the distinctive behavior. It rem
 
 ## Package summary
 
-`Search or point at open tabs to preview the live page, then switch or snap back without losing your place.`
+`Preview live Chrome tabs before you switch. Search every window and find the right page without losing your place.`
 
-Why: it states the two primary discovery modes, shows the interaction, and ends on the user benefit. It is 106 characters, below Chrome's 132-character limit.
+Why: it leads with the distinctive live-preview benefit, includes cross-window search, and ends on the outcome. It is below Chrome's 132-character limit.
 
 ## Detailed description
 
-Find the right Chrome tab without losing your place.
+Stop clicking through Chrome tabs just to find the right one.
 
-TabShow puts your open tabs in Chrome's side panel. Search by title, URL, or domain, or point at a tab to preview its live page. Click to switch, or move away to return to the page you were using.
+TabShow is a lightweight tab manager built around one fast idea: see the page before you switch. It puts your open tabs in Chrome's side panel, where you can search, preview, and open the tab you need without losing your place.
 
-What you can do:
+SEE THE PAGE BEFORE YOU SWITCH
 
-- Preview a live tab before switching to it.
-- Search open tabs by page title, URL, or domain.
-- Use the current window or find tabs across every Chrome window.
-- Sort tabs by browser order, recent use, recent addition, domain, or group.
-- Navigate with the keyboard: Arrow keys select, Enter opens, and Escape returns. Hover a current-window tab to preview it.
-- See useful context including tab groups, pinned tabs, audio, muted and sleeping states, and duplicates.
-- Check a local-only Tab Chaos Score based on open-tab volume, window sprawl, duplicates, long-neglected tabs, and tabs outside groups.
-- Choose dark, light, or system appearance while keeping selected and preview colors readable.
-- Close tabs directly from the side panel.
+Point at a tab in your current window and its live page appears in the main browser area. Found the right one? Click to keep it. Not the one? Move away and TabShow returns you to the page you were using.
 
-Cross-window behavior is deliberately safe: tabs in another window switch only when clicked, so moving the pointer cannot unexpectedly steal focus.
+FIND A TAB FAST
 
-Privacy by design:
+Start typing as soon as the panel opens. Search by page title, URL, or domain. Use Arrow Up and Arrow Down to select a result, Enter to open it, or Escape to return to your original tab and close the panel. Keyboard selection stays switch-free until you press Enter. Live preview remains available on hover.
 
-- No account or sign-in.
-- No backend service.
-- No advertising or tracking.
-- No host permissions.
-- No access to the contents of webpages.
-- Tab information and settings stay in your browser.
+WORK ACROSS EVERY CHROME WINDOW
 
-TabShow uses Chrome permissions only to show its side panel; list tab titles, URLs, and favicons; display tab groups; and switch or close tabs when you ask it to.
+Stay focused on the current window or search all open windows from one compact list. Tabs from another window switch only when you click, so a casual hover never pulls you away unexpectedly.
 
-Free to use.
+BUILT FOR REAL TAB CHAOS
+
+• Sort by Chrome order, recent use, recent addition, domain, or tab group.
+• See tab groups, pinned tabs, audio, muted, sleeping, and duplicate indicators.
+• Close tabs directly from the side panel.
+• Keep the real open-tab and window totals visible while search filters the list.
+• Choose light, dark, or system appearance with readable selected and preview colors.
+
+KNOW YOUR TAB CHAOS SCORE
+
+See a local score based on tab volume, window sprawl, duplicates, long-neglected tabs, and tabs outside groups. Check the trend over time and get one practical suggestion for calming the current session. The score and its history stay in your browser.
+
+PRIVATE BY DESIGN
+
+• No account or sign-in.
+• No TabShow backend.
+• No advertising or extension analytics.
+• No host permissions.
+• No access to webpage contents.
+• Tab information and settings stay in your browser.
+
+TabShow uses Chrome permissions only to show the side panel, list the tab details Chrome provides, display existing tab groups, and switch or close tabs when you ask it to.
+
+Find the right tab without switching away. TabShow is free to use.
 
 ## Version 2.1 update summary
 

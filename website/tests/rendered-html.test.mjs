@@ -50,9 +50,9 @@ test("homepage uses authentic product proof and honest conversion language", asy
     html,
     /<meta[^>]+name=["']google-site-verification["'][^>]+content=["']ASniG6NXZATRVe0o1JkgGk1RzRFVPX21Uvk3YaOSpU0["']/i,
   );
-  assert.match(html, /store-01-preview\.png/);
-  assert.match(html, /store-02-search\.png/);
-  assert.match(html, /store-04-windows\.png/);
+  assert.match(html, /tabshow-2\.1-01-live-preview\.png/);
+  assert.match(html, /tabshow-2\.1-02-search-150-tabs\.png/);
+  assert.match(html, /tabshow-2\.1-04-all-windows\.png/);
   assert.match(html, /No account/);
   assert.match(html, /No host permissions/);
   assert.match(html, /narsheek\.featurebase\.app/);
@@ -60,6 +60,21 @@ test("homepage uses authentic product proof and honest conversion language", asy
   assert.match(html, /"@type":"SoftwareApplication"/);
   assert.match(html, /"@type":"FAQPage"/);
   assert.doesNotMatch(html, /join thousands|zero impact|best free chrome tab manager|100% free forever/i);
+});
+
+test("intent pages use the complete TabShow 2.1 product image set", async () => {
+  const expectedImages = new Map([
+    ["/chrome-tab-preview-extension", "tabshow-2.1-01-live-preview.png"],
+    ["/find-lost-chrome-tab", "tabshow-2.1-02-search-150-tabs.png"],
+    ["/onetab-alternative", "tabshow-2.1-03-keyboard-navigation.png"],
+    ["/workona-alternative", "tabshow-2.1-04-all-windows.png"],
+    ["/tab-manager-plus-alternative", "tabshow-2.1-05-tab-chaos-score.png"],
+  ]);
+
+  for (const [path, image] of expectedImages) {
+    const html = await (await render(path)).text();
+    assert.match(html, new RegExp(image.replaceAll(".", "\\.")), path);
+  }
 });
 
 test("comparison pages make an honest two-sided recommendation", async () => {

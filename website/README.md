@@ -1,6 +1,6 @@
 # TabShow website
 
-The local, launch-ready SEO website for TabShow 2.0. It is a public vinext/Sites project with nine routes, factual product copy, campaign-tagged Chrome Web Store links, and authentic TabShow appshots.
+The local, launch-ready SEO website for TabShow 2.1. It is a public vinext/Sites project with nine routes, factual product copy, campaign-tagged Chrome Web Store links, and the five current Chrome Web Store product images.
 
 ## Local verification
 

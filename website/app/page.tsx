@@ -52,7 +52,7 @@ export default function Home() {
             </div>
             <p className="micro-proof">No account <span>·</span> No backend <span>·</span> No host permissions</p>
           </div>
-          <ProductImage src="/images/store-01-preview.png" alt="Real TabShow side panel showing the current tab in violet and a live hover preview in amber" priority />
+          <ProductImage src="/images/tabshow-2.1-01-live-preview.png" alt="TabShow 2.1 live preview showing the current Chrome tab in violet and a hovered preview tab in amber" priority />
         </section>
 
         <section className="proof-strip" aria-label="TabShow 2.1 highlights">
@@ -74,7 +74,7 @@ export default function Home() {
             <li><b>Preview the live page</b><span>The real tab appears in your main browser window.</span></li>
             <li><b>Decide without penalty</b><span>Click to switch. Move away to return to the original tab.</span></li>
           </ol>
-          <ProductImage src="/images/store-02-search.png" alt="Real TabShow search results filtering open tabs by the word TabShow" />
+          <ProductImage src="/images/tabshow-2.1-02-search-150-tabs.png" alt="TabShow 2.1 searching 150 open Chrome tabs by title, URL, or domain" />
         </section>
 
         <section className="section ink-section">
@@ -96,7 +96,7 @@ export default function Home() {
             <p className="section-copy">TabShow keeps live tabs live. It does not close them into a list, save cloud sessions, or ask you to rebuild browsing around projects. If you need workspace sync or aggressive memory cleanup, another tool may fit better. If you need to identify the right live page quickly, that is TabShow’s job.</p>
             <a className="text-link" href="/chrome-tab-preview-extension">Explore live tab preview <span aria-hidden="true">→</span></a>
           </div>
-          <ProductImage src="/images/store-04-windows.png" alt="Real TabShow All windows view showing tabs from two Chrome windows" />
+          <ProductImage src="/images/tabshow-2.1-04-all-windows.png" alt="TabShow 2.1 All windows view listing tabs across four Chrome windows" />
         </section>
 
         <section className="section privacy-section">

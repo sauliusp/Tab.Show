@@ -1,0 +1,345 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TabShow Chrome Web Store screenshots</title>
+  <style>
+    :root {
+      color-scheme: light;
+      font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-synthesis: none;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      width: 1280px;
+      height: 800px;
+      margin: 0;
+      overflow: hidden;
+    }
+
+    body { background: #f7f3e9; }
+
+    .canvas {
+      position: relative;
+      width: 1280px;
+      height: 800px;
+      overflow: hidden;
+      color: #211d42;
+      background-color: #f7f3e9;
+      background-image:
+        linear-gradient(90deg, rgba(247, 243, 233, 0.2), rgba(247, 243, 233, 0.05)),
+        url("../source/cws-2.1-backgrounds/light.png");
+      background-size: cover;
+      background-position: center;
+    }
+
+    .canvas.dark {
+      color: #fffdf7;
+      background-color: #17152e;
+      background-image:
+        linear-gradient(90deg, rgba(20, 18, 39, 0.04), rgba(20, 18, 39, 0.18)),
+        url("../source/cws-2.1-backgrounds/dark.png");
+    }
+
+    .canvas::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: linear-gradient(90deg, rgba(255,255,255,0.18), transparent 48%, rgba(255,255,255,0.04));
+    }
+
+    .canvas.dark::before {
+      background: linear-gradient(90deg, rgba(39,35,75,0.28), transparent 52%, rgba(10,9,22,0.15));
+    }
+
+    .copy {
+      position: absolute;
+      z-index: 2;
+      left: 64px;
+      top: 48px;
+      width: 650px;
+      height: 704px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .brand-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 650px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      font-size: 18px;
+      font-weight: 820;
+      letter-spacing: -0.02em;
+    }
+
+    .brand img {
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(33, 29, 66, 0.14);
+    }
+
+    .sequence {
+      color: #6f6984;
+      font-size: 13px;
+      font-weight: 720;
+      letter-spacing: 0.08em;
+    }
+
+    .dark .sequence { color: #aaa5c0; }
+
+    .eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 90px;
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 42px;
+      height: 3px;
+      border-radius: 999px;
+      background: #f36b21;
+    }
+
+    h1 {
+      max-width: 640px;
+      margin: 27px 0 22px;
+      font-size: 68px;
+      line-height: 0.98;
+      letter-spacing: -0.057em;
+      font-weight: 830;
+    }
+
+    h1 em {
+      color: #ec641d;
+      font-style: normal;
+    }
+
+    .dark h1 em { color: #ff9a3d; }
+
+    .description {
+      max-width: 590px;
+      margin: 0;
+      font-size: 23px;
+      line-height: 1.43;
+      letter-spacing: -0.018em;
+      color: #4e4869;
+      font-weight: 500;
+    }
+
+    .dark .description { color: #d5d0e3; }
+
+    .proof {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 31px;
+    }
+
+    .proof-item {
+      min-height: 43px;
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      padding: 10px 14px;
+      border: 1px solid rgba(33, 29, 66, 0.17);
+      border-radius: 12px;
+      background: rgba(255, 253, 247, 0.72);
+      color: #211d42;
+      font-size: 13px;
+      font-weight: 720;
+      box-shadow: 0 5px 18px rgba(33, 29, 66, 0.05);
+      backdrop-filter: blur(10px);
+    }
+
+    .dark .proof-item {
+      color: #fffdf7;
+      border-color: rgba(255, 255, 255, 0.16);
+      background: rgba(31, 28, 59, 0.64);
+      box-shadow: 0 5px 18px rgba(0, 0, 0, 0.16);
+    }
+
+    .proof-item strong {
+      color: #ec641d;
+      font-size: 18px;
+      line-height: 1;
+    }
+
+    .dark .proof-item strong { color: #ffad5f; }
+
+    .swatch {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      box-shadow: inset 0 0 0 1px rgba(0,0,0,0.12);
+    }
+
+    .swatch.current { background: #3d395f; }
+    .swatch.preview { background: #eda963; }
+
+    .footer {
+      margin-top: auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: #6f6984;
+      font-size: 14px;
+      font-weight: 680;
+    }
+
+    .dark .footer { color: #aaa5c0; }
+
+    .footer-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #f36b21;
+    }
+
+    .product-wrap {
+      position: absolute;
+      z-index: 3;
+      top: 30px;
+      right: 52px;
+      width: 389px;
+      height: 740px;
+      border: 1px solid rgba(33, 29, 66, 0.24);
+      border-radius: 17px;
+      overflow: hidden;
+      background: #fff;
+      box-shadow: 0 26px 60px rgba(33, 29, 66, 0.22), 0 4px 14px rgba(33, 29, 66, 0.09);
+    }
+
+    .dark .product-wrap {
+      border-color: rgba(255, 255, 255, 0.18);
+      box-shadow: 0 28px 70px rgba(0, 0, 0, 0.46), 0 4px 16px rgba(0, 0, 0, 0.28);
+    }
+
+    .product-wrap img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      object-position: top center;
+    }
+
+    .keyboard-flow .proof-item { padding: 9px 12px; }
+    .keyboard-flow kbd {
+      min-width: 42px;
+      padding: 5px 8px;
+      border: 1px solid rgba(33, 29, 66, 0.2);
+      border-radius: 7px;
+      background: rgba(255,255,255,0.68);
+      font: inherit;
+      font-size: 12px;
+      text-align: center;
+      box-shadow: 0 2px 0 rgba(33, 29, 66, 0.12);
+    }
+
+    .dark .keyboard-flow kbd {
+      border-color: rgba(255,255,255,0.18);
+      background: rgba(255,255,255,0.07);
+      box-shadow: 0 2px 0 rgba(0,0,0,0.3);
+    }
+  </style>
+</head>
+<body>
+  <main id="canvas" class="canvas">
+    <section class="copy">
+      <div class="brand-row">
+        <div class="brand"><img src="../../public/icon/128.png" alt="" /><span>TabShow</span></div>
+        <span id="sequence" class="sequence"></span>
+      </div>
+      <div id="eyebrow" class="eyebrow"></div>
+      <h1 id="headline"></h1>
+      <p id="description" class="description"></p>
+      <div id="proof" class="proof"></div>
+      <div class="footer"><span class="footer-dot"></span><span id="footer"></span></div>
+    </section>
+    <div class="product-wrap"><img id="product" alt="TabShow 2.1 side panel" /></div>
+  </main>
+
+  <script>
+    const shots = [
+      {
+        file: "01-preview.png",
+        theme: "light",
+        eyebrow: "Live tab preview",
+        headline: "See the page.<br><em>Keep your place.</em>",
+        description: "Hover a current-window tab to preview the real page. Move away to snap back.",
+        proof: '<span class="proof-item"><i class="swatch current"></i>Current tab</span><span class="proof-item"><i class="swatch preview"></i>Live preview</span>',
+        footer: "Find the right tab without switching away."
+      },
+      {
+        file: "02-search.png",
+        theme: "dark",
+        eyebrow: "Search all windows",
+        headline: "150 tabs.<br><em>One search.</em>",
+        description: "Type a title, URL, or domain. TabShow narrows the list across every Chrome window.",
+        proof: '<span class="proof-item"><strong>150</strong> open tabs</span><span class="proof-item"><strong>4</strong> windows</span>',
+        footer: "Search narrows the list. Your open-tab total stays accurate."
+      },
+      {
+        file: "03-keyboard.png",
+        theme: "light",
+        eyebrow: "Keyboard workflow",
+        headline: "Find it without<br><em>the mouse.</em>",
+        description: "Search stays focused when the panel opens. Keep your hands on the keys from start to finish.",
+        proofClass: "keyboard-flow",
+        proof: '<span class="proof-item"><kbd>↑ ↓</kbd>Select</span><span class="proof-item"><kbd>Enter</kbd>Open</span><span class="proof-item"><kbd>Esc</kbd>Return</span>',
+        footer: "Arrow keys select. Live preview remains a hover action."
+      },
+      {
+        file: "04-windows.png",
+        theme: "dark",
+        eyebrow: "Multi-window aware",
+        headline: "Every window.<br><em>One calm list.</em>",
+        description: "See where each tab lives. Preview the current window, or click once to switch windows.",
+        proof: '<span class="proof-item"><strong>12</strong> tabs</span><span class="proof-item"><strong>2</strong> windows</span><span class="proof-item">Groups preserved</span>',
+        footer: "Cross-window tabs switch only when you choose."
+      },
+      {
+        file: "07-chaos.png",
+        theme: "light",
+        eyebrow: "Local Tab Chaos Score",
+        headline: "Know the load.<br><em>Make one move.</em>",
+        description: "See what drives your score, track the trend, and get one practical cleanup suggestion.",
+        proof: '<span class="proof-item">Calculated locally</span><span class="proof-item">No account</span><span class="proof-item">No new permissions</span>',
+        footer: "A useful signal, not a judgment."
+      }
+    ];
+
+    const requested = Number(new URLSearchParams(location.search).get("shot") || "1");
+    const index = Math.min(shots.length, Math.max(1, requested)) - 1;
+    const shot = shots[index];
+    const canvas = document.getElementById("canvas");
+    canvas.classList.toggle("dark", shot.theme === "dark");
+    document.getElementById("sequence").textContent = `${String(index + 1).padStart(2, "0")} / 05`;
+    document.getElementById("eyebrow").textContent = shot.eyebrow;
+    document.getElementById("headline").innerHTML = shot.headline;
+    document.getElementById("description").textContent = shot.description;
+    document.getElementById("proof").innerHTML = shot.proof;
+    document.getElementById("proof").classList.toggle("keyboard-flow", shot.proofClass === "keyboard-flow");
+    document.getElementById("footer").textContent = shot.footer;
+    document.getElementById("product").src = `../source/appshots-2.1/${shot.file}`;
+    document.documentElement.dataset.ready = "true";
+  </script>
+</body>
+</html>
