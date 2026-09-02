@@ -11,6 +11,9 @@ export const metadata: Metadata = {
   description:
     "Find the right Chrome tab before you switch. Search or point at a tab, preview the live page, then switch or snap back.",
   applicationName: "TabShow",
+  verification: {
+    google: "ASniG6NXZATRVe0o1JkgGk1RzRFVPX21Uvk3YaOSpU0",
+  },
   alternates: { canonical: "/" },
   openGraph: {
     type: "website",

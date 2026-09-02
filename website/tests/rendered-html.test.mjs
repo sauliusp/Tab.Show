@@ -46,6 +46,10 @@ test("server-renders the complete SEO route set with unique titles and canonical
 test("homepage uses authentic product proof and honest conversion language", async () => {
   const response = await render("/");
   const html = await response.text();
+  assert.match(
+    html,
+    /<meta[^>]+name=["']google-site-verification["'][^>]+content=["']ASniG6NXZATRVe0o1JkgGk1RzRFVPX21Uvk3YaOSpU0["']/i,
+  );
   assert.match(html, /store-01-preview\.png/);
   assert.match(html, /store-02-search\.png/);
   assert.match(html, /store-04-windows\.png/);
