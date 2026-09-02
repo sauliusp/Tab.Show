@@ -127,13 +127,13 @@ def panel(draw, x, y, w, h, mode="preview"):
         tab_row(draw, (x + 20, list_y + 122, x + w - 20, list_y + 186), "L", "Launch tasks", "linear.app", None, "#6C53B5")
         tab_row(draw, (x + 20, list_y + 196, x + w - 20, list_y + 260), "F", "Feedback board", "narsheek.featurebase.app", None, GREEN)
     elif mode == "context":
-        tab_row(draw, (x + 20, list_y, x + w - 20, list_y + 66), "M", "Inbox — 3 new", "mail.google.com", None, "#D15D45", ["Audio"])
+        tab_row(draw, (x + 20, list_y, x + w - 20, list_y + 66), "M", "Inbox: 3 new", "mail.google.com", None, "#D15D45", ["Audio"])
         tab_row(draw, (x + 20, list_y + 76, x + w - 20, list_y + 142), "D", "Design system", "figma.com", "CURRENT", "#B6387B", ["Pinned"])
         tab_row(draw, (x + 20, list_y + 152, x + w - 20, list_y + 218), "R", "Research notes", "docs.google.com", None, "#356BD8", ["Duplicate"])
         tab_row(draw, (x + 20, list_y + 228, x + w - 20, list_y + 294), "A", "Analytics", "analytics.google.com", None, "#E27722", ["Sleeping"])
     else:
         first_state = None if mode in ("search", "keyboard") else "CURRENT"
-        tab_row(draw, (x + 20, list_y, x + w - 20, list_y + 68), "M", "Inbox — 3 new", "mail.google.com", first_state, "#D15D45")
+        tab_row(draw, (x + 20, list_y, x + w - 20, list_y + 68), "M", "Inbox: 3 new", "mail.google.com", first_state, "#D15D45")
         tab_row(draw, (x + 20, list_y + 78, x + w - 20, list_y + 146), "D", "Design notes", "docs.google.com", "PREVIEW", "#356BD8")
         tab_row(draw, (x + 20, list_y + 156, x + w - 20, list_y + 224), "F", "Feature requests", "narsheek.featurebase.app", None, GREEN)
         if h > 470:
@@ -234,7 +234,7 @@ def marquee():
     text(draw, (58, 274), "your place.", 48, AMBER, True)
     wrapped(draw, (58, 356), "Search or point. Preview the live page. Switch or snap back.", 18, 440, "#D7D0E7", False, 7)
     rounded(draw, (58, 452, 262, 506), 11, AMBER)
-    text(draw, (160, 479), "Add to Chrome — Free", 15, INK, True, "mm")
+    text(draw, (160, 479), "Add to Chrome: Free", 15, INK, True, "mm")
     browser_scene(draw, (635, 46, 1360, 518), "preview")
     image.save(PROMO / "tabshow-marquee-1400x560.png", optimize=True)
 

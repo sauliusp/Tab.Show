@@ -11,7 +11,11 @@ import { tabService } from '../../src/services/TabService';
 import { clearVisualStateCache } from '../../src/utils/tabVisualState';
 import { PerformanceMetrics } from '../../src/components/PerformanceMetrics';
 import { SettingsOverlay } from '../../src/components/SettingsOverlay';
+import { ChaosScoreButton } from '../../src/components/ChaosScoreButton';
+import { ChaosScoreOverlay } from '../../src/components/ChaosScoreOverlay';
+import { PanelEngagementBar } from '../../src/components/PanelEngagementBar';
 import { useUserSettings } from '../../src/contexts/UserSettingsContext';
+import { useTabChaos } from '../../src/hooks/useTabChaos';
 import './App.css';
 import { Tab, TabSortMode } from '../../src/types/Tab';
 import { selectTabs } from '../../src/utils/tabSelectors';
@@ -20,12 +24,14 @@ function App() {
   const theme = useTheme();
   const searchInputRef = React.useRef<HTMLInputElement>(null);
   const [isSettingsOpen, setIsSettingsOpen] = React.useState(false);
+  const [isChaosOpen, setIsChaosOpen] = React.useState(false);
   const [query, setQuery] = React.useState('');
   const [sortMode, setSortMode] = React.useState<TabSortMode>('current');
   const [highlightedTabId, setHighlightedTabId] = React.useState<number | null>(null);
   const [inputModality, setInputModality] = React.useState<'pointer' | 'keyboard'>('pointer');
   const [currentWindowId, setCurrentWindowId] = React.useState<number | null>(null);
   const { hoverPreviewDelayMs, allWindows, setAllWindows } = useUserSettings();
+  const chaos = useTabChaos();
   
   // Use the custom hook for tab management
   const {
@@ -58,20 +64,24 @@ function App() {
 
   React.useEffect(() => { void tabService.getCurrentWindowId().then(setCurrentWindowId); }, []);
 
-  const matchingTabs = React.useMemo(() => {
-    const tabs = Object.values(tabListState.items)
+  const openTabs = React.useMemo(() => (
+    Object.values(tabListState.items)
       .filter(item => item.type === 'tab')
       .map(item => item.data as Tab)
+  ), [tabListState.items]);
+
+  const matchingTabs = React.useMemo(() => {
+    const tabs = openTabs
       .filter(tab => {
         if (query.trim() || (sortMode !== 'current' && sortMode !== 'group')) return true;
         return tab.groupId === undefined || tab.groupId < 0 || tabListState.groupExpansionState[tab.groupId] !== false;
       });
     return selectTabs(tabs, { query, sortMode, currentWindowId });
-  }, [tabListState.items, tabListState.groupExpansionState, query, sortMode, currentWindowId]);
+  }, [openTabs, tabListState.groupExpansionState, query, sortMode, currentWindowId]);
 
-  const matchingWindowCount = React.useMemo(
-    () => new Set(matchingTabs.map(tab => tab.windowId)).size,
-    [matchingTabs]
+  const openWindowCount = React.useMemo(
+    () => new Set(openTabs.map(tab => tab.windowId)).size,
+    [openTabs]
   );
 
   React.useEffect(() => {
@@ -146,15 +156,32 @@ function App() {
         open={isSettingsOpen} 
         onClose={() => setIsSettingsOpen(false)} 
       />
+      <ChaosScoreOverlay
+        open={isChaosOpen}
+        onClose={() => setIsChaosOpen(false)}
+        stats={chaos.stats}
+        trend={chaos.trend}
+      />
 
       <Box sx={{ px: 1.5, pt: 1.25, pb: 1.25, borderBottom: 1, borderColor: 'divider', display: 'grid', gap: 1 }}>
-        <Box sx={{ display: 'flex', alignItems: 'stretch', gap: 0.75 }}>
+        <Box
+          data-testid="top-control-grid"
+          sx={{
+            display: 'grid',
+            gridTemplateColumns: 'minmax(0, 1fr) 40px',
+            columnGap: 0.75,
+            rowGap: 1,
+            alignItems: 'stretch',
+          }}
+        >
           <Box
             role="group"
             aria-label="Tab scope"
+            data-testid="tab-scope-control"
             sx={{
               p: 0.35,
-              flex: 1,
+              minWidth: 0,
+              minHeight: 40,
               display: 'grid',
               gridTemplateColumns: '1fr 1fr',
               gap: 0.35,
@@ -181,7 +208,7 @@ function App() {
                     borderRadius: 1,
                     fontSize: 11.5,
                     fontWeight: 750,
-                    color: selected ? 'common.white' : 'text.secondary',
+                    color: selected ? 'primary.contrastText' : 'text.secondary',
                     backgroundColor: selected ? 'primary.main' : 'transparent',
                     boxShadow: selected ? '0 2px 8px rgba(44, 42, 74, 0.18)' : 'none',
                     '&:hover': { backgroundColor: selected ? 'primary.dark' : 'background.paper' }
@@ -196,28 +223,35 @@ function App() {
             <IconButton
               aria-label="open settings"
               onClick={() => setIsSettingsOpen(true)}
-              sx={{ width: 38, border: 1, borderColor: 'divider', borderRadius: 1.5 }}
+              sx={{ width: 40, height: 40, border: 1, borderColor: 'divider', borderRadius: 1.5 }}
             >
               <SettingsRounded sx={{ fontSize: 19 }} />
             </IconButton>
           </Tooltip>
+          <TextField
+            autoFocus
+            inputRef={searchInputRef}
+            fullWidth
+            size="small"
+            value={query}
+            onChange={(event) => { setInputModality('keyboard'); cancelPendingPreview(); setQuery(event.target.value); }}
+            placeholder="Search tabs, no mouse needed"
+            inputProps={{
+              'aria-label': 'Search tabs',
+              'aria-controls': 'tab-results',
+              'aria-describedby': 'keyboard-search-hint',
+              'aria-activedescendant': activeHighlightedTabId === null ? undefined : `tab-option-${activeHighlightedTabId}`
+            }}
+            InputProps={{ startAdornment: <SearchRounded sx={{ mr: 1, color: 'text.secondary' }} /> }}
+            sx={{ '& .MuiOutlinedInput-root': { height: 40 } }}
+          />
+          <ChaosScoreButton
+            stats={chaos.stats}
+            trend={chaos.trend}
+            isLoading={chaos.isLoading}
+            onOpen={() => { setIsSettingsOpen(false); setIsChaosOpen(true); }}
+          />
         </Box>
-        <TextField
-          autoFocus
-          inputRef={searchInputRef}
-          fullWidth
-          size="small"
-          value={query}
-          onChange={(event) => { setInputModality('keyboard'); cancelPendingPreview(); setQuery(event.target.value); }}
-          placeholder="Search tabs — no mouse needed"
-          inputProps={{
-            'aria-label': 'Search tabs',
-            'aria-controls': 'tab-results',
-            'aria-describedby': 'keyboard-search-hint',
-            'aria-activedescendant': activeHighlightedTabId === null ? undefined : `tab-option-${activeHighlightedTabId}`
-          }}
-          InputProps={{ startAdornment: <SearchRounded sx={{ mr: 1, color: 'text.secondary' }} /> }}
-        />
         <Typography id="keyboard-search-hint" sx={{ mt: -0.35, fontSize: 10.5, color: 'text.secondary' }}>
           ↑↓ select · Enter open · Esc return
         </Typography>
@@ -229,11 +263,49 @@ function App() {
             <MenuItem value="domain">By domain</MenuItem>
             <MenuItem value="group">By tab group</MenuItem>
           </Select>
-          <Typography sx={{ ml: 'auto', fontSize: 10.5, color: 'text.secondary', textAlign: 'right' }}>
-            {isLoading
-              ? 'Loading…'
-              : `${matchingTabs.length} ${matchingTabs.length === 1 ? 'tab' : 'tabs'}${allWindows ? ` · ${matchingWindowCount} windows` : ''}`}
-          </Typography>
+          {isLoading ? (
+            <Typography sx={{ ml: 'auto', fontSize: 10.5, color: 'text.secondary' }}>Loading…</Typography>
+          ) : (
+            <Box
+              role="status"
+              aria-live="polite"
+              aria-label={`Open tabs: ${openTabs.length}${allWindows ? `; Chrome windows: ${openWindowCount}` : ''}`}
+              data-testid="tab-count-summary"
+              sx={{
+                ml: 'auto',
+                minHeight: 32,
+                px: 0.85,
+                display: 'flex',
+                alignItems: 'center',
+                gap: 0.55,
+                border: 1,
+                borderColor: 'divider',
+                borderRadius: 1.5,
+                backgroundColor: 'background.paper',
+                whiteSpace: 'nowrap',
+              }}
+            >
+              <TabRounded sx={{ flexShrink: 0, fontSize: 14, color: 'text.secondary' }} />
+              <Typography component="span" sx={{ fontSize: 8, lineHeight: 1, fontWeight: 900, letterSpacing: 0.45, color: 'text.secondary' }}>
+                OPEN TABS
+              </Typography>
+              <Typography component="strong" sx={{ fontSize: 13, lineHeight: 1, fontWeight: 950, color: 'text.primary' }}>
+                {openTabs.length}
+              </Typography>
+              {allWindows && (
+                <>
+                  <Box aria-hidden="true" sx={{ height: 16, mx: 0.15, borderLeft: 1, borderColor: 'divider' }} />
+                  <WindowRounded sx={{ flexShrink: 0, fontSize: 13, color: 'text.secondary' }} />
+                  <Typography component="span" sx={{ fontSize: 8, lineHeight: 1, fontWeight: 900, letterSpacing: 0.4, color: 'text.secondary' }}>
+                    WINDOWS
+                  </Typography>
+                  <Typography component="strong" sx={{ fontSize: 12, lineHeight: 1, fontWeight: 900, color: 'text.primary' }}>
+                    {openWindowCount}
+                  </Typography>
+                </>
+              )}
+            </Box>
+          )}
         </Box>
       </Box>
 
@@ -256,6 +328,8 @@ function App() {
         pointerPreviewEnabled={inputModality === 'pointer'}
         onPointerIntent={handlePointerIntent}
       />
+
+      <PanelEngagementBar />
 
       {/* Performance metrics (development only) */}
       {process.env.NODE_ENV === 'development' && (

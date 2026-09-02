@@ -39,15 +39,17 @@ describe.each(['welcome', 'whats-new'] as const)('%s static page', (name) => {
   });
 });
 
-describe('v2 update page', () => {
-  it('announces the actual v2 feature set without invented shortcuts', () => {
+describe('v2.1 update page', () => {
+  it('announces the actual v2.1 feature set without invented shortcuts', () => {
     const { html } = loadPage('whats-new');
 
+    expect(html).toContain('Version 2.1');
+    expect(html).toContain('Tab Chaos Score');
+    expect(html).toContain('Dark, light, or system');
+    expect(html).toContain('OPEN TABS');
+    expect(html).toContain('Suggest a feature');
+    expect(html).toContain('Tell a friend');
     expect(html).toContain('Version 2.0');
-    expect(html).toContain('Search every open tab');
-    expect(html).toContain('All windows');
-    expect(html).toContain('Recently used');
-    expect(html).toContain('recently added (approx.)');
     expect(html).not.toMatch(/⌘\s*[123]/);
   });
 });

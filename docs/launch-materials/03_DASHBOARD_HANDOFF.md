@@ -9,14 +9,14 @@ Do not upload, save a draft, or submit for review until explicitly approved. Whe
 - Upload: `.output/tabshow-2.0.0-chrome.zip`
 - Version: `2.0.0`
 - SHA-256: `1104a5b6d7505e78f7742dae63503d34deec291f49431331a64151bcb535c962`
-- Manifest name: `TabShow — Live Tab Preview`
+- Manifest name: `TabShow: Live Tab Preview`
 - Manifest summary: `Search or point at open tabs to preview the live page, then switch or snap back without losing your place.`
 - Permissions: `sidePanel`, `tabs`, `tabGroups`
 - Host permissions: none
 
 ## Store listing fields
 
-- Title: `TabShow — Live Tab Preview`
+- Title: `TabShow: Live Tab Preview`
 - Summary: `Search or point at open tabs to preview the live page, then switch or snap back without losing your place.`
 - Detailed description: paste the exact text under **Detailed description** in `docs/launch-materials/01_STORE_COPY.md`.
 - Official URL: `https://tab.show/`
@@ -32,13 +32,13 @@ The current promo video was not fully visible in the supplied Dashboard capture.
 
 Upload in this order:
 
-1. `marketing/output/screenshots/01-preview.png` — 1280×800
-2. `marketing/output/screenshots/02-search.png` — 1280×800
-3. `marketing/output/screenshots/03-keyboard.png` — 1280×800
-4. `marketing/output/screenshots/04-windows.png` — 1280×800
-5. `marketing/output/screenshots/05-context.png` — 1280×800
-6. `marketing/output/promo/tabshow-small-promo-440x280.png` — 440×280
-7. `marketing/output/promo/tabshow-marquee-1400x560.png` — 1400×560
+1. `marketing/output/screenshots/01-preview.png`: 1280×800
+2. `marketing/output/screenshots/02-search.png`: 1280×800
+3. `marketing/output/screenshots/03-keyboard.png`: 1280×800
+4. `marketing/output/screenshots/04-windows.png`: 1280×800
+5. `marketing/output/screenshots/05-context.png`: 1280×800
+6. `marketing/output/promo/tabshow-small-promo-440x280.png`: 440×280
+7. `marketing/output/promo/tabshow-marquee-1400x560.png`: 1400×560
 
 All files are RGB PNGs without alpha. Each listing image uses a real TabShow 2.0 appshot composited unchanged into the final editorial campaign.
 

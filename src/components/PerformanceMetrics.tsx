@@ -34,6 +34,7 @@ export function PerformanceMetrics({ visible = false }: PerformanceMetricsProps)
   if (!isVisible) {
     return (
       <Button
+        data-testid="performance-metrics"
         variant="outlined"
         size="small"
         onClick={() => setIsVisible(true)}
@@ -46,6 +47,7 @@ export function PerformanceMetrics({ visible = false }: PerformanceMetricsProps)
 
   return (
     <Paper
+      data-testid="performance-metrics"
       sx={{
         position: 'fixed',
         bottom: 16,

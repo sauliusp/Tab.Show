@@ -63,14 +63,14 @@ Not shipped and therefore not launch claims:
 3. Demonstration: search/point, live preview, snap back or switch.
 4. 2.0 credibility: every window, useful sorting, keyboard control, tab-state context.
 5. Trust: no account; local-first behavior; precise permission/privacy disclosure.
-6. CTA: Add to Chrome — Free.
+6. CTA: Add to Chrome: Free.
 7. Community loop: invite ideas and bug reports through `https://narsheek.featurebase.app/`, and ask satisfied users for an honest five-star Store review without rewards or review gating.
 
 Avoid leading with “vertical tabs.” It is accurate but commoditized. Avoid leading with “tab manager.” It puts TabShow into a feature-checklist fight against products built for session recovery, workspaces, or memory reduction.
 
 ## Chrome Web Store production plan
 
-### Verified public listing baseline — 2026-07-22
+### Verified public listing baseline: 2026-07-22
 
 The public Chrome Web Store listing currently shows:
 
@@ -99,7 +99,7 @@ Public-listing verdict:
 - The Featured badge is real. Use it accurately and contextually, not as a vague self-awarded statistic.
 - A perfect rating from three ratings is too fragile to lead the page. Show the rating with its count or keep it secondary.
 
-### Phase 0 — completed private dashboard audit
+### Phase 0: completed private dashboard audit
 
 The private Store Listing page confirms the item is `Published - public`, under publisher `Saulius`, with the expected item ID `njdjagodlomkhingeecipnlnnhnipkho`.
 
@@ -122,17 +122,17 @@ The four current screenshots are closer to instruction slides than Store merchan
 
 Not visible in the supplied Store Listing captures: category, locale controls, Privacy-page declarations and permission justifications, Distribution settings, full video URL, asset review status, and any validation warnings outside the captured area. Check these during production QA before saving a new draft; do not infer them from the absence of visible warnings.
 
-### Phase 1 — copy system
+### Phase 1: copy system
 
 Draft three coherent layers from the same promise:
 
-- Manifest name: short, brand-first, no keyword stuffing. Preferred direction: `TabShow — Live Tab Preview` if the actual title limit and uniqueness permit it.
+- Manifest name: short, brand-first, no keyword stuffing. Preferred direction: `TabShow: Live Tab Preview` if the actual title limit and uniqueness permit it.
 - Manifest/store summary: one plain sentence under the current limit. Preferred direction: `Search or point at tabs to preview the live page, then switch or snap back without losing your place.`
 - Detailed description: one opening paragraph, a concise feature list, privacy/trust note, and accurate cross-window behavior.
 
 The exact final text is a later deliverable and must be checked against the live dashboard field limits. Competitor names do not belong in the Store summary. Keywords belong naturally in useful prose, not in a repeated list.
 
-### Phase 2 — five-screenshot narrative
+### Phase 2: five-screenshot narrative
 
 Use the maximum five screenshots at 1280×800, full bleed, square corners, consistent product state, and minimal annotation. This is a complete replacement set, not a refresh of the current slide deck.
 
@@ -151,7 +151,7 @@ Production rules:
 - Test readability at half size.
 - Use the same color pairing, type treatment, and icon across screenshots, tiles, site, and social preview.
 
-### Phase 3 — small promo tile
+### Phase 3: small promo tile
 
 Required format: 440×280 PNG or JPEG.
 
@@ -161,7 +161,7 @@ Creative direction: a saturated TabShow brand field, the icon, and one instantly
 
 Reject any tile that relies on a “Featured,” rating, user-count, speed, or “#1” badge.
 
-### Phase 4 — marquee promo tile
+### Phase 4: marquee promo tile
 
 Optional format: 1400×560 PNG or JPEG.
 
@@ -171,7 +171,7 @@ Creative direction: one wide browser-workflow composition with the TabShow panel
 
 The marquee is not a banner ad and should not be a collage of five features.
 
-### Phase 5 — release package and Store QA
+### Phase 5: release package and Store QA
 
 Before any upload or submission:
 
@@ -205,15 +205,15 @@ The current site has a usable explanation of hover preview, tab groups, and the 
 
 Initial launch routes:
 
-- `/` — product homepage and 2.0 conversion page.
-- `/chrome-tab-preview-extension` — exact category/behavior page.
-- `/find-lost-chrome-tab` — pain-led educational page.
-- `/onetab-alternative` — honest job-to-be-done comparison.
-- `/workona-alternative` — lightweight/no-account contrast.
-- `/tab-manager-plus-alternative` — recognition loop versus management dashboard.
-- `/privacy` — plain-language permissions, local processing, and data handling.
-- `/changelog` — 2.0 release and future update proof.
-- `/support` — shortcut, side-panel, preview behavior, known limitations, feedback route.
+- `/`: product homepage and 2.0 conversion page.
+- `/chrome-tab-preview-extension`: exact category/behavior page.
+- `/find-lost-chrome-tab`: pain-led educational page.
+- `/onetab-alternative`: honest job-to-be-done comparison.
+- `/workona-alternative`: lightweight/no-account contrast.
+- `/tab-manager-plus-alternative`: recognition loop versus management dashboard.
+- `/privacy`: plain-language permissions, local processing, and data handling.
+- `/changelog`: 2.0 release and future update proof.
+- `/support`: shortcut, side-panel, preview behavior, known limitations, feedback route.
 
 Do not ship the comparison routes as template-swapped thin pages. Each must say who should choose the competitor, show the different job, contain a real TabShow demo, answer relevant questions, and lead to the Store CTA.
 

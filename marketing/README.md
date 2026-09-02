@@ -13,24 +13,24 @@ The final campaign uses two deliberately separate source layers:
 
 ## Chrome Web Store outputs
 
-- `output/screenshots/01-preview.png` — 1280×800, live preview and snap-back.
-- `output/screenshots/02-search.png` — 1280×800, title/URL/domain search.
-- `output/screenshots/03-keyboard.png` — 1280×800, Arrow/Enter/Escape workflow.
-- `output/screenshots/04-windows.png` — 1280×800, truthful all-window scope.
-- `output/screenshots/05-context.png` — 1280×800, sorting and tab-state context.
-- `output/promo/tabshow-small-promo-440x280.png` — 440×280 small promotional tile.
-- `output/promo/tabshow-marquee-1400x560.png` — 1400×560 marquee tile.
+- `output/screenshots/01-preview.png`: 1280×800, live preview and snap-back.
+- `output/screenshots/02-search.png`: 1280×800, title/URL/domain search.
+- `output/screenshots/03-keyboard.png`: 1280×800, Arrow/Enter/Escape workflow.
+- `output/screenshots/04-windows.png`: 1280×800, truthful all-window scope.
+- `output/screenshots/05-context.png`: 1280×800, sorting and tab-state context.
+- `output/promo/tabshow-small-promo-440x280.png`: 440×280 small promotional tile.
+- `output/promo/tabshow-marquee-1400x560.png`: 1400×560 marquee tile.
 
 ## Website outputs
 
-- `website/public/images/store-01-preview.png` through `store-05-context.png` — high-resolution product campaign images.
-- `website/public/images/tabshow-social-card.png` — 1200×630 bespoke Open Graph image.
+- `website/public/images/store-01-preview.png` through `store-05-context.png`: high-resolution product campaign images.
+- `website/public/images/tabshow-social-card.png`: 1200×630 bespoke Open Graph image.
 
 ## Product Hunt outputs
 
-- `output/product-hunt/tabshow-producthunt-thumbnail-240x240.png` — required square thumbnail.
-- `output/product-hunt/gallery/01-cover.png` through `06-context-and-sorting.png` — 1270×760 launch story using authentic 2.0 appshots.
-- `output/product-hunt/SUBMISSION.md` — exact ready-to-paste submission fields and maker comment.
+- `output/product-hunt/tabshow-producthunt-thumbnail-240x240.png`: required square thumbnail.
+- `output/product-hunt/gallery/01-cover.png` through `06-context-and-sorting.png`: 1270×760 launch story using authentic 2.0 appshots.
+- `output/product-hunt/SUBMISSION.md`: exact ready-to-paste submission fields and maker comment.
 
 Rebuild the Product Hunt package with:
 

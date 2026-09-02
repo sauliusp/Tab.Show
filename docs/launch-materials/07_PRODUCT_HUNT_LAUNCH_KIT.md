@@ -75,7 +75,7 @@ Product Hunt prohibits directly asking people to upvote. Ask them to try the pro
 
 I built TabShow for the moment Chrome turns every tab into a tiny favicon.
 
-Open a searchable side panel, point at a tab to preview the live page, then click to switch—or move away to snap back.
+Open a searchable side panel, point at a tab to preview the live page, then click to switch or move away to snap back.
 
 It is free, private by design, and live on Product Hunt today. I’d value honest feedback:
 
@@ -97,7 +97,7 @@ If crowded Chrome tabs are familiar, I’d appreciate an honest try and your fee
 
 ### Existing-user note
 
-TabShow 2.0 is live on Product Hunt today. If you have used it, I’d genuinely value your honest experience in the discussion—what works, what is confusing, and what should improve next.
+TabShow 2.0 is live on Product Hunt today. If you have used it, I’d genuinely value your honest experience in the discussion: what works, what is confusing, and what should improve next.
 
 `[PRODUCT_HUNT_LAUNCH_URL]`
 
@@ -115,7 +115,7 @@ No. OneTab is primarily about collapsing tabs and memory. Workona is primarily a
 
 ### Does it read the webpages I visit?
 
-No. TabShow has no host permissions, so it cannot read webpage contents. It uses Chrome’s tab metadata—titles, URLs, favicons, groups, and status—to build the list and perform actions you request.
+No. TabShow has no host permissions, so it cannot read webpage contents. It uses Chrome’s tab metadata, including titles, URLs, favicons, groups, and status, to build the list and perform actions you request.
 
 ### What permissions does it require?
 

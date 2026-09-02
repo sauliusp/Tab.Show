@@ -81,6 +81,11 @@ export const TabItem = React.memo(({
   const isOriginalTab = originalTab?.id === tab.id;
   const [isHovered, setIsHovered] = React.useState(false);
   const isPreviewTab = previewTabId === tab.id;
+  const stateForeground = isOriginalTab
+    ? theme.palette.primary.contrastText
+    : isPreviewTab
+      ? theme.palette.secondary.contrastText
+      : theme.palette.text.secondary;
   const showHoverSpinner = isHovered && !isPreviewTab && !isOriginalTab && !isOtherWindow;
   const avatarBorder = isOriginalTab
     ? `3px solid ${theme.palette.custom.original}`
@@ -171,7 +176,7 @@ export const TabItem = React.memo(({
       id={`tab-option-${tab.id}`}
       aria-current={highlighted ? 'true' : undefined}
       title={isOtherWindow
-        ? 'Another Chrome window — click to switch. Hover preview is unavailable.'
+        ? 'Another Chrome window. Click to switch. Hover preview is unavailable.'
         : tab.url || tab.title || 'Untitled Tab'}
       onMouseEnter={() => {
         setIsHovered(true);
@@ -279,7 +284,7 @@ export const TabItem = React.memo(({
         }}
       />
 
-      <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5, color: 'text.secondary' }}>
+      <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5, color: stateForeground }}>
         {isOtherWindow && (
           <Box
             component="span"
@@ -313,7 +318,7 @@ export const TabItem = React.memo(({
         <TabItemActionButton
           tabId={tab.id}
           onCloseTab={onCloseTab}
-          iconColor={isOriginalTab || isPreviewTab ? theme.palette.common.white : undefined}
+          iconColor={isOriginalTab || isPreviewTab ? stateForeground : undefined}
         />
       )}
     </ListItem>

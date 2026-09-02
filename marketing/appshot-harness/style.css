@@ -14,7 +14,7 @@ body,
 }
 
 body {
-  background: #fffdf8;
+  background: var(--mui-background-default, #fffdf8);
 }
 
 .sidepanel {
@@ -25,7 +25,6 @@ body {
 /* The production component renders this in development only. Appshots should
    match the shipped extension, where performance telemetry is absent. */
 .performance-metrics,
-[data-testid="performance-metrics"],
-.sidepanel > button {
+[data-testid="performance-metrics"] {
   display: none !important;
 }

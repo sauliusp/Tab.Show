@@ -12,31 +12,31 @@ Every prompt shared these invariants:
 - a protected clean region for the authentic UI capture;
 - no generated UI, browser, screen, device, words, letters, numbers, logos, watermark, neon, glow, gradients, glossy 3D, or generic SaaS illustration.
 
-## 01 — tab overload → live preview
+## 01: tab overload → live preview
 
 Final source: `source/imagegen/editorial/01-overload-background.png`
 
 Prompt: Create a 16:10 Chrome Web Store feature background in the style of a high-end Swiss technology magazine. On warm ivory art paper, concentrate a controlled avalanche of slim paper tabs, index slips, page fragments, and looping bookmark ribbons at the lower-left and far-left. Let the chaos align into one clean amber guide line pointing right. Keep the upper-left calm for a headline and the entire right 43% pale, flat, and unobstructed for a real tall product appshot. Photographic paper craft, razor-sharp edges, softbox light, subtle real shadows.
 
-## 02 — search → one result
+## 02: search → one result
 
 Final source: `source/imagegen/editorial/02-search-background.png`
 
 Prompt: Create a 16:10 premium editorial scene of a refined archival index system. Many narrow ivory and charcoal-violet index cards form an overwhelming grid at the far-left and lower-left. One amber card is isolated by a clean circular search aperture and a thin locator line. Preserve generous upper-left copy space and keep the entire right 43% clean for a real vertical appshot. Tactile paper still life, blind emboss, precise studio shadows, calm and efficient.
 
-## 03 — keyboard control
+## 03: keyboard control
 
 Final source: `source/imagegen/editorial/03-keyboard-background.png`
 
 Prompt: Create a 16:10 productivity-magazine scene with sculptural paper keyboard keys and narrow tab slips concentrated low and far left. Two deep-violet arrow-key forms lead to one amber key, communicating fast keyboard selection without a gaming aesthetic. Keep upper-left typography space and the right 43% pristine for a real tall UI capture. Photographed heavy paper, exact cut edges, crisp lighting, no hands or literal computer keyboard.
 
-## 04 — multiple windows → one scope
+## 04: multiple windows → one scope
 
 Final source: `source/imagegen/editorial/04-windows-background.png`
 
 Prompt: Create a 16:10 gallery-grade technology-magazine still life. Two or three offset paper apertures at different depths each contain a few tab slips; fine violet registration lines converge into one amber vertical index rail. It should read as separate browser windows becoming one organized scope without becoming software UI. Keep upper-left calm and the right 43% empty for the authentic appshot.
 
-## 05 — chaos → sorting
+## 05: chaos → sorting
 
 Final source: `source/imagegen/editorial/05-sort-background.png`
 

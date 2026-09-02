@@ -80,7 +80,7 @@ export function Faq({ items, title }: { items: { q: string; a: string }[]; title
 }
 
 export function FinalCta({ content }: { content: string }) {
-  return <section className="final-cta"><div className="shell"><p className="eyebrow"><span /> Ready when you are</p><h2>Find the tab.<br /><em>Keep your place.</em></h2><p>Preview live Chrome tabs from the side panel—then switch only when you are sure.</p><StoreButton content={content} /></div></section>;
+  return <section className="final-cta"><div className="shell"><p className="eyebrow"><span /> Ready when you are</p><h2>Find the tab.<br /><em>Keep your place.</em></h2><p>Preview live Chrome tabs from the side panel, then switch only when you are sure.</p><StoreButton content={content} /></div></section>;
 }
 
 export function PlainPage({ eyebrow, title, accent, lead, nav, children }: { eyebrow: string; title: string; accent: string; lead: string; nav: { href: string; label: string }[]; children: React.ReactNode }) {

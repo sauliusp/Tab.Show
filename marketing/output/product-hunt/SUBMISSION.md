@@ -14,11 +14,11 @@ Use the clean URL. Product Hunt does not accept tracking URLs as the primary pro
 
 `TabShow`
 
-**Tagline — 37/60 characters**
+**Tagline: 37/60 characters**
 
 `Preview Chrome tabs before you switch`
 
-**Description — 251 characters**
+**Description: 251 characters**
 
 `TabShow puts open Chrome tabs in a searchable side panel. Point at a current-window tab to preview the live page, click to switch, or move away to snap back. Search across windows, sort tabs, and navigate by keyboard. Free, with no account or backend.`
 
@@ -63,7 +63,7 @@ Do not attach the old 1.x promo video. Leave video blank unless a public YouTube
 
 ## First maker comment
 
-👋 Hi Product Hunt — I’m Saulius, the maker of TabShow.
+👋 Hi Product Hunt, I’m Saulius, the maker of TabShow.
 
 I built it around a small but recurring frustration: once Chrome’s tab strip collapses titles into favicons, finding one page turns into a sequence of wrong clicks.
 

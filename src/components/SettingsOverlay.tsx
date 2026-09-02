@@ -1,12 +1,16 @@
 import React from 'react';
-import { Box, Typography, IconButton, RadioGroup, FormControlLabel, Radio, Button, Slider } from '@mui/material';
+import { Box, Typography, IconButton, RadioGroup, FormControlLabel, Radio, Button, Slider, ToggleButton, ToggleButtonGroup } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import CloseIcon from '@mui/icons-material/Close';
 import LightbulbRounded from '@mui/icons-material/LightbulbRounded';
 import StarRounded from '@mui/icons-material/StarRounded';
+import BrightnessAutoRounded from '@mui/icons-material/BrightnessAutoRounded';
+import LightModeRounded from '@mui/icons-material/LightModeRounded';
+import DarkModeRounded from '@mui/icons-material/DarkModeRounded';
 import { useColorScheme } from '../contexts/ColorSchemeContext';
 import { useUserSettings } from '../contexts/UserSettingsContext';
 import { EXTENSION_URLS } from '../parameters';
+import { AppearanceMode } from '../services/UserSettingsService';
 
 interface SettingsOverlayProps {
   open: boolean;
@@ -15,8 +19,8 @@ interface SettingsOverlayProps {
 
 export function SettingsOverlay({ open, onClose }: SettingsOverlayProps) {
   const theme = useTheme();
-  const { colorPairingId, availablePairings, setColorPairingById } = useColorScheme();
-  const { hoverPreviewDelayMs, setHoverPreviewDelayMs } = useUserSettings();
+  const { colorPairingId, availablePairings, setColorPairingById, resolvedMode } = useColorScheme();
+  const { hoverPreviewDelayMs, setHoverPreviewDelayMs, appearanceMode, setAppearanceMode } = useUserSettings();
 
   const handleSelectionChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setColorPairingById(event.target.value);
@@ -69,6 +73,33 @@ export function SettingsOverlay({ open, onClose }: SettingsOverlayProps) {
       </Box>
 
       <Box sx={{ p: 2, overflowY: 'auto' }}>
+        <Box sx={{ mb: 2.5 }}>
+          <Typography variant="subtitle2" sx={{ color: theme.palette.text.secondary, mb: 1 }}>
+            Appearance
+          </Typography>
+          <ToggleButtonGroup
+            exclusive
+            fullWidth
+            size="small"
+            value={appearanceMode}
+            onChange={(_event, value: AppearanceMode | null) => { if (value) setAppearanceMode(value); }}
+            aria-label="Appearance mode"
+          >
+            <ToggleButton value="system" aria-label="Use system appearance" sx={{ gap: 0.5, py: 0.8, textTransform: 'none', fontSize: 10.5 }}>
+              <BrightnessAutoRounded sx={{ fontSize: 16 }} /> System
+            </ToggleButton>
+            <ToggleButton value="light" aria-label="Use light appearance" sx={{ gap: 0.5, py: 0.8, textTransform: 'none', fontSize: 10.5 }}>
+              <LightModeRounded sx={{ fontSize: 16 }} /> Light
+            </ToggleButton>
+            <ToggleButton value="dark" aria-label="Use dark appearance" sx={{ gap: 0.5, py: 0.8, textTransform: 'none', fontSize: 10.5 }}>
+              <DarkModeRounded sx={{ fontSize: 16 }} /> Dark
+            </ToggleButton>
+          </ToggleButtonGroup>
+          <Typography variant="caption" sx={{ mt: 0.75, display: 'block', color: theme.palette.text.secondary }}>
+            {appearanceMode === 'system' ? `Following your system, currently ${resolvedMode}.` : `Always use ${appearanceMode} mode.`}
+          </Typography>
+        </Box>
+
         <Box sx={{ mb: 2.5 }}>
           <Typography variant="subtitle2" sx={{ color: theme.palette.text.secondary, mb: 1 }}>
             Hover preview delay
@@ -143,7 +174,7 @@ export function SettingsOverlay({ open, onClose }: SettingsOverlayProps) {
             Help improve TabShow
           </Typography>
           <Typography variant="caption" sx={{ color: theme.palette.text.secondary, display: 'block', mt: 0.5, mb: 1.25 }}>
-            Share what would make your tab workflow better—or leave a quick review if TabShow has earned five stars.
+            Share what would make your tab workflow better, or leave a quick review if TabShow has earned five stars.
           </Typography>
           <Box sx={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 1 }}>
             <Button
@@ -188,7 +219,7 @@ export function SettingsOverlay({ open, onClose }: SettingsOverlayProps) {
             variant="contained"
             onClick={onClose}
             sx={{
-              color: theme.palette.common.white,
+              color: theme.palette.primary.contrastText,
             }}
           >
             Done
