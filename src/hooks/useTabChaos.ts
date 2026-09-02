@@ -10,14 +10,17 @@ export function useTabChaos() {
   const [isLoading, setIsLoading] = React.useState(true);
   const recordedRef = React.useRef(false);
   const refreshTimeoutRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
+  const refreshGenerationRef = React.useRef(0);
 
   const refresh = React.useCallback(async () => {
+    const generation = ++refreshGenerationRef.current;
     try {
       const [tabs, groups, currentWindowId] = await Promise.all([
         browser.tabs.query({}) as Promise<Tab[]>,
         browser.tabGroups ? browser.tabGroups.query({}) as Promise<TabGroup[]> : Promise.resolve([]),
         tabService.getCurrentWindowId(),
       ]);
+      if (generation !== refreshGenerationRef.current) return;
       const currentTab = tabs.find(tab => tab.active && tab.windowId === currentWindowId);
       const nextStats = calculateTabChaos(tabs, groups, {
         currentWindowId,
@@ -29,9 +32,11 @@ export function useTabChaos() {
         setTrend(tabChaosHistoryService.recordCheckIn(nextStats));
       }
     } catch (error) {
-      console.error('Failed to calculate Tab Chaos Score:', error);
+      if (generation === refreshGenerationRef.current) {
+        console.error('Failed to calculate Tab Chaos Score:', error);
+      }
     } finally {
-      setIsLoading(false);
+      if (generation === refreshGenerationRef.current) setIsLoading(false);
     }
   }, []);
 
@@ -54,6 +59,7 @@ export function useTabChaos() {
     browser.tabGroups?.onUpdated.addListener(scheduleRefresh);
     browser.tabGroups?.onRemoved.addListener(scheduleRefresh);
     return () => {
+      refreshGenerationRef.current += 1;
       if (refreshTimeoutRef.current) clearTimeout(refreshTimeoutRef.current);
       browser.tabs.onCreated.removeListener(scheduleRefresh);
       browser.tabs.onRemoved.removeListener(scheduleRefresh);

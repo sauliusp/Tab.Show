@@ -17,7 +17,7 @@ const now = Date.now();
 
 const baseTabs = [
   { id: 101, windowId: 10, index: 0, active: true, pinned: true, groupId: -1, title: 'Q3 launch plan: Google Docs', url: 'https://docs.google.com/document/d/tabshow-launch-plan', favIconUrl: favicon('D', '#4285f4'), lastAccessed: now },
-  { id: 102, windowId: 10, index: 1, active: false, groupId: 31, title: 'TabShow 2.0: product design', url: 'https://www.figma.com/design/tabshow-2', favIconUrl: favicon('F', '#a259ff'), lastAccessed: now - 15_000 },
+  { id: 102, windowId: 10, index: 1, active: false, groupId: 31, title: 'TabShow 2.1: product design', url: 'https://www.figma.com/design/tabshow-2', favIconUrl: favicon('F', '#a259ff'), lastAccessed: now - 15_000 },
   { id: 103, windowId: 10, index: 2, active: false, groupId: 31, title: 'TabShow launch campaign', url: 'https://www.notion.so/tabshow-launch', favIconUrl: favicon('N', '#191919'), lastAccessed: now - 32_000 },
   { id: 104, windowId: 10, index: 3, active: false, groupId: 31, title: 'Website hero: final review', url: 'https://www.figma.com/design/tabshow-website', favIconUrl: favicon('F', '#f24e1e'), lastAccessed: now - 45_000 },
   { id: 105, windowId: 10, index: 4, active: false, groupId: 32, title: 'Chrome Web Store dashboard', url: 'https://chrome.google.com/webstore/devconsole', favIconUrl: favicon('C', '#34a853'), lastAccessed: now - 85_000 },
@@ -83,7 +83,7 @@ export function createMockBrowser(requestedCount = baseTabs.length) {
         return tabs.find(tab => tab.id === id);
       },
       async remove() {},
-      onRemoved: event(), onUpdated: event(), onCreated: event(), onMoved: event(), onReplaced: event(), onActivated: event(),
+      onRemoved: event(), onUpdated: event(), onCreated: event(), onMoved: event(), onDetached: event(), onAttached: event(), onReplaced: event(), onActivated: event(),
     },
     windows: {
       async getCurrent() { return { id: 10 }; },
@@ -98,7 +98,7 @@ export function createMockBrowser(requestedCount = baseTabs.length) {
     sidePanel: { async close() {} },
     runtime: {
       getURL(path: string) { return path.startsWith('data:') ? path : `http://127.0.0.1:4174/${path.replace(/^\//, '')}`; },
-      getManifest() { return { version: '2.0.0' }; },
+      getManifest() { return { version: '2.1.0' }; },
     },
   };
 }

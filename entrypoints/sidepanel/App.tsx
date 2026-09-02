@@ -255,8 +255,8 @@ function App() {
         <Typography id="keyboard-search-hint" sx={{ mt: -0.35, fontSize: 10.5, color: 'text.secondary' }}>
           ↑↓ select · Enter open · Esc return
         </Typography>
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-          <Select size="small" value={sortMode} onChange={(event) => setSortMode(event.target.value as TabSortMode)} sx={{ minWidth: 128, fontSize: 11.5, '& .MuiSelect-select': { py: 0.65 } }} aria-label="Sort tabs">
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, minWidth: 0, '@media (max-width: 380px)': { gap: 0.5 } }}>
+          <Select size="small" value={sortMode} onChange={(event) => setSortMode(event.target.value as TabSortMode)} sx={{ width: 128, minWidth: 100, flexShrink: 1, fontSize: 11.5, '& .MuiSelect-select': { py: 0.65 } }} aria-label="Sort tabs">
             <MenuItem value="current">Current order</MenuItem>
             <MenuItem value="recently-used">Recently used</MenuItem>
             <MenuItem value="recently-opened">Recently added (approx.)</MenuItem>
@@ -283,10 +283,13 @@ function App() {
                 borderRadius: 1.5,
                 backgroundColor: 'background.paper',
                 whiteSpace: 'nowrap',
+                minWidth: 0,
+                overflow: 'hidden',
+                '@media (max-width: 380px)': { px: 0.6, gap: 0.4 },
               }}
             >
               <TabRounded sx={{ flexShrink: 0, fontSize: 14, color: 'text.secondary' }} />
-              <Typography component="span" sx={{ fontSize: 8, lineHeight: 1, fontWeight: 900, letterSpacing: 0.45, color: 'text.secondary' }}>
+              <Typography component="span" sx={{ fontSize: 8, lineHeight: 1, fontWeight: 900, letterSpacing: 0.45, color: 'text.secondary', '@media (max-width: 380px)': { display: 'none' } }}>
                 OPEN TABS
               </Typography>
               <Typography component="strong" sx={{ fontSize: 13, lineHeight: 1, fontWeight: 950, color: 'text.primary' }}>
@@ -296,7 +299,7 @@ function App() {
                 <>
                   <Box aria-hidden="true" sx={{ height: 16, mx: 0.15, borderLeft: 1, borderColor: 'divider' }} />
                   <WindowRounded sx={{ flexShrink: 0, fontSize: 13, color: 'text.secondary' }} />
-                  <Typography component="span" sx={{ fontSize: 8, lineHeight: 1, fontWeight: 900, letterSpacing: 0.4, color: 'text.secondary' }}>
+                  <Typography component="span" sx={{ fontSize: 8, lineHeight: 1, fontWeight: 900, letterSpacing: 0.4, color: 'text.secondary', '@media (max-width: 380px)': { display: 'none' } }}>
                     WINDOWS
                   </Typography>
                   <Typography component="strong" sx={{ fontSize: 12, lineHeight: 1, fontWeight: 900, color: 'text.primary' }}>

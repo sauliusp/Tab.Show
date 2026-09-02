@@ -76,7 +76,8 @@ test("privacy and support match the shipped permission and cross-window behavior
   assert.match(privacy, /activeTab[\s\S]{0,160}removed[\s\S]{0,120}implementation did not use it/i);
   assert.match(privacy, /TabShow 2\.1 adds no permissions/i);
   assert.match(privacy, /does not read page contents/i);
-  assert.match(privacy, /up to 90 local check-ins/i);
+  assert.match(privacy, /up to 90 local daily check-ins/i);
+  assert.match(privacy, /Repeated panel openings update the current day's check-in/i);
   assert.match(privacy, /retains the all-time best score/i);
   assert.match(privacy, /clearing TabShow's extension data in Chrome or uninstalling the extension/i);
 

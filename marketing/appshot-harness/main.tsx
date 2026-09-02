@@ -12,7 +12,7 @@ declare global {
 
 const params = new URLSearchParams(window.location.search);
 const scenario = params.get('scenario') ?? 'preview';
-const allWindows = scenario === 'windows' || scenario === 'large';
+const allWindows = scenario === 'windows' || scenario === 'large' || params.get('allWindows') === 'true';
 const tabCount = Math.max(1, Number(params.get('count')) || 12);
 const appearanceMode = params.get('appearance') === 'dark' ? 'dark' : params.get('appearance') === 'system' ? 'system' : 'light';
 const colorPairingId = getColorPairingById(params.get('palette') ?? '').id;
@@ -27,6 +27,16 @@ window.localStorage.setItem('tab.show.userSettings', JSON.stringify({
   allWindows,
   appearanceMode,
 }));
+window.localStorage.removeItem('tab.show.chaosHistory.v1');
+if (scenario === 'chaos') {
+  const timestamp = Date.now() - 86_400_000;
+  const date = new Date(timestamp);
+  const day = [date.getFullYear(), String(date.getMonth() + 1).padStart(2, '0'), String(date.getDate()).padStart(2, '0')].join('-');
+  window.localStorage.setItem('tab.show.chaosHistory.v1', JSON.stringify({
+    observations: [{ timestamp, day, score: 94, tabCount: 172 }],
+    bestScore: 46,
+  }));
+}
 globalThis.browser = createMockBrowser(tabCount);
 document.documentElement.dataset.scenario = scenario;
 
@@ -81,6 +91,11 @@ async function prepareScenario() {
   if (scenario === 'settings') {
     const settings = await waitFor('button[aria-label="open settings"]');
     settings.dispatchEvent(new MouseEvent('click', { bubbles: true }));
+  }
+
+  if (scenario === 'chaos') {
+    const chaos = await waitFor('button[aria-label^="Open Tab Chaos Score"]');
+    chaos.dispatchEvent(new MouseEvent('click', { bubbles: true }));
   }
 
   await new Promise(resolve => setTimeout(resolve, 650));

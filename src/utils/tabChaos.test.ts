@@ -50,4 +50,17 @@ describe('calculateTabChaos', () => {
     expect(result.level).toBe('Clear skies');
     expect(result.quickWin.title).toBe('Keep finding, not tidying');
   });
+
+  it('labels Chrome internal pages as Chrome instead of internal component names', () => {
+    const now = Date.UTC(2026, 7, 31, 12);
+    const result = calculateTabChaos([
+      { id: 1, windowId: 1, index: 0, url: 'chrome://settings', title: 'Settings', lastAccessed: now - DAY },
+      { id: 2, windowId: 1, index: 1, url: 'chrome://extensions', title: 'Extensions', lastAccessed: now - (2 * DAY) },
+      { id: 3, windowId: 1, index: 2, url: 'chrome-extension://example-id/panel.html', title: 'Extension', lastAccessed: now },
+    ], [], { now, currentWindowId: 1, currentTabId: 1 });
+
+    expect(result.topDomains).toContainEqual({ domain: 'Chrome', count: 2 });
+    expect(result.topDomains).toContainEqual({ domain: 'Chrome extension', count: 1 });
+    expect(result.leastRecentTab?.domain).toBe('Chrome');
+  });
 });

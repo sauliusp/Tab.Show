@@ -75,7 +75,10 @@ class TabChaosHistoryService {
       score: stats.score,
       tabCount: stats.totalTabs,
     };
-    const observations = [...history.observations, observation].slice(-MAX_OBSERVATIONS);
+    const observations = (previous?.day === observation.day
+      ? [...history.observations.slice(0, -1), observation]
+      : [...history.observations, observation]
+    ).slice(-MAX_OBSERVATIONS);
     const bestScore = history.bestScore === null
       ? stats.score
       : Math.min(history.bestScore, stats.score);

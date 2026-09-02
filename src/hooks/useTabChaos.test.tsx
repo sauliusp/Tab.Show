@@ -1,15 +1,19 @@
-import { renderHook } from '@testing-library/react';
-import { describe, expect, it, vi } from 'vitest';
+import { act, renderHook } from '@testing-library/react';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 import { useTabChaos } from './useTabChaos';
 
 function event() {
+  const listeners = new Set<(...args: unknown[]) => void>();
   return {
-    addListener: vi.fn(),
-    removeListener: vi.fn(),
+    addListener: vi.fn((listener: (...args: unknown[]) => void) => listeners.add(listener)),
+    removeListener: vi.fn((listener: (...args: unknown[]) => void) => listeners.delete(listener)),
+    emit: (...args: unknown[]) => listeners.forEach(listener => listener(...args)),
   };
 }
 
 describe('useTabChaos tab movement events', () => {
+  afterEach(() => vi.useRealTimers());
+
   it('refreshes for cross-window detach and attach events and removes both listeners', async () => {
     const onDetached = event();
     const onAttached = event();
@@ -48,5 +52,57 @@ describe('useTabChaos tab movement events', () => {
 
     expect(onDetached.removeListener).toHaveBeenCalledWith(detachedListener);
     expect(onAttached.removeListener).toHaveBeenCalledWith(attachedListener);
+  });
+
+  it('ignores an older refresh that finishes after a newer tab snapshot', async () => {
+    vi.useFakeTimers();
+    let resolveFirst!: (tabs: Array<{ id: number; windowId: number; index: number; active: boolean; url: string }>) => void;
+    const firstQuery = new Promise<Array<{ id: number; windowId: number; index: number; active: boolean; url: string }>>(resolve => { resolveFirst = resolve; });
+    const onUpdated = event();
+    const newerTabs = [
+      { id: 1, windowId: 10, index: 0, active: true, url: 'https://one.example' },
+      { id: 2, windowId: 10, index: 1, active: false, url: 'https://two.example' },
+    ];
+    const browserMock = {
+      tabs: {
+        query: vi.fn()
+          .mockReturnValueOnce(firstQuery)
+          .mockResolvedValueOnce(newerTabs),
+        onCreated: event(),
+        onRemoved: event(),
+        onUpdated,
+        onMoved: event(),
+        onDetached: event(),
+        onAttached: event(),
+        onActivated: event(),
+      },
+      windows: {
+        getCurrent: vi.fn(async () => ({ id: 10 })),
+        onFocusChanged: event(),
+      },
+      tabGroups: {
+        query: vi.fn(async () => []),
+        onCreated: event(),
+        onUpdated: event(),
+        onRemoved: event(),
+      },
+    };
+    vi.stubGlobal('browser', browserMock);
+
+    const { result, unmount } = renderHook(() => useTabChaos());
+    onUpdated.emit(1, {});
+    await act(async () => {
+      await vi.advanceTimersByTimeAsync(120);
+      await Promise.resolve();
+    });
+    expect(result.current.stats?.totalTabs).toBe(2);
+
+    await act(async () => {
+      resolveFirst([{ id: 1, windowId: 10, index: 0, active: true, url: 'https://stale.example' }]);
+      await Promise.resolve();
+    });
+    expect(result.current.stats?.totalTabs).toBe(2);
+
+    unmount();
   });
 });

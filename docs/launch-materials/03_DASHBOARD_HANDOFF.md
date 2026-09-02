@@ -8,7 +8,7 @@ Do not upload, save a draft, or submit for review until explicitly approved. Whe
 
 - Upload: `.output/tabshow-2.1.0-chrome.zip`
 - Version: `2.1.0`
-- SHA-256: `612deee5a181cc94dd29aa048dee6d5219cf862287ab6bf12504214e19f688e8`
+- SHA-256: `ad0f18c2c4ef583d466b716b866edeaad3628040eebf4dd0ce28139e7b08e9fe`
 - Manifest name: `TabShow: Live Tab Preview`
 - Manifest summary: `Search or point at open tabs to preview the live page, then switch or snap back without losing your place.`
 - Permissions: `sidePanel`, `tabs`, `tabGroups`
@@ -41,6 +41,8 @@ Upload in this order:
 7. `marketing/output/promo/tabshow-marquee-1400x560.png`: 1400×560
 
 All files are RGB PNGs without alpha. Replace this earlier 2.0 campaign only after the new 2.1 raw side-panel captures in `marketing/source/appshots-2.1/` have been approved and composited into Store-ready assets.
+
+The new raw 2.1 source set contains seven 420×800 RGB PNGs without alpha: preview, 150-tab search, keyboard search in dark mode, cross-window scope, sorting and tab states, settings, and the 150-tab Chaos Score. Each PNG has a matching Markdown brief in `marketing/source/appshots-2.1/`. The raw captures are source material, not direct 1280×800 Store uploads.
 
 ## Privacy declarations
 

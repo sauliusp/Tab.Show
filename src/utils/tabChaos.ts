@@ -54,9 +54,10 @@ function describeLevel(score: number): Pick<TabChaosStats, 'level' | 'levelDescr
 }
 
 function safeDomain(tab: Tab): string {
+  if (tab.url?.startsWith('chrome://')) return 'Chrome';
+  if (tab.url?.startsWith('chrome-extension://')) return 'Chrome extension';
   const domain = getTabDomain(tab);
   if (domain) return domain;
-  if (tab.url?.startsWith('chrome://')) return 'Chrome';
   return 'Other';
 }
 

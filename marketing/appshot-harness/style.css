@@ -6,10 +6,10 @@
 html,
 body,
 #root {
-  width: 420px;
-  min-width: 420px;
-  height: 800px;
-  min-height: 800px;
+  width: 100vw;
+  min-width: 0;
+  height: 100vh;
+  min-height: 0;
   overflow: hidden;
 }
 
@@ -18,8 +18,8 @@ body {
 }
 
 .sidepanel {
-  width: 420px;
-  height: 800px;
+  width: 100vw;
+  height: 100vh;
 }
 
 /* The production component renders this in development only. Appshots should

@@ -78,7 +78,7 @@ Use these explanations in the Dashboard Privacy section and on the future `/priv
 
 The previously declared `activeTab` permission had no implementation use and remains absent from the 2.1 manifest rather than being given a cosmetic justification.
 
-Tab Chaos trend data stays in local extension storage. It retains up to 90 check-ins containing a timestamp, local calendar day, derived score, and open-tab count, plus the all-time best score. It does not store titles, URLs, domains, favicons, or page contents. Users can delete it by clearing TabShow's extension data in Chrome or uninstalling the extension.
+Tab Chaos trend data stays in local extension storage. It retains up to 90 daily check-ins containing a timestamp, local calendar day, derived score, and open-tab count, plus the all-time best score. Repeated panel openings update the current day's record. It does not store titles, URLs, domains, favicons, or page contents. Users can delete it by clearing TabShow's extension data in Chrome or uninstalling the extension.
 
 ## Copy deliberately removed
 

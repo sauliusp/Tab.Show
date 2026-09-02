@@ -38,4 +38,18 @@ describe('TabChaosHistoryService', () => {
 
     expect(latest.bestScore).toBe(personalBest);
   });
+
+  it('coalesces repeated same-day openings so a valid streak survives heavy use', () => {
+    const dayOne = new Date(2026, 7, 28, 12).getTime();
+    tabChaosHistoryService.recordCheckIn(stats(30, dayOne));
+    tabChaosHistoryService.recordCheckIn(stats(35, dayOne + 86_400_000));
+    tabChaosHistoryService.recordCheckIn(stats(40, dayOne + (2 * 86_400_000)));
+
+    let latest = tabChaosHistoryService.recordCheckIn(stats(45, dayOne + (3 * 86_400_000)));
+    for (let index = 1; index <= 100; index += 1) {
+      latest = tabChaosHistoryService.recordCheckIn(stats(45 + (index % 3), dayOne + (3 * 86_400_000) + index));
+    }
+
+    expect(latest.checkInStreak).toBe(4);
+  });
 });
