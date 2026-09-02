@@ -1,11 +1,12 @@
 import React from 'react';
-import { Box, IconButton, LinearProgress, Typography } from '@mui/material';
+import { Box, Drawer, IconButton, LinearProgress, Typography } from '@mui/material';
 import CloseRounded from '@mui/icons-material/CloseRounded';
 import EmojiEventsRounded from '@mui/icons-material/EmojiEventsRounded';
 import LocalFireDepartmentRounded from '@mui/icons-material/LocalFireDepartmentRounded';
 import TipsAndUpdatesRounded from '@mui/icons-material/TipsAndUpdatesRounded';
 import { ChaosTrend } from '../services/TabChaosHistoryService';
 import { getChaosScoreColor, TabChaosStats } from '../utils/tabChaos';
+import { getReadableTextColor } from '../utils/colorContrast';
 
 interface ChaosScoreOverlayProps {
   open: boolean;
@@ -24,8 +25,9 @@ function StatTile({ label, value }: { label: string; value: React.ReactNode }) {
 }
 
 export function ChaosScoreOverlay({ open, onClose, stats, trend }: ChaosScoreOverlayProps) {
-  if (!stats || !open) return null;
+  if (!stats) return null;
   const scoreColor = getChaosScoreColor(stats.score);
+  const scoreTextColor = getReadableTextColor(scoreColor);
   const leastRecentLabel = stats.leastRecentTab
     ? stats.leastRecentTab.daysAgo === 0
       ? 'visited today'
@@ -33,52 +35,40 @@ export function ChaosScoreOverlay({ open, onClose, stats, trend }: ChaosScoreOve
     : 'not available';
 
   return (
-    <Box
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="chaos-score-title"
-      sx={{
-        position: 'fixed',
-        inset: 0,
-        zIndex: 1250,
-        pointerEvents: open ? 'auto' : 'none',
-        visibility: open ? 'visible' : 'hidden',
+    <Drawer
+      anchor="right"
+      open={open}
+      onClose={onClose}
+      slotProps={{
+        paper: {
+          role: 'dialog',
+          'aria-modal': true,
+          'aria-labelledby': 'chaos-score-title',
+          sx: {
+            width: 344,
+            maxWidth: '92%',
+            display: 'flex',
+            flexDirection: 'column',
+            backgroundColor: 'background.paper',
+            borderLeft: 1,
+            borderColor: 'divider',
+            boxShadow: '-10px 0 30px rgba(0,0,0,0.2)',
+          },
+        },
       }}
     >
-      <Box
-        aria-hidden="true"
-        onClick={onClose}
-        sx={{ position: 'absolute', inset: 0, backgroundColor: 'rgba(0,0,0,0.28)', opacity: open ? 1 : 0, transition: 'opacity 180ms ease' }}
-      />
-      <Box
-        sx={{
-          position: 'absolute',
-          top: 0,
-          right: 0,
-          bottom: 0,
-          width: 344,
-          maxWidth: '92%',
-          display: 'flex',
-          flexDirection: 'column',
-          backgroundColor: 'background.paper',
-          borderLeft: 1,
-          borderColor: 'divider',
-          boxShadow: '-10px 0 30px rgba(0,0,0,0.2)',
-          transform: open ? 'translateX(0)' : 'translateX(100%)',
-          transition: 'transform 220ms cubic-bezier(.2,.8,.2,1)',
-        }}
-      >
+      <Box sx={{ display: 'flex', minHeight: 0, flex: 1, flexDirection: 'column' }}>
         <Box sx={{ px: 2, py: 1.35, display: 'flex', alignItems: 'center', borderBottom: 1, borderColor: 'divider' }}>
           <Box sx={{ flex: 1 }}>
             <Typography id="chaos-score-title" sx={{ fontSize: 15, fontWeight: 900 }}>Tab Chaos Score</Typography>
             <Typography sx={{ fontSize: 10.25, color: 'text.secondary' }}>A useful signal, not a judgment.</Typography>
           </Box>
-          <IconButton aria-label="Close Tab Chaos Score" onClick={onClose} size="small"><CloseRounded /></IconButton>
+          <IconButton autoFocus aria-label="Close Tab Chaos Score" onClick={onClose} size="small"><CloseRounded /></IconButton>
         </Box>
 
         <Box sx={{ p: 2, overflowY: 'auto' }}>
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
-            <Box sx={{ width: 74, height: 74, display: 'grid', placeItems: 'center', borderRadius: '50%', color: 'common.white', backgroundColor: scoreColor, boxShadow: `0 8px 22px ${scoreColor}55` }}>
+            <Box sx={{ width: 74, height: 74, display: 'grid', placeItems: 'center', borderRadius: '50%', color: scoreTextColor, backgroundColor: scoreColor, boxShadow: `0 8px 22px ${scoreColor}55` }}>
               <Box sx={{ textAlign: 'center' }}>
                 <Typography sx={{ fontSize: 27, lineHeight: 1, fontWeight: 950 }}>{stats.score}</Typography>
                 <Typography sx={{ mt: 0.2, fontSize: 8.5, fontWeight: 800, opacity: 0.85 }}>/ 100</Typography>
@@ -149,6 +139,6 @@ export function ChaosScoreOverlay({ open, onClose, stats, trend }: ChaosScoreOve
           </Typography>
         </Box>
       </Box>
-    </Box>
+    </Drawer>
   );
 }

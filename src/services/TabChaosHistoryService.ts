@@ -12,6 +12,7 @@ interface ChaosObservation {
 
 interface StoredChaosHistory {
   observations: ChaosObservation[];
+  bestScore: number | null;
 }
 
 export interface ChaosTrend {
@@ -47,12 +48,21 @@ function calculateStreak(observations: ChaosObservation[], today: string): numbe
 
 class TabChaosHistoryService {
   private read(): StoredChaosHistory {
-    if (typeof window === 'undefined' || !window.localStorage) return { observations: [] };
+    if (typeof window === 'undefined' || !window.localStorage) return { observations: [], bestScore: null };
     try {
       const parsed = JSON.parse(window.localStorage.getItem(STORAGE_KEY) ?? '{}') as Partial<StoredChaosHistory>;
-      return { observations: Array.isArray(parsed.observations) ? parsed.observations.filter(Boolean) : [] };
+      const observations = Array.isArray(parsed.observations) ? parsed.observations.filter(Boolean) : [];
+      const retainedBest = observations.length > 0
+        ? Math.min(...observations.map(observation => observation.score))
+        : null;
+      return {
+        observations,
+        bestScore: typeof parsed.bestScore === 'number' && Number.isFinite(parsed.bestScore)
+          ? parsed.bestScore
+          : retainedBest,
+      };
     } catch {
-      return { observations: [] };
+      return { observations: [], bestScore: null };
     }
   }
 
@@ -66,8 +76,11 @@ class TabChaosHistoryService {
       tabCount: stats.totalTabs,
     };
     const observations = [...history.observations, observation].slice(-MAX_OBSERVATIONS);
+    const bestScore = history.bestScore === null
+      ? stats.score
+      : Math.min(history.bestScore, stats.score);
     try {
-      window.localStorage.setItem(STORAGE_KEY, JSON.stringify({ observations } satisfies StoredChaosHistory));
+      window.localStorage.setItem(STORAGE_KEY, JSON.stringify({ observations, bestScore } satisfies StoredChaosHistory));
     } catch {
       // The score still works when extension storage is unavailable.
     }
@@ -86,7 +99,7 @@ class TabChaosHistoryService {
       previousScore: previous?.score ?? null,
       scoreDelta,
       tabsDelta,
-      bestScore: Math.min(...observations.map(item => item.score)),
+      bestScore,
       checkInStreak: calculateStreak(observations, observation.day),
       message,
     };

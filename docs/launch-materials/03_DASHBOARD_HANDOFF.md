@@ -1,14 +1,14 @@
 # Chrome Web Store Dashboard handoff
 
-Status: locally complete; external action intentionally paused. Use the `Saulius Extensions` Chrome profile signed in as `saulius.developer@gmail.com`. Item ID: `njdjagodlomkhingeecipnlnnhnipkho`.
+Status: TabShow 2.1 release candidate built locally; external action intentionally paused. Use the `Saulius Extensions` Chrome profile signed in as `saulius.developer@gmail.com`. Item ID: `njdjagodlomkhingeecipnlnnhnipkho`.
 
 Do not upload, save a draft, or submit for review until explicitly approved. When approved, publish the website first so every URL below resolves, then update the Store as a draft and request a final review before submission.
 
 ## Package
 
-- Upload: `.output/tabshow-2.0.0-chrome.zip`
-- Version: `2.0.0`
-- SHA-256: `1104a5b6d7505e78f7742dae63503d34deec291f49431331a64151bcb535c962`
+- Upload: `.output/tabshow-2.1.0-chrome.zip`
+- Version: `2.1.0`
+- SHA-256: `612deee5a181cc94dd29aa048dee6d5219cf862287ab6bf12504214e19f688e8`
 - Manifest name: `TabShow: Live Tab Preview`
 - Manifest summary: `Search or point at open tabs to preview the live page, then switch or snap back without losing your place.`
 - Permissions: `sidePanel`, `tabs`, `tabGroups`
@@ -26,7 +26,7 @@ Do not upload, save a draft, or submit for review until explicitly approved. Whe
 - Language: retain English (United States) unless a separately reviewed localization is added.
 - Category: retain the current category unless the live Dashboard audit reveals it is materially wrong.
 
-The current promo video was not fully visible in the supplied Dashboard capture. Do not carry it forward blindly. Open and watch it during the approved Dashboard session; remove it if it shows the 1.x interface or makes claims contradicted by 2.0.
+The current promo video was not fully visible in the supplied Dashboard capture. Do not carry it forward blindly. Open and watch it during the approved Dashboard session; remove it if it shows the 1.x or 2.0 interface or makes claims contradicted by 2.1.
 
 ## Graphic assets
 
@@ -40,7 +40,7 @@ Upload in this order:
 6. `marketing/output/promo/tabshow-small-promo-440x280.png`: 440×280
 7. `marketing/output/promo/tabshow-marquee-1400x560.png`: 1400×560
 
-All files are RGB PNGs without alpha. Each listing image uses a real TabShow 2.0 appshot composited unchanged into the final editorial campaign.
+All files are RGB PNGs without alpha. Replace this earlier 2.0 campaign only after the new 2.1 raw side-panel captures in `marketing/source/appshots-2.1/` have been approved and composited into Store-ready assets.
 
 ## Privacy declarations
 
@@ -52,7 +52,7 @@ Use the permission-by-permission text from `docs/launch-materials/01_STORE_COPY.
 - no webpage-content access;
 - tab information and settings stay in the browser.
 
-Do not describe the permissions as merely “minimal.” Explain what each one does. The unused `activeTab` permission was removed from 2.0.
+Do not describe the permissions as merely “minimal.” Explain what each one does. The unused `activeTab` permission remains absent in 2.1, and 2.1 adds no permissions.
 
 ## Approved-session checklist
 

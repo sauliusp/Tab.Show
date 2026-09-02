@@ -26,4 +26,16 @@ describe('TabChaosHistoryService', () => {
     expect(third.checkInStreak).toBe(3);
     expect(third.bestScore).toBe(second.previousScore! + second.scoreDelta!);
   });
+
+  it('keeps the all-time best after the observation window rolls over', () => {
+    const start = new Date(2026, 0, 1, 12).getTime();
+    const personalBest = tabChaosHistoryService.recordCheckIn(stats(1, start)).bestScore;
+    let latest = tabChaosHistoryService.recordCheckIn(stats(150, start + 86_400_000));
+
+    for (let index = 2; index <= 91; index += 1) {
+      latest = tabChaosHistoryService.recordCheckIn(stats(150, start + (index * 86_400_000)));
+    }
+
+    expect(latest.bestScore).toBe(personalBest);
+  });
 });

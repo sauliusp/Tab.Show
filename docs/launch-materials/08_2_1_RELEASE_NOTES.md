@@ -35,11 +35,9 @@ TabShow 2.1 adds a local-only Tab Chaos Score, dark, light, and system themes, p
 
 ## Release verification
 
-Complete this section from the final release commit after all review findings are resolved:
-
-- Extension tests: pending final review loop.
-- TypeScript compilation: pending final review loop.
-- Production Chrome MV3 build and manifest inspection: pending final review loop.
-- Website production build and rendered-page tests: pending final review loop.
-- Chrome side-panel regression QA: pending final review loop.
-- Final commit and pull request: pending final review loop.
+- Extension tests: 14 files and 55 tests passed.
+- TypeScript compilation: passed.
+- Production Chrome MV3 build, ZIP integrity, manifest version, permissions, and host-permission inspection: passed.
+- Website lint, production build, and 6 rendered-page test groups: passed.
+- Chrome side-panel regression QA: earlier 150-tab branch coverage passed; final review-fix pass remains required before release sign-off.
+- Pull request: [#3](https://github.com/sauliusp/Tab.Show/pull/3); first Codex review findings addressed locally, follow-up review pending.

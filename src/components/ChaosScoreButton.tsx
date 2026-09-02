@@ -1,9 +1,10 @@
 import React from 'react';
 import { Box, CircularProgress, IconButton, Tooltip } from '@mui/material';
-import { darken, getContrastRatio } from '@mui/material/styles';
+import { darken } from '@mui/material/styles';
 import InsightsRounded from '@mui/icons-material/InsightsRounded';
 import { ChaosTrend } from '../services/TabChaosHistoryService';
 import { getChaosScoreColor, TabChaosStats } from '../utils/tabChaos';
+import { getReadableTextColor } from '../utils/colorContrast';
 
 interface ChaosScoreButtonProps {
   stats: TabChaosStats | null;
@@ -12,16 +13,10 @@ interface ChaosScoreButtonProps {
   onOpen: () => void;
 }
 
-function getScoreTextColor(background: string): string {
-  return getContrastRatio(background, '#ffffff') >= getContrastRatio(background, '#11131a')
-    ? '#ffffff'
-    : '#11131a';
-}
-
 export function ChaosScoreButton({ stats, trend, isLoading, onOpen }: ChaosScoreButtonProps) {
   const score = stats?.score ?? 0;
   const scoreColor = getChaosScoreColor(score);
-  const scoreTextColor = getScoreTextColor(scoreColor);
+  const scoreTextColor = getReadableTextColor(scoreColor);
   const trendLabel = trend?.scoreDelta == null
     ? 'Start your trend'
     : trend.scoreDelta < 0

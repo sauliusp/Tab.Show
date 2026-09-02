@@ -46,6 +46,8 @@ export function useTabChaos() {
     browser.tabs.onRemoved.addListener(scheduleRefresh);
     browser.tabs.onUpdated.addListener(scheduleRefresh);
     browser.tabs.onMoved.addListener(scheduleRefresh);
+    browser.tabs.onDetached?.addListener(scheduleRefresh);
+    browser.tabs.onAttached?.addListener(scheduleRefresh);
     browser.tabs.onActivated.addListener(scheduleRefresh);
     browser.windows.onFocusChanged.addListener(scheduleRefresh);
     browser.tabGroups?.onCreated.addListener(scheduleRefresh);
@@ -57,6 +59,8 @@ export function useTabChaos() {
       browser.tabs.onRemoved.removeListener(scheduleRefresh);
       browser.tabs.onUpdated.removeListener(scheduleRefresh);
       browser.tabs.onMoved.removeListener(scheduleRefresh);
+      browser.tabs.onDetached?.removeListener(scheduleRefresh);
+      browser.tabs.onAttached?.removeListener(scheduleRefresh);
       browser.tabs.onActivated.removeListener(scheduleRefresh);
       browser.windows.onFocusChanged.removeListener(scheduleRefresh);
       browser.tabGroups?.onCreated.removeListener(scheduleRefresh);
