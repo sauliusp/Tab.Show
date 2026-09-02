@@ -6,8 +6,8 @@ Status: production launch and Namecheap DNS cutover complete on 2026-07-22. The 
 
 - Sites URL: `https://tabshow.sauliusdev.chatgpt.site/`
 - Access: public
-- Canonical domain: `https://tab.show/` — active, HTTPS 200
-- Alternate domain: `https://www.tab.show/` — active, HTTPS 200
+- Canonical domain: `https://tab.show/`: active, HTTPS 200
+- Alternate domain: `https://www.tab.show/`: active, HTTPS 200
 - SSL: active for both custom domains
 - Namecheap DNS: two apex `A` records, one `www` CNAME, and four validation TXT records confirmed publicly
 
@@ -17,16 +17,16 @@ The old Lovable routing records were replaced. The two `_lovable` verification T
 
 For the zone apex `tab.show`:
 
-- `A` — name `@` — value `162.159.143.30`
-- `A` — name `@` — value `172.66.3.26`
-- `TXT` — name `_openai-site-verification` — value `openai-site-verification=dZSgU5-vonUa3gq3yubMQt8XDIPVwqtyTHzHsNII9RY`
-- `TXT` — name `_cf-custom-hostname` — value `dc704e31-703e-4bd2-a66a-c69538462fc8`
+- `A`: name `@`, value `162.159.143.30`
+- `A`: name `@`, value `172.66.3.26`
+- `TXT`: name `_openai-site-verification`, value `openai-site-verification=dZSgU5-vonUa3gq3yubMQt8XDIPVwqtyTHzHsNII9RY`
+- `TXT`: name `_cf-custom-hostname`, value `dc704e31-703e-4bd2-a66a-c69538462fc8`
 
 For `www.tab.show`:
 
-- `CNAME` — name `www` — value `custom-domains.chatgpt.site.`
-- `TXT` — name `_openai-site-verification.www` — value `openai-site-verification=2HUvz4qbcGA81O6OJaz6KmGuJd31dRJC7rhe90idc6U`
-- `TXT` — name `_cf-custom-hostname.www` — value `2f9a8429-29f5-438b-9e70-af7c700a4408`
+- `CNAME`: name `www`, value `custom-domains.chatgpt.site.`
+- `TXT`: name `_openai-site-verification.www`, value `openai-site-verification=2HUvz4qbcGA81O6OJaz6KmGuJd31dRJC7rhe90idc6U`
+- `TXT`: name `_cf-custom-hostname.www`, value `2f9a8429-29f5-438b-9e70-af7c700a4408`
 
 The conflicting Lovable `A` records for `@` and `www` were replaced with the records above. Namecheap email forwarding and its SPF record were preserved unchanged. Public DNS, Sites ownership checks, both SSL certificates, and the key HTTPS routes were verified after propagation.
 

@@ -1,4 +1,4 @@
-import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor, within } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
 import App from './App';
 import { UserSettingsProvider } from '../../src/contexts/UserSettingsContext';
@@ -39,16 +39,23 @@ function browserWith150Tabs(includeOtherWindow = false) {
   };
 }
 
+async function expectOpenTabCount(count: number, windowCount?: number) {
+  const label = windowCount === undefined
+    ? `Open tabs: ${count}`
+    : `Open tabs: ${count}; Chrome windows: ${windowCount}`;
+  await waitFor(() => expect(screen.getByRole('status', { name: label })).toBeVisible());
+}
+
 describe('side-panel browser-rendered interaction', () => {
   it('stays usable with 150 tabs and commits an URL search result from the keyboard', async () => {
     const mock = browserWith150Tabs();
     vi.stubGlobal('browser', mock.api);
     render(<UserSettingsProvider><ColorSchemeProvider><App /></ColorSchemeProvider></UserSettingsProvider>);
     const search = screen.getByRole('textbox', { name: 'Search tabs' });
-    await waitFor(() => expect(screen.getByText(/150 tabs/)).toBeVisible());
+    await expectOpenTabCount(150);
     expect(search).toHaveFocus();
     fireEvent.change(search, { target: { value: 'figma.example/final-target' } });
-    await waitFor(() => expect(screen.getByText(/1 tab/)).toBeVisible());
+    await expectOpenTabCount(150);
     fireEvent.keyDown(search, { key: 'ArrowDown' });
     fireEvent.keyDown(search, { key: 'Enter' });
     await waitFor(() => expect(mock.update).toHaveBeenCalledWith(150, { active: true }));
@@ -60,9 +67,9 @@ describe('side-panel browser-rendered interaction', () => {
     vi.stubGlobal('browser', mock.api);
     render(<UserSettingsProvider><ColorSchemeProvider><App /></ColorSchemeProvider></UserSettingsProvider>);
     const search = screen.getByRole('textbox', { name: 'Search tabs' });
-    await waitFor(() => expect(screen.getByText(/150 tabs/)).toBeVisible());
+    await expectOpenTabCount(150);
     fireEvent.change(search, { target: { value: 'QA Tab 00' } });
-    await waitFor(() => expect(screen.getByText(/9 tabs/)).toBeVisible());
+    await expectOpenTabCount(150);
 
     fireEvent.keyDown(search, { key: 'ArrowDown' });
     expect(search).toHaveAttribute('aria-activedescendant', 'tab-option-2');
@@ -79,9 +86,9 @@ describe('side-panel browser-rendered interaction', () => {
     vi.stubGlobal('browser', mock.api);
     render(<UserSettingsProvider><ColorSchemeProvider><App /></ColorSchemeProvider></UserSettingsProvider>);
     const search = screen.getByRole('textbox', { name: 'Search tabs' });
-    await waitFor(() => expect(screen.getByText(/150 tabs/)).toBeVisible());
+    await expectOpenTabCount(150);
     fireEvent.change(search, { target: { value: 'QA Tab 00' } });
-    await waitFor(() => expect(screen.getByText(/9 tabs/)).toBeVisible());
+    await expectOpenTabCount(150);
     mock.update.mockClear();
 
     fireEvent.keyDown(search, { key: 'ArrowDown' });
@@ -97,9 +104,9 @@ describe('side-panel browser-rendered interaction', () => {
     vi.stubGlobal('browser', mock.api);
     render(<UserSettingsProvider><ColorSchemeProvider><App /></ColorSchemeProvider></UserSettingsProvider>);
     const search = screen.getByRole('textbox', { name: 'Search tabs' });
-    await waitFor(() => expect(screen.getByText(/150 tabs/)).toBeVisible());
+    await expectOpenTabCount(150);
     fireEvent.change(search, { target: { value: 'QA Tab 00' } });
-    await waitFor(() => expect(screen.getByText(/9 tabs/)).toBeVisible());
+    await expectOpenTabCount(150);
     mock.update.mockClear();
 
     fireEvent.keyDown(search, { key: 'ArrowUp' });
@@ -112,9 +119,9 @@ describe('side-panel browser-rendered interaction', () => {
     vi.stubGlobal('browser', mock.api);
     render(<UserSettingsProvider><ColorSchemeProvider><App /></ColorSchemeProvider></UserSettingsProvider>);
     const search = screen.getByRole('textbox', { name: 'Search tabs' });
-    await waitFor(() => expect(screen.getByText(/150 tabs/)).toBeVisible());
+    await expectOpenTabCount(150);
     fireEvent.change(search, { target: { value: 'figma.example/final-target' } });
-    await waitFor(() => expect(screen.getByText(/1 tab/)).toBeVisible());
+    await expectOpenTabCount(150);
     mock.update.mockClear();
 
     fireEvent.keyDown(search, { key: 'Enter' });
@@ -127,7 +134,7 @@ describe('side-panel browser-rendered interaction', () => {
     vi.stubGlobal('browser', mock.api);
     render(<UserSettingsProvider><ColorSchemeProvider><App /></ColorSchemeProvider></UserSettingsProvider>);
     const search = screen.getByRole('textbox', { name: 'Search tabs' });
-    await waitFor(() => expect(screen.getByText(/150 tabs/)).toBeVisible());
+    await expectOpenTabCount(150);
 
     fireEvent.keyDown(search, { key: 'Enter', keyCode: 229, isComposing: true });
     expect(mock.update).not.toHaveBeenCalled();
@@ -168,13 +175,13 @@ describe('side-panel browser-rendered interaction', () => {
     const loadingRender = render(<UserSettingsProvider><ColorSchemeProvider><App /></ColorSchemeProvider></UserSettingsProvider>);
     expect(screen.getByText('Loading tabs…')).toBeVisible();
     expect(screen.getByText('Loading…')).toBeVisible();
-    expect(screen.queryByText(/0 tabs/)).not.toBeInTheDocument();
+    expect(screen.queryByRole('status', { name: 'Open tabs: 0' })).not.toBeInTheDocument();
     loadingRender.unmount();
 
     const loadedMock = browserWith150Tabs();
     vi.stubGlobal('browser', loadedMock.api);
     render(<UserSettingsProvider><ColorSchemeProvider><App /></ColorSchemeProvider></UserSettingsProvider>);
-    await waitFor(() => expect(screen.getByText(/150 tabs/)).toBeVisible());
+    await expectOpenTabCount(150);
     fireEvent.change(screen.getByRole('textbox', { name: 'Search tabs' }), { target: { value: 'zzzz-no-such-tab-qa' } });
     expect(await screen.findByText('No tabs match your search')).toBeVisible();
     expect(screen.getByText('Try a different title, URL, or domain.')).toBeVisible();
@@ -187,6 +194,10 @@ describe('side-panel browser-rendered interaction', () => {
     const allWindows = await screen.findByRole('button', { name: 'All windows' });
     fireEvent.click(allWindows);
     await waitFor(() => expect(allWindows).toHaveAttribute('aria-pressed', 'true'));
+    await expectOpenTabCount(150, 2);
+    fireEvent.change(screen.getByRole('textbox', { name: 'Search tabs' }), { target: { value: 'figma.example/final-target' } });
+    await expectOpenTabCount(150, 2);
+    expect(screen.queryByText('Live preview · Current window')).not.toBeInTheDocument();
   });
 
   it('restores the All Windows preference from local storage', async () => {
@@ -201,5 +212,68 @@ describe('side-panel browser-rendered interaction', () => {
 
     render(<UserSettingsProvider><ColorSchemeProvider><App /></ColorSchemeProvider></UserSettingsProvider>);
     expect(await screen.findByRole('button', { name: 'All windows' })).toHaveAttribute('aria-pressed', 'true');
+  });
+
+  it('shows an explainable local Chaos Score and keeps both engagement actions visible', async () => {
+    const mock = browserWith150Tabs(true);
+    vi.stubGlobal('browser', mock.api);
+    render(<UserSettingsProvider><ColorSchemeProvider><App /></ColorSchemeProvider></UserSettingsProvider>);
+
+    const scoreButton = await screen.findByRole('button', { name: /Open Tab Chaos Score:/ });
+    expect(scoreButton).toBeVisible();
+    expect(scoreButton).toHaveTextContent('CHAOS');
+    const tabCountSummary = screen.getByTestId('tab-count-summary');
+    expect(tabCountSummary).toHaveTextContent('OPEN TABS');
+    expect(tabCountSummary).not.toHaveTextContent('CHAOS');
+    expect(scoreButton).toHaveAttribute('data-chaos-color');
+    expect(screen.getByTestId('chaos-score-content')).toHaveTextContent('CHAOS');
+    expect(screen.queryByText('Live preview · Current window')).not.toBeInTheDocument();
+    const topControls = screen.getByTestId('top-control-grid');
+    expect(topControls).toContainElement(screen.getByTestId('tab-scope-control'));
+    expect(topControls).toContainElement(screen.getByRole('textbox', { name: 'Search tabs' }));
+    expect(topControls).toContainElement(screen.getByRole('button', { name: 'open settings' }));
+    expect(topControls).toContainElement(scoreButton);
+    expect(screen.queryByText(/Tab chaos ·/)).not.toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'Suggest a feature' })).toBeVisible();
+    expect(screen.getByRole('button', { name: 'Tell a friend' })).toBeVisible();
+
+    fireEvent.click(scoreButton);
+    const dialog = screen.getByRole('dialog', { name: 'Tab Chaos Score' });
+    expect(dialog).toBeVisible();
+    expect(within(dialog).getByText('open tabs')).toBeVisible();
+    expect(within(dialog).getByText('Calculated and stored locally. TabShow does not send your tab data anywhere. Come back later to see how your session changed.')).toBeVisible();
+  });
+
+  it('copies a paste-ready Chrome Store message from Tell a friend', async () => {
+    const writeText = vi.fn(async () => undefined);
+    Object.defineProperty(navigator, 'clipboard', { configurable: true, value: { writeText } });
+    const mock = browserWith150Tabs();
+    vi.stubGlobal('browser', mock.api);
+    render(<UserSettingsProvider><ColorSchemeProvider><App /></ColorSchemeProvider></UserSettingsProvider>);
+
+    fireEvent.click(await screen.findByRole('button', { name: 'Tell a friend' }));
+    await waitFor(() => expect(writeText).toHaveBeenCalledTimes(1));
+    expect(writeText).toHaveBeenCalledWith(expect.stringContaining('chromewebstore.google.com/detail/'));
+    expect(await screen.findByText('Chrome extension link copied')).toBeVisible();
+    expect(screen.getByText('Paste it into any message, email, or post.')).toBeVisible();
+  });
+
+  it('switches between dark, light, and persisted appearance settings', async () => {
+    const mock = browserWith150Tabs();
+    vi.stubGlobal('browser', mock.api);
+    const firstRender = render(<UserSettingsProvider><ColorSchemeProvider><App /></ColorSchemeProvider></UserSettingsProvider>);
+    fireEvent.click(await screen.findByRole('button', { name: 'open settings' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Use dark appearance' }));
+    await waitFor(() => expect(document.documentElement.dataset.colorScheme).toBe('dark'));
+    expect(JSON.parse(window.localStorage.getItem('tab.show.userSettings') ?? '{}').appearanceMode).toBe('dark');
+    firstRender.unmount();
+
+    render(<UserSettingsProvider><ColorSchemeProvider><App /></ColorSchemeProvider></UserSettingsProvider>);
+    await waitFor(() => expect(document.documentElement.dataset.colorScheme).toBe('dark'));
+    fireEvent.click(await screen.findByRole('button', { name: 'open settings' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Use light appearance' }));
+    await waitFor(() => expect(document.documentElement.dataset.colorScheme).toBe('light'));
+    fireEvent.click(screen.getByRole('button', { name: 'Use system appearance' }));
+    await waitFor(() => expect(screen.getByText('Following your system, currently light.')).toBeVisible());
   });
 });

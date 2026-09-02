@@ -6,26 +6,25 @@
 html,
 body,
 #root {
-  width: 420px;
-  min-width: 420px;
-  height: 800px;
-  min-height: 800px;
+  width: 100vw;
+  min-width: 0;
+  height: 100vh;
+  min-height: 0;
   overflow: hidden;
 }
 
 body {
-  background: #fffdf8;
+  background: var(--mui-background-default, #fffdf8);
 }
 
 .sidepanel {
-  width: 420px;
-  height: 800px;
+  width: 100vw;
+  height: 100vh;
 }
 
 /* The production component renders this in development only. Appshots should
    match the shipped extension, where performance telemetry is absent. */
 .performance-metrics,
-[data-testid="performance-metrics"],
-.sidepanel > button {
+[data-testid="performance-metrics"] {
   display: none !important;
 }

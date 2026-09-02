@@ -11,7 +11,7 @@ import {
   Box,
   Typography
 } from '@mui/material';
-import { ExpandLess, ExpandMore, Folder, LaunchRounded, VisibilityRounded } from '@mui/icons-material';
+import { ExpandLess, ExpandMore, Folder, LaunchRounded } from '@mui/icons-material';
 import { Tab, TabGroup, TabListState, TabSortMode } from '../types/Tab';
 import { TabItem } from './TabItem';
 import { getDuplicateCounts, getDuplicateKey, selectTabs } from '../utils/tabSelectors';
@@ -61,7 +61,7 @@ export function TabList({
     const items: Array<{
       id: string;
       type: 'tab' | 'group' | 'window';
-      data: Tab | TabGroup | { title: string; subtitle: string; isCurrent: boolean };
+      data: Tab | TabGroup | { title: string; subtitle: string };
       parentId?: string;
       isNested?: boolean;
     }> = [];
@@ -77,6 +77,12 @@ export function TabList({
     });
     const sorted = selectTabs(tabs, { query, sortMode, currentWindowId });
 
+    const allWindowIds = [...new Set(tabs.map(tab => tab.windowId ?? -1))].sort((a, b) => {
+      if (a === currentWindowId) return -1;
+      if (b === currentWindowId) return 1;
+      return a - b;
+    });
+
     const windowIds = [...new Set(sorted.map(tab => tab.windowId ?? -1))].sort((a, b) => {
       if (a === currentWindowId) return -1;
       if (b === currentWindowId) return 1;
@@ -85,15 +91,17 @@ export function TabList({
     windowIds.forEach((windowId, windowIndex) => {
       const windowTabs = sorted.filter(tab => (tab.windowId ?? -1) === windowId);
       const isCurrent = windowId === currentWindowId;
-      items.push({
-        id: `window-${windowId}`,
-        type: 'window',
-        data: {
-          title: isCurrent ? 'Live preview · Current window' : `Switch to window ${windowIndex + 1}`,
-          subtitle: isCurrent ? 'Hover a tab to preview it instantly' : 'Preview unavailable · click a tab to open that window',
-          isCurrent
-        }
-      });
+      if (!isCurrent) {
+        const windowNumber = allWindowIds.indexOf(windowId) + 1 || windowIndex + 1;
+        items.push({
+          id: `window-${windowId}`,
+          type: 'window',
+          data: {
+            title: `Switch to window ${windowNumber}`,
+            subtitle: 'Preview unavailable · click a tab to open that window',
+          }
+        });
+      }
       let lastGroupId: number | undefined;
       windowTabs.forEach((tab) => {
         const group = tab.groupId !== undefined && tab.groupId >= 0 ? groups.get(tab.groupId) : undefined;
@@ -160,7 +168,7 @@ export function TabList({
     const { type, data, isNested } = virtualItem;
     
     if (type === 'window') {
-      const windowSection = data as { title: string; subtitle: string; isCurrent: boolean };
+      const windowSection = data as { title: string; subtitle: string };
       return (
         <Box sx={{
           mx: 1.25,
@@ -171,13 +179,13 @@ export function TabList({
           alignItems: 'center',
           gap: 1,
           borderRadius: 2,
-          color: windowSection.isCurrent ? 'primary.main' : 'text.secondary',
-          backgroundColor: windowSection.isCurrent ? 'primary.main' + '0D' : 'action.hover',
+          color: 'text.secondary',
+          backgroundColor: 'action.hover',
           border: 1,
-          borderColor: windowSection.isCurrent ? 'primary.main' : 'divider'
+          borderColor: 'divider'
         }}>
-          <Box sx={{ width: 28, height: 28, flexShrink: 0, borderRadius: 1.5, display: 'grid', placeItems: 'center', color: windowSection.isCurrent ? 'common.white' : 'text.secondary', backgroundColor: windowSection.isCurrent ? 'primary.main' : 'background.paper' }}>
-            {windowSection.isCurrent ? <VisibilityRounded sx={{ fontSize: 17 }} /> : <LaunchRounded sx={{ fontSize: 15 }} />}
+          <Box sx={{ width: 28, height: 28, flexShrink: 0, borderRadius: 1.5, display: 'grid', placeItems: 'center', color: 'text.secondary', backgroundColor: 'background.paper' }}>
+            <LaunchRounded sx={{ fontSize: 15 }} />
           </Box>
           <Box sx={{ minWidth: 0 }}>
             <Typography sx={{ fontSize: 11.5, lineHeight: 1.2, fontWeight: 850, letterSpacing: 0.1 }}>

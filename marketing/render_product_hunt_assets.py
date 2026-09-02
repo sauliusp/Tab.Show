@@ -107,7 +107,7 @@ def render_cover() -> None:
     draw.text((245, 278), "before you switch.", font=font(62, "bold"), fill=ORANGE)
     draw.multiline_text(
         (250, 381),
-        "Search or point at an open tab.\nPreview the live page. Switch—or snap back.",
+        "Search or point at an open tab.\nPreview the live page. Switch or snap back.",
         font=font(22, "demi"),
         fill=INK,
         spacing=10,

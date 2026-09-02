@@ -1,22 +1,22 @@
 # Chrome Web Store Dashboard handoff
 
-Status: locally complete; external action intentionally paused. Use the `Saulius Extensions` Chrome profile signed in as `saulius.developer@gmail.com`. Item ID: `njdjagodlomkhingeecipnlnnhnipkho`.
+Status: TabShow 2.1 release candidate built locally; external action intentionally paused. Use the `Saulius Extensions` Chrome profile signed in as `saulius.developer@gmail.com`. Item ID: `njdjagodlomkhingeecipnlnnhnipkho`.
 
 Do not upload, save a draft, or submit for review until explicitly approved. When approved, publish the website first so every URL below resolves, then update the Store as a draft and request a final review before submission.
 
 ## Package
 
-- Upload: `.output/tabshow-2.0.0-chrome.zip`
-- Version: `2.0.0`
-- SHA-256: `1104a5b6d7505e78f7742dae63503d34deec291f49431331a64151bcb535c962`
-- Manifest name: `TabShow — Live Tab Preview`
+- Upload: `.output/tabshow-2.1.0-chrome.zip`
+- Version: `2.1.0`
+- SHA-256: `4b3b1e55cc5b491c915c4b8363311e642153ea9535a322ab549293b90a186f88`
+- Manifest name: `TabShow: Live Tab Preview`
 - Manifest summary: `Search or point at open tabs to preview the live page, then switch or snap back without losing your place.`
 - Permissions: `sidePanel`, `tabs`, `tabGroups`
 - Host permissions: none
 
 ## Store listing fields
 
-- Title: `TabShow — Live Tab Preview`
+- Title: `TabShow: Live Tab Preview`
 - Summary: `Search or point at open tabs to preview the live page, then switch or snap back without losing your place.`
 - Detailed description: paste the exact text under **Detailed description** in `docs/launch-materials/01_STORE_COPY.md`.
 - Official URL: `https://tab.show/`
@@ -26,21 +26,23 @@ Do not upload, save a draft, or submit for review until explicitly approved. Whe
 - Language: retain English (United States) unless a separately reviewed localization is added.
 - Category: retain the current category unless the live Dashboard audit reveals it is materially wrong.
 
-The current promo video was not fully visible in the supplied Dashboard capture. Do not carry it forward blindly. Open and watch it during the approved Dashboard session; remove it if it shows the 1.x interface or makes claims contradicted by 2.0.
+The current promo video was not fully visible in the supplied Dashboard capture. Do not carry it forward blindly. Open and watch it during the approved Dashboard session; remove it if it shows the 1.x or 2.0 interface or makes claims contradicted by 2.1.
 
 ## Graphic assets
 
 Upload in this order:
 
-1. `marketing/output/screenshots/01-preview.png` — 1280×800
-2. `marketing/output/screenshots/02-search.png` — 1280×800
-3. `marketing/output/screenshots/03-keyboard.png` — 1280×800
-4. `marketing/output/screenshots/04-windows.png` — 1280×800
-5. `marketing/output/screenshots/05-context.png` — 1280×800
-6. `marketing/output/promo/tabshow-small-promo-440x280.png` — 440×280
-7. `marketing/output/promo/tabshow-marquee-1400x560.png` — 1400×560
+1. `marketing/output/screenshots/01-preview.png`: 1280×800
+2. `marketing/output/screenshots/02-search.png`: 1280×800
+3. `marketing/output/screenshots/03-keyboard.png`: 1280×800
+4. `marketing/output/screenshots/04-windows.png`: 1280×800
+5. `marketing/output/screenshots/05-context.png`: 1280×800
+6. `marketing/output/promo/tabshow-small-promo-440x280.png`: 440×280
+7. `marketing/output/promo/tabshow-marquee-1400x560.png`: 1400×560
 
-All files are RGB PNGs without alpha. Each listing image uses a real TabShow 2.0 appshot composited unchanged into the final editorial campaign.
+All files are RGB PNGs without alpha. Replace this earlier 2.0 campaign only after the new 2.1 raw side-panel captures in `marketing/source/appshots-2.1/` have been approved and composited into Store-ready assets.
+
+The new raw 2.1 source set contains seven 420×800 RGB PNGs without alpha: preview, 150-tab search, keyboard search in dark mode, cross-window scope, sorting and tab states, settings, and the 150-tab Chaos Score. Each PNG has a matching Markdown brief in `marketing/source/appshots-2.1/`. The raw captures are source material, not direct 1280×800 Store uploads.
 
 ## Privacy declarations
 
@@ -52,7 +54,7 @@ Use the permission-by-permission text from `docs/launch-materials/01_STORE_COPY.
 - no webpage-content access;
 - tab information and settings stay in the browser.
 
-Do not describe the permissions as merely “minimal.” Explain what each one does. The unused `activeTab` permission was removed from 2.0.
+Do not describe the permissions as merely “minimal.” Explain what each one does. The unused `activeTab` permission remains absent in 2.1, and 2.1 adds no permissions.
 
 ## Approved-session checklist
 

@@ -13,12 +13,12 @@ import {
 export const metadata: Metadata = {
   title: "Find the Right Chrome Tab Before You Switch",
   description:
-    "TabShow adds searchable side-panel tabs and live page preview to Chrome. Point, preview, switch, or snap back—no account or backend.",
+    "TabShow adds searchable side-panel tabs and live page preview to Chrome. Point, preview, switch, or snap back. No account or backend.",
   alternates: { canonical: "/" },
 };
 
 const faq = [
-  { q: "Does TabShow read the contents of webpages?", a: "No. TabShow does not request host permissions and cannot read page contents. It uses Chrome's tab metadata—such as titles, URLs, favicons, groups, and status—to power the side panel." },
+  { q: "Does TabShow read the contents of webpages?", a: "No. TabShow does not request host permissions and cannot read page contents. It uses Chrome's tab metadata, such as titles, URLs, favicons, groups, and status, to power the side panel." },
   { q: "Can I search tabs across every Chrome window?", a: "Yes. Choose All windows to search and organize tabs across Chrome windows. For safety, a tab in another window switches only when clicked; hover preview does not steal focus across windows." },
   { q: "What happens when I move away from a preview?", a: "TabShow returns you to the original tab. If the preview was the right page, click it to make the switch permanent." },
   { q: "Can I use TabShow with the keyboard?", a: "Yes. Arrow keys select search results, Enter opens the selected tab, and Escape returns to the original tab. Hover a current-window result when you want a live preview. The side panel shortcut can be customized in Chrome's extension shortcut settings." },
@@ -45,7 +45,7 @@ export default function Home() {
           <div className="hero-copy">
             <p className="eyebrow"><span /> Live tab preview for Chrome</p>
             <h1>Find the right tab <em>before you switch.</em></h1>
-            <p className="lede">Search or point at an open tab to preview the live page. Click to switch—or move away to snap back.</p>
+            <p className="lede">Search or point at an open tab to preview the live page. Click to switch or move away to snap back.</p>
             <div className="actions">
               <StoreButton content="home_hero" />
               <a className="text-link" href="#how-it-works">See how it works <span aria-hidden="true">↓</span></a>
@@ -55,7 +55,7 @@ export default function Home() {
           <ProductImage src="/images/store-01-preview.png" alt="Real TabShow side panel showing the current tab in violet and a live hover preview in amber" priority />
         </section>
 
-        <section className="proof-strip" aria-label="TabShow 2.0 highlights">
+        <section className="proof-strip" aria-label="TabShow 2.1 highlights">
           <div className="shell proof-grid">
             <span><b>01</b> Live page preview</span>
             <span><b>02</b> Title, URL & domain search</span>
@@ -79,7 +79,7 @@ export default function Home() {
 
         <section className="section ink-section">
           <div className="shell">
-            <div className="section-heading light-heading"><p className="eyebrow"><span /> TabShow 2.0</p><h2>More context.<br /><em>Still one sharp tool.</em></h2></div>
+            <div className="section-heading light-heading"><p className="eyebrow"><span /> TabShow 2.1</p><h2>More context.<br /><em>Still one sharp tool.</em></h2></div>
             <div className="feature-ledger">
               <article><span>01</span><h3>Find faster</h3><p>Search open tabs by title, URL, or domain instead of scanning the tab strip.</p></article>
               <article><span>02</span><h3>See every window</h3><p>Switch scope when the page you need lives in another Chrome window.</p></article>

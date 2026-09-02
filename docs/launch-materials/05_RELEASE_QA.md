@@ -1,46 +1,61 @@
-# TabShow 2.0 local release QA
+# TabShow 2.1 local release QA
 
-Verified on 2026-07-22.
+Verified on 2026-09-02.
 
 ## Extension
 
-- `npm test`: 7 files, 36 tests passed.
+- `npm test -- --run`: 16 files, 64 tests passed.
 - `npm run compile`: passed.
+- `npm run build`: passed with WXT 0.20.27.
 - `npm run zip`: passed with WXT 0.20.27.
-- Production contents: 575,382 uncompressed bytes across 14 files and six directory entries.
-- Release ZIP: `.output/tabshow-2.0.0-chrome.zip`, 185,788 bytes (185.79 kB as reported by WXT).
-- SHA-256: `1104a5b6d7505e78f7742dae63503d34deec291f49431331a64151bcb535c962`.
-- Manifest: MV3, version 2.0.0, correct title and 106-character summary.
-- Permissions: `sidePanel`, `tabs`, `tabGroups`; no `host_permissions`; no `activeTab`; no update permission warning.
+- Production contents: 624,285 uncompressed bytes across 20 archive entries.
+- Release ZIP: `.output/tabshow-2.1.0-chrome.zip`, 199,320 bytes.
+- SHA-256: `4b3b1e55cc5b491c915c4b8363311e642153ea9535a322ab549293b90a186f88`.
+- Manifest: MV3, version 2.1.0, correct title and summary.
+- Permissions: `sidePanel`, `tabs`, `tabGroups`; no `host_permissions`; no `activeTab`; no new permission warning.
 - Required 16/32/48/96/128 icons present.
-- No source maps or source files in the ZIP.
+- Archive integrity check passed with no corrupt entries.
 
-Known non-blocking warning: the minified side-panel JavaScript chunk is 530,710 bytes (530.71 kB as reported by WXT) and exceeds Vite's 500 kB warning threshold. This is a maintainability/performance follow-up and a reason not to publish unmeasured “ultralight” or “zero impact” claims.
+The minified side-panel JavaScript chunk is 578,952 bytes and exceeds Vite's 500 kB warning threshold. This is a non-blocking maintainability and performance follow-up. Do not publish unmeasured "ultralight" or "zero impact" claims.
 
-## Store and website assets
+## Product regression coverage
 
-- Five screenshots: exact 1280×800 RGB PNG, no alpha.
-- Small tile: exact 440×280 RGB PNG, no alpha.
-- Marquee tile: exact 1400×560 RGB PNG, no alpha.
-- Social card: exact 1200×630 RGB PNG, no alpha.
-- Authentic UI source captures: `marketing/source/appshots/`.
-- ImageGen editorial sources: `marketing/source/imagegen/editorial/`.
-- Deterministic compositor: `marketing/finalize_imagegen_assets.py`.
-- Final prompt ledger: `marketing/IMAGEGEN_PROMPTS.md`.
-- Desktop and mobile website QA captures: `marketing/qa/`.
-- Authentic appshots and every derived listing/website campaign image were regenerated after the final keyboard-navigation changes. The keyboard frame now shows selection without triggering a preview; hover remains the explicit live-preview interaction.
+- Search remains responsive with 150 tabs and preserves the real open-tab count while filtering.
+- ArrowUp, ArrowDown, Enter, Escape, empty results, IME composition, and sort-control focus are covered.
+- Delayed hover preview cancellation and 1,000 ms preview timing are covered.
+- Current-window and all-window scope, explicit cross-window switching, and stable original-tab restoration are covered.
+- Cross-window tab detach and attach events refresh the Tab Chaos Score.
+- Overlapping Chaos refreshes cannot roll newer tab statistics back to stale values.
+- Chaos history retains the all-time best beyond the 90-day rolling observation window and coalesces repeated same-day openings so streaks remain accurate.
+- Chrome internal pages are grouped under clear `Chrome` and `Chrome extension` labels rather than internal component names.
+- Chaos overlay focus, Escape close, focus restoration, and severity-color text contrast are covered.
+- Live Chaos trends update against the prior check-in when tabs change without writing duplicate history entries.
+- Original-tab hover backgrounds retain readable text contrast in every palette and appearance mode.
+- Every Chaos severity label retains readable text contrast in light and dark appearance modes.
+- Dark, light, and system appearance persistence plus theme-aware selected and preview colors are covered.
+- Suggest a feature and Tell a friend panel actions are covered, including clipboard confirmation.
+- Clipboard failure exposes a working Chrome Web Store recovery link rather than a dead-end instruction.
 
 ## Website
 
 - `npm run lint`: passed.
-- `npm test`: production build passed; 6 rendered-output test groups passed, including the complete release-history assertion.
+- `npm test`: production build passed; 7 rendered-output test groups passed.
 - Nine routes included in the build.
 - Unique titles and canonicals verified.
-- Honest competitor positioning, privacy language, support limitations, sitemap, and robots verified.
-- Desktop and 390-pixel mobile layouts visually inspected; privacy page has no horizontal overflow.
+- The privacy page discloses the 90 local Chaos check-ins, all-time best retention, fields stored, and deletion routes.
+- Honest competitor positioning, support limitations, sitemap, and robots verified.
+
+## Chrome and visual QA
+
+- Chrome's extension manager confirms the unpacked `TabShow: Live Tab Preview` build is enabled at version 2.1.0.
+- Actual Chrome rendered the current production side-panel components with deterministic local data at 420×800. The seven captured states cover preview, 150-tab search across four windows, keyboard search in dark mode, cross-window boundaries, sorting, settings, and the Chaos drawer.
+- The 150-tab search frame keeps `OPEN TABS 150` and `WINDOWS 4` visible while showing only matches.
+- The preview frame keeps the current tab violet and the hovered preview tab amber.
+- A 320×800 Chrome regression frame verifies that narrow All windows mode keeps both tab and window counts visible without horizontal clipping.
+- All seven release-source PNGs are 420×800 RGB images without alpha and have one matching Markdown brief each.
 
 ## Dependency and build notes
 
 The current Node runtime is 23.7.0 while one website lint dependency declares support for Node 20.19+, 22.13+, or 24+. The build and tests pass, but production should use the website's declared Node `>=22.13.0`, preferably an even-numbered LTS release.
 
-`npm install --package-lock-only` reports transitive dependency advisories in both projects. No automatic breaking `audit fix` was applied during launch preparation. Review and update dependencies in a separate maintenance change so release behavior is not silently altered.
+`npm install --package-lock-only` previously reported transitive dependency advisories in both projects. No automatic breaking `audit fix` was applied during release preparation. Review and update dependencies in a separate maintenance change so release behavior is not silently altered.

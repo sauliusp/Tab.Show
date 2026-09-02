@@ -1,11 +1,13 @@
 import React from 'react';
-import { DEFAULT_HOVER_PREVIEW_DELAY_MS, userSettingsService } from '../services/UserSettingsService';
+import { AppearanceMode, DEFAULT_HOVER_PREVIEW_DELAY_MS, userSettingsService } from '../services/UserSettingsService';
 
 interface UserSettingsContextValue {
   hoverPreviewDelayMs: number;
   setHoverPreviewDelayMs: (delayMs: number) => void;
   allWindows: boolean;
   setAllWindows: (allWindows: boolean) => void;
+  appearanceMode: AppearanceMode;
+  setAppearanceMode: (appearanceMode: AppearanceMode) => void;
 }
 
 const UserSettingsContext = React.createContext<UserSettingsContextValue | undefined>(undefined);
@@ -15,6 +17,7 @@ export function UserSettingsProvider({ children }: { children: React.ReactNode }
     userSettingsService.getHoverPreviewDelayMs()
   ));
   const [allWindows, setAllWindows] = React.useState<boolean>(() => userSettingsService.getAllWindows());
+  const [appearanceMode, setAppearanceMode] = React.useState<AppearanceMode>(() => userSettingsService.getAppearanceMode());
 
   React.useEffect(() => {
     userSettingsService.saveHoverPreviewDelayMs(hoverPreviewDelayMs);
@@ -23,6 +26,10 @@ export function UserSettingsProvider({ children }: { children: React.ReactNode }
   React.useEffect(() => {
     userSettingsService.saveAllWindows(allWindows);
   }, [allWindows]);
+
+  React.useEffect(() => {
+    userSettingsService.saveAppearanceMode(appearanceMode);
+  }, [appearanceMode]);
 
   const setHoverPreviewDelayMs = React.useCallback((delayMs: number) => {
     const safeDelayMs = Number.isFinite(delayMs)
@@ -36,8 +43,10 @@ export function UserSettingsProvider({ children }: { children: React.ReactNode }
     hoverPreviewDelayMs,
     setHoverPreviewDelayMs,
     allWindows,
-    setAllWindows
-  }), [hoverPreviewDelayMs, setHoverPreviewDelayMs, allWindows]);
+    setAllWindows,
+    appearanceMode,
+    setAppearanceMode
+  }), [hoverPreviewDelayMs, setHoverPreviewDelayMs, allWindows, appearanceMode]);
 
   return (
     <UserSettingsContext.Provider value={contextValue}>

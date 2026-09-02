@@ -6,8 +6,8 @@ const visualStateCache = new Map<string, TabVisualState>();
 const MAX_CACHE_SIZE = 1000; // Prevent memory leaks
 
 // Helper function to create cache key
-function createCacheKey(tab: Tab, previewTabId: number | null, originalTab: Tab | null): string {
-  return `${tab.id}-${previewTabId}-${originalTab?.id}-${tab.status}-${tab.lastAccessed}-${tab.groupId}`;
+function createCacheKey(tab: Tab, previewTabId: number | null, originalTab: Tab | null, theme: any): string {
+  return `${tab.id}-${previewTabId}-${originalTab?.id}-${tab.status}-${tab.lastAccessed}-${tab.groupId}-${theme.palette.mode}-${theme.palette.primary.main}-${theme.palette.secondary.main}`;
 }
 
 // Helper function to clean cache when it gets too large
@@ -40,7 +40,7 @@ export function getTabVisualState(
   originalTab: Tab | null,
   theme: any
 ): TabVisualState {
-  const cacheKey = createCacheKey(tab, previewTabId, originalTab);
+  const cacheKey = createCacheKey(tab, previewTabId, originalTab, theme);
   
   // Check cache first
   if (visualStateCache.has(cacheKey)) {
@@ -75,9 +75,9 @@ export function getTabVisualState(
   // 1. Original tab (highest priority)
   if (isOriginalTab) {
     visualState.borderColor = theme.palette.custom.original;
-    visualState.backgroundColor = theme.palette.custom.original + 'CC'; // 80% opacity background
+    visualState.backgroundColor = theme.palette.custom.originalBackground;
     visualState.opacity = 1; // Tab item always full opacity
-    visualState.textColor = 'white'; // White text for better contrast
+    visualState.textColor = theme.palette.primary.contrastText;
     visualState.avatarOverlays.push({
       type: 'checkmark',
       color: theme.palette.custom.original,
@@ -88,9 +88,9 @@ export function getTabVisualState(
   // 2. Preview tab (only if not original to preserve original styling)
   if (isPreviewTab && !isOriginalTab) {
     visualState.borderColor = theme.palette.custom.preview;
-    visualState.backgroundColor = theme.palette.custom.preview + 'CC'; // 80% opacity background
+    visualState.backgroundColor = theme.palette.custom.preview;
     visualState.opacity = 1; // Tab item always full opacity
-    visualState.textColor = 'white'; // White text for better contrast
+    visualState.textColor = theme.palette.secondary.contrastText;
     visualState.avatarOverlays.push({
       type: 'preview',
       color: theme.palette.custom.preview,
@@ -185,7 +185,9 @@ export function getTabVisualState(
   
   // Hover styles
   visualState.hoverStyles = {
-    backgroundColor: getHoverBackgroundColor(visualState.backgroundColor, theme)
+    backgroundColor: isOriginalTab
+      ? visualState.backgroundColor
+      : getHoverBackgroundColor(visualState.backgroundColor, theme)
   };
   
   // Cache the result and clean if necessary

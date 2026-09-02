@@ -5,7 +5,7 @@ import "./globals.css";
 export const metadata: Metadata = {
   metadataBase: new URL("https://tab.show"),
   title: {
-    default: "TabShow — Live Tab Preview for Chrome",
+    default: "TabShow: Live Tab Preview for Chrome",
     template: "%s | TabShow",
   },
   description:

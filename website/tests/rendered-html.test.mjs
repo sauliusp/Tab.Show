@@ -21,7 +21,7 @@ const routes = [
   ["/workona-alternative", "Workona Alternative", "Skip the workspace setup"],
   ["/tab-manager-plus-alternative", "Tab Manager Plus Alternative", "Recognize the page"],
   ["/privacy", "Privacy", "Your tabs stay"],
-  ["/changelog", "TabShow Changelog", "TabShow 2.0"],
+  ["/changelog", "TabShow Changelog", "TabShow 2.1"],
   ["/support", "TabShow Support", "Get back to the tab"],
 ];
 
@@ -73,8 +73,13 @@ test("privacy and support match the shipped permission and cross-window behavior
   assert.match(privacy, /sidePanel/);
   assert.match(privacy, /tabGroups/);
   assert.match(privacy, /favicon/);
-  assert.match(privacy, /activeTab[\s\S]{0,120}permission because the implementation did not use it/i);
+  assert.match(privacy, /activeTab[\s\S]{0,160}removed[\s\S]{0,120}implementation did not use it/i);
+  assert.match(privacy, /TabShow 2\.1 adds no permissions/i);
   assert.match(privacy, /does not read page contents/i);
+  assert.match(privacy, /up to 90 local daily check-ins/i);
+  assert.match(privacy, /Repeated panel openings update the current day's check-in/i);
+  assert.match(privacy, /retains the all-time best score/i);
+  assert.match(privacy, /clearing TabShow's extension data in Chrome or uninstalling the extension/i);
 
   const support = await (await render("/support")).text();
   assert.match(support, /Shift \+ Command \+ X/);
@@ -85,11 +90,19 @@ test("privacy and support match the shipped permission and cross-window behavior
 
 test("changelog preserves the complete user-facing release history", async () => {
   const changelog = await (await render("/changelog")).text();
-  for (const version of ["2.0", "1.0.0", "0.9.2", "0.9.1", "0.9.0", "0.8.2", "0.8.1", "0.8.0", "0.7.1", "0.7.0", "0.6.0", "0.5.0"]) {
+  for (const version of ["2.1", "2.0", "1.0.0", "0.9.2", "0.9.1", "0.9.0", "0.8.2", "0.8.1", "0.8.0", "0.7.1", "0.7.0", "0.6.0", "0.5.0"]) {
     assert.match(changelog, new RegExp(`Version (?:<!-- -->)?${version.replaceAll(".", "\\.")}`));
   }
   assert.match(changelog, /Featurebase feedback board/);
   assert.match(changelog, /hover-to-preview interaction/);
+  assert.doesNotMatch(changelog, /tab age, domains|domains, and Chrome groups/i);
+});
+
+test("search copy keeps full-scope totals distinct from filtered results", async () => {
+  const lostTabPage = await (await render("/find-lost-chrome-tab")).text();
+  assert.match(lostTabPage, /Search narrows the visible list/);
+  assert.match(lostTabPage, /complete selected scope/);
+  assert.doesNotMatch(lostTabPage, /result count shows how many tabs and windows match/i);
 });
 
 test("robots and sitemap expose the intended public surface", async () => {

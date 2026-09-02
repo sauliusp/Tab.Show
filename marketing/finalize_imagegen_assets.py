@@ -34,7 +34,7 @@ CAMPAIGN = (
         "eyebrow": "LIVE TAB PREVIEW",
         "problem": "TOO MANY TABS. ONE PAGE YOU NEED.",
         "lines": (("See the page", INK), ("before you", INK), ("switch.", ORANGE)),
-        "caption": "Point at a tab to preview the real page.\nMove away to snap back—or click to switch.",
+        "caption": "Point at a tab to preview the real page.\nMove away to snap back or click to switch.",
     },
     {
         "background": "02-search-background.png",
@@ -43,7 +43,7 @@ CAMPAIGN = (
         "eyebrow": "INSTANT TAB SEARCH",
         "problem": "STOP SCANNING EVERY OPEN TAB.",
         "lines": (("Type. Find.", INK), ("Preview.", ORANGE)),
-        "caption": "Search titles, URLs, and domains across\nyour open tabs—before you switch away.",
+        "caption": "Search titles, URLs, and domains across\nyour open tabs before you switch away.",
     },
     {
         "background": "03-keyboard-background.png",
@@ -70,7 +70,7 @@ CAMPAIGN = (
         "eyebrow": "SORT WITH CONTEXT",
         "problem": "WHEN ORDER BREAKS, FOCUS FOLLOWS.",
         "lines": (("Your tabs,", INK), ("sorted your", INK), ("way.", ORANGE)),
-        "caption": "Keep current order—or sort by recent use,\ndomain, or tab group when context changes.",
+        "caption": "Keep current order or sort by recent use,\ndomain, or tab group when context changes.",
     },
 )
 
@@ -234,7 +234,7 @@ def compose_social_card() -> None:
     draw.text((310, 175), "Find the right tab", font=font(54, "bold"), fill=INK)
     draw.text((310, 235), "before you", font=font(54, "bold"), fill=INK)
     draw.text((310, 295), "switch.", font=font(54, "bold"), fill=ORANGE)
-    draw.text((314, 385), "Search or point at a tab. Preview the live page.\nSwitch—or move away to snap back.", font=font(21, "demi"), fill=INK, spacing=9)
+    draw.text((314, 385), "Search or point at a tab. Preview the live page.\nSwitch or move away to snap back.", font=font(21, "demi"), fill=INK, spacing=9)
 
     app = rounded_appshot(Image.open(APPSHOTS / "01-preview.png"), 256, 488, 10, 11)
     canvas.alpha_composite(app, (1200 - 256 - 32 - 22, 49 - 22))

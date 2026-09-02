@@ -1,4 +1,4 @@
-# TabShow 2.0 visual system — Clear Signal
+# TabShow 2.0 visual system: Clear Signal
 
 Status: selected for local production after comparing three complete directions: dark editorial `Deep Focus`, warm editorial `Clear Signal`, and technical dark `Precision Grid`.
 
@@ -72,8 +72,8 @@ Orange means action or the live preview state. It is not decorative confetti. Vi
 
 Two equal, voluntary actions appear at natural moments:
 
-- `Share feedback` — `Help shape TabShow. Suggest a feature, report a problem, or upvote what we should build next.`
-- `Rate TabShow` — `Love TabShow? A 5-star review helps more people find it. Rate only if TabShow has earned it.`
+- `Share feedback`: `Help shape TabShow. Suggest a feature, report a problem, or upvote what we should build next.`
+- `Rate TabShow`: `Love TabShow? A 5-star review helps more people find it. Rate only if TabShow has earned it.`
 
 The feedback action links to `https://narsheek.featurebase.app/`. The review action links to the official Chrome Web Store reviews page. Neither action interrupts first use, unlocks functionality, offers a reward, or filters users by sentiment.
 

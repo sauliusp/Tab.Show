@@ -1,6 +1,7 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
 import { ColorSchemeProvider } from '../contexts/ColorSchemeContext';
+import { UserSettingsProvider } from '../contexts/UserSettingsContext';
 import { TabItem } from './TabItem';
 
 describe('TabItem pointer and keyboard modality', () => {
@@ -8,19 +9,21 @@ describe('TabItem pointer and keyboard modality', () => {
     const onTabHover = vi.fn();
     const onPointerIntent = vi.fn();
     render(
-      <ColorSchemeProvider>
-        <TabItem
-          tab={{ id: 7, windowId: 10, index: 0, title: 'Keyboard target', url: 'https://target.example' }}
-          previewTabId={null}
-          originalTab={null}
-          onTabHover={onTabHover}
-          onTabClick={vi.fn()}
-          onCloseTab={vi.fn()}
-          highlighted
-          pointerPreviewEnabled={false}
-          onPointerIntent={onPointerIntent}
-        />
-      </ColorSchemeProvider>
+      <UserSettingsProvider>
+        <ColorSchemeProvider>
+          <TabItem
+            tab={{ id: 7, windowId: 10, index: 0, title: 'Keyboard target', url: 'https://target.example' }}
+            previewTabId={null}
+            originalTab={null}
+            onTabHover={onTabHover}
+            onTabClick={vi.fn()}
+            onCloseTab={vi.fn()}
+            highlighted
+            pointerPreviewEnabled={false}
+            onPointerIntent={onPointerIntent}
+          />
+        </ColorSchemeProvider>
+      </UserSettingsProvider>
     );
 
     const row = screen.getByTitle('https://target.example');

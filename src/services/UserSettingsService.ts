@@ -2,11 +2,13 @@ import { ColorPairing, DEFAULT_COLOR_PAIRING_ID, getColorPairingById } from '../
 
 const STORAGE_KEY = 'tab.show.userSettings';
 export const DEFAULT_HOVER_PREVIEW_DELAY_MS = 250;
+export type AppearanceMode = 'system' | 'light' | 'dark';
 
 export interface UserSettings {
   colorPairingId: string;
   hoverPreviewDelayMs: number;
   allWindows: boolean;
+  appearanceMode: AppearanceMode;
 }
 
 class UserSettingsService {
@@ -28,7 +30,8 @@ class UserSettingsService {
     return {
       colorPairingId: DEFAULT_COLOR_PAIRING_ID,
       hoverPreviewDelayMs: DEFAULT_HOVER_PREVIEW_DELAY_MS,
-      allWindows: false
+      allWindows: false,
+      appearanceMode: 'system'
     };
   }
 
@@ -58,6 +61,10 @@ class UserSettingsService {
 
       if (typeof parsed?.allWindows === 'boolean') {
         settings.allWindows = parsed.allWindows;
+      }
+
+      if (parsed?.appearanceMode === 'system' || parsed?.appearanceMode === 'light' || parsed?.appearanceMode === 'dark') {
+        settings.appearanceMode = parsed.appearanceMode;
       }
 
       return Object.keys(settings).length ? settings : null;
@@ -112,6 +119,10 @@ class UserSettingsService {
     return this.getSettings().allWindows;
   }
 
+  getAppearanceMode(): AppearanceMode {
+    return this.getSettings().appearanceMode;
+  }
+
   saveColorPairingId(colorPairingId: string): void {
     const currentSettings = this.getSettings();
     this.writeSettings({
@@ -133,6 +144,14 @@ class UserSettingsService {
     this.writeSettings({
       ...currentSettings,
       allWindows
+    });
+  }
+
+  saveAppearanceMode(appearanceMode: AppearanceMode): void {
+    const currentSettings = this.getSettings();
+    this.writeSettings({
+      ...currentSettings,
+      appearanceMode
     });
   }
 }

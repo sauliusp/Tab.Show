@@ -4,18 +4,32 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { COLOR_PAIRINGS, ColorPairing, getColorPairingById } from '../constants/colorPairings';
 import { userSettingsService } from '../services/UserSettingsService';
 import { createAppTheme } from '../styles/theme';
+import { useUserSettings } from './UserSettingsContext';
 
 interface ColorSchemeContextValue {
   colorPairing: ColorPairing;
   colorPairingId: string;
   setColorPairingById: (pairingId: string) => void;
   availablePairings: ColorPairing[];
+  resolvedMode: 'light' | 'dark';
 }
 
 const ColorSchemeContext = React.createContext<ColorSchemeContextValue | undefined>(undefined);
 
 export function ColorSchemeProvider({ children }: { children: React.ReactNode }) {
+  const { appearanceMode } = useUserSettings();
   const [colorPairingId, setColorPairingId] = React.useState<string>(() => userSettingsService.getColorPairingId());
+  const [systemPrefersDark, setSystemPrefersDark] = React.useState(() => (
+    typeof window !== 'undefined' && window.matchMedia('(prefers-color-scheme: dark)').matches
+  ));
+
+  React.useEffect(() => {
+    const query = window.matchMedia('(prefers-color-scheme: dark)');
+    const handleChange = (event: MediaQueryListEvent) => setSystemPrefersDark(event.matches);
+    setSystemPrefersDark(query.matches);
+    query.addEventListener?.('change', handleChange);
+    return () => query.removeEventListener?.('change', handleChange);
+  }, []);
 
   React.useEffect(() => {
     userSettingsService.saveColorPairingId(colorPairingId);
@@ -26,7 +40,16 @@ export function ColorSchemeProvider({ children }: { children: React.ReactNode })
     [colorPairingId]
   );
 
-  const theme = React.useMemo(() => createAppTheme(colorPairing), [colorPairing]);
+  const resolvedMode = appearanceMode === 'system'
+    ? (systemPrefersDark ? 'dark' : 'light')
+    : appearanceMode;
+
+  const theme = React.useMemo(() => createAppTheme(colorPairing, resolvedMode), [colorPairing, resolvedMode]);
+
+  React.useEffect(() => {
+    document.documentElement.dataset.colorScheme = resolvedMode;
+    document.documentElement.style.colorScheme = resolvedMode;
+  }, [resolvedMode]);
 
   const setColorPairingById = React.useCallback((pairingId: string) => {
     setColorPairingId(pairingId);
@@ -37,7 +60,8 @@ export function ColorSchemeProvider({ children }: { children: React.ReactNode })
     colorPairingId,
     setColorPairingById,
     availablePairings: COLOR_PAIRINGS,
-  }), [colorPairing, colorPairingId, setColorPairingById]);
+    resolvedMode,
+  }), [colorPairing, colorPairingId, setColorPairingById, resolvedMode]);
 
   return (
     <ColorSchemeContext.Provider value={contextValue}>

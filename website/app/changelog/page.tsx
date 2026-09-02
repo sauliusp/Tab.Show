@@ -2,8 +2,8 @@
 import { FEEDBACK_URL, PlainPage, pageMetadata } from "../site";
 
 export const metadata = pageMetadata(
-  "TabShow Changelog — Version 2.0",
-  "The complete TabShow release history, from the original live tab preview through search, keyboard navigation, all-window scope, sorting, and richer context in 2.0.",
+  "TabShow Changelog | Version 2.1",
+  "TabShow 2.1 adds a local Chaos Score, dark and light appearance controls, panel sharing actions, stable tab totals during search, and a clearer compact interface.",
   "/changelog",
 );
 
@@ -106,16 +106,34 @@ export default function ChangelogPage() {
   return (
     <PlainPage
       eyebrow="Changelog"
-      title="TabShow 2.0"
-      accent="recognizes more."
-      lead="A focused rebuild of the live-preview loop: faster discovery, more context, and deliberate behavior across Chrome windows."
+      title="TabShow 2.1"
+      accent="makes tab load visible."
+      lead="A focused update with a local Chaos Score, appearance controls, faster feedback, and clearer totals that stay truthful while you search."
       nav={[
+        { href: "#version-2-1", label: "Version 2.1" },
         { href: "#version-2", label: "Version 2.0" },
         { href: "#history", label: "Previous releases" },
         { href: "#privacy", label: "Privacy and permissions" },
         { href: "#next", label: "What comes next" },
       ]}
     >
+      <section id="version-2-1">
+        <p className="eyebrow"><span /> September 2026</p>
+        <h2>Version 2.1</h2>
+        <h3>Local Tab Chaos Score</h3>
+        <p>A compact, color-coded score summarizes open-tab volume, window sprawl, duplicates, long-neglected tabs, and tabs outside Chrome groups. Open it for local statistics, quick wins, and trend history that remains in the browser.</p>
+        <h3>Dark, light, and system appearance</h3>
+        <p>Choose an explicit appearance or follow the operating system. Active and preview colors adapt so user-selected palettes remain readable in dark mode.</p>
+        <h3>Feedback and sharing in the panel</h3>
+        <p>Suggest a feature without opening Settings, or copy a paste-ready Chrome Web Store recommendation from Tell a friend.</p>
+        <h3>Stable and distinct totals</h3>
+        <p>Search filters the visible list without changing the real open-tab or window totals. The Chaos Score and OPEN TABS count now use separate labels and visual treatments.</p>
+        <h3>Compact interface refinements</h3>
+        <p>Scope, search, Settings, and Chaos controls share a consistent layout. The unnecessary current-window banner is gone, while other-window switching remains explicit.</p>
+        <h3>No new permissions</h3>
+        <p>Version 2.1 adds no Chrome permissions. Chaos statistics and history are calculated and stored locally.</p>
+      </section>
+
       <section id="version-2">
         <p className="eyebrow"><span /> July 2026</p>
         <h2>Version 2.0</h2>
@@ -124,7 +142,7 @@ export default function ChangelogPage() {
         <h3>Keyboard selection and switching</h3>
         <p>Arrow keys select results, Enter opens the selected tab, and Escape returns to the original tab. Live preview remains a hover interaction.</p>
         <h3>All-window awareness</h3>
-        <p>Choose an explicit All windows scope with matching tab and window counts. Tabs from another window switch only on click, preventing hover from stealing focus.</p>
+        <p>Choose an explicit All windows scope with complete tab and window totals. Tabs from another window switch only on click, preventing hover from stealing focus.</p>
         <h3>Flexible sorting</h3>
         <p>Keep Chrome's current order or sort by recently used, recently added (approximate), domain, or tab group.</p>
         <h3>Richer tab context</h3>
@@ -136,7 +154,7 @@ export default function ChangelogPage() {
       <section id="history">
         <p className="eyebrow"><span /> August–December 2025</p>
         <h2>Previous releases</h2>
-        <p>The useful product history belongs here—not buried inside the Chrome Web Store description. These entries preserve the user-facing changes while removing obsolete launch copy.</p>
+        <p>The useful product history belongs here, not buried inside the Chrome Web Store description. These entries preserve the user-facing changes while removing obsolete launch copy.</p>
         <div className="release-timeline">
           {previousReleases.map((release) => (
             <article key={release.version}>
@@ -154,7 +172,7 @@ export default function ChangelogPage() {
 
       <section id="privacy">
         <h2>Privacy and permissions</h2>
-        <p>TabShow 2.0 still has no account, backend, advertising, host permissions, or access to webpage contents. The unused <code>activeTab</code> permission was removed rather than justified cosmetically.</p>
+        <p>TabShow 2.1 still has no account, backend, advertising, host permissions, or access to webpage contents. Version 2.1 adds no permissions, and the unused <code>activeTab</code> permission remains removed.</p>
         <p>See the full <a className="text-link" href="/privacy">plain-language privacy page →</a></p>
       </section>
 
