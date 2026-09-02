@@ -8,7 +8,7 @@ Do not upload, save a draft, or submit for review until explicitly approved. Whe
 
 - Upload: `.output/tabshow-2.1.0-chrome.zip`
 - Version: `2.1.0`
-- SHA-256: `a395fb9033d29519f18e612198f8e5e28dcad43a9354f48defa7fa1c4da7dc20`
+- SHA-256: `4b3b1e55cc5b491c915c4b8363311e642153ea9535a322ab549293b90a186f88`
 - Manifest name: `TabShow: Live Tab Preview`
 - Manifest summary: `Search or point at open tabs to preview the live page, then switch or snap back without losing your place.`
 - Permissions: `sidePanel`, `tabs`, `tabGroups`

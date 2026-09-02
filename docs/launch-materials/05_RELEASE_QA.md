@@ -4,19 +4,19 @@ Verified on 2026-09-02.
 
 ## Extension
 
-- `npm test -- --run`: 15 files, 61 tests passed.
+- `npm test -- --run`: 16 files, 64 tests passed.
 - `npm run compile`: passed.
 - `npm run build`: passed with WXT 0.20.27.
 - `npm run zip`: passed with WXT 0.20.27.
-- Production contents: 620,777 uncompressed bytes across 20 archive entries.
-- Release ZIP: `.output/tabshow-2.1.0-chrome.zip`, 198,423 bytes.
-- SHA-256: `a395fb9033d29519f18e612198f8e5e28dcad43a9354f48defa7fa1c4da7dc20`.
+- Production contents: 624,285 uncompressed bytes across 20 archive entries.
+- Release ZIP: `.output/tabshow-2.1.0-chrome.zip`, 199,320 bytes.
+- SHA-256: `4b3b1e55cc5b491c915c4b8363311e642153ea9535a322ab549293b90a186f88`.
 - Manifest: MV3, version 2.1.0, correct title and summary.
 - Permissions: `sidePanel`, `tabs`, `tabGroups`; no `host_permissions`; no `activeTab`; no new permission warning.
 - Required 16/32/48/96/128 icons present.
 - Archive integrity check passed with no corrupt entries.
 
-The minified side-panel JavaScript chunk is 575,444 bytes and exceeds Vite's 500 kB warning threshold. This is a non-blocking maintainability and performance follow-up. Do not publish unmeasured "ultralight" or "zero impact" claims.
+The minified side-panel JavaScript chunk is 578,952 bytes and exceeds Vite's 500 kB warning threshold. This is a non-blocking maintainability and performance follow-up. Do not publish unmeasured "ultralight" or "zero impact" claims.
 
 ## Product regression coverage
 
@@ -31,8 +31,10 @@ The minified side-panel JavaScript chunk is 575,444 bytes and exceeds Vite's 500
 - Chaos overlay focus, Escape close, focus restoration, and severity-color text contrast are covered.
 - Live Chaos trends update against the prior check-in when tabs change without writing duplicate history entries.
 - Original-tab hover backgrounds retain readable text contrast in every palette and appearance mode.
+- Every Chaos severity label retains readable text contrast in light and dark appearance modes.
 - Dark, light, and system appearance persistence plus theme-aware selected and preview colors are covered.
 - Suggest a feature and Tell a friend panel actions are covered, including clipboard confirmation.
+- Clipboard failure exposes a working Chrome Web Store recovery link rather than a dead-end instruction.
 
 ## Website
 

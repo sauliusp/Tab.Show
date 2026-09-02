@@ -35,7 +35,7 @@ TabShow 2.1 adds a local-only Tab Chaos Score, dark, light, and system themes, p
 
 ## Release verification
 
-- Extension tests: 15 files and 61 tests passed.
+- Extension tests: 16 files and 64 tests passed.
 - TypeScript compilation: passed.
 - Production Chrome MV3 build, ZIP integrity, manifest version, permissions, and host-permission inspection: passed.
 - Website lint, production build, and 7 rendered-page test groups: passed.

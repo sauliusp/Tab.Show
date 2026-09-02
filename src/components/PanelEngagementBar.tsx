@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Button, Fade, Paper, Popper, Typography } from '@mui/material';
+import { Box, Button, Fade, Link, Paper, Popper, Typography } from '@mui/material';
 import LightbulbRounded from '@mui/icons-material/LightbulbRounded';
 import PersonAddAlt1Rounded from '@mui/icons-material/PersonAddAlt1Rounded';
 import CheckCircleRounded from '@mui/icons-material/CheckCircleRounded';
@@ -76,7 +76,14 @@ export function PanelEngagementBar() {
                 {copyState === 'error' ? 'Could not access the clipboard' : 'Chrome extension link copied'}
               </Typography>
               <Typography sx={{ mt: 0.15, fontSize: 9.75, lineHeight: 1.35, color: 'text.secondary' }}>
-                {copyState === 'error' ? 'Copy the Store link from Settings instead.' : 'Paste it into any message, email, or post.'}
+                {copyState === 'error' ? (
+                  <>
+                    <Link href={EXTENSION_URLS.CHROME_WEB_STORE} target="_blank" rel="noopener noreferrer">
+                      Open the Chrome Web Store
+                    </Link>
+                    , then copy the link from its address bar.
+                  </>
+                ) : 'Paste it into any message, email, or post.'}
               </Typography>
             </Paper>
           </Fade>

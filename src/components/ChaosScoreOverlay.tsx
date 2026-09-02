@@ -4,9 +4,10 @@ import CloseRounded from '@mui/icons-material/CloseRounded';
 import EmojiEventsRounded from '@mui/icons-material/EmojiEventsRounded';
 import LocalFireDepartmentRounded from '@mui/icons-material/LocalFireDepartmentRounded';
 import TipsAndUpdatesRounded from '@mui/icons-material/TipsAndUpdatesRounded';
+import { useTheme } from '@mui/material/styles';
 import { ChaosTrend } from '../services/TabChaosHistoryService';
 import { getChaosScoreColor, TabChaosStats } from '../utils/tabChaos';
-import { getReadableTextColor } from '../utils/colorContrast';
+import { getReadableForegroundColor, getReadableTextColor } from '../utils/colorContrast';
 
 interface ChaosScoreOverlayProps {
   open: boolean;
@@ -25,9 +26,11 @@ function StatTile({ label, value }: { label: string; value: React.ReactNode }) {
 }
 
 export function ChaosScoreOverlay({ open, onClose, stats, trend }: ChaosScoreOverlayProps) {
+  const theme = useTheme();
   if (!stats) return null;
   const scoreColor = getChaosScoreColor(stats.score);
   const scoreTextColor = getReadableTextColor(scoreColor);
+  const severityLabelColor = getReadableForegroundColor(scoreColor, theme.palette.background.paper);
   const leastRecentLabel = stats.leastRecentTab
     ? stats.leastRecentTab.daysAgo === 0
       ? 'visited today'
@@ -75,7 +78,11 @@ export function ChaosScoreOverlay({ open, onClose, stats, trend }: ChaosScoreOve
               </Box>
             </Box>
             <Box sx={{ minWidth: 0, flex: 1 }}>
-              <Typography sx={{ fontSize: 18, fontWeight: 900, color: scoreColor }}>{stats.level}</Typography>
+              <Typography
+                sx={{ fontSize: 18, fontWeight: 900, color: severityLabelColor }}
+              >
+                {stats.level}
+              </Typography>
               <Typography sx={{ mt: 0.2, fontSize: 11, lineHeight: 1.4, color: 'text.secondary' }}>{stats.levelDescription}</Typography>
             </Box>
           </Box>
