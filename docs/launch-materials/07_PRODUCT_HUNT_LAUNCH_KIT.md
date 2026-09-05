@@ -1,6 +1,6 @@
 # TabShow Product Hunt launch kit
 
-Status: copy and assets locally complete on 2026-07-23. External Product Hunt draft creation is intentionally paused until Saulius provides the logged-in session.
+Status: refreshed for v2.1 on 2026-09-05. External Product Hunt draft creation and scheduling remain approval-gated.
 
 ## Launch thesis
 
@@ -30,7 +30,7 @@ The selected tagline is 37 characters and the description is 251 characters, so 
 - Maker username: select Saulius’s personal Product Hunt account. Company accounts cannot post.
 - Existing product/relaunch state: search Product Hunt again while logged in. Public search on 2026-07-23 did not reveal an existing TabShow product, but the submission flow is authoritative.
 - Shoutouts: optional. Select only genuine tools with Product Hunt entries. Candidates from the actual stack are Google Chrome, React, and Vite or WXT if the latter exists in Product Hunt.
-- Launch date: create a draft first. Do not schedule until Chrome Web Store version 2.0 is public and installable.
+- Launch date: create a draft first. TabShow 2.1.0 is public and installable; do not schedule without separate approval.
 
 ## Asset package
 
@@ -54,7 +54,7 @@ The gallery uses authentic TabShow 2.0 appshots. Imagegen provides only editoria
 
 ## Video decision
 
-Video is optional. Do not reuse the old 1.x YouTube video: a polished but stale demo is worse than no demo.
+Use the authentic v2.1 master https://www.youtube.com/watch?v=gfOky71v2wI for a Product Hunt draft after review. Its Chrome Web Store publication is pending Google; do not call it live in the Store.
 
 If a new video is produced before scheduling, keep it to 15–25 seconds:
 
