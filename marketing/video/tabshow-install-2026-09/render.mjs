@@ -1,0 +1,168 @@
+import { createCanvas, loadImage, GlobalFonts } from '/Users/spetreikis/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/@napi-rs/canvas/index.js';
+import { mkdir, readFile, writeFile, access } from 'node:fs/promises';
+import { spawn } from 'node:child_process';
+import { once } from 'node:events';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+const DIR=path.dirname(fileURLToPath(import.meta.url));
+const ROOT=path.resolve(DIR,'../../..');
+const OUT=path.join(DIR,'output');
+await mkdir(OUT,{recursive:true});
+for(const w of [400,500,600,700,800])GlobalFonts.registerFromPath(path.join(DIR,`assets/fonts/Inter-${w}.ttf`),`InterVideo${w}`);
+const W=1920,H=1080,FPS=60,DURATION=48;
+const C={paper:'#fffdf7',canvas:'#f7f3e9',ink:'#211d42',muted:'#5f5a72',orange:'#ec641d',amber:'#ff9a3d',rule:'#d8d1bf',green:'#20835b'};
+const canvas=createCanvas(W,H),ctx=canvas.getContext('2d');
+const images={};
+for(const [key,file] of Object.entries({light:'marketing/source/cws-2.1-backgrounds/light.png',dark:'marketing/source/cws-2.1-backgrounds/dark.png',logo:'public/icon/128.png',preview:'marketing/source/appshots-2.1/01-preview.png'})) images[key]=await loadImage(path.join(ROOT,file));
+const panelFiles={idle:'idle-current.png',hover:'hover-design.png',returned:'returned-current.png',committed:'committed-design.png',all:'idle-all-windows.png',search:'search-website.png',keyboard:'keyboard-website.png'};
+for(const [key,file] of Object.entries(panelFiles)){
+ images[key]=await loadImage(path.join(DIR,'assets/panels',file));
+}
+const clamp=(x,a=0,b=1)=>Math.max(a,Math.min(b,x));
+const ease=x=>1-Math.pow(1-clamp(x),3);
+const smooth=x=>{x=clamp(x);return x*x*(3-2*x)};
+const mix=(a,b,t)=>a+(b-a)*t;
+const local=(t,a,d=.7)=>ease((t-a)/d);
+function rr(x,y,w,h,r,fill,stroke,lw=1){ctx.beginPath();ctx.roundRect(x,y,w,h,r);if(fill){ctx.fillStyle=fill;ctx.fill()}if(stroke){ctx.strokeStyle=stroke;ctx.lineWidth=lw;ctx.stroke()}}
+function line(x,y,xx,yy,color,width=1){ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(xx,yy);ctx.strokeStyle=color;ctx.lineWidth=width;ctx.stroke()}
+function text(str,x,y,size=32,weight=500,color=C.ink,align='left',spacing=-.8){ctx.font=`${size}px InterVideo${Math.min(800,Math.max(400,Math.round(weight/100)*100))}`;ctx.fillStyle=color;ctx.textAlign=align;ctx.textBaseline='alphabetic';ctx.letterSpacing=`${spacing}px`;ctx.fillText(str,x,y);ctx.letterSpacing='0px'}
+function circle(x,y,r,color){ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);ctx.fillStyle=color;ctx.fill()}
+function shadow(fn,blur=35,alpha=.13){ctx.save();ctx.shadowColor=`rgba(33,29,66,${alpha})`;ctx.shadowBlur=blur;ctx.shadowOffsetY=16;fn();ctx.restore()}
+function group(a,fn,dx=0,dy=0,s=1,cx=0,cy=0){ctx.save();ctx.globalAlpha*=clamp(a);ctx.translate(dx+cx,dy+cy);ctx.scale(s,s);ctx.translate(-cx,-cy);fn();ctx.restore()}
+function cover(img,x,y,w,h){const z=Math.max(w/img.width,h/img.height);ctx.drawImage(img,x+(w-img.width*z)/2,y+(h-img.height*z)/2,img.width*z,img.height*z)}
+function bg(dark=false){cover(images[dark?'dark':'light'],0,0,W,H);ctx.fillStyle=dark?'rgba(22,19,43,.12)':'rgba(247,243,233,.1)';ctx.fillRect(0,0,W,H)}
+function brand(dark=false,x=88,y=62,size=54){ctx.drawImage(images.logo,x,y,size,size);text('TabShow',x+size+17,y+size*.75,size*.61,800,dark?C.paper:C.ink)}
+function eyebrow(str,x=90,y=240,dark=false){line(x,y-6,x+48,y-6,C.orange,4);text(str,x+68,y,18,750,dark?C.paper:C.ink,'left',2.7)}
+function pill(str,x,y,w,{dark=false,accent=false}={}){rr(x,y,w,46,14,dark?'rgba(255,253,247,.09)':'rgba(255,253,247,.82)',dark?'#625b7a':'#d8d1d0');circle(x+21,y+23,5,accent?C.orange:(dark?C.amber:C.ink));text(str,x+37,y+30,18,650,dark?C.paper:C.ink,'left',-.3)}
+function footer(str,dark=false){circle(94,1009,4,C.orange);text(str,111,1017,19,600,dark?'#c7c0d8':'#726b84','left',-.3);text('tab.show',1828,1017,20,650,dark?C.paper:C.ink,'right',-.4)}
+function copy(lines,sub,tag,t,start,{dark=false,y=355,size=83}={}){
+ const p=local(t,start);group(p,()=>{eyebrow(tag,90,244,dark);lines.forEach((s,i)=>text(s[0],88,y+i*(size*1.04),size,800,s[1]?(dark?C.amber:C.orange):(dark?C.paper:C.ink),'left',-4));sub.forEach((s,i)=>text(s,91,y+lines.length*size*1.04+44+i*39,27,500,dark?'#d7d1e3':C.muted,'left',-.65));},0,(1-p)*24);
+}
+function cursor(x,y,t,click=-1,alpha=1){group(alpha,()=>{ctx.save();ctx.translate(x,y);ctx.shadowColor='rgba(0,0,0,.18)';ctx.shadowBlur=8;ctx.shadowOffsetY=2;ctx.beginPath();ctx.moveTo(0,0);ctx.lineTo(0,33);ctx.lineTo(9,25);ctx.lineTo(16,41);ctx.lineTo(24,37);ctx.lineTo(16,22);ctx.lineTo(29,21);ctx.closePath();ctx.fillStyle=C.ink;ctx.fill();ctx.strokeStyle='#fffdf7';ctx.lineWidth=2.8;ctx.stroke();ctx.restore();if(click>=0){const p=(t-click)/.55;if(p>0&&p<1){ctx.globalAlpha*=1-p;ctx.beginPath();ctx.arc(x+4,y+5,12+p*34,0,Math.PI*2);ctx.strokeStyle=C.orange;ctx.lineWidth=3;ctx.stroke()}}})}
+function docPage(x,y,w,h,title='Q3 launch plan'){
+ rr(x,y,w,h,0,'#eeeef1');rr(x+22,y+22,w-44,h-44,10,'#fff');
+ text('LAUNCH / Q3',x+58,y+68,12,700,'#92909d','left',1.7);
+ text(title,x+56,y+126,Math.min(36,w/16),780,C.ink,'left',-1.1);
+ text('The next chapter starts here.',x+58,y+164,17,450,C.muted,'left',-.3);
+ line(x+58,y+197,x+w-58,y+197,'#e8e5eb');
+ text('01  Make the value clear',x+58,y+246,21,720,C.ink);
+ const widths=[.82,.95,.72];widths.forEach((v,i)=>rr(x+59,y+273+i*19,(w-116)*v,6,3,'#dcd8e1'));
+ text('02  Show the product',x+58,y+388,21,720,C.ink);
+ rr(x+58,y+414,w-116,122,9,'#f6f1e8');circle(x+83,y+446,5,C.orange);text('Preview. Decide. Stay in flow.',x+101,y+452,17,600,C.ink);
+ rr(x+82,y+477,w-166,5,2,'#d8d1c5');rr(x+82,y+498,(w-166)*.72,5,2,'#d8d1c5');
+ text('03  Ready for launch',x+58,y+596,21,720,C.ink);
+ rr(x+59,y+622,(w-116)*.8,6,3,'#dcd8e1');rr(x+59,y+642,(w-116)*.63,6,3,'#dcd8e1');
+}
+function designPage(x,y,w,h,t){
+ rr(x,y,w,h,0,'#eeedf3');
+ text('TabShow 2.1 / product design',x+27,y+43,16,650,C.muted,'left',-.3);
+ const ww=w-80;shadow(()=>rr(x+40,y+98,ww,h-167,5,C.paper),14,.08);
+ ctx.drawImage(images.logo,x+68,y+128,36,36);text('TabShow',x+116,y+153,19,780,C.ink);
+ text('Less hunting.',x+70,y+235,Math.min(45,w/11),800,C.ink,'left',-2);
+ text('More doing.',x+70,y+286,Math.min(45,w/11),800,C.orange,'left',-2);
+ text('Your next tab, in plain sight.',x+73,y+325,16,450,C.muted,'left',-.3);
+ rr(x+72,y+366,ww-64,68,12,C.ink);circle(x+98,y+400,9,C.amber);rr(x+123,y+389,ww-155,6,3,'#e7e1f2');rr(x+123,y+405,(ww-155)*.6,5,3,'#9890b2');
+ rr(x+72,y+449,ww-64,68,12,'#ffddb0');circle(x+98,y+483,9,C.orange);rr(x+123,y+472,ww-155,6,3,'#805338');rr(x+123,y+488,(ww-155)*.6,5,3,'#b28660');
+ text('HOVER. PREVIEW. FOCUS.',x+73,y+560,12,750,C.muted,'left',1.5);
+}
+function browserDemo(t,stage){
+ const x=714,y=187,w=1118,h=790,bar=56;
+ let open=stage==='commit'?1-local(t,17.05,.6):1;
+ let current=stage==='hover'||stage==='commit'?'design':'doc';
+ if(stage==='intro')current='doc';
+ if(stage==='hover'&&t<8.25)current='doc';
+ if(stage==='return'&&t<12.25)current='design';
+ if(stage==='commit'&&t<16.25)current='doc';
+ shadow(()=>rr(x,y,w,h,19,'#fff', '#d4ced6'),35,.19);
+ ctx.save();ctx.beginPath();ctx.roundRect(x,y,w,h,19);ctx.clip();
+ rr(x,y,w,bar,0,'#eae7ee');circle(x+22,y+25,4,'#c6becd');circle(x+37,y+25,4,'#c6becd');circle(x+52,y+25,4,'#c6becd');
+ rr(x+80,y+12,260,44,10,'#fff');circle(x+99,y+33,7,current==='doc'?'#4285f4':'#a259ff');text(current==='doc'?'Q3 launch plan':'TabShow product design',x+115,y+39,14,650,C.ink,'left',-.25);
+ for(let i=0;i<9;i++){rr(x+352+i*65,y+14,57,30,8,'#ded9e5');circle(x+366+i*65,y+29,4,['#b9b0c8','#d0b485','#95afb2'][i%3])}
+ const panelW=474*open;const mainW=w-panelW;
+ ctx.save();ctx.beginPath();ctx.rect(x,y+bar,mainW,h-bar);ctx.clip();
+ if(current==='doc')docPage(x,y+bar,mainW,h-bar);else designPage(x,y+bar,mainW,h-bar,t);ctx.restore();
+ if(open>0.001){const state=current==='design'?'hover':stage==='return'?'returned':'idle';ctx.save();ctx.beginPath();ctx.rect(x+w-panelW,y+bar,panelW,h-bar);ctx.clip();ctx.drawImage(images[state],x+w-panelW,y+bar,474,734);ctx.restore();line(x+w-panelW,y+bar,x+w-panelW,y+h,'#d5cfdf',2);}
+ ctx.restore();
+ const px=x+w-474;
+ // Cursor reaches the row, then leaves the side panel to restore the original tab.
+ let cx=px+310,cy=y+bar+437;
+ if(stage==='hover'){const p=smooth((t-7.8)/.45);cx=mix(px+310,px+262,p);cy=mix(y+bar+437,y+bar+334,p)}
+ if(stage==='return'){const p=smooth((t-11.8)/.45);cx=mix(px+262,px-82,p);cy=mix(y+bar+334,y+bar+344,p)}
+ if(stage==='commit'){const p=smooth((t-15.8)/.45);cx=mix(px-82,px+262,p);cy=mix(y+bar+344,y+bar+334,p)}
+ if(stage!=='intro')cursor(cx,cy,t,stage==='commit'?17.02:-1,stage==='commit'?1-local(t,17.2,.5):1);
+ if(stage==='hover'&&t>8.3){const p=local(t,8.3,.5);group(p,()=>pill('LIVE PREVIEW',x+22,y+h-68,203,{accent:true}),0,(1-p)*9)}
+ if(stage==='return'&&t>12.3){const p=local(t,12.3,.5);group(p,()=>pill('BACK TO YOUR PAGE',x+22,y+h-68,270),0,(1-p)*9)}
+ if(stage==='commit'&&t>17.4){const p=local(t,17.4,.5);group(p,()=>pill('THIS ONE. KEEP IT.',x+22,y+h-68,263,{accent:true}),0,(1-p)*9)}
+}
+function searchPanel(t,keyboard=false){
+ const x=1035,y=180,w=703,h=790;const z=w/420;
+ const p=local(t,20,.8);
+ const opened=keyboard?local(t,29.35,.65):0;
+ if(opened>0){group(opened,()=>{shadow(()=>rr(x,y,w,h,22,'#fff','#d6d0d9'),38,.18);ctx.save();ctx.beginPath();ctx.roundRect(x,y,w,h,22);ctx.clip();rr(x,y,w,56,0,'#eae7ee');circle(x+27,y+28,8,'#4285f4');text('TabShow website copy',x+49,y+35,18,650,C.ink);docPage(x,y+56,w,h-56,'TabShow website copy');ctx.restore();pill('OPENED IN WINDOW 2',x+27,y+h-69,292,{accent:true})},0,(1-opened)*15);}
+ group(p*(1-opened),()=>{
+ shadow(()=>rr(x,y,w,h,22,'#fff','#d6d0d9'),38,.18);
+ ctx.save();ctx.beginPath();ctx.roundRect(x,y,w,h,22);ctx.clip();
+ const state=keyboard?(t>=28.5?'keyboard':'search'):t<20.85?'idle':t<22.55?'all':'search';
+ ctx.drawImage(images[state],x,y,w,650*z);
+ // Text is animated only inside the existing native search input; screenshots retain the exact production layout.
+ if(!keyboard&&t>=21.7&&t<22.55){const n=Math.floor(clamp((t-21.7)/.8)*7);rr(x+54*z,y+57*z,270*z,34*z,0,'#fff');text('website'.slice(0,n),x+57*z,y+81*z,14*z,400,'#4d4854','left',0);line(x+(59+n*7.5)*z,y+64*z,x+(59+n*7.5)*z,y+83*z,C.ink,1.5)}
+ ctx.restore();
+ if(!keyboard){cursor(x+273.3*z,y+30*z,t,20.85,1-local(t,21.3,.35));}
+ },(1-p)*48+opened*55,0);
+}
+function key(str,x,y,w,on=false,dark=false){shadow(()=>rr(x,y,w,74,13,on?C.orange:(dark?'#35304e':C.paper),on?C.orange:(dark?'#6b647e':'#cfc7d6'),1.2),8,.06);text(str,x+w/2,y+48,str==='Enter'?25:32,650,on?'#fff':dark?C.paper:C.ink,'center',-.3)}
+function trust(t){
+ const p=local(t,34,.75);group(p,()=>{eyebrow('PRIVATE BY DESIGN',90,242,true);text('Less friction.',88,360,98,800,C.paper,'left',-4.8);text('More focus.',88,470,98,800,C.amber,'left',-4.8);text('Free to use. Ready when you are.',91,551,31,450,'#d6d0e2','left',-.7)},0,(1-p)*25);
+ const items=[['Free to use','No account to create.'],['No tracking','No ads or extension analytics.'],['Stays in your browser','Tab information stays local.']];
+ items.forEach((it,i)=>{const p=local(t,34.6+i*.55,.6);const y=270+i*182;group(p,()=>{line(1060,y+112,1818,y+112,'#514963',1);circle(1082,y+27,21,'#3d3857');text('✓',1082,y+35,23,700,C.amber,'center',0);text(it[0],1124,y+37,38,760,C.paper,'left',-1);text(it[1],1125,y+79,23,450,'#c5bed4','left',-.3)},(1-p)*28,0)});
+}
+function cta(t){const p=local(t,40,.7);group(p,()=>{
+ ctx.drawImage(images.logo,88,249,92,92);text('TabShow',204,316,62,800,C.ink,'left',-2.5);
+ text('Find the right tab.',86,452,102,800,C.ink,'left',-5.3);text('Keep your flow.',86,566,102,800,C.orange,'left',-5.3);
+ text('Live tab preview for Chrome.',91,634,30,500,C.muted,'left',-.6);
+ const q=local(t,41,.5);group(q,()=>{shadow(()=>rr(91,700,345,84,15,C.ink),20,.12);text('Add to Chrome',122,752,30,740,C.paper,'left',-.7);text('↗',395,752,33,500,C.amber,'center',-.3);text('Free  ·  No account  ·  No tracking',93,828,24,500,C.muted,'left',-.5)},0,(1-q)*16);
+ },0,(1-p)*20);
+ const x=1397,y=180,w=413,h=413*800/420;
+ const q=local(t,40.25,.85);group(q,()=>{shadow(()=>rr(x,y,w,h,19,'white','#cec6d1'),35,.17);ctx.save();ctx.beginPath();ctx.roundRect(x,y,w,h,19);ctx.clip();ctx.drawImage(images.preview,x,y,w,w*800/420);ctx.restore();},(1-q)*50,0);
+}
+function intro(t){const p=local(t,0,.65);group(p,()=>{eyebrow('LIVE TAB PREVIEW FOR CHROME',90,241);text('Too many tabs.',86,379,130,800,C.ink,'left',-7);text('One right page.',86,523,130,800,C.orange,'left',-7)},0,(1-p)*25);
+ const count=17;const baseX=92,baseY=667,totalW=1727;const enter=local(t,.3,1);group(enter,()=>{shadow(()=>rr(baseX,baseY,totalW,198,22,'#fdfcf9','#d2cad5'),25,.09);const tabw=(totalW-38)/count;for(let i=0;i<count;i++){const active=i===9&&t>1.4;const yy=baseY+27+(active?-10*local(t,1.4,.4):0);const xx=baseX+19+i*tabw;rr(xx,yy,tabw-5,77,11,active?'#ffdab0':'#eae6ed',active?'#e9ab74':null);circle(xx+25,yy+27,8,active?C.orange:['#a5a0b7','#aea5c8','#c0ae99'][i%3]);rr(xx+17,yy+48,tabw-36,4,2,active?'#bc8759':'#c7c0cf');}text('Stop guessing which tab has what you need.',baseX+32,baseY+156,29,500,C.muted,'left',-.6)},0,(1-enter)*44);
+}
+const scenes=[0,4.8,8,12,16,20,27.5,34,40];
+function sceneIndex(t){let i=0;for(let n=0;n<scenes.length;n++)if(t>=scenes[n])i=n;return i}
+function drawScene(t,idx){const dark=idx===7;bg(dark);brand(dark);text(idx===0?'PREVIEW. DECIDE. STAY IN FLOW.':idx===8?'YOUR NEXT TAB, IN PLAIN SIGHT.':'LIVE TAB PREVIEW FOR CHROME',1828,100,16,700,dark?'#c2bad3':C.muted,'right',2.2);
+ if(idx===0){intro(t);footer('Find the right tab without losing your place.')}
+ if(idx===1){copy([['See the page.',false],['Keep your',true],['place.',true]],['Your tabs, right beside','the page you’re using.'],'MEET TABSHOW',t,4.8);browserDemo(t,'intro');footer('Preview tabs in your current Chrome window.')}
+ if(idx===2){copy([['Hover.',false],['See it live.',true]],['Point at a tab to preview','the page in your window.'],'01 / PREVIEW',t,8);browserDemo(t,'hover');footer('Current-window hover preview. Example tabs shown.')}
+ if(idx===3){copy([['Move away.',false],['You’re back.',true]],['Leave the side panel.','Your original page returns.'],'02 / RETURN',t,12);browserDemo(t,'return');footer('Keep your place while you find the right page.')}
+ if(idx===4){copy([['Found it?',false],['Click to keep.',true]],['Open the tab you want.','Get straight back to work.'],'03 / DECIDE',t,16,{size:80});browserDemo(t,'commit');footer('Click opens the tab and closes the panel.')}
+ if(idx===5){copy([['Every window.',false],['One search.',true]],['Find an open tab by','title, URL, or domain.'],'FIND IT FASTER',t,20,{size:84,y:372});searchPanel(t);pill('Search all Chrome windows',93,690,385,{accent:true});footer('Tabs in another window open when you choose them.')}
+ if(idx===6){copy([['Find it.',false],['Open it.',true]],['Use the arrow keys to select.','Press Enter to open.'],'KEYBOARD READY',t,27.5,{size:98,y:372});searchPanel(t,true);key('↑',93,694,83,false);key('↓',193,694,83,t>28.5&&t<29);key('Enter',293,694,151,t>29&&t<29.55);group(1-local(t,29.35,.25),()=>pill('Esc returns to your original tab',93,808,431));footer('Keyboard selection waits for Enter. Hover still previews.')}
+ if(idx===7){trust(t);footer('A lightweight extension. No TabShow backend.',true)}
+ if(idx===8){cta(t);footer('Available in the Chrome Web Store.')}
+}
+function draw(t){ctx.resetTransform();ctx.globalAlpha=1;ctx.clearRect(0,0,W,H);const idx=sceneIndex(t);const start=scenes[idx];const trans=.28;if(idx>0&&t<start+trans){drawScene(start-.001,idx-1);group(smooth((t-start)/trans),()=>drawScene(t,idx));}else drawScene(t,idx);}
+async function poster(){
+ bg();brand(false,90,69,59);eyebrow('LIVE TAB PREVIEW',93,269);
+ text('See the page.',86,410,113,800,C.ink,'left',-5.8);text('Keep your place.',86,532,113,800,C.orange,'left',-5.8);
+ text('Preview Chrome tabs before you switch.',93,623,32,500,C.muted,'left',-.8);
+ pill('Current tab',94,687,206);pill('Live preview',316,687,226,{accent:true});
+ const x=1324,y=39,w=526,h=526*800/420;shadow(()=>rr(x,y,w,h,24,'#fff','#d7ced7'),43,.21);ctx.save();ctx.beginPath();ctx.roundRect(x,y,w,h,24);ctx.clip();ctx.drawImage(images.preview,x,y,w,w*800/420);ctx.restore();
+ circle(94,1009,4,C.orange);text('Find the right tab without switching away.',111,1017,19,600,'#726b84','left',-.3);
+ await writeFile(path.join(OUT,'TabShow-YouTube-Poster-1920x1080.png'),await canvas.encode('png'));
+ const small=createCanvas(1280,720);small.getContext('2d').drawImage(canvas,0,0,1280,720);await writeFile(path.join(OUT,'TabShow-YouTube-Thumbnail-1280x720.jpg'),await small.encode('jpeg',94));
+}
+await poster();
+const mode=process.argv[2]??'stills';
+if(mode==='stills'){
+ for(const t of [.6,2.6,5.7,9.5,13.5,18.5,23.5,29,31.5,35.9,42.5,47.9]){draw(t);await writeFile(path.join(DIR,'qa',`frame-${String(t).replace('.','-')}.jpg`),await canvas.encode('jpeg',92));}
+ console.log('Poster and keyframe stills ready.');
+}else{
+ const output=path.join(OUT,'TabShow-Chrome-Web-Store-1080p60-silent.mp4');
+ const args=['-y','-hide_banner','-loglevel','error','-f','rawvideo','-pixel_format','rgba','-video_size',`${W}x${H}`,'-framerate',String(FPS),'-i','pipe:0','-an','-c:v','libx264','-preset','medium','-crf','17','-maxrate','18M','-bufsize','36M','-pix_fmt','yuv420p','-profile:v','high','-level','4.2','-g','30','-bf','2','-flags','+cgop','-vf','scale=in_range=full:out_range=tv:out_color_matrix=bt709','-color_primaries','bt709','-color_trc','bt709','-colorspace','bt709','-movflags','+faststart',output];
+ const ff=spawn('/usr/local/bin/ffmpeg',args,{stdio:['pipe','inherit','inherit']});
+ ff.stdin.on('error',e=>{console.error(e);process.exitCode=1});
+ const finished=once(ff,'exit');
+ for(let i=0;i<DURATION*FPS;i++){draw(i/FPS);const rgba=canvas.data();if(!ff.stdin.write(rgba))await once(ff.stdin,'drain');if(i%300===0)console.log(`Rendered ${i}/${DURATION*FPS} frames (${(i/FPS).toFixed(1)}s)`)}
+ ff.stdin.end();const [code]=await finished;if(code!==0)throw new Error(`ffmpeg exited ${code}`);console.log(output);
+}

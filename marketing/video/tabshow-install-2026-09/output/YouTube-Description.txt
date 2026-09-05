@@ -1,0 +1,20 @@
+Find the right Chrome tab without losing your place. TabShow adds live tab previews and search to Chrome's side panel.
+
+Add TabShow to Chrome — free:
+https://chromewebstore.google.com/detail/tabshow-live-tab-preview/njdjagodlomkhingeecipnlnnhnipkho
+
+Hover a tab in your current window to preview the real page. Move your pointer out of the side panel to return to your original tab, or click the result to switch.
+
+Search open tabs by title, URL, or domain. Choose All windows to find a tab in another Chrome window, then click to open it. Arrow keys select results; Enter opens the selected tab.
+
+No account. No TabShow backend. Your tab information stays in your browser.
+
+00:00 Preview Chrome tabs before you switch
+00:20 Search tabs across Chrome windows
+00:34 Free and private tab preview
+
+Learn more: https://tab.show/
+Privacy and permissions: https://tab.show/privacy
+Help and feedback: https://tab.show/support
+
+TabShow is a free Chrome extension for recognizing and finding open tabs. Hover previews work within the current window; tabs in other windows switch when clicked.

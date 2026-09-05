@@ -1,0 +1,65 @@
+{
+  "title": "TabShow: Preview Chrome Tabs Before You Switch",
+  "description": "Find the right Chrome tab without losing your place. TabShow adds live tab previews and search to Chrome's side panel.\n\nAdd TabShow to Chrome \u2014 free:\nhttps://chromewebstore.google.com/detail/tabshow-live-tab-preview/njdjagodlomkhingeecipnlnnhnipkho\n\nHover a tab in your current window to preview the real page. Move your pointer out of the side panel to return to your original tab, or click the result to switch.\n\nSearch open tabs by title, URL, or domain. Choose All windows to find a tab in another Chrome window, then click to open it. Arrow keys select results; Enter opens the selected tab.\n\nNo account. No TabShow backend. Your tab information stays in your browser.\n\n00:00 Preview Chrome tabs before you switch\n00:20 Search tabs across Chrome windows\n00:34 Free and private tab preview\n\nLearn more: https://tab.show/\nPrivacy and permissions: https://tab.show/privacy\nHelp and feedback: https://tab.show/support\n\nTabShow is a free Chrome extension for recognizing and finding open tabs. Hover previews work within the current window; tabs in other windows switch when clicked.",
+  "tags": [
+    "TabShow",
+    "Tab Show",
+    "tab.show",
+    "Chrome tab preview",
+    "live tab preview",
+    "Chrome extension",
+    "find Chrome tabs",
+    "search Chrome tabs",
+    "Chrome side panel",
+    "hover tab preview"
+  ],
+  "defaultLanguage": "en",
+  "categoryId": "28",
+  "madeForKids": false,
+  "embeddable": true,
+  "license": "youtube",
+  "suggestedVisibility": "public",
+  "publishStatus": "public",
+  "durationSeconds": 48,
+  "chapters": [
+    {
+      "start": 0,
+      "title": "Preview Chrome tabs before you switch"
+    },
+    {
+      "start": 20,
+      "title": "Search tabs across Chrome windows"
+    },
+    {
+      "start": 34,
+      "title": "Free and private tab preview"
+    }
+  ],
+  "captions": {
+    "file": "TabShow-English.srt",
+    "language": "en",
+    "kind": "on-screen text and music description"
+  },
+  "thumbnail": "TabShow-YouTube-Thumbnail-1280x720.jpg",
+  "youtubeVideoId": "gfOky71v2wI",
+  "youtubeUrl": "https://www.youtube.com/watch?v=gfOky71v2wI",
+  "channel": "Saulius Petreikis",
+  "channelId": "UCae83_jxwr2G5QJPLA2Tr1Q",
+  "playlist": "Apps",
+  "aiDisclosure": true,
+  "allowAutomaticPlaces": false,
+  "copyrightCheck": "No issues found",
+  "communityGuidelinesCheck": "No issues found",
+  "studioUrl": "https://studio.youtube.com/video/gfOky71v2wI/edit",
+  "publicationDate": "2026-09-05",
+  "publicVerification": {
+    "hdPlayback": "1920x1080; 1080p60 option confirmed",
+    "playerDurationSeconds": 48.021,
+    "playerError": null,
+    "englishCaptions": "published and visible",
+    "searchableTranscript": "available",
+    "chapters": "3 live chapters at 0:00, 0:20, 0:34",
+    "embedSetting": "enabled",
+    "customThumbnail": "uploaded and saved"
+  }
+}

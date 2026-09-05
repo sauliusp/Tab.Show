@@ -1,0 +1,42 @@
+{
+  "title": "Room to Focus",
+  "artist": "TabShow",
+  "original_composition": true,
+  "sample_rate": 48000,
+  "channels": 2,
+  "duration_seconds": 48.0,
+  "tempo_bpm": 100,
+  "meter": "4/4",
+  "bars": 20,
+  "key": "D major",
+  "seed": 9052026,
+  "music": "Original instrumental, sample-free procedural composition and synthesis.",
+  "ui_accents_seconds": [
+    8.3,
+    12.3,
+    16.3,
+    21.98,
+    22.1,
+    22.21,
+    22.35,
+    22.48,
+    22.66,
+    29.0,
+    41.0
+  ],
+  "transition_seconds": [
+    4.8,
+    9.6,
+    14.4,
+    19.2,
+    24.0,
+    28.8,
+    33.6,
+    38.4,
+    43.2
+  ],
+  "fade_out_seconds": [
+    46.3,
+    48.0
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "video": "marketing/video/tabshow-install-2026-09/output/TabShow-Chrome-Web-Store-1080p60.mp4",
+  "sha256": "55274f3377941fdb1f3215a232ce88f06173cb81d5375fa752e0d8f609f45a4a",
+  "duration_seconds": 48,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "fps": 60,
+  "frames": 2880,
+  "video_codec": "h264",
+  "color_space": "bt709",
+  "audio_codec": "aac",
+  "audio_channels": 2,
+  "audio_sample_rate": 48000,
+  "integrated_loudness_lufs": -17.0,
+  "true_peak_dbfs": -3.0,
+  "decode_errors": 0,
+  "detected_black_segments": 0,
+  "caption_cues": 13,
+  "caption_overlaps": 0,
+  "chapter_starts_seconds": [
+    0,
+    20,
+    34
+  ],
+  "upload_status": "published and verified",
+  "source_asset_policy": "additive; no existing assets replaced",
+  "visual_review": "final exported contact sheet and selected keyframes inspected",
+  "youtube": {
+    "youtubeVideoId": "gfOky71v2wI",
+    "youtubeUrl": "https://www.youtube.com/watch?v=gfOky71v2wI",
+    "studioUrl": "https://studio.youtube.com/video/gfOky71v2wI/edit",
+    "channel": "Saulius Petreikis",
+    "channelId": "UCae83_jxwr2G5QJPLA2Tr1Q",
+    "publishStatus": "public",
+    "publicationDate": "2026-09-05",
+    "playlist": "Apps",
+    "aiDisclosure": true,
+    "allowAutomaticPlaces": false,
+    "copyrightCheck": "No issues found",
+    "communityGuidelinesCheck": "No issues found",
+    "publicVerification": {
+      "hdPlayback": "1920x1080; 1080p60 option confirmed",
+      "playerDurationSeconds": 48.021,
+      "playerError": null,
+      "englishCaptions": "published and visible",
+      "searchableTranscript": "available",
+      "chapters": "3 live chapters at 0:00, 0:20, 0:34",
+      "embedSetting": "enabled",
+      "customThumbnail": "uploaded and saved"
+    }
+  }
+}

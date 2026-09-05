@@ -1,0 +1,55 @@
+TabShow: Preview Chrome Tabs Before You Switch
+
+48-second music-only product animation. The text below describes the visible words; there is no spoken narration. The side panel is the production TabShow 2.1 interface with example tabs. Surrounding browser/page content is an illustrative animation of the verified workflow.
+
+00:00–00:04
+[Instrumental music]
+[On-screen text] Too many tabs. One right page.
+
+00:04–00:07
+[On-screen text] See the page. Keep your place.
+Your tabs, right beside the page you’re using.
+
+00:08–00:11
+[On-screen text] Hover. See it live.
+Point at a tab to preview the page in your window.
+
+00:12–00:15
+[On-screen text] Move away. You’re back.
+Leave the side panel. Your original page returns.
+
+00:16–00:19
+[On-screen text] Found it? Click to keep.
+Open the tab you want. Get straight back to work.
+
+00:20–00:23
+[On-screen text] Every window. One search.
+Find an open tab by title, URL, or domain.
+
+00:24–00:27
+[On-screen text] Search all Chrome windows.
+Tabs in another window open when you choose them.
+
+00:27–00:30
+[On-screen text] Find it. Open it.
+Use the arrow keys to select. Press Enter to open.
+
+00:30–00:33
+[On-screen text] Opened in window 2.
+Keyboard selection waits for Enter. Hover still previews.
+
+00:34–00:36
+[On-screen text] Less friction. More focus.
+Free to use. No account to create.
+
+00:36–00:39
+[On-screen text] No tracking. No ads or extension analytics.
+Tab information stays local.
+
+00:40–00:43
+[On-screen text] TabShow. Find the right tab. Keep your flow.
+Live tab preview for Chrome.
+
+00:43–00:48
+[On-screen text] Add to Chrome.
+Free. No account. No tracking. tab.show

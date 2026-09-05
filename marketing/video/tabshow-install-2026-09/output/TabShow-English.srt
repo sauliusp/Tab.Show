@@ -1,0 +1,64 @@
+1
+00:00:00,000 --> 00:00:04,650
+[Instrumental music]
+[On-screen text] Too many tabs. One right page.
+
+2
+00:00:04,800 --> 00:00:07,900
+[On-screen text] See the page. Keep your place.
+Your tabs, right beside the page you’re using.
+
+3
+00:00:08,000 --> 00:00:11,900
+[On-screen text] Hover. See it live.
+Point at a tab to preview the page in your window.
+
+4
+00:00:12,000 --> 00:00:15,900
+[On-screen text] Move away. You’re back.
+Leave the side panel. Your original page returns.
+
+5
+00:00:16,000 --> 00:00:19,900
+[On-screen text] Found it? Click to keep.
+Open the tab you want. Get straight back to work.
+
+6
+00:00:20,000 --> 00:00:23,900
+[On-screen text] Every window. One search.
+Find an open tab by title, URL, or domain.
+
+7
+00:00:24,000 --> 00:00:27,400
+[On-screen text] Search all Chrome windows.
+Tabs in another window open when you choose them.
+
+8
+00:00:27,500 --> 00:00:30,400
+[On-screen text] Find it. Open it.
+Use the arrow keys to select. Press Enter to open.
+
+9
+00:00:30,500 --> 00:00:33,900
+[On-screen text] Opened in window 2.
+Keyboard selection waits for Enter. Hover still previews.
+
+10
+00:00:34,000 --> 00:00:36,500
+[On-screen text] Less friction. More focus.
+Free to use. No account to create.
+
+11
+00:00:36,600 --> 00:00:39,900
+[On-screen text] No tracking. No ads or extension analytics.
+Tab information stays local.
+
+12
+00:00:40,000 --> 00:00:43,200
+[On-screen text] TabShow. Find the right tab. Keep your flow.
+Live tab preview for Chrome.
+
+13
+00:00:43,300 --> 00:00:48,000
+[On-screen text] Add to Chrome.
+Free. No account. No tracking. tab.show

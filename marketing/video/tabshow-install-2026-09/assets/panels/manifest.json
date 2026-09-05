@@ -1,0 +1,2403 @@
+{
+  "version": "2.1.0",
+  "provenance": "Production entrypoints/sidepanel/App.tsx and src/components/TabItem.tsx, rendered through existing marketing/appshot-harness with its deterministic 12-tab mockBrowser fixture.",
+  "viewportCss": {
+    "width": 420,
+    "height": 650
+  },
+  "deviceScaleFactor": 2,
+  "imagePixels": {
+    "width": 840,
+    "height": 1300
+  },
+  "colorPairing": "charcoal-violet-amber",
+  "productionBehavior": "Hover previews current-window tabs. Leaving the side panel restores the original tab. Click or Enter commits the selected tab and requests the side panel to close. Other-window rows only switch on click or Enter.",
+  "captures": {
+    "idle-current": {
+      "file": "idle-current.png",
+      "query": "",
+      "activeTabId": 101,
+      "activeDescendant": "tab-option-101",
+      "searchInput": {
+        "x": 58,
+        "y": 59.4375,
+        "width": 304,
+        "height": 37.125,
+        "center": {
+          "x": 210,
+          "y": 78
+        }
+      },
+      "searchField": {
+        "x": 12,
+        "y": 58,
+        "width": 350,
+        "height": 40,
+        "center": {
+          "x": 187,
+          "y": 78
+        }
+      },
+      "currentWindowButton": {
+        "x": 15.796875,
+        "y": 13.796875,
+        "width": 169.796875,
+        "height": 32.40625,
+        "center": {
+          "x": 100.6953125,
+          "y": 30
+        }
+      },
+      "allWindowsButton": {
+        "x": 188.390625,
+        "y": 13.796875,
+        "width": 169.8125,
+        "height": 32.40625,
+        "center": {
+          "x": 273.296875,
+          "y": 30
+        }
+      },
+      "allWindows": false,
+      "rows": [
+        {
+          "id": 101,
+          "text": "Q3 launch plan: Google Docsdocs.google.comPinned",
+          "title": "https://docs.google.com/document/d/tabshow-launch-plan",
+          "bounds": {
+            "x": 6,
+            "y": 169.953125,
+            "width": 408,
+            "height": 51.6875,
+            "center": {
+              "x": 210,
+              "y": 195.796875
+            }
+          },
+          "backgroundColor": "rgb(44, 42, 74)",
+          "borderColor": "rgb(44, 42, 74)",
+          "selected": true,
+          "hovered": false,
+          "visibleInPanel": true,
+          "clickTarget": {
+            "x": 6,
+            "y": 169.953125,
+            "width": 408,
+            "height": 51.6875,
+            "center": {
+              "x": 210,
+              "y": 195.796875
+            }
+          },
+          "safeClickPoint": {
+            "x": 146,
+            "y": 195.796875
+          }
+        },
+        {
+          "id": 102,
+          "text": "TabShow 2.1: product designwww.figma.com",
+          "title": "https://www.figma.com/design/tabshow-2",
+          "bounds": {
+            "x": 22,
+            "y": 271.953125,
+            "width": 392,
+            "height": 51.6875,
+            "center": {
+              "x": 218,
+              "y": 297.796875
+            }
+          },
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "borderColor": "rgba(39, 16, 51, 0.12)",
+          "selected": false,
+          "hovered": false,
+          "visibleInPanel": true,
+          "clickTarget": {
+            "x": 22,
+            "y": 271.953125,
+            "width": 392,
+            "height": 51.6875,
+            "center": {
+              "x": 218,
+              "y": 297.796875
+            }
+          },
+          "safeClickPoint": {
+            "x": 162,
+            "y": 297.796875
+          }
+        },
+        {
+          "id": 103,
+          "text": "TabShow launch campaignwww.notion.so",
+          "title": "https://www.notion.so/tabshow-launch",
+          "bounds": {
+            "x": 22,
+            "y": 325.953125,
+            "width": 392,
+            "height": 51.6875,
+            "center": {
+              "x": 218,
+              "y": 351.796875
+            }
+          },
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "borderColor": "rgba(39, 16, 51, 0.12)",
+          "selected": false,
+          "hovered": false,
+          "visibleInPanel": true,
+          "clickTarget": {
+            "x": 22,
+            "y": 325.953125,
+            "width": 392,
+            "height": 51.6875,
+            "center": {
+              "x": 218,
+              "y": 351.796875
+            }
+          },
+          "safeClickPoint": {
+            "x": 162,
+            "y": 351.796875
+          }
+        },
+        {
+          "id": 104,
+          "text": "Website hero: final reviewwww.figma.com",
+          "title": "https://www.figma.com/design/tabshow-website",
+          "bounds": {
+            "x": 22,
+            "y": 379.953125,
+            "width": 392,
+            "height": 51.6875,
+            "center": {
+              "x": 218,
+              "y": 405.796875
+            }
+          },
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "borderColor": "rgba(39, 16, 51, 0.12)",
+          "selected": false,
+          "hovered": false,
+          "visibleInPanel": true,
+          "clickTarget": {
+            "x": 22,
+            "y": 379.953125,
+            "width": 392,
+            "height": 51.6875,
+            "center": {
+              "x": 218,
+              "y": 405.796875
+            }
+          },
+          "safeClickPoint": {
+            "x": 162,
+            "y": 405.796875
+          }
+        },
+        {
+          "id": 105,
+          "text": "Chrome Web Store dashboardchrome.google.com",
+          "title": "https://chrome.google.com/webstore/devconsole",
+          "bounds": {
+            "x": 22,
+            "y": 481.953125,
+            "width": 392,
+            "height": 51.6875,
+            "center": {
+              "x": 218,
+              "y": 507.796875
+            }
+          },
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "borderColor": "rgba(39, 16, 51, 0.12)",
+          "selected": false,
+          "hovered": false,
+          "visibleInPanel": true,
+          "clickTarget": {
+            "x": 22,
+            "y": 481.953125,
+            "width": 392,
+            "height": 51.6875,
+            "center": {
+              "x": 218,
+              "y": 507.796875
+            }
+          },
+          "safeClickPoint": {
+            "x": 162,
+            "y": 507.796875
+          }
+        },
+        {
+          "id": 106,
+          "text": "TabShow feedback & feature requestsnarsheek.featurebase.app",
+          "title": "https://narsheek.featurebase.app/",
+          "bounds": {
+            "x": 22,
+            "y": 535.953125,
+            "width": 392,
+            "height": 51.6875,
+            "center": {
+              "x": 218,
+              "y": 561.796875
+            }
+          },
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "borderColor": "rgba(39, 16, 51, 0.12)",
+          "selected": false,
+          "hovered": false,
+          "visibleInPanel": true,
+          "clickTarget": {
+            "x": 22,
+            "y": 535.953125,
+            "width": 392,
+            "height": 51.6875,
+            "center": {
+              "x": 218,
+              "y": 561.796875
+            }
+          },
+          "safeClickPoint": {
+            "x": 162,
+            "y": 561.796875
+          }
+        },
+        {
+          "id": 107,
+          "text": "Inbox: launch partnersmail.google.comPlaying audio",
+          "title": "https://mail.google.com/mail/u/0/#inbox",
+          "bounds": {
+            "x": 6,
+            "y": 589.953125,
+            "width": 408,
+            "height": 51.6875,
+            "center": {
+              "x": 210,
+              "y": 615.796875
+            }
+          },
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "borderColor": "rgba(39, 16, 51, 0.12)",
+          "selected": false,
+          "hovered": false,
+          "visibleInPanel": true,
+          "clickTarget": {
+            "x": 6,
+            "y": 589.953125,
+            "width": 408,
+            "height": 51.6875,
+            "center": {
+              "x": 210,
+              "y": 615.796875
+            }
+          },
+          "safeClickPoint": {
+            "x": 146,
+            "y": 615.796875
+          }
+        },
+        {
+          "id": 108,
+          "text": "TabShow analyticsanalytics.google.comSleeping",
+          "title": "https://analytics.google.com/analytics/web/",
+          "bounds": {
+            "x": 6,
+            "y": 643.953125,
+            "width": 408,
+            "height": 51.6875,
+            "center": {
+              "x": 210,
+              "y": 669.796875
+            }
+          },
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "borderColor": "rgba(39, 16, 51, 0.12)",
+          "selected": false,
+          "hovered": false,
+          "visibleInPanel": false,
+          "clickTarget": {
+            "x": 6,
+            "y": 643.953125,
+            "width": 408,
+            "height": 51.6875,
+            "center": {
+              "x": 210,
+              "y": 669.796875
+            }
+          },
+          "safeClickPoint": {
+            "x": 146,
+            "y": 669.796875
+          }
+        }
+      ],
+      "updates": [],
+      "closeRequests": 0,
+      "tabCountSummary": "OPEN TABS8"
+    },
+    "hover-design": {
+      "file": "hover-design.png",
+      "query": "",
+      "activeTabId": 102,
+      "activeDescendant": "tab-option-102",
+      "searchInput": {
+        "x": 58,
+        "y": 59.4375,
+        "width": 304,
+        "height": 37.125,
+        "center": {
+          "x": 210,
+          "y": 78
+        }
+      },
+      "searchField": {
+        "x": 12,
+        "y": 58,
+        "width": 350,
+        "height": 40,
+        "center": {
+          "x": 187,
+          "y": 78
+        }
+      },
+      "currentWindowButton": {
+        "x": 15.796875,
+        "y": 13.796875,
+        "width": 169.796875,
+        "height": 32.40625,
+        "center": {
+          "x": 100.6953125,
+          "y": 30
+        }
+      },
+      "allWindowsButton": {
+        "x": 188.390625,
+        "y": 13.796875,
+        "width": 169.8125,
+        "height": 32.40625,
+        "center": {
+          "x": 273.296875,
+          "y": 30
+        }
+      },
+      "allWindows": false,
+      "rows": [
+        {
+          "id": 101,
+          "text": "Q3 launch plan: Google Docsdocs.google.comPinned",
+          "title": "https://docs.google.com/document/d/tabshow-launch-plan",
+          "bounds": {
+            "x": 6,
+            "y": 169.953125,
+            "width": 408,
+            "height": 51.6875,
+            "center": {
+              "x": 210,
+              "y": 195.796875
+            }
+          },
+          "backgroundColor": "rgb(44, 42, 74)",
+          "borderColor": "rgb(44, 42, 74)",
+          "selected": false,
+          "hovered": false,
+          "visibleInPanel": true,
+          "clickTarget": {
+            "x": 6,
+            "y": 169.953125,
+            "width": 408,
+            "height": 51.6875,
+            "center": {
+              "x": 210,
+              "y": 195.796875
+            }
+          },
+          "safeClickPoint": {
+            "x": 146,
+            "y": 195.796875
+          }
+        },
+        {
+          "id": 102,
+          "text": "TabShow 2.1: product designwww.figma.com",
+          "title": "https://www.figma.com/design/tabshow-2",
+          "bounds": {
+            "x": 22,
+            "y": 271.953125,
+            "width": 392,
+            "height": 51.6875,
+            "center": {
+              "x": 218,
+              "y": 297.796875
+            }
+          },
+          "backgroundColor": "rgb(244, 162, 89)",
+          "borderColor": "rgb(244, 162, 89)",
+          "selected": true,
+          "hovered": true,
+          "visibleInPanel": true,
+          "clickTarget": {
+            "x": 22,
+            "y": 271.953125,
+            "width": 392,
+            "height": 51.6875,
+            "center": {
+              "x": 218,
+              "y": 297.796875
+            }
+          },
+          "safeClickPoint": {
+            "x": 162,
+            "y": 297.796875
+          }
+        },
+        {
+          "id": 103,
+          "text": "TabShow launch campaignwww.notion.so",
+          "title": "https://www.notion.so/tabshow-launch",
+          "bounds": {
+            "x": 22,
+            "y": 325.953125,
+            "width": 392,
+            "height": 51.6875,
+            "center": {
+              "x": 218,
+              "y": 351.796875
+            }
+          },
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "borderColor": "rgba(39, 16, 51, 0.12)",
+          "selected": false,
+          "hovered": false,
+          "visibleInPanel": true,
+          "clickTarget": {
+            "x": 22,
+            "y": 325.953125,
+            "width": 392,
+            "height": 51.6875,
+            "center": {
+              "x": 218,
+              "y": 351.796875
+            }
+          },
+          "safeClickPoint": {
+            "x": 162,
+            "y": 351.796875
+          }
+        },
+        {
+          "id": 104,
+          "text": "Website hero: final reviewwww.figma.com",
+          "title": "https://www.figma.com/design/tabshow-website",
+          "bounds": {
+            "x": 22,
+            "y": 379.953125,
+            "width": 392,
+            "height": 51.6875,
+            "center": {
+              "x": 218,
+              "y": 405.796875
+            }
+          },
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "borderColor": "rgba(39, 16, 51, 0.12)",
+          "selected": false,
+          "hovered": false,
+          "visibleInPanel": true,
+          "clickTarget": {
+            "x": 22,
+            "y": 379.953125,
+            "width": 392,
+            "height": 51.6875,
+            "center": {
+              "x": 218,
+              "y": 405.796875
+            }
+          },
+          "safeClickPoint": {
+            "x": 162,
+            "y": 405.796875
+          }
+        },
+        {
+          "id": 105,
+          "text": "Chrome Web Store dashboardchrome.google.com",
+          "title": "https://chrome.google.com/webstore/devconsole",
+          "bounds": {
+            "x": 22,
+            "y": 481.953125,
+            "width": 392,
+            "height": 51.6875,
+            "center": {
+              "x": 218,
+              "y": 507.796875
+            }
+          },
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "borderColor": "rgba(39, 16, 51, 0.12)",
+          "selected": false,
+          "hovered": false,
+          "visibleInPanel": true,
+          "clickTarget": {
+            "x": 22,
+            "y": 481.953125,
+            "width": 392,
+            "height": 51.6875,
+            "center": {
+              "x": 218,
+              "y": 507.796875
+            }
+          },
+          "safeClickPoint": {
+            "x": 162,
+            "y": 507.796875
+          }
+        },
+        {
+          "id": 106,
+          "text": "TabShow feedback & feature requestsnarsheek.featurebase.app",
+          "title": "https://narsheek.featurebase.app/",
+          "bounds": {
+            "x": 22,
+            "y": 535.953125,
+            "width": 392,
+            "height": 51.6875,
+            "center": {
+              "x": 218,
+              "y": 561.796875
+            }
+          },
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "borderColor": "rgba(39, 16, 51, 0.12)",
+          "selected": false,
+          "hovered": false,
+          "visibleInPanel": true,
+          "clickTarget": {
+            "x": 22,
+            "y": 535.953125,
+            "width": 392,
+            "height": 51.6875,
+            "center": {
+              "x": 218,
+              "y": 561.796875
+            }
+          },
+          "safeClickPoint": {
+            "x": 162,
+            "y": 561.796875
+          }
+        },
+        {
+          "id": 107,
+          "text": "Inbox: launch partnersmail.google.comPlaying audio",
+          "title": "https://mail.google.com/mail/u/0/#inbox",
+          "bounds": {
+            "x": 6,
+            "y": 589.953125,
+            "width": 408,
+            "height": 51.6875,
+            "center": {
+              "x": 210,
+              "y": 615.796875
+            }
+          },
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "borderColor": "rgba(39, 16, 51, 0.12)",
+          "selected": false,
+          "hovered": false,
+          "visibleInPanel": true,
+          "clickTarget": {
+            "x": 6,
+            "y": 589.953125,
+            "width": 408,
+            "height": 51.6875,
+            "center": {
+              "x": 210,
+              "y": 615.796875
+            }
+          },
+          "safeClickPoint": {
+            "x": 146,
+            "y": 615.796875
+          }
+        },
+        {
+          "id": 108,
+          "text": "TabShow analyticsanalytics.google.comSleeping",
+          "title": "https://analytics.google.com/analytics/web/",
+          "bounds": {
+            "x": 6,
+            "y": 643.953125,
+            "width": 408,
+            "height": 51.6875,
+            "center": {
+              "x": 210,
+              "y": 669.796875
+            }
+          },
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "borderColor": "rgba(39, 16, 51, 0.12)",
+          "selected": false,
+          "hovered": false,
+          "visibleInPanel": false,
+          "clickTarget": {
+            "x": 6,
+            "y": 643.953125,
+            "width": 408,
+            "height": 51.6875,
+            "center": {
+              "x": 210,
+              "y": 669.796875
+            }
+          },
+          "safeClickPoint": {
+            "x": 146,
+            "y": 669.796875
+          }
+        }
+      ],
+      "updates": [
+        {
+          "id": 102,
+          "at": 2840.2000000476837
+        }
+      ],
+      "closeRequests": 0,
+      "tabCountSummary": "OPEN TABS8"
+    },
+    "returned-current": {
+      "file": "returned-current.png",
+      "query": "",
+      "activeTabId": 101,
+      "activeDescendant": "tab-option-102",
+      "searchInput": {
+        "x": 58,
+        "y": 59.4375,
+        "width": 304,
+        "height": 37.125,
+        "center": {
+          "x": 210,
+          "y": 78
+        }
+      },
+      "searchField": {
+        "x": 12,
+        "y": 58,
+        "width": 350,
+        "height": 40,
+        "center": {
+          "x": 187,
+          "y": 78
+        }
+      },
+      "currentWindowButton": {
+        "x": 15.796875,
+        "y": 13.796875,
+        "width": 169.796875,
+        "height": 32.40625,
+        "center": {
+          "x": 100.6953125,
+          "y": 30
+        }
+      },
+      "allWindowsButton": {
+        "x": 188.390625,
+        "y": 13.796875,
+        "width": 169.8125,
+        "height": 32.40625,
+        "center": {
+          "x": 273.296875,
+          "y": 30
+        }
+      },
+      "allWindows": false,
+      "rows": [
+        {
+          "id": 101,
+          "text": "Q3 launch plan: Google Docsdocs.google.comPinned",
+          "title": "https://docs.google.com/document/d/tabshow-launch-plan",
+          "bounds": {
+            "x": 6,
+            "y": 169.953125,
+            "width": 408,
+            "height": 51.6875,
+            "center": {
+              "x": 210,
+              "y": 195.796875
+            }
+          },
+          "backgroundColor": "rgb(44, 42, 74)",
+          "borderColor": "rgb(44, 42, 74)",
+          "selected": false,
+          "hovered": false,
+          "visibleInPanel": true,
+          "clickTarget": {
+            "x": 6,
+            "y": 169.953125,
+            "width": 408,
+            "height": 51.6875,
+            "center": {
+              "x": 210,
+              "y": 195.796875
+            }
+          },
+          "safeClickPoint": {
+            "x": 146,
+            "y": 195.796875
+          }
+        },
+        {
+          "id": 102,
+          "text": "TabShow 2.1: product designwww.figma.com",
+          "title": "https://www.figma.com/design/tabshow-2",
+          "bounds": {
+            "x": 22,
+            "y": 271.953125,
+            "width": 392,
+            "height": 51.6875,
+            "center": {
+              "x": 218,
+              "y": 297.796875
+            }
+          },
+          "backgroundColor": "rgba(44, 42, 74, 0.1)",
+          "borderColor": "rgba(39, 16, 51, 0.12)",
+          "selected": true,
+          "hovered": false,
+          "visibleInPanel": true,
+          "clickTarget": {
+            "x": 22,
+            "y": 271.953125,
+            "width": 392,
+            "height": 51.6875,
+            "center": {
+              "x": 218,
+              "y": 297.796875
+            }
+          },
+          "safeClickPoint": {
+            "x": 162,
+            "y": 297.796875
+          }
+        },
+        {
+          "id": 103,
+          "text": "TabShow launch campaignwww.notion.so",
+          "title": "https://www.notion.so/tabshow-launch",
+          "bounds": {
+            "x": 22,
+            "y": 325.953125,
+            "width": 392,
+            "height": 51.6875,
+            "center": {
+              "x": 218,
+              "y": 351.796875
+            }
+          },
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "borderColor": "rgba(39, 16, 51, 0.12)",
+          "selected": false,
+          "hovered": false,
+          "visibleInPanel": true,
+          "clickTarget": {
+            "x": 22,
+            "y": 325.953125,
+            "width": 392,
+            "height": 51.6875,
+            "center": {
+              "x": 218,
+              "y": 351.796875
+            }
+          },
+          "safeClickPoint": {
+            "x": 162,
+            "y": 351.796875
+          }
+        },
+        {
+          "id": 104,
+          "text": "Website hero: final reviewwww.figma.com",
+          "title": "https://www.figma.com/design/tabshow-website",
+          "bounds": {
+            "x": 22,
+            "y": 379.953125,
+            "width": 392,
+            "height": 51.6875,
+            "center": {
+              "x": 218,
+              "y": 405.796875
+            }
+          },
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "borderColor": "rgba(39, 16, 51, 0.12)",
+          "selected": false,
+          "hovered": false,
+          "visibleInPanel": true,
+          "clickTarget": {
+            "x": 22,
+            "y": 379.953125,
+            "width": 392,
+            "height": 51.6875,
+            "center": {
+              "x": 218,
+              "y": 405.796875
+            }
+          },
+          "safeClickPoint": {
+            "x": 162,
+            "y": 405.796875
+          }
+        },
+        {
+          "id": 105,
+          "text": "Chrome Web Store dashboardchrome.google.com",
+          "title": "https://chrome.google.com/webstore/devconsole",
+          "bounds": {
+            "x": 22,
+            "y": 481.953125,
+            "width": 392,
+            "height": 51.6875,
+            "center": {
+              "x": 218,
+              "y": 507.796875
+            }
+          },
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "borderColor": "rgba(39, 16, 51, 0.12)",
+          "selected": false,
+          "hovered": false,
+          "visibleInPanel": true,
+          "clickTarget": {
+            "x": 22,
+            "y": 481.953125,
+            "width": 392,
+            "height": 51.6875,
+            "center": {
+              "x": 218,
+              "y": 507.796875
+            }
+          },
+          "safeClickPoint": {
+            "x": 162,
+            "y": 507.796875
+          }
+        },
+        {
+          "id": 106,
+          "text": "TabShow feedback & feature requestsnarsheek.featurebase.app",
+          "title": "https://narsheek.featurebase.app/",
+          "bounds": {
+            "x": 22,
+            "y": 535.953125,
+            "width": 392,
+            "height": 51.6875,
+            "center": {
+              "x": 218,
+              "y": 561.796875
+            }
+          },
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "borderColor": "rgba(39, 16, 51, 0.12)",
+          "selected": false,
+          "hovered": false,
+          "visibleInPanel": true,
+          "clickTarget": {
+            "x": 22,
+            "y": 535.953125,
+            "width": 392,
+            "height": 51.6875,
+            "center": {
+              "x": 218,
+              "y": 561.796875
+            }
+          },
+          "safeClickPoint": {
+            "x": 162,
+            "y": 561.796875
+          }
+        },
+        {
+          "id": 107,
+          "text": "Inbox: launch partnersmail.google.comPlaying audio",
+          "title": "https://mail.google.com/mail/u/0/#inbox",
+          "bounds": {
+            "x": 6,
+            "y": 589.953125,
+            "width": 408,
+            "height": 51.6875,
+            "center": {
+              "x": 210,
+              "y": 615.796875
+            }
+          },
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "borderColor": "rgba(39, 16, 51, 0.12)",
+          "selected": false,
+          "hovered": false,
+          "visibleInPanel": true,
+          "clickTarget": {
+            "x": 6,
+            "y": 589.953125,
+            "width": 408,
+            "height": 51.6875,
+            "center": {
+              "x": 210,
+              "y": 615.796875
+            }
+          },
+          "safeClickPoint": {
+            "x": 146,
+            "y": 615.796875
+          }
+        },
+        {
+          "id": 108,
+          "text": "TabShow analyticsanalytics.google.comSleeping",
+          "title": "https://analytics.google.com/analytics/web/",
+          "bounds": {
+            "x": 6,
+            "y": 643.953125,
+            "width": 408,
+            "height": 51.6875,
+            "center": {
+              "x": 210,
+              "y": 669.796875
+            }
+          },
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "borderColor": "rgba(39, 16, 51, 0.12)",
+          "selected": false,
+          "hovered": false,
+          "visibleInPanel": false,
+          "clickTarget": {
+            "x": 6,
+            "y": 643.953125,
+            "width": 408,
+            "height": 51.6875,
+            "center": {
+              "x": 210,
+              "y": 669.796875
+            }
+          },
+          "safeClickPoint": {
+            "x": 146,
+            "y": 669.796875
+          }
+        }
+      ],
+      "updates": [
+        {
+          "id": 102,
+          "at": 2840.2000000476837
+        },
+        {
+          "id": 101,
+          "at": 3205.2000000476837
+        }
+      ],
+      "closeRequests": 0,
+      "tabCountSummary": "OPEN TABS8"
+    },
+    "committed-design": {
+      "file": "committed-design.png",
+      "query": "",
+      "activeTabId": 102,
+      "activeDescendant": "tab-option-102",
+      "searchInput": {
+        "x": 58,
+        "y": 59.4375,
+        "width": 304,
+        "height": 37.125,
+        "center": {
+          "x": 210,
+          "y": 78
+        }
+      },
+      "searchField": {
+        "x": 12,
+        "y": 58,
+        "width": 350,
+        "height": 40,
+        "center": {
+          "x": 187,
+          "y": 78
+        }
+      },
+      "currentWindowButton": {
+        "x": 15.796875,
+        "y": 13.796875,
+        "width": 169.796875,
+        "height": 32.40625,
+        "center": {
+          "x": 100.6953125,
+          "y": 30
+        }
+      },
+      "allWindowsButton": {
+        "x": 188.390625,
+        "y": 13.796875,
+        "width": 169.8125,
+        "height": 32.40625,
+        "center": {
+          "x": 273.296875,
+          "y": 30
+        }
+      },
+      "allWindows": false,
+      "rows": [
+        {
+          "id": 101,
+          "text": "Q3 launch plan: Google Docsdocs.google.comPinned",
+          "title": "https://docs.google.com/document/d/tabshow-launch-plan",
+          "bounds": {
+            "x": 6,
+            "y": 169.953125,
+            "width": 408,
+            "height": 51.6875,
+            "center": {
+              "x": 210,
+              "y": 195.796875
+            }
+          },
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "borderColor": "rgba(39, 16, 51, 0.12)",
+          "selected": false,
+          "hovered": false,
+          "visibleInPanel": true,
+          "clickTarget": {
+            "x": 6,
+            "y": 169.953125,
+            "width": 408,
+            "height": 51.6875,
+            "center": {
+              "x": 210,
+              "y": 195.796875
+            }
+          },
+          "safeClickPoint": {
+            "x": 146,
+            "y": 195.796875
+          }
+        },
+        {
+          "id": 102,
+          "text": "TabShow 2.1: product designwww.figma.com",
+          "title": "https://www.figma.com/design/tabshow-2",
+          "bounds": {
+            "x": 22,
+            "y": 271.953125,
+            "width": 392,
+            "height": 51.6875,
+            "center": {
+              "x": 218,
+              "y": 297.796875
+            }
+          },
+          "backgroundColor": "rgb(44, 42, 74)",
+          "borderColor": "rgb(44, 42, 74)",
+          "selected": true,
+          "hovered": false,
+          "visibleInPanel": true,
+          "clickTarget": {
+            "x": 22,
+            "y": 271.953125,
+            "width": 392,
+            "height": 51.6875,
+            "center": {
+              "x": 218,
+              "y": 297.796875
+            }
+          },
+          "safeClickPoint": {
+            "x": 162,
+            "y": 297.796875
+          }
+        },
+        {
+          "id": 103,
+          "text": "TabShow launch campaignwww.notion.so",
+          "title": "https://www.notion.so/tabshow-launch",
+          "bounds": {
+            "x": 22,
+            "y": 325.953125,
+            "width": 392,
+            "height": 51.6875,
+            "center": {
+              "x": 218,
+              "y": 351.796875
+            }
+          },
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "borderColor": "rgba(39, 16, 51, 0.12)",
+          "selected": false,
+          "hovered": false,
+          "visibleInPanel": true,
+          "clickTarget": {
+            "x": 22,
+            "y": 325.953125,
+            "width": 392,
+            "height": 51.6875,
+            "center": {
+              "x": 218,
+              "y": 351.796875
+            }
+          },
+          "safeClickPoint": {
+            "x": 162,
+            "y": 351.796875
+          }
+        },
+        {
+          "id": 104,
+          "text": "Website hero: final reviewwww.figma.com",
+          "title": "https://www.figma.com/design/tabshow-website",
+          "bounds": {
+            "x": 22,
+            "y": 379.953125,
+            "width": 392,
+            "height": 51.6875,
+            "center": {
+              "x": 218,
+              "y": 405.796875
+            }
+          },
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "borderColor": "rgba(39, 16, 51, 0.12)",
+          "selected": false,
+          "hovered": false,
+          "visibleInPanel": true,
+          "clickTarget": {
+            "x": 22,
+            "y": 379.953125,
+            "width": 392,
+            "height": 51.6875,
+            "center": {
+              "x": 218,
+              "y": 405.796875
+            }
+          },
+          "safeClickPoint": {
+            "x": 162,
+            "y": 405.796875
+          }
+        },
+        {
+          "id": 105,
+          "text": "Chrome Web Store dashboardchrome.google.com",
+          "title": "https://chrome.google.com/webstore/devconsole",
+          "bounds": {
+            "x": 22,
+            "y": 481.953125,
+            "width": 392,
+            "height": 51.6875,
+            "center": {
+              "x": 218,
+              "y": 507.796875
+            }
+          },
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "borderColor": "rgba(39, 16, 51, 0.12)",
+          "selected": false,
+          "hovered": false,
+          "visibleInPanel": true,
+          "clickTarget": {
+            "x": 22,
+            "y": 481.953125,
+            "width": 392,
+            "height": 51.6875,
+            "center": {
+              "x": 218,
+              "y": 507.796875
+            }
+          },
+          "safeClickPoint": {
+            "x": 162,
+            "y": 507.796875
+          }
+        },
+        {
+          "id": 106,
+          "text": "TabShow feedback & feature requestsnarsheek.featurebase.app",
+          "title": "https://narsheek.featurebase.app/",
+          "bounds": {
+            "x": 22,
+            "y": 535.953125,
+            "width": 392,
+            "height": 51.6875,
+            "center": {
+              "x": 218,
+              "y": 561.796875
+            }
+          },
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "borderColor": "rgba(39, 16, 51, 0.12)",
+          "selected": false,
+          "hovered": false,
+          "visibleInPanel": true,
+          "clickTarget": {
+            "x": 22,
+            "y": 535.953125,
+            "width": 392,
+            "height": 51.6875,
+            "center": {
+              "x": 218,
+              "y": 561.796875
+            }
+          },
+          "safeClickPoint": {
+            "x": 162,
+            "y": 561.796875
+          }
+        },
+        {
+          "id": 107,
+          "text": "Inbox: launch partnersmail.google.comPlaying audio",
+          "title": "https://mail.google.com/mail/u/0/#inbox",
+          "bounds": {
+            "x": 6,
+            "y": 589.953125,
+            "width": 408,
+            "height": 51.6875,
+            "center": {
+              "x": 210,
+              "y": 615.796875
+            }
+          },
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "borderColor": "rgba(39, 16, 51, 0.12)",
+          "selected": false,
+          "hovered": false,
+          "visibleInPanel": true,
+          "clickTarget": {
+            "x": 6,
+            "y": 589.953125,
+            "width": 408,
+            "height": 51.6875,
+            "center": {
+              "x": 210,
+              "y": 615.796875
+            }
+          },
+          "safeClickPoint": {
+            "x": 146,
+            "y": 615.796875
+          }
+        },
+        {
+          "id": 108,
+          "text": "TabShow analyticsanalytics.google.comSleeping",
+          "title": "https://analytics.google.com/analytics/web/",
+          "bounds": {
+            "x": 6,
+            "y": 643.953125,
+            "width": 408,
+            "height": 51.6875,
+            "center": {
+              "x": 210,
+              "y": 669.796875
+            }
+          },
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "borderColor": "rgba(39, 16, 51, 0.12)",
+          "selected": false,
+          "hovered": false,
+          "visibleInPanel": false,
+          "clickTarget": {
+            "x": 6,
+            "y": 643.953125,
+            "width": 408,
+            "height": 51.6875,
+            "center": {
+              "x": 210,
+              "y": 669.796875
+            }
+          },
+          "safeClickPoint": {
+            "x": 146,
+            "y": 669.796875
+          }
+        }
+      ],
+      "updates": [
+        {
+          "id": 102,
+          "at": 2840.2000000476837
+        },
+        {
+          "id": 101,
+          "at": 3205.2000000476837
+        },
+        {
+          "id": 102,
+          "at": 3575.100000023842
+        },
+        {
+          "id": 102,
+          "at": 3628
+        }
+      ],
+      "closeRequests": 1,
+      "tabCountSummary": "OPEN TABS8",
+      "caution": "The mock keeps the panel visible after close(); production closes it. Use this still only for an internal transition."
+    },
+    "idle-all-windows": {
+      "file": "idle-all-windows.png",
+      "query": "",
+      "activeTabId": 101,
+      "activeDescendant": "tab-option-101",
+      "searchInput": {
+        "x": 58,
+        "y": 59.4375,
+        "width": 304,
+        "height": 37.125,
+        "center": {
+          "x": 210,
+          "y": 78
+        }
+      },
+      "searchField": {
+        "x": 12,
+        "y": 58,
+        "width": 350,
+        "height": 40,
+        "center": {
+          "x": 187,
+          "y": 78
+        }
+      },
+      "currentWindowButton": {
+        "x": 15.796875,
+        "y": 13.796875,
+        "width": 169.796875,
+        "height": 32.40625,
+        "center": {
+          "x": 100.6953125,
+          "y": 30
+        }
+      },
+      "allWindowsButton": {
+        "x": 188.390625,
+        "y": 13.796875,
+        "width": 169.8125,
+        "height": 32.40625,
+        "center": {
+          "x": 273.296875,
+          "y": 30
+        }
+      },
+      "allWindows": true,
+      "rows": [
+        {
+          "id": 101,
+          "text": "Q3 launch plan: Google Docsdocs.google.comPinned",
+          "title": "https://docs.google.com/document/d/tabshow-launch-plan",
+          "bounds": {
+            "x": 6,
+            "y": 169.953125,
+            "width": 408,
+            "height": 51.6875,
+            "center": {
+              "x": 210,
+              "y": 195.796875
+            }
+          },
+          "backgroundColor": "rgb(44, 42, 74)",
+          "borderColor": "rgb(44, 42, 74)",
+          "selected": true,
+          "hovered": false,
+          "visibleInPanel": true,
+          "clickTarget": {
+            "x": 6,
+            "y": 169.953125,
+            "width": 408,
+            "height": 51.6875,
+            "center": {
+              "x": 210,
+              "y": 195.796875
+            }
+          },
+          "safeClickPoint": {
+            "x": 146,
+            "y": 195.796875
+          }
+        },
+        {
+          "id": 102,
+          "text": "TabShow 2.1: product designwww.figma.com",
+          "title": "https://www.figma.com/design/tabshow-2",
+          "bounds": {
+            "x": 22,
+            "y": 271.953125,
+            "width": 392,
+            "height": 51.6875,
+            "center": {
+              "x": 218,
+              "y": 297.796875
+            }
+          },
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "borderColor": "rgba(39, 16, 51, 0.12)",
+          "selected": false,
+          "hovered": false,
+          "visibleInPanel": true,
+          "clickTarget": {
+            "x": 22,
+            "y": 271.953125,
+            "width": 392,
+            "height": 51.6875,
+            "center": {
+              "x": 218,
+              "y": 297.796875
+            }
+          },
+          "safeClickPoint": {
+            "x": 162,
+            "y": 297.796875
+          }
+        },
+        {
+          "id": 103,
+          "text": "TabShow launch campaignwww.notion.so",
+          "title": "https://www.notion.so/tabshow-launch",
+          "bounds": {
+            "x": 22,
+            "y": 325.953125,
+            "width": 392,
+            "height": 51.6875,
+            "center": {
+              "x": 218,
+              "y": 351.796875
+            }
+          },
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "borderColor": "rgba(39, 16, 51, 0.12)",
+          "selected": false,
+          "hovered": false,
+          "visibleInPanel": true,
+          "clickTarget": {
+            "x": 22,
+            "y": 325.953125,
+            "width": 392,
+            "height": 51.6875,
+            "center": {
+              "x": 218,
+              "y": 351.796875
+            }
+          },
+          "safeClickPoint": {
+            "x": 162,
+            "y": 351.796875
+          }
+        },
+        {
+          "id": 104,
+          "text": "Website hero: final reviewwww.figma.com",
+          "title": "https://www.figma.com/design/tabshow-website",
+          "bounds": {
+            "x": 22,
+            "y": 379.953125,
+            "width": 392,
+            "height": 51.6875,
+            "center": {
+              "x": 218,
+              "y": 405.796875
+            }
+          },
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "borderColor": "rgba(39, 16, 51, 0.12)",
+          "selected": false,
+          "hovered": false,
+          "visibleInPanel": true,
+          "clickTarget": {
+            "x": 22,
+            "y": 379.953125,
+            "width": 392,
+            "height": 51.6875,
+            "center": {
+              "x": 218,
+              "y": 405.796875
+            }
+          },
+          "safeClickPoint": {
+            "x": 162,
+            "y": 405.796875
+          }
+        },
+        {
+          "id": 105,
+          "text": "Chrome Web Store dashboardchrome.google.com",
+          "title": "https://chrome.google.com/webstore/devconsole",
+          "bounds": {
+            "x": 22,
+            "y": 481.953125,
+            "width": 392,
+            "height": 51.6875,
+            "center": {
+              "x": 218,
+              "y": 507.796875
+            }
+          },
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "borderColor": "rgba(39, 16, 51, 0.12)",
+          "selected": false,
+          "hovered": false,
+          "visibleInPanel": true,
+          "clickTarget": {
+            "x": 22,
+            "y": 481.953125,
+            "width": 392,
+            "height": 51.6875,
+            "center": {
+              "x": 218,
+              "y": 507.796875
+            }
+          },
+          "safeClickPoint": {
+            "x": 162,
+            "y": 507.796875
+          }
+        },
+        {
+          "id": 106,
+          "text": "TabShow feedback & feature requestsnarsheek.featurebase.app",
+          "title": "https://narsheek.featurebase.app/",
+          "bounds": {
+            "x": 22,
+            "y": 535.953125,
+            "width": 392,
+            "height": 51.6875,
+            "center": {
+              "x": 218,
+              "y": 561.796875
+            }
+          },
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "borderColor": "rgba(39, 16, 51, 0.12)",
+          "selected": false,
+          "hovered": false,
+          "visibleInPanel": true,
+          "clickTarget": {
+            "x": 22,
+            "y": 535.953125,
+            "width": 392,
+            "height": 51.6875,
+            "center": {
+              "x": 218,
+              "y": 561.796875
+            }
+          },
+          "safeClickPoint": {
+            "x": 162,
+            "y": 561.796875
+          }
+        },
+        {
+          "id": 107,
+          "text": "Inbox: launch partnersmail.google.comPlaying audio",
+          "title": "https://mail.google.com/mail/u/0/#inbox",
+          "bounds": {
+            "x": 6,
+            "y": 589.953125,
+            "width": 408,
+            "height": 51.6875,
+            "center": {
+              "x": 210,
+              "y": 615.796875
+            }
+          },
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "borderColor": "rgba(39, 16, 51, 0.12)",
+          "selected": false,
+          "hovered": false,
+          "visibleInPanel": true,
+          "clickTarget": {
+            "x": 6,
+            "y": 589.953125,
+            "width": 408,
+            "height": 51.6875,
+            "center": {
+              "x": 210,
+              "y": 615.796875
+            }
+          },
+          "safeClickPoint": {
+            "x": 146,
+            "y": 615.796875
+          }
+        },
+        {
+          "id": 108,
+          "text": "TabShow analyticsanalytics.google.comSleeping",
+          "title": "https://analytics.google.com/analytics/web/",
+          "bounds": {
+            "x": 6,
+            "y": 643.953125,
+            "width": 408,
+            "height": 51.6875,
+            "center": {
+              "x": 210,
+              "y": 669.796875
+            }
+          },
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "borderColor": "rgba(39, 16, 51, 0.12)",
+          "selected": false,
+          "hovered": false,
+          "visibleInPanel": false,
+          "clickTarget": {
+            "x": 6,
+            "y": 643.953125,
+            "width": 408,
+            "height": 51.6875,
+            "center": {
+              "x": 210,
+              "y": 669.796875
+            }
+          },
+          "safeClickPoint": {
+            "x": 146,
+            "y": 669.796875
+          }
+        },
+        {
+          "id": 201,
+          "text": "Linear: TabShow launchlinear.appSwitchPinned",
+          "title": "Another Chrome window. Click to switch. Hover preview is unavailable.",
+          "bounds": {
+            "x": 6,
+            "y": 755.953125,
+            "width": 408,
+            "height": 51.6875,
+            "center": {
+              "x": 210,
+              "y": 781.796875
+            }
+          },
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "borderColor": "rgba(39, 16, 51, 0.12)",
+          "selected": false,
+          "hovered": false,
+          "visibleInPanel": false,
+          "clickTarget": {
+            "x": 6,
+            "y": 755.953125,
+            "width": 408,
+            "height": 51.6875,
+            "center": {
+              "x": 210,
+              "y": 781.796875
+            }
+          },
+          "safeClickPoint": {
+            "x": 146,
+            "y": 781.796875
+          }
+        },
+        {
+          "id": 202,
+          "text": "TabShow website copydocs.google.comSwitch",
+          "title": "Another Chrome window. Click to switch. Hover preview is unavailable.",
+          "bounds": {
+            "x": 22,
+            "y": 857.953125,
+            "width": 392,
+            "height": 51.6875,
+            "center": {
+              "x": 218,
+              "y": 883.796875
+            }
+          },
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "borderColor": "rgba(39, 16, 51, 0.12)",
+          "selected": false,
+          "hovered": false,
+          "visibleInPanel": false,
+          "clickTarget": {
+            "x": 22,
+            "y": 857.953125,
+            "width": 392,
+            "height": 51.6875,
+            "center": {
+              "x": 218,
+              "y": 883.796875
+            }
+          },
+          "safeClickPoint": {
+            "x": 162,
+            "y": 883.796875
+          }
+        }
+      ],
+      "updates": [],
+      "closeRequests": 0,
+      "tabCountSummary": "OPEN TABS12WINDOWS2"
+    },
+    "search-tabshow": {
+      "file": "search-tabshow.png",
+      "query": "TabShow",
+      "activeTabId": 101,
+      "activeDescendant": "tab-option-101",
+      "searchInput": {
+        "x": 58,
+        "y": 59.4375,
+        "width": 304,
+        "height": 37.125,
+        "center": {
+          "x": 210,
+          "y": 78
+        }
+      },
+      "searchField": {
+        "x": 12,
+        "y": 58,
+        "width": 350,
+        "height": 40,
+        "center": {
+          "x": 187,
+          "y": 78
+        }
+      },
+      "currentWindowButton": {
+        "x": 15.796875,
+        "y": 13.796875,
+        "width": 169.796875,
+        "height": 32.40625,
+        "center": {
+          "x": 100.6953125,
+          "y": 30
+        }
+      },
+      "allWindowsButton": {
+        "x": 188.390625,
+        "y": 13.796875,
+        "width": 169.8125,
+        "height": 32.40625,
+        "center": {
+          "x": 273.296875,
+          "y": 30
+        }
+      },
+      "allWindows": true,
+      "rows": [
+        {
+          "id": 101,
+          "text": "Q3 launch plan: Google Docsdocs.google.comPinned",
+          "title": "https://docs.google.com/document/d/tabshow-launch-plan",
+          "bounds": {
+            "x": 6,
+            "y": 169.953125,
+            "width": 408,
+            "height": 51.6875,
+            "center": {
+              "x": 210,
+              "y": 195.796875
+            }
+          },
+          "backgroundColor": "rgb(44, 42, 74)",
+          "borderColor": "rgb(44, 42, 74)",
+          "selected": true,
+          "hovered": false,
+          "visibleInPanel": true,
+          "clickTarget": {
+            "x": 6,
+            "y": 169.953125,
+            "width": 408,
+            "height": 51.6875,
+            "center": {
+              "x": 210,
+              "y": 195.796875
+            }
+          },
+          "safeClickPoint": {
+            "x": 146,
+            "y": 195.796875
+          }
+        },
+        {
+          "id": 102,
+          "text": "TabShow 2.1: product designwww.figma.com",
+          "title": "https://www.figma.com/design/tabshow-2",
+          "bounds": {
+            "x": 22,
+            "y": 271.953125,
+            "width": 392,
+            "height": 51.6875,
+            "center": {
+              "x": 218,
+              "y": 297.796875
+            }
+          },
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "borderColor": "rgba(39, 16, 51, 0.12)",
+          "selected": false,
+          "hovered": false,
+          "visibleInPanel": true,
+          "clickTarget": {
+            "x": 22,
+            "y": 271.953125,
+            "width": 392,
+            "height": 51.6875,
+            "center": {
+              "x": 218,
+              "y": 297.796875
+            }
+          },
+          "safeClickPoint": {
+            "x": 162,
+            "y": 297.796875
+          }
+        },
+        {
+          "id": 103,
+          "text": "TabShow launch campaignwww.notion.so",
+          "title": "https://www.notion.so/tabshow-launch",
+          "bounds": {
+            "x": 22,
+            "y": 325.953125,
+            "width": 392,
+            "height": 51.6875,
+            "center": {
+              "x": 218,
+              "y": 351.796875
+            }
+          },
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "borderColor": "rgba(39, 16, 51, 0.12)",
+          "selected": false,
+          "hovered": false,
+          "visibleInPanel": true,
+          "clickTarget": {
+            "x": 22,
+            "y": 325.953125,
+            "width": 392,
+            "height": 51.6875,
+            "center": {
+              "x": 218,
+              "y": 351.796875
+            }
+          },
+          "safeClickPoint": {
+            "x": 162,
+            "y": 351.796875
+          }
+        },
+        {
+          "id": 104,
+          "text": "Website hero: final reviewwww.figma.com",
+          "title": "https://www.figma.com/design/tabshow-website",
+          "bounds": {
+            "x": 22,
+            "y": 379.953125,
+            "width": 392,
+            "height": 51.6875,
+            "center": {
+              "x": 218,
+              "y": 405.796875
+            }
+          },
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "borderColor": "rgba(39, 16, 51, 0.12)",
+          "selected": false,
+          "hovered": false,
+          "visibleInPanel": true,
+          "clickTarget": {
+            "x": 22,
+            "y": 379.953125,
+            "width": 392,
+            "height": 51.6875,
+            "center": {
+              "x": 218,
+              "y": 405.796875
+            }
+          },
+          "safeClickPoint": {
+            "x": 162,
+            "y": 405.796875
+          }
+        },
+        {
+          "id": 106,
+          "text": "TabShow feedback & feature requestsnarsheek.featurebase.app",
+          "title": "https://narsheek.featurebase.app/",
+          "bounds": {
+            "x": 22,
+            "y": 481.953125,
+            "width": 392,
+            "height": 51.6875,
+            "center": {
+              "x": 218,
+              "y": 507.796875
+            }
+          },
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "borderColor": "rgba(39, 16, 51, 0.12)",
+          "selected": false,
+          "hovered": false,
+          "visibleInPanel": true,
+          "clickTarget": {
+            "x": 22,
+            "y": 481.953125,
+            "width": 392,
+            "height": 51.6875,
+            "center": {
+              "x": 218,
+              "y": 507.796875
+            }
+          },
+          "safeClickPoint": {
+            "x": 162,
+            "y": 507.796875
+          }
+        },
+        {
+          "id": 108,
+          "text": "TabShow analyticsanalytics.google.comSleeping",
+          "title": "https://analytics.google.com/analytics/web/",
+          "bounds": {
+            "x": 6,
+            "y": 535.953125,
+            "width": 408,
+            "height": 51.6875,
+            "center": {
+              "x": 210,
+              "y": 561.796875
+            }
+          },
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "borderColor": "rgba(39, 16, 51, 0.12)",
+          "selected": false,
+          "hovered": false,
+          "visibleInPanel": true,
+          "clickTarget": {
+            "x": 6,
+            "y": 535.953125,
+            "width": 408,
+            "height": 51.6875,
+            "center": {
+              "x": 210,
+              "y": 561.796875
+            }
+          },
+          "safeClickPoint": {
+            "x": 146,
+            "y": 561.796875
+          }
+        },
+        {
+          "id": 201,
+          "text": "Linear: TabShow launchlinear.appSwitchPinned",
+          "title": "Another Chrome window. Click to switch. Hover preview is unavailable.",
+          "bounds": {
+            "x": 6,
+            "y": 647.953125,
+            "width": 408,
+            "height": 51.6875,
+            "center": {
+              "x": 210,
+              "y": 673.796875
+            }
+          },
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "borderColor": "rgba(39, 16, 51, 0.12)",
+          "selected": false,
+          "hovered": false,
+          "visibleInPanel": false,
+          "clickTarget": {
+            "x": 6,
+            "y": 647.953125,
+            "width": 408,
+            "height": 51.6875,
+            "center": {
+              "x": 210,
+              "y": 673.796875
+            }
+          },
+          "safeClickPoint": {
+            "x": 146,
+            "y": 673.796875
+          }
+        },
+        {
+          "id": 202,
+          "text": "TabShow website copydocs.google.comSwitch",
+          "title": "Another Chrome window. Click to switch. Hover preview is unavailable.",
+          "bounds": {
+            "x": 22,
+            "y": 749.953125,
+            "width": 392,
+            "height": 51.6875,
+            "center": {
+              "x": 218,
+              "y": 775.796875
+            }
+          },
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "borderColor": "rgba(39, 16, 51, 0.12)",
+          "selected": false,
+          "hovered": false,
+          "visibleInPanel": false,
+          "clickTarget": {
+            "x": 22,
+            "y": 749.953125,
+            "width": 392,
+            "height": 51.6875,
+            "center": {
+              "x": 218,
+              "y": 775.796875
+            }
+          },
+          "safeClickPoint": {
+            "x": 162,
+            "y": 775.796875
+          }
+        },
+        {
+          "id": 203,
+          "text": "Launch metrics dashboardlookerstudio.google.comSwitch",
+          "title": "Another Chrome window. Click to switch. Hover preview is unavailable.",
+          "bounds": {
+            "x": 22,
+            "y": 803.953125,
+            "width": 392,
+            "height": 51.6875,
+            "center": {
+              "x": 218,
+              "y": 829.796875
+            }
+          },
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "borderColor": "rgba(39, 16, 51, 0.12)",
+          "selected": false,
+          "hovered": false,
+          "visibleInPanel": false,
+          "clickTarget": {
+            "x": 22,
+            "y": 803.953125,
+            "width": 392,
+            "height": 51.6875,
+            "center": {
+              "x": 218,
+              "y": 829.796875
+            }
+          },
+          "safeClickPoint": {
+            "x": 162,
+            "y": 829.796875
+          }
+        },
+        {
+          "id": 204,
+          "text": "Product Hunt launch checklistwww.producthunt.comSwitch",
+          "title": "Another Chrome window. Click to switch. Hover preview is unavailable.",
+          "bounds": {
+            "x": 6,
+            "y": 857.953125,
+            "width": 408,
+            "height": 51.6875,
+            "center": {
+              "x": 210,
+              "y": 883.796875
+            }
+          },
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "borderColor": "rgba(39, 16, 51, 0.12)",
+          "selected": false,
+          "hovered": false,
+          "visibleInPanel": false,
+          "clickTarget": {
+            "x": 6,
+            "y": 857.953125,
+            "width": 408,
+            "height": 51.6875,
+            "center": {
+              "x": 210,
+              "y": 883.796875
+            }
+          },
+          "safeClickPoint": {
+            "x": 146,
+            "y": 883.796875
+          }
+        }
+      ],
+      "updates": [],
+      "closeRequests": 0,
+      "tabCountSummary": "OPEN TABS12WINDOWS2"
+    },
+    "search-website": {
+      "file": "search-website.png",
+      "query": "website",
+      "activeTabId": 101,
+      "activeDescendant": "tab-option-104",
+      "searchInput": {
+        "x": 58,
+        "y": 59.4375,
+        "width": 304,
+        "height": 37.125,
+        "center": {
+          "x": 210,
+          "y": 78
+        }
+      },
+      "searchField": {
+        "x": 12,
+        "y": 58,
+        "width": 350,
+        "height": 40,
+        "center": {
+          "x": 187,
+          "y": 78
+        }
+      },
+      "currentWindowButton": {
+        "x": 15.796875,
+        "y": 13.796875,
+        "width": 169.796875,
+        "height": 32.40625,
+        "center": {
+          "x": 100.6953125,
+          "y": 30
+        }
+      },
+      "allWindowsButton": {
+        "x": 188.390625,
+        "y": 13.796875,
+        "width": 169.8125,
+        "height": 32.40625,
+        "center": {
+          "x": 273.296875,
+          "y": 30
+        }
+      },
+      "allWindows": true,
+      "rows": [
+        {
+          "id": 104,
+          "text": "Website hero: final reviewwww.figma.com",
+          "title": "https://www.figma.com/design/tabshow-website",
+          "bounds": {
+            "x": 22,
+            "y": 217.953125,
+            "width": 392,
+            "height": 51.6875,
+            "center": {
+              "x": 218,
+              "y": 243.796875
+            }
+          },
+          "backgroundColor": "rgba(44, 42, 74, 0.1)",
+          "borderColor": "rgba(39, 16, 51, 0.12)",
+          "selected": true,
+          "hovered": false,
+          "visibleInPanel": true,
+          "clickTarget": {
+            "x": 22,
+            "y": 217.953125,
+            "width": 392,
+            "height": 51.6875,
+            "center": {
+              "x": 218,
+              "y": 243.796875
+            }
+          },
+          "safeClickPoint": {
+            "x": 162,
+            "y": 243.796875
+          }
+        },
+        {
+          "id": 202,
+          "text": "TabShow website copydocs.google.comSwitch",
+          "title": "Another Chrome window. Click to switch. Hover preview is unavailable.",
+          "bounds": {
+            "x": 22,
+            "y": 377.953125,
+            "width": 392,
+            "height": 51.6875,
+            "center": {
+              "x": 218,
+              "y": 403.796875
+            }
+          },
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "borderColor": "rgba(39, 16, 51, 0.12)",
+          "selected": false,
+          "hovered": false,
+          "visibleInPanel": true,
+          "clickTarget": {
+            "x": 22,
+            "y": 377.953125,
+            "width": 392,
+            "height": 51.6875,
+            "center": {
+              "x": 218,
+              "y": 403.796875
+            }
+          },
+          "safeClickPoint": {
+            "x": 162,
+            "y": 403.796875
+          }
+        }
+      ],
+      "updates": [],
+      "closeRequests": 0,
+      "tabCountSummary": "OPEN TABS12WINDOWS2"
+    },
+    "keyboard-website": {
+      "file": "keyboard-website.png",
+      "query": "website",
+      "activeTabId": 101,
+      "activeDescendant": "tab-option-202",
+      "searchInput": {
+        "x": 58,
+        "y": 59.4375,
+        "width": 304,
+        "height": 37.125,
+        "center": {
+          "x": 210,
+          "y": 78
+        }
+      },
+      "searchField": {
+        "x": 12,
+        "y": 58,
+        "width": 350,
+        "height": 40,
+        "center": {
+          "x": 187,
+          "y": 78
+        }
+      },
+      "currentWindowButton": {
+        "x": 15.796875,
+        "y": 13.796875,
+        "width": 169.796875,
+        "height": 32.40625,
+        "center": {
+          "x": 100.6953125,
+          "y": 30
+        }
+      },
+      "allWindowsButton": {
+        "x": 188.390625,
+        "y": 13.796875,
+        "width": 169.8125,
+        "height": 32.40625,
+        "center": {
+          "x": 273.296875,
+          "y": 30
+        }
+      },
+      "allWindows": true,
+      "rows": [
+        {
+          "id": 104,
+          "text": "Website hero: final reviewwww.figma.com",
+          "title": "https://www.figma.com/design/tabshow-website",
+          "bounds": {
+            "x": 22,
+            "y": 217.953125,
+            "width": 392,
+            "height": 51.6875,
+            "center": {
+              "x": 218,
+              "y": 243.796875
+            }
+          },
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "borderColor": "rgba(39, 16, 51, 0.12)",
+          "selected": false,
+          "hovered": false,
+          "visibleInPanel": true,
+          "clickTarget": {
+            "x": 22,
+            "y": 217.953125,
+            "width": 392,
+            "height": 51.6875,
+            "center": {
+              "x": 218,
+              "y": 243.796875
+            }
+          },
+          "safeClickPoint": {
+            "x": 162,
+            "y": 243.796875
+          }
+        },
+        {
+          "id": 202,
+          "text": "TabShow website copydocs.google.comSwitch",
+          "title": "Another Chrome window. Click to switch. Hover preview is unavailable.",
+          "bounds": {
+            "x": 22,
+            "y": 377.953125,
+            "width": 392,
+            "height": 51.6875,
+            "center": {
+              "x": 218,
+              "y": 403.796875
+            }
+          },
+          "backgroundColor": "rgba(44, 42, 74, 0.1)",
+          "borderColor": "rgba(39, 16, 51, 0.12)",
+          "selected": true,
+          "hovered": false,
+          "visibleInPanel": true,
+          "clickTarget": {
+            "x": 22,
+            "y": 377.953125,
+            "width": 392,
+            "height": 51.6875,
+            "center": {
+              "x": 218,
+              "y": 403.796875
+            }
+          },
+          "safeClickPoint": {
+            "x": 162,
+            "y": 403.796875
+          }
+        }
+      ],
+      "updates": [],
+      "closeRequests": 0,
+      "tabCountSummary": "OPEN TABS12WINDOWS2"
+    }
+  },
+  "assertions": [
+    {
+      "action": "Hover tab 102, then leave side panel",
+      "activeIds": [
+        101,
+        102,
+        101
+      ],
+      "passed": true
+    },
+    {
+      "action": "Click tab 102 commits and requests panel close; leaving panel no longer restores 101",
+      "activeId": 102,
+      "closeRequests": 1,
+      "passed": true
+    },
+    {
+      "action": "All-window website search finds one current-window tab and one other-window tab; ArrowDown highlights other-window result without preview activation",
+      "resultIds": [
+        104,
+        202
+      ],
+      "highlightedId": 202,
+      "activeId": 101,
+      "passed": true
+    },
+    {
+      "action": "Enter on keyboard-selected other-window result commits tab 202 and requests panel close",
+      "activeId": 202,
+      "closeRequests": 1,
+      "passed": true
+    }
+  ],
+  "pageErrors": []
+}

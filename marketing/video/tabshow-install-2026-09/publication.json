@@ -1,0 +1,24 @@
+{
+  "youtubeVideoId": "gfOky71v2wI",
+  "youtubeUrl": "https://www.youtube.com/watch?v=gfOky71v2wI",
+  "studioUrl": "https://studio.youtube.com/video/gfOky71v2wI/edit",
+  "channel": "Saulius Petreikis",
+  "channelId": "UCae83_jxwr2G5QJPLA2Tr1Q",
+  "publishStatus": "public",
+  "publicationDate": "2026-09-05",
+  "playlist": "Apps",
+  "aiDisclosure": true,
+  "allowAutomaticPlaces": false,
+  "copyrightCheck": "No issues found",
+  "communityGuidelinesCheck": "No issues found",
+  "publicVerification": {
+    "hdPlayback": "1920x1080; 1080p60 option confirmed",
+    "playerDurationSeconds": 48.021,
+    "playerError": null,
+    "englishCaptions": "published and visible",
+    "searchableTranscript": "available",
+    "chapters": "3 live chapters at 0:00, 0:20, 0:34",
+    "embedSetting": "enabled",
+    "customThumbnail": "uploaded and saved"
+  }
+}
