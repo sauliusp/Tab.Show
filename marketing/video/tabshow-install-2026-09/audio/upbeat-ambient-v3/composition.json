@@ -1,0 +1,187 @@
+{
+  "title": "A Brighter Flow",
+  "artist": "TabShow",
+  "version": "upbeat-ambient-v3",
+  "duration_seconds": 48.0,
+  "sample_rate": 48000,
+  "channels": 2,
+  "seed": 60920263,
+  "key": "F major",
+  "tempo_bpm": 120,
+  "meter": "4/4",
+  "bars": 24,
+  "original_composition": true,
+  "third_party_samples": false,
+  "arrangement": "Warm ambient pads, soft syncopated chords, eleven rounded melody notes, gentle kick and brushed backbeat, smooth bass, restrained stereo room",
+  "chords": [
+    {
+      "seconds": 0.0,
+      "name": "Fmaj9",
+      "midi_notes": [
+        53,
+        57,
+        60,
+        64,
+        67
+      ]
+    },
+    {
+      "seconds": 8.0,
+      "name": "Cadd9/E",
+      "midi_notes": [
+        52,
+        55,
+        60,
+        62,
+        67
+      ]
+    },
+    {
+      "seconds": 16.0,
+      "name": "Bbmaj9",
+      "midi_notes": [
+        46,
+        53,
+        57,
+        62,
+        65
+      ]
+    },
+    {
+      "seconds": 24.0,
+      "name": "Fadd9/A",
+      "midi_notes": [
+        45,
+        53,
+        60,
+        65,
+        67
+      ]
+    },
+    {
+      "seconds": 32.0,
+      "name": "Cadd9",
+      "midi_notes": [
+        48,
+        55,
+        60,
+        62,
+        67
+      ]
+    },
+    {
+      "seconds": 40.0,
+      "name": "F6/9",
+      "midi_notes": [
+        53,
+        57,
+        60,
+        62,
+        67
+      ]
+    }
+  ],
+  "soft_key_events": [
+    {
+      "seconds": 3.0,
+      "midi_note": 69,
+      "velocity": 0.5
+    },
+    {
+      "seconds": 7.5,
+      "midi_note": 67,
+      "velocity": 0.34
+    },
+    {
+      "seconds": 12.25,
+      "midi_note": 64,
+      "velocity": 0.37
+    },
+    {
+      "seconds": 17.75,
+      "midi_note": 65,
+      "velocity": 0.35
+    },
+    {
+      "seconds": 21.5,
+      "midi_note": 69,
+      "velocity": 0.42
+    },
+    {
+      "seconds": 25.5,
+      "midi_note": 67,
+      "velocity": 0.33
+    },
+    {
+      "seconds": 29.75,
+      "midi_note": 65,
+      "velocity": 0.28
+    },
+    {
+      "seconds": 34.5,
+      "midi_note": 67,
+      "velocity": 0.31
+    },
+    {
+      "seconds": 39.5,
+      "midi_note": 69,
+      "velocity": 0.34
+    },
+    {
+      "seconds": 42.0,
+      "midi_note": 72,
+      "velocity": 0.32
+    },
+    {
+      "seconds": 44.5,
+      "midi_note": 69,
+      "velocity": 0.26
+    }
+  ],
+  "rhythmic_chord_event_seconds": [
+    0.012,
+    1.266,
+    2.516,
+    4.012,
+    5.516,
+    6.766,
+    8.012,
+    9.266,
+    10.516,
+    12.012,
+    13.516,
+    14.766,
+    16.012,
+    17.266,
+    18.516,
+    20.012,
+    21.516,
+    22.766,
+    24.012,
+    25.266,
+    26.516,
+    28.012,
+    29.516,
+    30.766,
+    32.012,
+    33.266,
+    34.516,
+    36.012,
+    37.516,
+    38.766,
+    40.012,
+    41.266,
+    42.516,
+    44.012
+  ],
+  "broad_lift_centers_seconds": [
+    21.7,
+    41.6
+  ],
+  "fade_out_seconds": [
+    46,
+    48
+  ],
+  "target_integrated_lufs": -19,
+  "true_peak_ceiling_dbfs": -3
+}

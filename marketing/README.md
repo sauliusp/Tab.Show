@@ -7,6 +7,8 @@ Its [production package](video/tabshow-install-2026-09/README.md) includes the f
 matching Chrome Web Store poster, original soundtrack, captions, publishing metadata, source scripts,
 capture assets, and verification records. The complete upload ZIP is stored alongside the package.
 
+A [separate upbeat ambient edition](https://www.youtube.com/watch?v=nVGewf2igpo) is also published. Its [production and upload package](video/tabshow-install-2026-09/UPBEAT-AMBIENT.md) preserves the original film and Chrome Web Store link.
+
 ## Campaign images
 
 The final campaign uses two deliberately separate source layers:

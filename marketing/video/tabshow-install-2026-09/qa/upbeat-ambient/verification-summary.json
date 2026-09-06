@@ -1,0 +1,24 @@
+{
+  "revision": "upbeat-ambient",
+  "video": "output/TabShow-Chrome-Web-Store-1080p60-Upbeat-Ambient.mp4",
+  "sha256": "26f4a40995ecbdaba677728f3c69627d36f70943d5aef1632826f991e42742c8",
+  "original_video_sha256": "55274f3377941fdb1f3215a232ce88f06173cb81d5375fa752e0d8f609f45a4a",
+  "picture_stream_sha256": "fac31f02d6fedf7834908618f82906f85ca7c246c082171e9aab3274f4133275",
+  "picture_identical_to_original": true,
+  "duration_seconds": 48,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "fps": 60,
+  "frames": 2880,
+  "audio_codec": "aac",
+  "audio_sample_rate": 48000,
+  "audio_channels": 2,
+  "integrated_loudness_lufs": -18.9,
+  "true_peak_dbfs": -6.0,
+  "decode_errors": [],
+  "detected_black_segments": 0,
+  "publication_record": "publication-upbeat-ambient.json",
+  "source_asset_policy": "Separate edition; original master and publication preserved."
+}

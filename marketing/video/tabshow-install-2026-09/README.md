@@ -8,6 +8,12 @@ Use `output/TabShow-Chrome-Web-Store-1080p60.mp4` for upload. The `output` direc
 
 Published and verified: https://www.youtube.com/watch?v=gfOky71v2wI on Saulius Petreikis. `publication.json` records the live result, and `youtube-draft.md` contains the publishing guide and official source guidance. Use this public URL in the Chrome Web Store video field. The Chrome Web Store listing itself was not edited in this task.
 
+## Separate upbeat ambient edition — 6 September
+
+The [new YouTube edition](https://www.youtube.com/watch?v=nVGewf2igpo) uses a warm, light 120 BPM soundtrack with soft syncopated chords and a brushed backbeat. Its picture stream is identical to the original. The original film and Chrome Web Store URL above remain intact.
+
+Use `output/TabShow-Chrome-Web-Store-1080p60-Upbeat-Ambient.mp4` for the new edition. [UPBEAT-AMBIENT.md](UPBEAT-AMBIENT.md) describes its separate upload package, source and verification; `publication-upbeat-ambient.json` records its own public result.
+
 ## Creative sequence
 
 | Time | Purpose | Visual proof |

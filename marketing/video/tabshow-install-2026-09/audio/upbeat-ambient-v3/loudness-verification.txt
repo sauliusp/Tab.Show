@@ -1,0 +1,36 @@
+Input #0, wav, from '/Users/spetreikis/Desktop/apps/Tab.Show/marketing/video/tabshow-install-2026-09/audio/upbeat-ambient-v3/tabshow-upbeat-ambient-v3-48s.wav':
+  Metadata:
+    artist          : TabShow
+    comment         : Original sample-free upbeat ambient score; gentle groove, no UI sounds.
+    title           : A Brighter Flow — TabShow
+    encoder         : Lavf61.7.100
+  Duration: 00:00:48.00, bitrate: 2304 kb/s
+  Stream #0:0: Audio: pcm_s24le ([1][0][0][0] / 0x0001), 48000 Hz, stereo, s32 (24 bit), 2304 kb/s
+Stream mapping:
+  Stream #0:0 -> #0:0 (pcm_s24le (native) -> pcm_s16le (native))
+Press [q] to stop, [?] for help
+Output #0, null, to 'pipe:':
+  Metadata:
+    artist          : TabShow
+    comment         : Original sample-free upbeat ambient score; gentle groove, no UI sounds.
+    title           : A Brighter Flow — TabShow
+    encoder         : Lavf61.7.100
+  Stream #0:0: Audio: pcm_s16le, 48000 Hz, stereo, s16, 1536 kb/s
+      Metadata:
+        encoder         : Lavc61.19.100 pcm_s16le
+[Parsed_ebur128_0 @ 0x7fd9d4106f00] Summary:
+
+  Integrated loudness:
+    I:         -18.9 LUFS
+    Threshold: -28.9 LUFS
+
+  Loudness range:
+    LRA:         2.0 LU
+    Threshold: -38.8 LUFS
+    LRA low:   -19.8 LUFS
+    LRA high:  -17.9 LUFS
+
+  True peak:
+    Peak:       -5.9 dBFS
+[out#0/null @ 0x7fd9d4309c00] video:0KiB audio:9000KiB subtitle:0KiB other streams:0KiB global headers:0KiB muxing overhead: unknown
+size=N/A time=00:00:48.00 bitrate=N/A speed= 255x

@@ -1,0 +1,34 @@
+{
+  "revision": "upbeat-ambient-v3",
+  "youtubeVideoId": "nVGewf2igpo",
+  "youtubeUrl": "https://www.youtube.com/watch?v=nVGewf2igpo",
+  "studioUrl": "https://studio.youtube.com/video/nVGewf2igpo/edit",
+  "channel": "Saulius Petreikis",
+  "channelId": "UCae83_jxwr2G5QJPLA2Tr1Q",
+  "publishStatus": "public",
+  "publicationDate": "2026-09-06",
+  "videoFile": "TabShow-Chrome-Web-Store-1080p60-Upbeat-Ambient.mp4",
+  "videoSha256": "26f4a40995ecbdaba677728f3c69627d36f70943d5aef1632826f991e42742c8",
+  "soundtrack": "audio/upbeat-ambient-v3/tabshow-upbeat-ambient-v3-48s.wav",
+  "playlist": "Apps",
+  "aiDisclosure": true,
+  "allowAutomaticPlaces": false,
+  "notifySubscribers": false,
+  "copyrightCheck": "No issues found",
+  "communityGuidelinesCheck": "No issues found",
+  "publicVerification": {
+    "hdPlayback": "1920x1080; 1080p60 option selected and playback verified",
+    "playerDurationSeconds": 48.021,
+    "playerError": null,
+    "englishCaptions": "published and visible during playback",
+    "searchableTranscript": "published transcript visible, including opening and closing cues",
+    "chapters": "3 live chapters at 0:00, 0:20, 0:34",
+    "embedSetting": "enabled",
+    "customThumbnail": "uploaded and saved; same branded asset as original"
+  },
+  "originalChromeWebStoreVideo": {
+    "youtubeVideoId": "gfOky71v2wI",
+    "youtubeUrl": "https://www.youtube.com/watch?v=gfOky71v2wI",
+    "unchanged": true
+  }
+}

@@ -1,0 +1,66 @@
+{
+  "upbeat_ambient_v3": {
+    "file": "upbeat-ambient-v3/tabshow-upbeat-ambient-v3-48s.wav",
+    "duration_seconds": 48.0,
+    "sample_rate": 48000,
+    "channels": 2,
+    "integrated_lufs": -19.0,
+    "true_peak_dbfs": -5.95,
+    "loudness_range_lu": 2.0,
+    "sample_peak_dbfs": -5.946976284129757,
+    "rms_dbfs": -20.933704483474752,
+    "spectral_centroid_hz": 236.835000947361,
+    "energy_above_2000hz_percent": 0.026896105901667796,
+    "energy_above_4000hz_percent": 0.008420458734788965,
+    "adjacent_20ms_rms_rises_over_2db_seconds_2_to_45": 96,
+    "rms_attack_proxy_per_second": 2.2325581395348837,
+    "smoothed_100ms_envelope_rises_over_1db_per_20ms_seconds_2_to_45": 6,
+    "normalized_mean_positive_spectral_flux": 0.3027551839555795,
+    "stereo_correlation": 0.91125812347449,
+    "dc_offset": [
+      -2.4789323409398398e-08,
+      -2.5088484916422103e-08
+    ],
+    "clipped_samples": 0,
+    "final_sample": [
+      0.0,
+      0.0
+    ]
+  },
+  "original": {
+    "file": "tabshow-soundtrack-48s.wav",
+    "duration_seconds": 48.0,
+    "sample_rate": 48000,
+    "channels": 2,
+    "integrated_lufs": -17.0,
+    "true_peak_dbfs": -3.02,
+    "loudness_range_lu": 3.2,
+    "sample_peak_dbfs": -3.023542626766616,
+    "rms_dbfs": -18.080092838970153,
+    "spectral_centroid_hz": 228.90069450159478,
+    "energy_above_2000hz_percent": 0.12018231211032039,
+    "energy_above_4000hz_percent": 0.06929781827934642,
+    "adjacent_20ms_rms_rises_over_2db_seconds_2_to_45": 112,
+    "rms_attack_proxy_per_second": 2.604651162790698,
+    "smoothed_100ms_envelope_rises_over_1db_per_20ms_seconds_2_to_45": 168,
+    "normalized_mean_positive_spectral_flux": 0.7190533768961785,
+    "stereo_correlation": 0.9715917654104685,
+    "dc_offset": [
+      3.9243677424059974e-06,
+      3.7420014850795268e-06
+    ],
+    "clipped_samples": 0,
+    "final_sample": [
+      0.0,
+      0.0
+    ]
+  },
+  "comparison": {
+    "integrated_loudness_change_lu": -2.0,
+    "relative_energy_above_2khz_reduction_percent": 77.6205787445837,
+    "relative_energy_above_4khz_reduction_percent": 87.84888335034553,
+    "attack_proxy_reduction_percent": 14.28571428571429,
+    "positive_spectral_flux_reduction_percent": 57.895311574443355,
+    "method_note": "Spectral shares are relative to each track's total power. The raw attack proxy counts adjacent 20-ms RMS rises over 2 dB from seconds 2\u201345. The additional 100-ms-smoothed envelope count uses a 1 dB rise per 20 ms and suppresses low-note phase beating. These are objective texture indicators, not perceptual-quality scores."
+  }
+}
