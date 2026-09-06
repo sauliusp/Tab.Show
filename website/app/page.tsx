@@ -18,6 +18,7 @@ export const metadata: Metadata = {
 };
 
 const faq = [
+  { q: "Is TabShow free?", a: "Yes. Every feature is free to use. If you would like to support its development, you can leave a tip through Buy Me a Coffee. Support is entirely optional." },
   { q: "Does TabShow read the contents of webpages?", a: "No. TabShow does not request host permissions and cannot read page contents. It uses Chrome's tab metadata, such as titles, URLs, favicons, groups, and status, to power the side panel." },
   { q: "Can I search tabs across every Chrome window?", a: "Yes. Choose All windows to search and organize tabs across Chrome windows. For safety, a tab in another window switches only when clicked; hover preview does not steal focus across windows." },
   { q: "What happens when I move away from a preview?", a: "TabShow returns you to the original tab. If the preview was the right page, click it to make the switch permanent." },

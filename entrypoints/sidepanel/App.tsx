@@ -104,7 +104,7 @@ function App() {
 
   const handleKeyboard = (event: React.KeyboardEvent) => {
     const target = event.target as HTMLElement;
-    if (target.closest('button,[role="button"],[role="combobox"],[role="menu"],[role="menuitem"],input[type="checkbox"]')) return;
+    if (target.closest('a[href],button,[role="button"],[role="combobox"],[role="menu"],[role="menuitem"],input[type="checkbox"]')) return;
     if (event.nativeEvent.isComposing || event.keyCode === 229) return;
     if (event.key === 'Escape') { event.preventDefault(); void handleCancel(); return; }
     if (event.key === 'Enter') {

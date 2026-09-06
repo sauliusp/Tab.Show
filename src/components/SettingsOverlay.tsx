@@ -4,6 +4,7 @@ import { useTheme } from '@mui/material/styles';
 import CloseIcon from '@mui/icons-material/Close';
 import LightbulbRounded from '@mui/icons-material/LightbulbRounded';
 import StarRounded from '@mui/icons-material/StarRounded';
+import LocalCafeOutlined from '@mui/icons-material/LocalCafeOutlined';
 import BrightnessAutoRounded from '@mui/icons-material/BrightnessAutoRounded';
 import LightModeRounded from '@mui/icons-material/LightModeRounded';
 import DarkModeRounded from '@mui/icons-material/DarkModeRounded';
@@ -202,6 +203,38 @@ export function SettingsOverlay({ open, onClose }: SettingsOverlayProps) {
               Rate TabShow
             </Button>
           </Box>
+        </Box>
+
+        <Box sx={{ mt: 2, pt: 2, borderTop: `1px solid ${theme.palette.divider}` }}>
+          <Typography variant="subtitle2" sx={{ color: theme.palette.text.primary }}>
+            Support TabShow
+          </Typography>
+          <Typography variant="caption" sx={{ color: theme.palette.text.secondary, display: 'block', mt: 0.5, mb: 1.25 }}>
+            TabShow is free. If it makes your day easier, you can support my work with a coffee. Always optional.
+          </Typography>
+          <Button
+            component="a"
+            href={EXTENSION_URLS.BUY_ME_A_COFFEE}
+            target="_blank"
+            rel="noopener noreferrer"
+            fullWidth
+            size="small"
+            variant="contained"
+            disableElevation
+            startIcon={<LocalCafeOutlined sx={{ fontSize: 18 }} />}
+            sx={{
+              py: 1,
+              textTransform: 'none',
+              fontSize: 12,
+              fontWeight: 750,
+              color: '#302815',
+              backgroundColor: '#FFDD80',
+              '&:hover': { backgroundColor: '#F5CE62' },
+              '&.Mui-focusVisible': { outline: '2px solid', outlineColor: 'text.primary', outlineOffset: 3 },
+            }}
+          >
+            Buy me a coffee
+          </Button>
         </Box>
 
         <Box
