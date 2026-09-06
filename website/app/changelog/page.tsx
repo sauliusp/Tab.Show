@@ -2,8 +2,8 @@
 import { FEEDBACK_URL, PlainPage, pageMetadata } from "../site";
 
 export const metadata = pageMetadata(
-  "TabShow Changelog | Version 2.1",
-  "TabShow 2.1 adds a local Chaos Score, dark and light appearance controls, panel sharing actions, stable tab totals during search, and a clearer compact interface.",
+  "TabShow Changelog | Version 2.2",
+  "TabShow 2.2 adds optional support links and improves keyboard navigation on links. Every feature remains free, with no new permissions.",
   "/changelog",
 );
 
@@ -106,10 +106,11 @@ export default function ChangelogPage() {
   return (
     <PlainPage
       eyebrow="Changelog"
-      title="TabShow 2.1"
-      accent="makes tab load visible."
-      lead="A focused update with a local Chaos Score, appearance controls, faster feedback, and clearer totals that stay truthful while you search."
+      title="TabShow 2.2"
+      accent="keeps support optional."
+      lead="An optional way to support the maker, plus a keyboard fix for links. Version 2.2 is prepared for the Chrome Web Store; availability will follow review."
       nav={[
+        { href: "#version-2-2", label: "Version 2.2" },
         { href: "#version-2-1", label: "Version 2.1" },
         { href: "#version-2", label: "Version 2.0" },
         { href: "#history", label: "Previous releases" },
@@ -117,6 +118,17 @@ export default function ChangelogPage() {
         { href: "#next", label: "What comes next" },
       ]}
     >
+      <section id="version-2-2">
+        <p className="eyebrow"><span /> Prepared for release</p>
+        <h2>Version 2.2</h2>
+        <h3>Optional support for the maker</h3>
+        <p>A quiet Support TabShow link sits at the bottom of the panel, with a Buy me a coffee button in Settings. Every feature remains free. Leaving a tip is entirely optional.</p>
+        <h3>Keyboard-friendly links</h3>
+        <p>Enter opens the focused link without switching to a selected tab. Escape returns to the original tab and closes the side panel even when a support link has focus.</p>
+        <h3>No new permissions</h3>
+        <p>Support uses ordinary external links. Version 2.2 adds no Chrome permissions, payment scripts, tracking, or reminders.</p>
+      </section>
+
       <section id="version-2-1">
         <p className="eyebrow"><span /> September 2026</p>
         <h2>Version 2.1</h2>
@@ -172,7 +184,7 @@ export default function ChangelogPage() {
 
       <section id="privacy">
         <h2>Privacy and permissions</h2>
-        <p>TabShow 2.1 still has no account, backend, advertising, host permissions, or access to webpage contents. Version 2.1 adds no permissions, and the unused <code>activeTab</code> permission remains removed.</p>
+        <p>TabShow 2.2 still has no account, backend, advertising, host permissions, or access to webpage contents. Version 2.2 adds no permissions, and the unused <code>activeTab</code> permission remains removed.</p>
         <p>See the full <a className="text-link" href="/privacy">plain-language privacy page →</a></p>
       </section>
 

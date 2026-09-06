@@ -146,6 +146,7 @@ kbd { min-width: 28px; min-height: 27px; display: inline-grid; place-items: cent
 .key-flow { position: absolute; right: 24px; bottom: 44px; left: 24px; display: flex; justify-content: space-around; gap: 10px; }
 .key-flow > span { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px; text-align: center; }
 .key-flow small { flex-basis: 100%; margin-top: 7px; color: var(--muted); font-size: 10px; }
+.key-flow.update-keys { position: static; margin-top: 28px; }
 .details-section { border-top: 1px solid var(--line); }
 .detail-list { display: grid; grid-template-columns: 1fr 1fr; column-gap: 60px; }
 .detail-list > div { display: grid; grid-template-columns: 32px 1fr; gap: 12px; padding: 22px 0; border-bottom: 1px solid var(--line); }

@@ -39,13 +39,22 @@ describe.each(['welcome', 'whats-new'] as const)('%s static page', (name) => {
   });
 });
 
-describe('v2.1 update page', () => {
-  it('announces the actual v2.1 feature set without invented shortcuts', () => {
-    const { html } = loadPage('whats-new');
+describe('v2.2 update page', () => {
+  it('announces optional support and keyboard fixes while preserving release history', () => {
+    const { html, document } = loadPage('whats-new');
 
+    expect(document.querySelector('.status-update')?.textContent).toBe('Version 2.2');
+    expect(document.querySelector('.update-hero')?.textContent).toContain('Every feature is free');
+    expect(html).toContain('Support TabShow');
+    expect(html).toContain('Buy me a coffee');
+    expect(html).toContain('entirely optional');
+    expect(html).toContain('Escape still returns to your original tab');
+    const video = document.querySelector('a[href="https://www.youtube.com/watch?v=nVGewf2igpo"]');
+    expect(video?.getAttribute('rel')).toBe('noopener noreferrer');
+    expect(document.querySelectorAll('iframe')).toHaveLength(0);
     expect(html).toContain('Version 2.1');
     expect(html).toContain('Tab Chaos Score');
-    expect(html).toContain('Dark, light, or system');
+    expect(html).toContain('dark, light, or system');
     expect(html).toContain('OPEN TABS');
     expect(html).toContain('Suggest a feature');
     expect(html).toContain('Tell a friend');

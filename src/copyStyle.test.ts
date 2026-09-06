@@ -10,6 +10,8 @@ const TEXT_EXTENSIONS = new Set([
 const SKIPPED_DIRECTORIES = new Set([
   '.git', '.output', '.vinext', '.wxt', 'dist', 'node_modules',
 ]);
+// Check shipped product copy, not archived video-production material or vendored tools.
+const PRODUCT_COPY_DIRECTORIES = ['src', 'entrypoints', 'public', 'website/app'];
 
 function findEmDashFiles(directory: string): string[] {
   return readdirSync(directory, { withFileTypes: true }).flatMap(entry => {
@@ -23,12 +25,12 @@ function findEmDashFiles(directory: string): string[] {
 }
 
 describe('project copy style', () => {
-  it('uses the colon-based extension name and contains no em dashes', () => {
+  it('uses the colon-based extension name and keeps product copy free of em dashes', () => {
     expect(readFileSync(join(ROOT, 'wxt.config.ts'), 'utf8')).toContain("name: 'TabShow: Live Tab Preview'");
-    expect(findEmDashFiles(ROOT)).toEqual([]);
+    expect(PRODUCT_COPY_DIRECTORIES.flatMap(directory => findEmDashFiles(join(ROOT, directory)))).toEqual([]);
   });
 
-  it('keeps the 2.1 release version synchronized across package and update metadata', () => {
+  it('keeps the 2.2 release version synchronized across package and update metadata', () => {
     const packageJson = JSON.parse(readFileSync(join(ROOT, 'package.json'), 'utf8')) as { version: string };
     const packageLock = JSON.parse(readFileSync(join(ROOT, 'package-lock.json'), 'utf8')) as {
       version: string;
@@ -42,13 +44,15 @@ describe('project copy style', () => {
       packages: Record<string, { version?: string }>;
     };
 
-    expect(packageJson.version).toBe('2.1.0');
-    expect(packageLock.version).toBe('2.1.0');
-    expect(packageLock.packages['']?.version).toBe('2.1.0');
-    expect(wxtConfig).toContain("version: '2.1.0'");
-    expect(whatsNew).toContain('Version 2.1');
-    expect(websitePackage.version).toBe('2.1.0');
-    expect(websiteLock.version).toBe('2.1.0');
-    expect(websiteLock.packages['']?.version).toBe('2.1.0');
+    expect(packageJson.version).toBe('2.2.0');
+    expect(packageLock.version).toBe(packageJson.version);
+    expect(packageLock.packages['']?.version).toBe(packageJson.version);
+    expect(wxtConfig).toContain(`version: '${packageJson.version}'`);
+    const updateDocument = new DOMParser().parseFromString(whatsNew, 'text/html');
+    expect(updateDocument.querySelector('.status-update')?.textContent).toBe('Version 2.2');
+    expect(updateDocument.title).toContain('TabShow 2.2');
+    expect(websitePackage.version).toBe(packageJson.version);
+    expect(websiteLock.version).toBe(packageJson.version);
+    expect(websiteLock.packages['']?.version).toBe(packageJson.version);
   });
 });

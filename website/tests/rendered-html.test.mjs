@@ -21,7 +21,7 @@ const routes = [
   ["/workona-alternative", "Workona Alternative", "Skip the workspace setup"],
   ["/tab-manager-plus-alternative", "Tab Manager Plus Alternative", "Recognize the page"],
   ["/privacy", "Privacy", "Your tabs stay"],
-  ["/changelog", "TabShow Changelog", "TabShow 2.1"],
+  ["/changelog", "TabShow Changelog", "TabShow 2.2"],
   ["/support", "TabShow Support", "Get back to the tab"],
 ];
 
@@ -109,10 +109,12 @@ test("privacy and support match the shipped permission and cross-window behavior
 
 test("changelog preserves the complete user-facing release history", async () => {
   const changelog = await (await render("/changelog")).text();
-  for (const version of ["2.1", "2.0", "1.0.0", "0.9.2", "0.9.1", "0.9.0", "0.8.2", "0.8.1", "0.8.0", "0.7.1", "0.7.0", "0.6.0", "0.5.0"]) {
+  for (const version of ["2.2", "2.1", "2.0", "1.0.0", "0.9.2", "0.9.1", "0.9.0", "0.8.2", "0.8.1", "0.8.0", "0.7.1", "0.7.0", "0.6.0", "0.5.0"]) {
     assert.match(changelog, new RegExp(`Version (?:<!-- -->)?${version.replaceAll(".", "\\.")}`));
   }
   assert.match(changelog, /Featurebase feedback board/);
+  assert.match(changelog, /Prepared for release/);
+  assert.match(changelog, /Every feature remains free/);
   assert.match(changelog, /hover-to-preview interaction/);
   assert.doesNotMatch(changelog, /tab age, domains|domains, and Chrome groups/i);
 });
