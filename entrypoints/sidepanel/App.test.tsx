@@ -192,6 +192,24 @@ describe('side-panel browser-rendered interaction', () => {
     expect(mock.close).not.toHaveBeenCalled();
   });
 
+  it.each(['Support TabShow', 'Buy me a coffee'])('restores the original tab with Escape while %s has focus', async (name) => {
+    const mock = browserWith150Tabs();
+    vi.stubGlobal('browser', mock.api);
+    render(<UserSettingsProvider><ColorSchemeProvider><App /></ColorSchemeProvider></UserSettingsProvider>);
+    await expectOpenTabCount(150);
+    if (name === 'Buy me a coffee') {
+      fireEvent.click(screen.getByRole('button', { name: 'open settings' }));
+    }
+    const link = screen.getByRole('link', { name });
+    link.focus();
+    expect(link).toHaveFocus();
+
+    fireEvent.keyDown(link, { key: 'Escape' });
+
+    await waitFor(() => expect(mock.update).toHaveBeenCalledWith(1, { active: true }));
+    expect(mock.close).toHaveBeenCalledWith({ windowId: 10 });
+  });
+
   it('shows clear loading and empty-search states instead of a blank list', async () => {
     const loadingMock = browserWith150Tabs();
     loadingMock.api.tabs.query = vi.fn(() => new Promise(() => undefined));
