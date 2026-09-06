@@ -1,0 +1,25 @@
+{
+  "version": "2.2.0",
+  "package": "tabshow-2.2.0-chrome.zip",
+  "sha256": "7c488b7549479d36acc4ba199c340fe3bf227e76a2c7af1dea58f2993d748a29",
+  "sizeBytes": 199141,
+  "files": 20,
+  "sourceCommit": "a2e6794fdd17039e63528769b44061d6a49a716e",
+  "permissions": [
+    "sidePanel",
+    "tabs",
+    "tabGroups"
+  ],
+  "hostPermissions": [],
+  "zipIntegrity": "passed",
+  "assetReferences": "passed",
+  "archiveMatchesBuild": "passed",
+  "updatePageMatchesSource": "passed",
+  "extensionTests": 67,
+  "websiteTests": 8,
+  "typecheck": "passed",
+  "websiteLint": "passed",
+  "packagedInstallUpdateHandler": "passed",
+  "youtubeUrl": "https://www.youtube.com/watch?v=nVGewf2igpo",
+  "youtubeVerified": "public watch-page playback and oEmbed on 2026-09-06"
+}

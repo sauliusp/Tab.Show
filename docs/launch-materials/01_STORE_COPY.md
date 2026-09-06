@@ -1,6 +1,6 @@
-# TabShow 2.1 Chrome Web Store copy
+# TabShow 2.2 Chrome Web Store copy
 
-Status: release-ready draft. This text is grounded in the 2.1 branch and keeps the Store listing focused on the shipped product rather than embedding a long changelog.
+Status: release-ready draft. This text is grounded in the 2.2 release candidate and keeps the Store listing focused on the shipped product rather than embedding a long changelog.
 
 ## Package title
 
@@ -55,26 +55,17 @@ PRIVATE BY DESIGN
 
 TabShow uses Chrome permissions only to show the side panel, list the tab details Chrome provides, display existing tab groups, and switch or close tabs when you ask it to.
 
-Find the right tab without switching away. TabShow is free to use.
+Find the right tab without switching away. TabShow is free to use. Supporting its development through Buy Me a Coffee is entirely optional.
 
-## Version 2.1 update summary
+## Version 2.2 update summary
 
-TabShow 2.1 adds:
+TabShow 2.2 adds optional Support TabShow and Buy me a coffee links. Every feature remains free. Enter follows a focused link without switching to a tab, and Escape still returns to the original tab and closes the panel. No new permissions.
 
-- A compact, color-coded Tab Chaos Score with local-only tab statistics and trend history.
-- Dark, light, and system appearance modes.
-- Improved selected and preview colors across light and dark themes.
-- Suggest a feature and Tell a friend actions directly in the tab panel.
-- A paste-ready Chrome Web Store link with clear copied confirmation.
+## Promotional video
 
-TabShow 2.1 fixes and refines:
+Use the new upbeat edition: https://www.youtube.com/watch?v=nVGewf2igpo
 
-- Open-tab and window totals now remain stable while search filters the visible results.
-- The Chaos Score is visually distinct from the actual open-tab count.
-- Search, scope, Settings, and Chaos controls now share a compact aligned layout.
-- The unnecessary current-window preview banner has been removed while other-window switching remains clear.
-- The Chaos button now uses its full severity color for faster recognition.
-- Keyboard search behavior and configurable preview timing feel more predictable with large tab collections.
+Verified available on YouTube on 6 September 2026. The older video remains available; this release handoff selects the new edition for the Chrome Web Store video field.
 
 ## Permission and privacy language
 
@@ -86,7 +77,7 @@ Use these explanations in the Dashboard Privacy section and on the future `/priv
 | `tabs` | Reads open-tab titles, URLs, favicons, window membership, and status so TabShow can list, search, sort, preview, switch, and close tabs. It does not grant access to webpage contents. |
 | `tabGroups` | Reads tab-group names, colors, membership, and collapsed state so existing Chrome groups can be represented and expanded or collapsed from TabShow. |
 
-The previously declared `activeTab` permission had no implementation use and remains absent from the 2.1 manifest rather than being given a cosmetic justification.
+The previously declared `activeTab` permission had no implementation use and remains absent from the 2.2 manifest rather than being given a cosmetic justification.
 
 Tab Chaos trend data stays in local extension storage. It retains up to 90 daily check-ins containing a timestamp, local calendar day, derived score, and open-tab count, plus the all-time best score. Repeated panel openings update the current day's record. It does not store titles, URLs, domains, favicons, or page contents. Users can delete it by clearing TabShow's extension data in Chrome or uninstalling the extension.
 

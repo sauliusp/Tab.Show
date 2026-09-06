@@ -68,6 +68,20 @@ export function PanelEngagementBar() {
       >
         {copyState === 'copied' ? 'Copied' : 'Tell a friend'}
       </Button>
+      <Box sx={{ gridColumn: '1 / -1', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 1, minHeight: 24 }}>
+        <Typography sx={{ fontSize: 10.5, color: 'text.secondary' }}>
+          Free to use
+        </Typography>
+        <Link
+          href={EXTENSION_URLS.BUY_ME_A_COFFEE}
+          target="_blank"
+          rel="noopener noreferrer"
+          underline="hover"
+          sx={{ py: 0.5, fontSize: 10.5, fontWeight: 600, color: 'text.secondary', '&:hover': { color: 'text.primary' } }}
+        >
+          Support TabShow
+        </Link>
+      </Box>
       <Popper open={copyState !== 'idle'} anchorEl={shareButtonRef.current} placement="top-end" transition sx={{ zIndex: 1400 }}>
         {({ TransitionProps }) => (
           <Fade {...TransitionProps} timeout={170}>

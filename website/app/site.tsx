@@ -5,6 +5,7 @@ import Link from "next/link";
 export const STORE_BASE = "https://chromewebstore.google.com/detail/tabshow-hover-preview-foc/njdjagodlomkhingeecipnlnnhnipkho";
 export const REVIEW_URL = `${STORE_BASE}/reviews`;
 export const FEEDBACK_URL = "https://narsheek.featurebase.app/";
+export const SUPPORT_URL = "https://buymeacoffee.com/saulius.developer";
 
 export function storeUrl(content: string) {
   return `${STORE_BASE}?utm_source=tab.show&utm_medium=website&utm_campaign=tabshow_2_launch&utm_content=${encodeURIComponent(content)}`;
@@ -39,7 +40,7 @@ export function Footer() {
         <div><Link className="brand footer-brand" href="/"><img src="/icon.png" alt="" width="38" height="38" /><span>TabShow<small>Find the tab. Keep your place.</small></span></Link><p>One sharp Chrome tool for recognizing the right live page.</p></div>
         <div><h2>Product</h2><a href="/chrome-tab-preview-extension">Live tab preview</a><a href="/changelog">Changelog</a><a href="/privacy">Privacy</a><a href="/support">Support</a></div>
         <div><h2>Compare</h2><a href="/onetab-alternative">OneTab alternative</a><a href="/workona-alternative">Workona alternative</a><a href="/tab-manager-plus-alternative">Tab Manager Plus alternative</a><a href="/find-lost-chrome-tab">Find a lost tab</a></div>
-        <div><h2>Community</h2><a href={FEEDBACK_URL} target="_blank" rel="noreferrer">Share feedback ↗</a><a href={REVIEW_URL} target="_blank" rel="noreferrer">Rate TabShow ↗</a><a href={storeUrl("footer")} target="_blank" rel="noreferrer">Chrome Web Store ↗</a></div>
+        <div><h2>Community</h2><a href={FEEDBACK_URL} target="_blank" rel="noreferrer">Share feedback ↗</a><a href={REVIEW_URL} target="_blank" rel="noreferrer">Rate TabShow ↗</a><a href={SUPPORT_URL} target="_blank" rel="noopener noreferrer">Support TabShow ↗</a><a href={storeUrl("footer")} target="_blank" rel="noreferrer">Chrome Web Store ↗</a></div>
       </div>
       <div className="shell legal-row"><span>© {new Date().getFullYear()} TabShow</span><span>No account. No backend. No host permissions.</span></div>
     </footer>
@@ -48,6 +49,14 @@ export function Footer() {
 
 export function StoreButton({ content, label = "Add to Chrome" }: { content: string; label?: string }) {
   return <a className="button button-primary" href={storeUrl(content)} target="_blank" rel="noreferrer">{label}<span aria-hidden="true">↗</span></a>;
+}
+
+function CoffeeIcon() {
+  return <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M18 8h1a3 3 0 0 1 0 6h-1M3 8h15v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V8ZM6 2v2m4-2v2m4-2v2" /></svg>;
+}
+
+export function CoffeeButton() {
+  return <a className="button coffee-button" href={SUPPORT_URL} target="_blank" rel="noopener noreferrer"><CoffeeIcon />Buy me a coffee<span aria-hidden="true">↗</span></a>;
 }
 
 export function ProductImage({ src, alt, priority = false }: { src: string; alt: string; priority?: boolean }) {
@@ -62,6 +71,7 @@ export function Community() {
         <div className="community-actions">
           <a href={FEEDBACK_URL} target="_blank" rel="noreferrer"><span>01</span><div><b>Share feedback</b><small>Open the public Featurebase board</small></div><i aria-hidden="true">↗</i></a>
           <a href={REVIEW_URL} target="_blank" rel="noreferrer"><span>02</span><div><b>Rate TabShow</b><small>If TabShow has earned five stars, a quick review helps others find it.</small></div><i aria-hidden="true">↗</i></a>
+          <a className="coffee-invitation" href={SUPPORT_URL} target="_blank" rel="noopener noreferrer"><span className="coffee-mark"><CoffeeIcon /></span><div><b>Buy me a coffee</b><small>TabShow is free to use. If it helps you, you can leave a small tip.</small></div><i aria-hidden="true">↗</i></a>
         </div>
       </div>
     </section>

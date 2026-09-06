@@ -1,4 +1,4 @@
-import { fireEvent, render, screen, waitFor, within } from '@testing-library/react';
+import { createEvent, fireEvent, render, screen, waitFor, within } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
 import App from './App';
 import { UserSettingsProvider } from '../../src/contexts/UserSettingsContext';
@@ -166,6 +166,48 @@ describe('side-panel browser-rendered interaction', () => {
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
     fireEvent.click(screen.getByRole('button', { name: 'open settings' }));
     expect(screen.getByRole('dialog', { name: 'User Settings' })).toBeVisible();
+  });
+
+  it('lets support links handle keyboard activation without switching an existing tab', async () => {
+    const mock = browserWith150Tabs();
+    vi.stubGlobal('browser', mock.api);
+    render(<UserSettingsProvider><ColorSchemeProvider><App /></ColorSchemeProvider></UserSettingsProvider>);
+    await expectOpenTabCount(150);
+
+    const supportLink = screen.getByRole('link', { name: 'Support TabShow' });
+    expect(supportLink).toBeVisible();
+    expect(screen.queryByRole('link', { name: 'Buy me a coffee' })).not.toBeInTheDocument();
+    fireEvent.click(screen.getByRole('button', { name: 'open settings' }));
+    const coffeeLink = within(screen.getByRole('dialog', { name: 'User Settings' })).getByRole('link', { name: 'Buy me a coffee' });
+
+    for (const link of [supportLink, coffeeLink]) {
+      expect(link).toHaveAttribute('href', 'https://buymeacoffee.com/saulius.developer');
+      expect(link).toHaveAttribute('target', '_blank');
+      expect(link).toHaveAttribute('rel', 'noopener noreferrer');
+      const enter = createEvent.keyDown(link, { key: 'Enter' });
+      fireEvent(link, enter);
+      expect(enter.defaultPrevented).toBe(false);
+    }
+    expect(mock.update).not.toHaveBeenCalled();
+    expect(mock.close).not.toHaveBeenCalled();
+  });
+
+  it.each(['Support TabShow', 'Buy me a coffee'])('restores the original tab with Escape while %s has focus', async (name) => {
+    const mock = browserWith150Tabs();
+    vi.stubGlobal('browser', mock.api);
+    render(<UserSettingsProvider><ColorSchemeProvider><App /></ColorSchemeProvider></UserSettingsProvider>);
+    await expectOpenTabCount(150);
+    if (name === 'Buy me a coffee') {
+      fireEvent.click(screen.getByRole('button', { name: 'open settings' }));
+    }
+    const link = screen.getByRole('link', { name });
+    link.focus();
+    expect(link).toHaveFocus();
+
+    fireEvent.keyDown(link, { key: 'Escape' });
+
+    await waitFor(() => expect(mock.update).toHaveBeenCalledWith(1, { active: true }));
+    expect(mock.close).toHaveBeenCalledWith({ windowId: 10 });
   });
 
   it('shows clear loading and empty-search states instead of a blank list', async () => {

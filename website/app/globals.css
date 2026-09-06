@@ -45,6 +45,9 @@ h1 em, h2 em { color: var(--orange); font-style: normal; }
 .button { display: inline-flex; align-items: center; justify-content: center; gap: 38px; min-height: 52px; padding: 0 22px; border-radius: 8px; font-size: 14px; font-weight: 780; transition: transform .18s ease, background .18s ease, box-shadow .18s ease; }
 .button-primary { background: var(--ink); color: var(--paper); box-shadow: 0 8px 24px rgba(33,29,66,.16); }
 .button-primary:hover { transform: translateY(-2px); background: #302958; box-shadow: 0 12px 30px rgba(33,29,66,.22); }
+.coffee-button { gap: 12px; padding-block: 12px; background: #ffdd00; color: var(--ink); border: 1px solid #d9bb00; }
+.coffee-button:hover { background: #f4d300; }
+.coffee-button svg { flex-shrink: 0; }
 .text-link { display: inline-flex; align-items: center; gap: 10px; padding-block: 9px; border-bottom: 1px solid var(--rule); color: var(--ink); font-size: 13px; font-weight: 720; }
 .text-link:hover { border-color: var(--orange); color: var(--orange); }
 .micro-proof { margin: 20px 0 0; color: var(--muted); font-size: 11px; font-weight: 650; }
@@ -102,6 +105,8 @@ h1 em, h2 em { color: var(--orange); font-style: normal; }
 .community-actions b { font-size: 18px; }
 .community-actions small { color: var(--muted); font-size: 12px; }
 .community-actions i { font-style: normal; font-size: 18px; }
+.community-actions .coffee-mark { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 12px; background: #ffdd00; color: var(--ink); }
+.community-actions .coffee-invitation small { font-size: 14px; }
 
 .faq-section { display: grid; grid-template-columns: .72fr 1.28fr; gap: 70px; }
 .faq-list { border-top: 1px solid var(--rule); }

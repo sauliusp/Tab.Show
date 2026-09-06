@@ -18,6 +18,7 @@ export const metadata: Metadata = {
 };
 
 const faq = [
+  { q: "Is TabShow free?", a: "Yes. Every feature is free to use. If you would like to support its development, you can leave a tip through Buy Me a Coffee. Support is entirely optional." },
   { q: "Does TabShow read the contents of webpages?", a: "No. TabShow does not request host permissions and cannot read page contents. It uses Chrome's tab metadata, such as titles, URLs, favicons, groups, and status, to power the side panel." },
   { q: "Can I search tabs across every Chrome window?", a: "Yes. Choose All windows to search and organize tabs across Chrome windows. For safety, a tab in another window switches only when clicked; hover preview does not steal focus across windows." },
   { q: "What happens when I move away from a preview?", a: "TabShow returns you to the original tab. If the preview was the right page, click it to make the switch permanent." },
@@ -55,7 +56,7 @@ export default function Home() {
           <ProductImage src="/images/tabshow-2.1-01-live-preview.png" alt="TabShow 2.1 live preview showing the current Chrome tab in violet and a hovered preview tab in amber" priority />
         </section>
 
-        <section className="proof-strip" aria-label="TabShow 2.1 highlights">
+        <section className="proof-strip" aria-label="TabShow highlights">
           <div className="shell proof-grid">
             <span><b>01</b> Live page preview</span>
             <span><b>02</b> Title, URL & domain search</span>
@@ -79,7 +80,7 @@ export default function Home() {
 
         <section className="section ink-section">
           <div className="shell">
-            <div className="section-heading light-heading"><p className="eyebrow"><span /> TabShow 2.1</p><h2>More context.<br /><em>Still one sharp tool.</em></h2></div>
+            <div className="section-heading light-heading"><p className="eyebrow"><span /> TabShow</p><h2>More context.<br /><em>Still one sharp tool.</em></h2></div>
             <div className="feature-ledger">
               <article><span>01</span><h3>Find faster</h3><p>Search open tabs by title, URL, or domain instead of scanning the tab strip.</p></article>
               <article><span>02</span><h3>See every window</h3><p>Switch scope when the page you need lives in another Chrome window.</p></article>
