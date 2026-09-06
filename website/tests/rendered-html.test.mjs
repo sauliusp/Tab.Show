@@ -92,8 +92,10 @@ test("privacy and support match the shipped permission and cross-window behavior
   assert.match(privacy, /sidePanel/);
   assert.match(privacy, /tabGroups/);
   assert.match(privacy, /favicon/);
+  assert.doesNotMatch(privacy, /<code>favicon<\/code>/);
+  assert.match(privacy, /Applies to:[\s\S]{0,120}upcoming TabShow 2\.2 release/);
   assert.match(privacy, /activeTab[\s\S]{0,160}removed[\s\S]{0,120}implementation did not use it/i);
-  assert.match(privacy, /TabShow 2\.1 adds no permissions/i);
+  assert.match(privacy, /TabShow 2\.1 and 2\.2 add no permissions/i);
   assert.match(privacy, /does not read page contents/i);
   assert.match(privacy, /up to 90 local daily check-ins/i);
   assert.match(privacy, /Repeated panel openings update the current day's check-in/i);

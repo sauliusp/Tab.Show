@@ -6,7 +6,9 @@ Prepared for submission. This handoff does not mean the extension has been submi
 
 Build with `npm ci && npm run zip` from the repository root. The Chrome Web Store upload is `.output/tabshow-2.2.0-chrome.zip`, with `manifest.json` at the archive root. Use this Chrome ZIP, not the source tree or video upload bundle.
 
-The exact prepared ZIP and its checksum are recorded in `.output/tabshow-2.2.0-package-check.json`. The final local shipping folder includes a copy of this ZIP, a checksum, the manifest, and the release note.
+The exact prepared ZIP checksum is tracked in `docs/releases/2.2.0/SHA256SUMS.txt`. Verify the prepared artifact from its directory with `shasum -a 256 -c /absolute/path/to/Tab.Show/docs/releases/2.2.0/SHA256SUMS.txt`. Its build provenance and checks are in the adjacent tracked `package-check.json`. The ZIP itself is a local release artifact, not committed to Git. The final local shipping folder includes the ZIP, checksum, manifest, and release note.
+
+A fresh checkout can build a new ZIP using the command above, then compute its own checksum with `shasum -a 256 .output/tabshow-2.2.0-chrome.zip`. ZIP metadata may change the checksum across builds; revalidate and record a rebuilt artifact before uploading it instead of assuming it is the exact prepared ZIP.
 
 ## Listing fields
 
@@ -39,10 +41,10 @@ The copy-style guard now checks product source and shipped pages rather than arc
 
 ## Submission sequence
 
-1. Confirm the store dashboard allows a new package; handle any existing pending submission before uploading.
+1. Confirm the store dashboard allows a new package. If a pending submission blocks it, report the blocker without cancelling or withdrawing that submission.
 2. Upload the Chrome ZIP and check that the dashboard reads version 2.2.0.
 3. Set the promotional video to the new URL above and use the prepared update note. Keep the product free and the permission/privacy disclosures unchanged.
-4. Preview the listing, then submit when the release is authorized.
-5. After store approval/publication, publish the prepared website changelog and replace its pending-release wording with the actual availability/date.
+4. At 21:00 Europe/Vilnius on September 6, upload and save as draft only. Do not submit for review or publish; the owner will inspect and submit later.
+5. Publish the website with the prepared-release changelog and updated privacy coverage now. After store approval/publication, replace pending-release wording with the actual availability/date.
 
 PR #11 carries this release preparation into `main`. Website publication is a separate operation; merging the source does not deploy the prepared 2.2 changelog. No social or community messages are part of this handoff.

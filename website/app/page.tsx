@@ -56,7 +56,7 @@ export default function Home() {
           <ProductImage src="/images/tabshow-2.1-01-live-preview.png" alt="TabShow 2.1 live preview showing the current Chrome tab in violet and a hovered preview tab in amber" priority />
         </section>
 
-        <section className="proof-strip" aria-label="TabShow 2.1 highlights">
+        <section className="proof-strip" aria-label="TabShow highlights">
           <div className="shell proof-grid">
             <span><b>01</b> Live page preview</span>
             <span><b>02</b> Title, URL & domain search</span>
@@ -80,7 +80,7 @@ export default function Home() {
 
         <section className="section ink-section">
           <div className="shell">
-            <div className="section-heading light-heading"><p className="eyebrow"><span /> TabShow 2.1</p><h2>More context.<br /><em>Still one sharp tool.</em></h2></div>
+            <div className="section-heading light-heading"><p className="eyebrow"><span /> TabShow</p><h2>More context.<br /><em>Still one sharp tool.</em></h2></div>
             <div className="feature-ledger">
               <article><span>01</span><h3>Find faster</h3><p>Search open tabs by title, URL, or domain instead of scanning the tab strip.</p></article>
               <article><span>02</span><h3>See every window</h3><p>Switch scope when the page you need lives in another Chrome window.</p></article>
