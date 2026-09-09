@@ -1,6 +1,6 @@
-import { createCanvas, loadImage, GlobalFonts } from '/Users/spetreikis/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/@napi-rs/canvas/index.js';
+import { createCanvas, loadImage, GlobalFonts } from '@napi-rs/canvas';
 import { mkdir, readFile, writeFile, access } from 'node:fs/promises';
-import { spawn } from 'node:child_process';
+import { spawn, spawnSync } from 'node:child_process';
 import { once } from 'node:events';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -186,6 +186,9 @@ if((process.argv[2]??'stills')==='stills'){
  await writeFile(path.join(DIR,'qa/contact-sheet.jpg'),await contact.encode('jpeg',92));console.log('Stills ready');
 }else{
  const file=path.join(OUT,'TabShow-Focus-30s-silent.mp4');
- const ff=spawn('/usr/local/bin/ffmpeg',['-y','-v','error','-f','rawvideo','-pixel_format','rgba','-video_size',`${W}x${H}`,'-framerate',String(FPS),'-i','pipe:0','-an','-c:v','libx264','-preset','fast','-crf','18','-pix_fmt','yuv420p','-vf','scale=in_range=full:out_range=tv:out_color_matrix=bt709','-color_primaries','bt709','-color_trc','bt709','-colorspace','bt709','-movflags','+faststart',file],{stdio:['pipe','inherit','inherit']});
+ const ffmpeg=process.env.FFMPEG_PATH || 'ffmpeg';
+ const probe=spawnSync(ffmpeg,['-version'],{stdio:'ignore'});
+ if(probe.error || probe.status!==0)throw new Error('FFmpeg is unavailable. Install it on PATH or set FFMPEG_PATH to its executable.');
+ const ff=spawn(ffmpeg,['-y','-v','error','-f','rawvideo','-pixel_format','rgba','-video_size',`${W}x${H}`,'-framerate',String(FPS),'-i','pipe:0','-an','-c:v','libx264','-preset','fast','-crf','18','-pix_fmt','yuv420p','-vf','scale=in_range=full:out_range=tv:out_color_matrix=bt709','-color_primaries','bt709','-color_trc','bt709','-colorspace','bt709','-movflags','+faststart',file],{stdio:['pipe','inherit','inherit']});
  const done=once(ff,'exit');for(let f=0;f<Math.round(DURATION*FPS);f++){draw(f/FPS);if(!ff.stdin.write(canvas.data()))await once(ff.stdin,'drain');if(f%300===0)console.log(`Rendered ${(f/FPS).toFixed(0)} / ${DURATION}s`)}ff.stdin.end();const [code]=await done;if(code!==0)throw new Error(`ffmpeg ${code}`);console.log(file);
 }

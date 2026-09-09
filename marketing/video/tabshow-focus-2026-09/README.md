@@ -1,6 +1,6 @@
 # TabShow: full-page preview, keep your focus
 
-A separate 31.483-second, 1920×1080, 60fps narrated film. Existing TabShow videos and campaign files remain unchanged. Public release awaits the user's review.
+A separate 31.483-second, 1920×1080, 60fps narrated film. Existing TabShow videos and campaign files remain unchanged. The user authorized public release after a clean PR review and merge.
 
 ## Review files
 
@@ -24,7 +24,7 @@ The narration uses the same local Chatterbox Multilingual V3 model, private refe
 
 The original TabShow upbeat ambient composition sits under the narration. The final mix measures approximately -19.2 LUFS integrated and -1.1dB true peak. It uses no borrowed music samples.
 
-Independent transcription of the unmixed scene reads matches every intended word after punctuation, casing and the recognizer's “Tap Show” spelling are normalized. Those approved voice files are unchanged. The mixed-file ASR varies “Preview”/“Review” and “Found”/“Find”, and emits a music-tail “you”; no additional speech was introduced. The user approved the voice and requested the opening pause; revised timing awaits final review.
+Independent transcription of the unmixed scene reads matches every intended word after punctuation, casing and the recognizer's “Tap Show” spelling are normalized. Those approved voice files are unchanged. The mixed-file ASR varies “Preview”/“Review” and “Found”/“Find”, and emits a music-tail “you”; no additional speech was introduced. The user approved the voice and requested the opening pause; the user then authorized release after the PR is reviewed and merged.
 
 ## Visual provenance
 
@@ -32,13 +32,19 @@ Panel images are the actual production React captures from `../tabshow-install-2
 
 ## Reproduce locally
 
-The installed local media environment is `~/.cache/historyout-media-venv/bin/python`. Rendering uses Node, the bundled Canvas package and FFmpeg. The voice reference and original campaign assets are required.
+Run the following from this directory. Node.js 18+, Python 3.12+ with NumPy, FFmpeg, and the checked-in original campaign assets are required. Canvas is a separate, locked media dependency; it is not added to the extension runtime. FFmpeg is resolved from `PATH`, or from the executable specified by `FFMPEG_PATH`.
 
-1. Run `source/generate-scene-voice.py` to generate missing scene WAVs. Existing WAVs are preserved.
-2. Run `source/transcribe.py audio/film-voice.wav source/scenes-transcript-check.json`.
-3. Run `source/prepare-media.py` to produce the timeline, timed voice, captions and mix.
-4. Run `node render.mjs stills`, then `node render.mjs video` from this directory.
-5. Mux the silent picture master with `audio/final-mix.wav` using H.264 stream copy and 256kbps AAC stereo at 48kHz. Keep the complete 31.483-second picture.
-6. Generate the website derivative at 30fps, H.264 CRF22 and 128kbps AAC; preserve fast-start metadata.
+```sh
+npm ci
+python3.12 -m venv .venv
+.venv/bin/python -m pip install -r requirements-media.txt
+.venv/bin/python source/prepare-media.py
+npm run stills
+npm run render
+"${FFMPEG_PATH:-ffmpeg}" -y -i output/TabShow-Focus-30s-silent.mp4 -i audio/final-mix.wav -map 0:v:0 -map 1:a:0 -c:v copy -c:a aac -b:a 256k -ar 48000 -ac 2 -shortest -movflags +faststart output/TabShow-Focus-30s-1080p60.mp4
+```
 
+The scene WAVs, narration timing and independently aligned word timestamps are committed, so reproducing the approved cut does not require generating speech or accessing the private reference. For new narration only, `source/generate-scene-voice.py` and `source/transcribe.py` require the optional Apple Silicon MLX media environment, model downloads and the private reference documented above. Those steps are not needed for ordinary rendering.
+
+Generate the website derivative at 30fps, H.264 CRF22 and 128kbps AAC, preserving fast-start metadata. Keep the complete 31.483-second picture.
 These scripts do not upload or publish. `publication.json` records the separate YouTube draft when available.

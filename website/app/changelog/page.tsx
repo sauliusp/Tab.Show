@@ -108,7 +108,7 @@ export default function ChangelogPage() {
       eyebrow="Changelog"
       title="TabShow 2.3"
       accent="makes window scope clear."
-      lead="A clearer window scope and a short voiced walkthrough of live preview. Version 2.3 is prepared for release and awaits final approval."
+      lead="A clearer window scope and a short voiced walkthrough of live preview. Version 2.3 is prepared for release. Chrome Web Store availability follows review."
       nav={[
         { href: "#version-2-3", label: "Version 2.3" },
         { href: "#version-2-2", label: "Version 2.2" },

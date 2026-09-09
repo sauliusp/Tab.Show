@@ -1,0 +1,14 @@
+{
+  "date": "2026-09-09",
+  "scenario": "Separate relocated copy outside the original checkout, with its own npm ci and an FFMPEG_PATH containing spaces",
+  "node_dependency": "@napi-rs/canvas 0.1.100, declared and locked in the media package",
+  "python": "3.12.14; numpy 2.5.2",
+  "passed": [
+    "npm ci",
+    "source/prepare-media.py",
+    "npm run stills",
+    "npm run render: complete 1889-frame video",
+    "Byte-for-byte matches for poster, thumbnail, mixed audio and SRT captions"
+  ],
+  "private_voice_reference_used": false
+}

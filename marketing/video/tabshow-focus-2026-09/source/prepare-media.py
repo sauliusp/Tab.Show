@@ -1,9 +1,12 @@
 """Place complete natural scene reads on a 30-second timeline; make captions and a quiet music mix."""
 from pathlib import Path
-import json, wave, subprocess, re
+import json, wave, subprocess, re, os, shutil
 import numpy as np
 
 R = Path(__file__).resolve().parents[1]
+ffmpeg = os.environ.get('FFMPEG_PATH', 'ffmpeg')
+if not shutil.which(ffmpeg):
+    raise SystemExit('FFmpeg is unavailable. Install it on PATH or set FFMPEG_PATH to its executable.')
 data = json.loads((R / 'source/film-narration.json').read_text())
 # Hold the opening product frame for 1.2 seconds before the first voice line.
 cursor = 1.2
@@ -59,7 +62,7 @@ for ext in ['srt','vtt']:
 (R / 'output/TabShow-Transcript.txt').write_text(data['text']+'\n')
 music=R.parent/'tabshow-install-2026-09/audio/upbeat-ambient-v3/tabshow-upbeat-ambient-v3-48s.wav'
 # Voice stays natural; original sample-free score sits well below narration.
-subprocess.run(['/usr/local/bin/ffmpeg','-y','-v','error','-i',str(R/'audio/voiceover.wav'),'-i',str(music),
+subprocess.run([ffmpeg,'-y','-v','error','-i',str(R/'audio/voiceover.wav'),'-i',str(music),
     '-filter_complex',f'[0:a]aresample=48000,volume=1.5[v];[1:a]atrim=0:{duration},volume=0.10,afade=t=in:d=0.5,afade=t=out:st={duration-3}:d=3[m];[v][m]amix=inputs=2:duration=longest:normalize=0,volume=1.413,alimiter=limit=0.891:level=0:latency=1[a]',
     '-map','[a]','-t',str(duration),'-ar','48000','-ac','2',str(R/'audio/final-mix.wav')],check=True)
 print(json.dumps({'duration':duration,'voice_duration':data['scenes'][-1]['raw_end'],'closing_hold':data['end_hold']}))
