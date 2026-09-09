@@ -196,7 +196,7 @@ export default function ChangelogPage() {
 
       <section id="privacy">
         <h2>Privacy and permissions</h2>
-        <p>TabShow 2.2 still has no account, backend, advertising, host permissions, or access to webpage contents. Version 2.2 adds no permissions, and the unused <code>activeTab</code> permission remains removed.</p>
+        <p>TabShow 2.3 still has no account, backend, advertising, host permissions, or access to webpage contents. Version 2.3 adds no permissions, and the unused <code>activeTab</code> permission remains removed.</p>
         <p>See the full <a className="text-link" href="/privacy">plain-language privacy page →</a></p>
       </section>
 
