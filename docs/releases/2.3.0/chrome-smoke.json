@@ -1,0 +1,24 @@
+{
+  "date": "2026-09-09",
+  "browser": "Chrome for Testing 151.0.7922.34",
+  "mode": "Native UI, separate test profile, unpacked release build",
+  "extensionId": "ofjkbgengmnclhgjekcfblgbghjfiedm",
+  "build": ".output/chrome-mv3",
+  "version": "2.3.0",
+  "passed": [
+    "Unpacked load and install onboarding",
+    "Same-profile scope control help and compact This profile hint at narrow panel width",
+    "All windows persisted on reopening in a second window",
+    "Five tabs across two same-profile windows with accessible totals",
+    "Empty search retained full tab and window totals",
+    "Arrow-key selection and Enter opened a tab in the current window",
+    "Arrow-key selection and Enter switched to a tab in another window",
+    "Packaged whats-new page rendered Version 2.3, both release cards and the demo link"
+  ],
+  "notRetested": [
+    "Pointer hover and pointer-leave restoration",
+    "Automatic update popup from a signed Store installation",
+    "Cross-profile runtime isolation"
+  ],
+  "fixtures": "Three local HTML pages served at 127.0.0.1:4189; no private browsing data used"
+}

@@ -1,0 +1,15 @@
+{
+  "verified_at": "2026-09-09",
+  "property": "https://tab.show/",
+  "account": "saulius.developer@gmail.com",
+  "ownership": "Ownership auto verified",
+  "method": "HTML tag",
+  "sitemap": "https://tab.show/sitemap.xml",
+  "submission": "Sitemap submitted successfully",
+  "submitted_date": "2026-09-09",
+  "table_status": "Success",
+  "last_read": "2026-09-01",
+  "discovered_pages": 9,
+  "scope": "URL-prefix property, not a DNS domain property",
+  "evidence": "Observed directly in Google Search Console via authenticated Chrome UI; live HTML tag and sitemap independently fetched."
+}

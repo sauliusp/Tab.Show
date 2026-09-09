@@ -42,7 +42,7 @@ function browserWith150Tabs(includeOtherWindow = false) {
 async function expectOpenTabCount(count: number, windowCount?: number) {
   const label = windowCount === undefined
     ? `Open tabs: ${count}`
-    : `Open tabs: ${count}; Chrome windows: ${windowCount}`;
+    : `Open tabs: ${count}; Chrome windows: ${windowCount}; current profile only`;
   await waitFor(() => expect(screen.getByRole('status', { name: label })).toBeVisible());
 }
 

@@ -1,0 +1,11 @@
+{
+  "file": ".output/tabshow-2.3.0-chrome.zip",
+  "sha256": "6eee405245fa51b0fbddf535cd5abaff81eb57c8b8d07bd537970f0007e71eb6",
+  "version": "2.3.0",
+  "permissions": [
+    "sidePanel",
+    "tabs",
+    "tabGroups"
+  ],
+  "integrity": "passed"
+}

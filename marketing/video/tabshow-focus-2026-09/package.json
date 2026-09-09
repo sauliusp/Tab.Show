@@ -1,0 +1,16 @@
+{
+  "name": "tabshow-focus-film",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "stills": "node render.mjs stills",
+    "render": "node render.mjs video"
+  },
+  "dependencies": {
+    "@napi-rs/canvas": "0.1.100"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

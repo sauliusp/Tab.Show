@@ -1,6 +1,6 @@
-# TabShow 2.2 Chrome Web Store copy
+# TabShow 2.3 Chrome Web Store copy
 
-Status: release-ready draft. This text is grounded in the 2.2 release candidate and keeps the Store listing focused on the shipped product rather than embedding a long changelog.
+Status: release-ready draft. This text is grounded in the 2.3 release candidate and keeps the Store listing focused on the shipped product rather than embedding a long changelog.
 
 ## Package title
 
@@ -10,9 +10,9 @@ Why: brand-first, memorable, and explicit about the distinctive behavior. It rem
 
 ## Package summary
 
-`Preview live Chrome tabs before you switch. Search every window and find the right page without losing your place.`
+`Preview live Chrome tabs before you switch. Search your tabs and find the right page without losing your place.`
 
-Why: it leads with the distinctive live-preview benefit, includes cross-window search, and ends on the outcome. It is below Chrome's 132-character limit.
+Why: it leads with the distinctive live-preview benefit, includes tab search, and ends on the outcome. It is below Chrome's 132-character limit.
 
 ## Detailed description
 
@@ -28,9 +28,9 @@ FIND A TAB FAST
 
 Start typing as soon as the panel opens. Search by page title, URL, or domain. Use Arrow Up and Arrow Down to select a result, Enter to open it, or Escape to return to your original tab and close the panel. Keyboard selection stays switch-free until you press Enter. Live preview remains available on hover.
 
-WORK ACROSS EVERY CHROME WINDOW
+FIND TABS ACROSS WINDOWS IN ONE CHROME PROFILE
 
-Stay focused on the current window or search all open windows from one compact list. Tabs from another window switch only when you click, so a casual hover never pulls you away unexpectedly.
+Stay focused on the current window or search all open windows in the same Chrome profile from one compact list. Other Chrome profiles stay separate. Tabs from another window switch only when you click, so a casual hover never pulls you away unexpectedly.
 
 BUILT FOR REAL TAB CHAOS
 
@@ -57,15 +57,15 @@ TabShow uses Chrome permissions only to show the side panel, list the tab detail
 
 Find the right tab without switching away. TabShow is free to use. Supporting its development through Buy Me a Coffee is entirely optional.
 
-## Version 2.2 update summary
+## Version 2.3 update summary
 
-TabShow 2.2 adds optional Support TabShow and Buy me a coffee links. Every feature remains free. Enter follows a focused link without switching to a tab, and Escape still returns to the original tab and closes the panel. No new permissions.
+TabShow 2.3 makes the All windows scope clearer: it includes windows in the same Chrome profile, while other profiles stay separate. The refreshed update page links to a short voiced demo of full-page previews, search, and keyboard navigation. Every feature remains free, with no new permissions.
 
 ## Promotional video
 
-Use the new upbeat edition: https://www.youtube.com/watch?v=nVGewf2igpo
+Use the new voiced edition: https://www.youtube.com/watch?v=ZznCNcOynjw
 
-Verified available on YouTube on 6 September 2026. The older video remains available; this release handoff selects the new edition for the Chrome Web Store video field.
+The revised 31-second edition includes an opening pause and English captions. It is saved privately for publication after the reviewed pull request merges. The original and upbeat editions remain available. Verify that the new edition is public before saving it in the Chrome Web Store video field.
 
 ## Permission and privacy language
 
@@ -77,7 +77,7 @@ Use these explanations in the Dashboard Privacy section and on the future `/priv
 | `tabs` | Reads open-tab titles, URLs, favicons, window membership, and status so TabShow can list, search, sort, preview, switch, and close tabs. It does not grant access to webpage contents. |
 | `tabGroups` | Reads tab-group names, colors, membership, and collapsed state so existing Chrome groups can be represented and expanded or collapsed from TabShow. |
 
-The previously declared `activeTab` permission had no implementation use and remains absent from the 2.2 manifest rather than being given a cosmetic justification.
+The previously declared `activeTab` permission had no implementation use and remains absent from the 2.3 manifest rather than being given a cosmetic justification.
 
 Tab Chaos trend data stays in local extension storage. It retains up to 90 daily check-ins containing a timestamp, local calendar day, derived score, and open-tab count, plus the all-time best score. Repeated panel openings update the current day's record. It does not store titles, URLs, domains, favicons, or page contents. Users can delete it by clearing TabShow's extension data in Chrome or uninstalling the extension.
 

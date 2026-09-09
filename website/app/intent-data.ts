@@ -17,7 +17,7 @@ export const previewPage: IntentPageData = {
   faq: [
     { q: "Can Chrome preview a tab without switching by itself?", a: "Chrome does not provide this exact side-panel recognition loop by default. TabShow temporarily activates the live tab while you point at it, then restores the original tab when you move away." },
     { q: "Is the preview a screenshot?", a: "No. It is the real live tab shown in the main browser window, not a thumbnail or image captured by TabShow." },
-    { q: "Does hover preview work in another Chrome window?", a: "No, and that is intentional. Tabs from other windows appear in All windows scope, but clicking is required so hover cannot unexpectedly steal focus." },
+    { q: "Does hover preview work in another Chrome window?", a: "No, and that is intentional. Tabs from other windows in the same Chrome profile appear in All windows scope, but clicking is required so hover cannot unexpectedly steal focus." },
   ],
 };
 
@@ -31,12 +31,12 @@ export const lostTabPage: IntentPageData = {
   intent: "The fastest way to find a lost Chrome tab is to combine text search with visual recognition: narrow the candidates, preview the live page, and switch only when it matches.",
   content: "lost_tab_page",
   sections: [
-    { title: "Why the tab is not really lost", paragraphs: ["The page is usually still open; its identity has collapsed. Twenty tabs can become twenty favicons, and repeated Docs, Figma, email, or dashboard tabs no longer carry enough context in the strip.", "TabShow expands that context vertically. Search checks page titles, URLs, and domains. A query such as a project name, site, or path reduces the list before visual preview confirms the exact page."], bullets: ["Start with a word from the page title.", "Try the domain or a recognizable part of the URL.", "Use All windows if the result may be elsewhere.", "Use Arrow keys to select results, or hover a current-window result to preview it."] },
+    { title: "Why the tab is not really lost", paragraphs: ["The page is usually still open; its identity has collapsed. Twenty tabs can become twenty favicons, and repeated Docs, Figma, email, or dashboard tabs no longer carry enough context in the strip.", "TabShow expands that context vertically. Search checks page titles, URLs, and domains. A query such as a project name, site, or path reduces the list before visual preview confirms the exact page."], bullets: ["Start with a word from the page title.", "Try the domain or a recognizable part of the URL.", "Use All windows if the result may be in another window of this Chrome profile.", "Use Arrow keys to select results, or hover a current-window result to preview it."] },
     { title: "A repeatable recovery workflow", paragraphs: ["Open TabShow from the toolbar or your Chrome extension shortcut. Type the strongest clue you remember. Move through the filtered results with the Arrow keys, then press Enter to open the selected tab. Hover a current-window result when you want the live page to confirm it first.", "The important part is reversibility. A wrong hover candidate does not become another costly detour because TabShow restores the original tab."], bullets: ["Arrow Down or Arrow Up selects another result.", "Enter opens the selected tab.", "Escape returns to the original tab.", "Current window and All windows keep scope explicit."] },
     { title: "Prevent the next hunt without reorganizing everything", paragraphs: ["You do not need a perfect tab system to benefit. Existing Chrome groups remain visible, and sort modes let you use browser order, recent use, recent addition, domain, or group when one view becomes more useful than another.", "TabShow is not a promise to eliminate tab overload. It makes the overload more searchable and makes recognition less disruptive."] },
   ],
   faq: [
-    { q: "How do I search all open tabs in Chrome?", a: "Open TabShow, choose All windows, and search by title, URL, or domain. Search narrows the visible list while the tab and window totals continue to show the complete selected scope." },
+    { q: "How do I search all open tabs in Chrome?", a: "Open TabShow, choose All windows, and search by title, URL, or domain across the current Chrome profile. Other profiles stay separate. Search narrows the visible list while the tab and window totals continue to show the complete selected scope." },
     { q: "Can I find a tab if I remember only the website?", a: "Yes. Search matches domains and URLs as well as page titles." },
     { q: "Will searching change my current tab?", a: "No. Typing and Arrow-key selection leave the current page alone. Hovering a current-window result starts a temporary preview; moving away or pressing Escape restores the original tab." },
   ],
@@ -81,7 +81,7 @@ export const workonaPage: IntentPageData = {
   ],
   faq: [
     { q: "Does TabShow sync workspaces across devices?", a: "No. TabShow has no account or backend. It works with the tabs and groups in the current Chrome profile." },
-    { q: "Can TabShow show tabs from multiple windows?", a: "Yes. All windows scope lists and searches them. Tabs in another window require a click to switch." },
+    { q: "Can TabShow show tabs from multiple windows?", a: "Yes. All windows lists and searches windows in the same Chrome profile. Other profiles stay separate. Tabs in another window require a click to switch." },
     { q: "Does TabShow replace Chrome tab groups?", a: "No. It represents existing groups, including their names, colors, nesting, and collapsed state." },
   ],
 };

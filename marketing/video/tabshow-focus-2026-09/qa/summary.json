@@ -1,0 +1,18 @@
+{
+  "duration_seconds": 31.483333333333334,
+  "format": "1920x1080 H.264 60fps; AAC stereo",
+  "sha256": "1cfe3de55592a3b3c025a68d0bf20c25d1bf7f8c12ed5662d60a0a7108557b00",
+  "speech_words": 62,
+  "voice_seconds": 23.54,
+  "closing_hold_seconds": 2.993333333333336,
+  "transcript_match": true,
+  "normalization": "Case, punctuation, and ASR spelling Tap Show / TapShow normalized to TabShow. All intended narration words match.",
+  "voice_provenance": "Same private reference digest, model and settings as Tabosmart. New natural performances; pauses between scenes only.",
+  "visual_provenance": "Actual production React panel captures from the September TabShow campaign; illustrative example pages and browser framing. Source captures remain unchanged.",
+  "human_voice_similarity_review": "User approved voice; requested opening pause. Revised timing awaits final review.",
+  "decode": "Full decode and black-frame scan passed; no black intervals reported.",
+  "published": false,
+  "opening_hold_seconds": 1.2,
+  "transcript_check_source": "Unmixed unchanged scene reads, source/scenes-transcript-check.json.",
+  "encoded_asr_notes": "Mixed-file ASR varies Preview/Review and Found/Find, and emits a music-tail you. The approved scene voice files are unchanged; exact transcript comparison uses the unmixed source."
+}

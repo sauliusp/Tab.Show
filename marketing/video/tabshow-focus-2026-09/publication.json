@@ -1,0 +1,31 @@
+{
+  "youtubeVideoId": "ZznCNcOynjw",
+  "youtubeUrl": "https://www.youtube.com/watch?v=ZznCNcOynjw",
+  "studioUrl": "https://studio.youtube.com/video/ZznCNcOynjw/edit",
+  "channel": "Saulius Petreikis",
+  "channelId": "UCae83_jxwr2G5QJPLA2Tr1Q",
+  "publishStatus": "private",
+  "uploadedAt": "2026-09-09",
+  "title": "TabShow: Full-Page Tab Preview. Keep Your Focus.",
+  "aiDisclosure": true,
+  "allowAutomaticPlaces": false,
+  "allowEmbedding": true,
+  "communityGuidelinesCheck": "No issues found",
+  "englishCaptions": "Uploaded timed SRT; English by you confirmed",
+  "customThumbnail": "Uploaded and saved",
+  "existingVideosPreserved": [
+    "gfOky71v2wI",
+    "nVGewf2igpo"
+  ],
+  "publicApproval": "Authorized by the user after clean PR review and merge on 9 September 2026",
+  "masterSha256": "1cfe3de55592a3b3c025a68d0bf20c25d1bf7f8c12ed5662d60a0a7108557b00",
+  "openingHoldSeconds": 1.2,
+  "verificationRecordedAt": "2026-09-09T05:34:00Z",
+  "highDefinitionProcessing": "Complete",
+  "previousReviewDraft": {
+    "id": "aM7cm82avYw",
+    "status": "Private, superseded",
+    "title": "TabShow: First review cut (superseded, private)"
+  },
+  "copyrightCheckAtPrivateSave": "In progress; recheck before public release"
+}

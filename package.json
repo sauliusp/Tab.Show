@@ -2,7 +2,7 @@
   "name": "tabshow",
   "description": "Search or point at open tabs to preview the live page, then switch or snap back without losing your place.",
   "private": true,
-  "version": "2.2.0",
+  "version": "2.3.0",
   "type": "module",
   "scripts": {
     "dev": "wxt",

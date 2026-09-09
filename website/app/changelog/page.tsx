@@ -2,8 +2,8 @@
 import { FEEDBACK_URL, PlainPage, pageMetadata } from "../site";
 
 export const metadata = pageMetadata(
-  "TabShow Changelog | Version 2.2",
-  "TabShow 2.2 adds optional support links and improves keyboard navigation on links. Every feature remains free, with no new permissions.",
+  "TabShow Changelog | Version 2.3",
+  "TabShow 2.3 clarifies which Chrome windows appear and adds a short narrated demo. Full-page live previews, with no new permissions.",
   "/changelog",
 );
 
@@ -106,10 +106,11 @@ export default function ChangelogPage() {
   return (
     <PlainPage
       eyebrow="Changelog"
-      title="TabShow 2.2"
-      accent="keeps support optional."
-      lead="An optional way to support the maker, plus a keyboard fix for links. Version 2.2 is prepared for the Chrome Web Store; availability will follow review."
+      title="TabShow 2.3"
+      accent="makes window scope clear."
+      lead="A clearer window scope and a short voiced walkthrough of live preview. Version 2.3 is prepared for release. Chrome Web Store availability follows review."
       nav={[
+        { href: "#version-2-3", label: "Version 2.3" },
         { href: "#version-2-2", label: "Version 2.2" },
         { href: "#version-2-1", label: "Version 2.1" },
         { href: "#version-2", label: "Version 2.0" },
@@ -118,6 +119,17 @@ export default function ChangelogPage() {
         { href: "#next", label: "What comes next" },
       ]}
     >
+      <section id="version-2-3">
+        <p className="eyebrow"><span /> Prepared for release</p>
+        <h2>Version 2.3</h2>
+        <h3>All windows, within this profile</h3>
+        <p>All windows shows tabs from windows in the same Chrome profile. A small This profile hint and an explanation on the scope control make the boundary clear. Windows in another profile, such as Work or Personal, stay separate.</p>
+        <h3>See the essentials in about 30 seconds</h3>
+        <p>The new narrated demo starts with full-page live preview: hover to look, move away to return, and click to stay. Search and keyboard navigation follow, with room to see each action.</p>
+        <h3>Same focus, same permissions</h3>
+        <p>This update clarifies existing behavior. Every feature remains free, with no new permissions or tracking.</p>
+      </section>
+
       <section id="version-2-2">
         <p className="eyebrow"><span /> Prepared for release</p>
         <h2>Version 2.2</h2>
@@ -150,7 +162,7 @@ export default function ChangelogPage() {
         <p className="eyebrow"><span /> July 2026</p>
         <h2>Version 2.0</h2>
         <h3>Search open tabs</h3>
-        <p>Find tabs by page title, URL, or domain from the side panel. Search works in the current window or across every Chrome window.</p>
+        <p>Find tabs by page title, URL, or domain from the side panel. Search works in the current window or across windows in the same Chrome profile.</p>
         <h3>Keyboard selection and switching</h3>
         <p>Arrow keys select results, Enter opens the selected tab, and Escape returns to the original tab. Live preview remains a hover interaction.</p>
         <h3>All-window awareness</h3>
@@ -184,7 +196,7 @@ export default function ChangelogPage() {
 
       <section id="privacy">
         <h2>Privacy and permissions</h2>
-        <p>TabShow 2.2 still has no account, backend, advertising, host permissions, or access to webpage contents. Version 2.2 adds no permissions, and the unused <code>activeTab</code> permission remains removed.</p>
+        <p>TabShow 2.3 still has no account, backend, advertising, host permissions, or access to webpage contents. Version 2.3 adds no permissions, and the unused <code>activeTab</code> permission remains removed.</p>
         <p>See the full <a className="text-link" href="/privacy">plain-language privacy page →</a></p>
       </section>
 
