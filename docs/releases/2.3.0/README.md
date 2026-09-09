@@ -6,7 +6,7 @@ Prepared on 9 September 2026. Publication is pending the user's review. This rel
 
 - The All windows control explains that its scope is the current Chrome profile. A compact This profile hint appears in the existing helper row; accessible window totals say current profile only.
 - Website FAQ, support, comparison guidance, onboarding and both changelogs clarify that Work and Personal profiles remain separate.
-- A separate 30.5-second narrated video leads with full-page preview and focus, then demonstrates return, click-to-stay, search, keyboard selection and same-profile windows.
+- A separate 31.5-second narrated video with an opening pause leads with full-page preview and focus, then demonstrates return, click-to-stay, search, keyboard selection and same-profile windows.
 - The website serves the video directly, with captions and a transcript. The extension's update page links to `https://tab.show/#demo`.
 - Public developer contact is `sauliusthedev@gmail.com`. The old address was absent from website and extension copy; the release-plan contact entry was updated. Login-account references retain their actual account identities.
 - No new Chrome permissions, host access, tracking, account system or preview behavior changes.
@@ -27,7 +27,7 @@ Prepared on 9 September 2026. Publication is pending the user's review. This rel
 
 ## Draft surfaces
 
-The new YouTube video `aM7cm82avYw` is saved as Private with HD processing complete, English captions and a custom thumbnail. Existing public videos remain intact. Chrome Web Store requires the developer account's passkey re-verification; package upload and promo-field changes have not been performed.
+The new YouTube video `ZznCNcOynjw` is saved as Private with HD processing complete, English captions and a custom thumbnail. The first review cut remains private and is labelled superseded. Existing public videos remain intact. The revised upload's copyright check was still running when it was saved; verify its result before public release. Chrome Web Store requires the developer account's passkey re-verification; package upload and promo-field changes have not been performed.
 
 ## Publication order
 

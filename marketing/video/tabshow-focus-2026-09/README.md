@@ -1,6 +1,6 @@
 # TabShow: full-page preview, keep your focus
 
-A separate 30.483-second, 1920×1080, 60fps narrated film. Existing TabShow videos and campaign files remain unchanged. Public release awaits the user's review.
+A separate 31.483-second, 1920×1080, 60fps narrated film. Existing TabShow videos and campaign files remain unchanged. Public release awaits the user's review.
 
 ## Review files
 
@@ -16,15 +16,15 @@ The website uses a 30fps, approximately 2.2MB derivative with a native player, c
 
 ## Story and pacing
 
-The benefit is the first sentence: “Preview the full page without losing your focus.” The first frame already shows the product. Hover, return, and deliberate click each get their own scene. Search, arrow keys and windows follow; the narration and image explicitly say that windows must share one Chrome profile. The ending remains visible for approximately three seconds after the voice finishes.
+The opening product view and quiet music have 1.2 seconds before narration starts, one second more than the first review cut. The benefit is the first sentence: “Preview the full page without losing your focus.” The first frame already shows the product. Hover, return, and deliberate click each get their own scene. Search, arrow keys and windows follow; the narration and image explicitly say that windows must share one Chrome profile. The ending remains visible for approximately three seconds after the voice finishes.
 
 ## Voice and music
 
-The narration uses the same local Chatterbox Multilingual V3 model, private reference digest and expression settings as Tabosmart. Seven new natural scene performances retain their complete timing. Pauses are inserted between scenes only. No speech is accelerated, pitch-shifted or cut internally. The private reference stays outside this repository. Details are in `source/voice-provenance.json` and `source/film-narration.json`.
+The narration uses the same local Chatterbox Multilingual V3 model, private reference digest and expression settings as Tabosmart. Seven new natural scene performances retain their complete timing. Pauses are inserted before narration and between scenes. No speech is accelerated, pitch-shifted or cut internally. The private reference stays outside this repository. Details are in `source/voice-provenance.json` and `source/film-narration.json`.
 
-The original TabShow upbeat ambient composition sits under the narration. The final mix measures approximately -19.2 LUFS integrated and -1.0dB true peak. It uses no borrowed music samples.
+The original TabShow upbeat ambient composition sits under the narration. The final mix measures approximately -19.2 LUFS integrated and -1.1dB true peak. It uses no borrowed music samples.
 
-Independent local transcription matches every intended narration word after punctuation, casing and the recognizer's “Tap Show” spelling are normalized. The earlier encoded-file ASR also emitted a low-confidence “you” in the music-only closing hold (30.0s, no-speech probability 0.878); there is no voice stem at that point. Human assessment of voice likeness remains for the user's review.
+Independent transcription of the unmixed scene reads matches every intended word after punctuation, casing and the recognizer's “Tap Show” spelling are normalized. Those approved voice files are unchanged. The mixed-file ASR varies “Preview”/“Review” and “Found”/“Find”, and emits a music-tail “you”; no additional speech was introduced. The user approved the voice and requested the opening pause; revised timing awaits final review.
 
 ## Visual provenance
 
@@ -38,7 +38,7 @@ The installed local media environment is `~/.cache/historyout-media-venv/bin/pyt
 2. Run `source/transcribe.py audio/film-voice.wav source/scenes-transcript-check.json`.
 3. Run `source/prepare-media.py` to produce the timeline, timed voice, captions and mix.
 4. Run `node render.mjs stills`, then `node render.mjs video` from this directory.
-5. Mux the silent picture master with `audio/final-mix.wav` using H.264 stream copy and 256kbps AAC stereo at 48kHz. Keep the complete 30.483-second picture.
+5. Mux the silent picture master with `audio/final-mix.wav` using H.264 stream copy and 256kbps AAC stereo at 48kHz. Keep the complete 31.483-second picture.
 6. Generate the website derivative at 30fps, H.264 CRF22 and 128kbps AAC; preserve fast-start metadata.
 
 These scripts do not upload or publish. `publication.json` records the separate YouTube draft when available.

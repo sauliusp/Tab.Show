@@ -5,7 +5,8 @@ import numpy as np
 
 R = Path(__file__).resolve().parents[1]
 data = json.loads((R / 'source/film-narration.json').read_text())
-cursor = .2
+# Hold the opening product frame for 1.2 seconds before the first voice line.
+cursor = 1.2
 gaps = [.65, .6, .55, .55, .75, .65, 0]
 for scene, gap in zip(data['scenes'], gaps):
     scene['raw_start'], scene['raw_end'] = scene['start'], scene['end']
@@ -13,8 +14,8 @@ for scene, gap in zip(data['scenes'], gaps):
     scene['end'] = round(cursor + scene['duration'], 3)
     cursor = scene['end'] + gap
 duration = max(30, round((cursor + 3) * 60) / 60)
-data.update(duration=duration, fps=60, end_hold=duration-cursor,
-    processing='Complete generated scene reads with pauses between scenes and a closing hold. No time stretching, pitch changes or internal speech edits.')
+data.update(duration=duration, fps=60, opening_hold=1.2, end_hold=duration-cursor,
+    processing='Complete generated scene reads with an opening pause, pauses between scenes and a closing hold. No time stretching, pitch changes or internal speech edits.')
 (R / 'source/timeline.json').write_text(json.dumps(data, indent=2) + '\n')
 (R / 'source/narration.json').write_text(json.dumps([{'text': data['text']}], indent=2) + '\n')
 sr = 24000

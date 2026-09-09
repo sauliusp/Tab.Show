@@ -1,7 +1,7 @@
 {
-  "youtubeVideoId": "aM7cm82avYw",
-  "youtubeUrl": "https://www.youtube.com/watch?v=aM7cm82avYw",
-  "studioUrl": "https://studio.youtube.com/video/aM7cm82avYw/edit",
+  "youtubeVideoId": "ZznCNcOynjw",
+  "youtubeUrl": "https://www.youtube.com/watch?v=ZznCNcOynjw",
+  "studioUrl": "https://studio.youtube.com/video/ZznCNcOynjw/edit",
   "channel": "Saulius Petreikis",
   "channelId": "UCae83_jxwr2G5QJPLA2Tr1Q",
   "publishStatus": "private",
@@ -10,7 +10,6 @@
   "aiDisclosure": true,
   "allowAutomaticPlaces": false,
   "allowEmbedding": true,
-  "copyrightCheck": "No issues found",
   "communityGuidelinesCheck": "No issues found",
   "englishCaptions": "Uploaded timed SRT; English by you confirmed",
   "customThumbnail": "Uploaded and saved",
@@ -19,5 +18,14 @@
     "nVGewf2igpo"
   ],
   "publicApproval": "Awaiting user review",
-  "masterSha256": "ca1876902635ee57b4300ba1c4614655f6bc9a16ede62f288b178844bc0023b1"
+  "masterSha256": "1cfe3de55592a3b3c025a68d0bf20c25d1bf7f8c12ed5662d60a0a7108557b00",
+  "openingHoldSeconds": 1.2,
+  "verificationRecordedAt": "2026-09-09T05:34:00Z",
+  "highDefinitionProcessing": "Complete",
+  "previousReviewDraft": {
+    "id": "aM7cm82avYw",
+    "status": "Private, superseded",
+    "title": "TabShow: First review cut (superseded, private)"
+  },
+  "copyrightCheckAtPrivateSave": "In progress; recheck before public release"
 }

@@ -1,16 +1,15 @@
 {
-  "text": " Preview the full page without losing your focus. With TapShow, hover a tab to see it live. Move away. Your original page comes back. Found the right page? Click to stay. Search by title or website. Use the arrow keys. Find tabs across windows in the same Chrome profile. It's free. No account. No tracking. Find the right tab. Keep your flow. you",
+  "text": " Review the full page without losing your focus. With TapShow, hover a tab to see it live. Move away. Your original page comes back. Find the right page, click to stay. Search by title or website. Use the arrow keys. Find tabs across windows in the same Chrome profile. It's free, no account, no tracking. Find the right tab, keep your flow. you",
   "segments": [
     {
       "id": 0,
       "seek": 0,
-      "start": 0.0,
-      "end": 6.16,
-      "text": " Preview the full page without losing your focus. With TapShow, hover a tab to see it live.",
+      "start": 0.8199999999999976,
+      "end": 3.18,
+      "text": " Review the full page without losing your focus.",
       "tokens": [
         50364,
-        6001,
-        1759,
+        19954,
         264,
         1577,
         3028,
@@ -19,6 +18,71 @@
         428,
         1879,
         13,
+        50564
+      ],
+      "temperature": 0,
+      "avg_logprob": -0.16293590895983637,
+      "compression_ratio": 1.5246636771300448,
+      "no_speech_prob": 0.1453973948955536,
+      "words": [
+        {
+          "word": " Review",
+          "start": 0.8199999999999976,
+          "end": 1.38,
+          "probability": 0.37060546875
+        },
+        {
+          "word": " the",
+          "start": 1.38,
+          "end": 1.54,
+          "probability": 0.994140625
+        },
+        {
+          "word": " full",
+          "start": 1.54,
+          "end": 1.76,
+          "probability": 0.97802734375
+        },
+        {
+          "word": " page",
+          "start": 1.76,
+          "end": 2.08,
+          "probability": 0.99609375
+        },
+        {
+          "word": " without",
+          "start": 2.08,
+          "end": 2.3,
+          "probability": 0.97900390625
+        },
+        {
+          "word": " losing",
+          "start": 2.3,
+          "end": 2.64,
+          "probability": 0.99658203125
+        },
+        {
+          "word": " your",
+          "start": 2.64,
+          "end": 2.82,
+          "probability": 0.99267578125
+        },
+        {
+          "word": " focus.",
+          "start": 2.82,
+          "end": 3.18,
+          "probability": 0.9970703125
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "seek": 0,
+      "start": 3.94,
+      "end": 7.16,
+      "text": " With TapShow, hover a tab to see it live.",
+      "tokens": [
+        50564,
         2022,
         13445,
         27692,
@@ -31,125 +95,77 @@
         309,
         1621,
         13,
-        50672
+        50764
       ],
       "temperature": 0,
-      "avg_logprob": -0.13602176079383263,
-      "compression_ratio": 1.4805194805194806,
-      "no_speech_prob": 0.021526988595724106,
+      "avg_logprob": -0.16293590895983637,
+      "compression_ratio": 1.5246636771300448,
+      "no_speech_prob": 0.1453973948955536,
       "words": [
         {
-          "word": " Preview",
-          "start": 0.0,
-          "end": 0.42,
-          "probability": 0.8369140625
-        },
-        {
-          "word": " the",
-          "start": 0.42,
-          "end": 0.56,
-          "probability": 0.994140625
-        },
-        {
-          "word": " full",
-          "start": 0.56,
-          "end": 0.76,
-          "probability": 0.96826171875
-        },
-        {
-          "word": " page",
-          "start": 0.76,
-          "end": 1.06,
-          "probability": 0.99560546875
-        },
-        {
-          "word": " without",
-          "start": 1.06,
-          "end": 1.3,
-          "probability": 0.97802734375
-        },
-        {
-          "word": " losing",
-          "start": 1.3,
-          "end": 1.64,
-          "probability": 0.99658203125
-        },
-        {
-          "word": " your",
-          "start": 1.64,
-          "end": 1.82,
-          "probability": 0.9921875
-        },
-        {
-          "word": " focus.",
-          "start": 1.82,
-          "end": 2.2,
-          "probability": 0.99560546875
-        },
-        {
           "word": " With",
-          "start": 3.06,
-          "end": 3.5,
+          "start": 3.94,
+          "end": 4.5,
           "probability": 0.98974609375
         },
         {
           "word": " TapShow,",
-          "start": 3.5,
-          "end": 4.06,
-          "probability": 0.40087890625
+          "start": 4.5,
+          "end": 5.06,
+          "probability": 0.422119140625
         },
         {
           "word": " hover",
-          "start": 4.42,
-          "end": 4.58,
+          "start": 5.4,
+          "end": 5.58,
           "probability": 0.9755859375
         },
         {
           "word": " a",
-          "start": 4.58,
-          "end": 4.84,
-          "probability": 0.9931640625
+          "start": 5.58,
+          "end": 5.82,
+          "probability": 0.99169921875
         },
         {
           "word": " tab",
-          "start": 4.84,
-          "end": 5.12,
-          "probability": 0.9169921875
+          "start": 5.82,
+          "end": 6.1,
+          "probability": 0.92626953125
         },
         {
           "word": " to",
-          "start": 5.12,
-          "end": 5.58,
-          "probability": 0.98583984375
+          "start": 6.1,
+          "end": 6.58,
+          "probability": 0.9853515625
         },
         {
           "word": " see",
-          "start": 5.58,
-          "end": 5.78,
+          "start": 6.58,
+          "end": 6.78,
           "probability": 0.99755859375
         },
         {
           "word": " it",
-          "start": 5.78,
-          "end": 5.9,
-          "probability": 0.998046875
+          "start": 6.78,
+          "end": 6.9,
+          "probability": 0.99755859375
         },
         {
           "word": " live.",
-          "start": 5.9,
-          "end": 6.16,
-          "probability": 0.99609375
+          "start": 6.9,
+          "end": 7.16,
+          "probability": 0.99560546875
         }
       ]
     },
     {
-      "id": 1,
+      "id": 2,
       "seek": 0,
-      "start": 6.82,
-      "end": 9.76,
+      "start": 8.12,
+      "end": 10.76,
       "text": " Move away. Your original page comes back.",
       "tokens": [
-        50720,
+        50764,
         10475,
         1314,
         13,
@@ -159,174 +175,232 @@
         1487,
         646,
         13,
-        50852
+        50914
       ],
       "temperature": 0,
-      "avg_logprob": -0.13602176079383263,
-      "compression_ratio": 1.4805194805194806,
-      "no_speech_prob": 0.021526988595724106,
+      "avg_logprob": -0.16293590895983637,
+      "compression_ratio": 1.5246636771300448,
+      "no_speech_prob": 0.1453973948955536,
       "words": [
         {
           "word": " Move",
-          "start": 6.82,
-          "end": 7.4,
-          "probability": 0.9892578125
+          "start": 8.12,
+          "end": 8.4,
+          "probability": 0.99072265625
         },
         {
           "word": " away.",
-          "start": 7.4,
-          "end": 7.72,
-          "probability": 0.9755859375
+          "start": 8.4,
+          "end": 8.72,
+          "probability": 0.97998046875
         },
         {
           "word": " Your",
-          "start": 8.34,
-          "end": 8.48,
-          "probability": 0.984375
+          "start": 9.34,
+          "end": 9.48,
+          "probability": 0.98046875
         },
         {
           "word": " original",
-          "start": 8.48,
-          "end": 8.86,
+          "start": 9.48,
+          "end": 9.86,
           "probability": 0.99609375
         },
         {
           "word": " page",
-          "start": 8.86,
-          "end": 9.22,
+          "start": 9.86,
+          "end": 10.2,
           "probability": 0.998046875
         },
         {
           "word": " comes",
-          "start": 9.22,
-          "end": 9.48,
-          "probability": 0.99755859375
+          "start": 10.2,
+          "end": 10.48,
+          "probability": 0.998046875
         },
         {
           "word": " back.",
-          "start": 9.48,
-          "end": 9.76,
-          "probability": 0.99951171875
-        }
-      ]
-    },
-    {
-      "id": 2,
-      "seek": 0,
-      "start": 10.7,
-      "end": 15.28,
-      "text": " Found the right page? Click to stay. Search by title or website.",
-      "tokens": [
-        50900,
-        8207,
-        264,
-        558,
-        3028,
-        30,
-        8230,
-        281,
-        1754,
-        13,
-        17180,
-        538,
-        4876,
-        420,
-        3144,
-        13,
-        51132
-      ],
-      "temperature": 0,
-      "avg_logprob": -0.13602176079383263,
-      "compression_ratio": 1.4805194805194806,
-      "no_speech_prob": 0.021526988595724106,
-      "words": [
-        {
-          "word": " Found",
-          "start": 10.7,
-          "end": 11.06,
-          "probability": 0.47900390625
-        },
-        {
-          "word": " the",
-          "start": 11.06,
-          "end": 11.34,
-          "probability": 0.99609375
-        },
-        {
-          "word": " right",
-          "start": 11.34,
-          "end": 11.52,
-          "probability": 0.97607421875
-        },
-        {
-          "word": " page?",
-          "start": 11.52,
-          "end": 11.96,
-          "probability": 0.99462890625
-        },
-        {
-          "word": " Click",
-          "start": 12.22,
-          "end": 12.28,
-          "probability": 0.986328125
-        },
-        {
-          "word": " to",
-          "start": 12.28,
-          "end": 12.5,
-          "probability": 0.96923828125
-        },
-        {
-          "word": " stay.",
-          "start": 12.5,
-          "end": 12.76,
-          "probability": 0.96142578125
-        },
-        {
-          "word": " Search",
-          "start": 13.72,
-          "end": 13.96,
-          "probability": 0.9833984375
-        },
-        {
-          "word": " by",
-          "start": 13.96,
-          "end": 14.18,
-          "probability": 0.99609375
-        },
-        {
-          "word": " title",
-          "start": 14.18,
-          "end": 14.56,
-          "probability": 0.95458984375
-        },
-        {
-          "word": " or",
-          "start": 14.56,
-          "end": 14.84,
-          "probability": 0.99169921875
-        },
-        {
-          "word": " website.",
-          "start": 14.84,
-          "end": 15.28,
-          "probability": 0.9755859375
+          "start": 10.48,
+          "end": 10.76,
+          "probability": 0.9990234375
         }
       ]
     },
     {
       "id": 3,
       "seek": 0,
-      "start": 16.28,
-      "end": 20.94,
-      "text": " Use the arrow keys. Find tabs across windows in the same Chrome profile.",
+      "start": 11.74,
+      "end": 13.76,
+      "text": " Find the right page, click to stay.",
       "tokens": [
-        51192,
+        50914,
+        11809,
+        264,
+        558,
+        3028,
+        11,
+        2052,
+        281,
+        1754,
+        13,
+        51064
+      ],
+      "temperature": 0,
+      "avg_logprob": -0.16293590895983637,
+      "compression_ratio": 1.5246636771300448,
+      "no_speech_prob": 0.1453973948955536,
+      "words": [
+        {
+          "word": " Find",
+          "start": 11.74,
+          "end": 12.04,
+          "probability": 0.384033203125
+        },
+        {
+          "word": " the",
+          "start": 12.04,
+          "end": 12.3,
+          "probability": 0.9912109375
+        },
+        {
+          "word": " right",
+          "start": 12.3,
+          "end": 12.52,
+          "probability": 0.94873046875
+        },
+        {
+          "word": " page,",
+          "start": 12.52,
+          "end": 12.9,
+          "probability": 0.9921875
+        },
+        {
+          "word": " click",
+          "start": 13.16,
+          "end": 13.28,
+          "probability": 0.9814453125
+        },
+        {
+          "word": " to",
+          "start": 13.28,
+          "end": 13.5,
+          "probability": 0.94677734375
+        },
+        {
+          "word": " stay.",
+          "start": 13.5,
+          "end": 13.76,
+          "probability": 0.9443359375
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "seek": 0,
+      "start": 14.7,
+      "end": 16.28,
+      "text": " Search by title or website.",
+      "tokens": [
+        51064,
+        17180,
+        538,
+        4876,
+        420,
+        3144,
+        13,
+        51214
+      ],
+      "temperature": 0,
+      "avg_logprob": -0.16293590895983637,
+      "compression_ratio": 1.5246636771300448,
+      "no_speech_prob": 0.1453973948955536,
+      "words": [
+        {
+          "word": " Search",
+          "start": 14.7,
+          "end": 14.98,
+          "probability": 0.97900390625
+        },
+        {
+          "word": " by",
+          "start": 14.98,
+          "end": 15.18,
+          "probability": 0.994140625
+        },
+        {
+          "word": " title",
+          "start": 15.18,
+          "end": 15.56,
+          "probability": 0.9599609375
+        },
+        {
+          "word": " or",
+          "start": 15.56,
+          "end": 15.84,
+          "probability": 0.9873046875
+        },
+        {
+          "word": " website.",
+          "start": 15.84,
+          "end": 16.28,
+          "probability": 0.97314453125
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "seek": 0,
+      "start": 17.32,
+      "end": 18.6,
+      "text": " Use the arrow keys.",
+      "tokens": [
+        51214,
         8278,
         264,
         11610,
         9317,
         13,
+        51314
+      ],
+      "temperature": 0,
+      "avg_logprob": -0.16293590895983637,
+      "compression_ratio": 1.5246636771300448,
+      "no_speech_prob": 0.1453973948955536,
+      "words": [
+        {
+          "word": " Use",
+          "start": 17.32,
+          "end": 17.88,
+          "probability": 0.9921875
+        },
+        {
+          "word": " the",
+          "start": 17.88,
+          "end": 18.04,
+          "probability": 0.99072265625
+        },
+        {
+          "word": " arrow",
+          "start": 18.04,
+          "end": 18.3,
+          "probability": 0.9609375
+        },
+        {
+          "word": " keys.",
+          "start": 18.3,
+          "end": 18.6,
+          "probability": 0.98828125
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "seek": 0,
+      "start": 19.02,
+      "end": 21.94,
+      "text": " Find tabs across windows in the same Chrome profile.",
+      "tokens": [
+        51314,
         11809,
         20743,
         2108,
@@ -337,212 +411,205 @@
         15327,
         7964,
         13,
-        51416
+        51514
       ],
       "temperature": 0,
-      "avg_logprob": -0.13602176079383263,
-      "compression_ratio": 1.4805194805194806,
-      "no_speech_prob": 0.021526988595724106,
+      "avg_logprob": -0.16293590895983637,
+      "compression_ratio": 1.5246636771300448,
+      "no_speech_prob": 0.1453973948955536,
       "words": [
         {
-          "word": " Use",
-          "start": 16.28,
-          "end": 16.88,
-          "probability": 0.99365234375
-        },
-        {
-          "word": " the",
-          "start": 16.88,
-          "end": 17.06,
-          "probability": 0.99462890625
-        },
-        {
-          "word": " arrow",
-          "start": 17.06,
-          "end": 17.32,
-          "probability": 0.93701171875
-        },
-        {
-          "word": " keys.",
-          "start": 17.32,
-          "end": 17.6,
-          "probability": 0.9931640625
-        },
-        {
           "word": " Find",
-          "start": 17.98,
-          "end": 18.16,
-          "probability": 0.98779296875
+          "start": 19.02,
+          "end": 19.18,
+          "probability": 0.98486328125
         },
         {
           "word": " tabs",
-          "start": 18.16,
-          "end": 18.56,
+          "start": 19.18,
+          "end": 19.56,
           "probability": 0.99462890625
         },
         {
           "word": " across",
-          "start": 18.56,
-          "end": 18.82,
-          "probability": 0.99755859375
+          "start": 19.56,
+          "end": 19.82,
+          "probability": 0.99609375
         },
         {
           "word": " windows",
-          "start": 18.82,
-          "end": 19.3,
-          "probability": 0.66162109375
+          "start": 19.82,
+          "end": 20.32,
+          "probability": 0.64501953125
         },
         {
           "word": " in",
-          "start": 19.3,
-          "end": 19.7,
-          "probability": 0.9794921875
+          "start": 20.32,
+          "end": 20.7,
+          "probability": 0.96630859375
         },
         {
           "word": " the",
-          "start": 19.7,
-          "end": 19.84,
-          "probability": 0.99853515625
+          "start": 20.7,
+          "end": 20.82,
+          "probability": 0.998046875
         },
         {
           "word": " same",
-          "start": 19.84,
-          "end": 20.1,
-          "probability": 0.9912109375
+          "start": 20.82,
+          "end": 21.1,
+          "probability": 0.9873046875
         },
         {
           "word": " Chrome",
-          "start": 20.1,
-          "end": 20.42,
-          "probability": 0.8515625
+          "start": 21.1,
+          "end": 21.42,
+          "probability": 0.84130859375
         },
         {
           "word": " profile.",
-          "start": 20.42,
-          "end": 20.94,
-          "probability": 0.9404296875
+          "start": 21.42,
+          "end": 21.94,
+          "probability": 0.943359375
         }
       ]
     },
     {
-      "id": 4,
+      "id": 7,
       "seek": 0,
-      "start": 21.84,
-      "end": 27.02,
-      "text": " It's free. No account. No tracking. Find the right tab. Keep your flow.",
+      "start": 22.9,
+      "end": 25.12,
+      "text": " It's free, no account, no tracking.",
       "tokens": [
-        51468,
+        51514,
         467,
         311,
         1737,
-        13,
-        883,
+        11,
+        572,
         2696,
-        13,
-        883,
+        11,
+        572,
         11603,
         13,
+        51664
+      ],
+      "temperature": 0,
+      "avg_logprob": -0.16293590895983637,
+      "compression_ratio": 1.5246636771300448,
+      "no_speech_prob": 0.1453973948955536,
+      "words": [
+        {
+          "word": " It's",
+          "start": 22.9,
+          "end": 23.4,
+          "probability": 0.984375
+        },
+        {
+          "word": " free,",
+          "start": 23.4,
+          "end": 23.64,
+          "probability": 0.9951171875
+        },
+        {
+          "word": " no",
+          "start": 23.9,
+          "end": 24.02,
+          "probability": 0.9921875
+        },
+        {
+          "word": " account,",
+          "start": 24.02,
+          "end": 24.36,
+          "probability": 0.98046875
+        },
+        {
+          "word": " no",
+          "start": 24.7,
+          "end": 24.8,
+          "probability": 0.99365234375
+        },
+        {
+          "word": " tracking.",
+          "start": 24.8,
+          "end": 25.12,
+          "probability": 0.99609375
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "seek": 0,
+      "start": 25.98,
+      "end": 28.02,
+      "text": " Find the right tab, keep your flow.",
+      "tokens": [
+        51664,
         11809,
         264,
         558,
         4421,
-        13,
-        5527,
+        11,
+        1066,
         428,
         3095,
         13,
-        51856
+        51814
       ],
       "temperature": 0,
-      "avg_logprob": -0.13602176079383263,
-      "compression_ratio": 1.4805194805194806,
-      "no_speech_prob": 0.021526988595724106,
+      "avg_logprob": -0.16293590895983637,
+      "compression_ratio": 1.5246636771300448,
+      "no_speech_prob": 0.1453973948955536,
       "words": [
         {
-          "word": " It's",
-          "start": 21.84,
-          "end": 22.4,
-          "probability": 0.990234375
-        },
-        {
-          "word": " free.",
-          "start": 22.4,
-          "end": 22.64,
-          "probability": 0.99365234375
-        },
-        {
-          "word": " No",
-          "start": 22.94,
-          "end": 23.02,
-          "probability": 0.9951171875
-        },
-        {
-          "word": " account.",
-          "start": 23.02,
-          "end": 23.36,
-          "probability": 0.9765625
-        },
-        {
-          "word": " No",
-          "start": 23.7,
-          "end": 23.8,
-          "probability": 0.994140625
-        },
-        {
-          "word": " tracking.",
-          "start": 23.8,
-          "end": 24.1,
-          "probability": 0.99267578125
-        },
-        {
           "word": " Find",
-          "start": 24.96,
-          "end": 25.48,
-          "probability": 0.99072265625
+          "start": 25.98,
+          "end": 26.48,
+          "probability": 0.9931640625
         },
         {
           "word": " the",
-          "start": 25.48,
-          "end": 25.7,
+          "start": 26.48,
+          "end": 26.7,
           "probability": 0.99853515625
         },
         {
           "word": " right",
-          "start": 25.7,
-          "end": 25.82,
-          "probability": 0.99658203125
+          "start": 26.7,
+          "end": 26.82,
+          "probability": 0.9970703125
         },
         {
-          "word": " tab.",
-          "start": 25.82,
-          "end": 26.2,
-          "probability": 0.9951171875
+          "word": " tab,",
+          "start": 26.82,
+          "end": 27.18,
+          "probability": 0.994140625
         },
         {
-          "word": " Keep",
-          "start": 26.42,
-          "end": 26.56,
-          "probability": 0.9931640625
-        },
-        {
-          "word": " your",
-          "start": 26.56,
-          "end": 26.74,
+          "word": " keep",
+          "start": 27.44,
+          "end": 27.56,
           "probability": 0.97216796875
         },
         {
+          "word": " your",
+          "start": 27.56,
+          "end": 27.74,
+          "probability": 0.958984375
+        },
+        {
           "word": " flow.",
-          "start": 26.74,
-          "end": 27.02,
-          "probability": 0.95751953125
+          "start": 27.74,
+          "end": 28.02,
+          "probability": 0.9794921875
         }
       ]
     },
     {
-      "id": 5,
+      "id": 9,
       "seek": 3000,
-      "start": 30.0,
-      "end": 30.46,
+      "start": 30.060000000000002,
+      "end": 31.46,
       "text": " you",
       "tokens": [
         50364,
@@ -550,15 +617,15 @@
         50467
       ],
       "temperature": 0,
-      "avg_logprob": -0.7623178362846375,
+      "avg_logprob": -0.5663251876831055,
       "compression_ratio": 0.2727272727272727,
-      "no_speech_prob": 0.8781429529190063,
+      "no_speech_prob": 0.9028967618942261,
       "words": [
         {
           "word": " you",
-          "start": 30.0,
-          "end": 30.46,
-          "probability": 0.1190185546875
+          "start": 30.060000000000002,
+          "end": 31.46,
+          "probability": 0.1571044921875
         }
       ]
     }

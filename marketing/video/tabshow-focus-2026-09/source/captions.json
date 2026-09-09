@@ -1,47 +1,47 @@
 [
   {
-    "start": 0.2,
-    "end": 2.7,
+    "start": 1.2,
+    "end": 3.7,
     "text": "Preview the full page without losing your focus."
   },
   {
-    "start": 3.35,
-    "end": 6.65,
+    "start": 4.35,
+    "end": 7.65,
     "text": "With TabShow, hover a tab to see it live."
   },
   {
-    "start": 7.25,
-    "end": 10.27,
+    "start": 8.25,
+    "end": 11.27,
     "text": "Move away. Your original page comes back."
   },
   {
-    "start": 10.82,
-    "end": 13.24,
+    "start": 11.82,
+    "end": 14.24,
     "text": "Found the right page? Click to stay."
   },
   {
-    "start": 13.79,
-    "end": 16.549999999999997,
+    "start": 14.79,
+    "end": 17.549999999999997,
     "text": "Search by title or website."
   },
   {
-    "start": 16.549999999999997,
-    "end": 18.03,
+    "start": 17.549999999999997,
+    "end": 19.03,
     "text": "Use the arrow keys."
   },
   {
-    "start": 18.03,
-    "end": 21.45,
+    "start": 19.03,
+    "end": 22.45,
     "text": "Find tabs across windows in the same Chrome profile."
   },
   {
-    "start": 22.2,
-    "end": 24.62,
+    "start": 23.2,
+    "end": 25.62,
     "text": "It's free. No account. No tracking."
   },
   {
-    "start": 25.27,
-    "end": 27.49,
+    "start": 26.27,
+    "end": 28.49,
     "text": "Find the right tab. Keep your flow."
   }
 ]
