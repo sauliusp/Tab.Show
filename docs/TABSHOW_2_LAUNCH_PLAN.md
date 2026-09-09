@@ -83,7 +83,7 @@ The public Chrome Web Store listing currently shows:
 - Store status: real `Featured` badge and “Follows recommended practices” marker.
 - Language: English (United States).
 - Website: `https://tab.show/`.
-- Developer contact: `saulius.developer@gmail.com`.
+- Developer contact: `sauliusthedev@gmail.com`.
 - Privacy summary: the developer declares that the extension does not collect or use data.
 - Public media: four screenshots and a promo video are present. The private dashboard confirms one unused fifth screenshot slot, a small promo tile, and a marquee tile.
 

@@ -21,7 +21,7 @@ const routes = [
   ["/workona-alternative", "Workona Alternative", "Skip the workspace setup"],
   ["/tab-manager-plus-alternative", "Tab Manager Plus Alternative", "Recognize the page"],
   ["/privacy", "Privacy", "Your tabs stay"],
-  ["/changelog", "TabShow Changelog", "TabShow 2.2"],
+  ["/changelog", "TabShow Changelog", "TabShow 2.3"],
   ["/support", "TabShow Support", "Get back to the tab"],
 ];
 
@@ -51,7 +51,7 @@ test("homepage uses authentic product proof and honest conversion language", asy
     /<meta[^>]+name=["']google-site-verification["'][^>]+content=["']ASniG6NXZATRVe0o1JkgGk1RzRFVPX21Uvk3YaOSpU0["']/i,
   );
   assert.match(html, /tabshow-2\.1-01-live-preview\.png/);
-  assert.match(html, /tabshow-2\.1-02-search-150-tabs\.png/);
+  assert.match(html, /tabshow-focus-30s\.mp4/);
   assert.match(html, /tabshow-2\.1-04-all-windows\.png/);
   assert.match(html, /No account/);
   assert.match(html, /No host permissions/);
@@ -93,9 +93,9 @@ test("privacy and support match the shipped permission and cross-window behavior
   assert.match(privacy, /tabGroups/);
   assert.match(privacy, /favicon/);
   assert.doesNotMatch(privacy, /<code>favicon<\/code>/);
-  assert.match(privacy, /Applies to:[\s\S]{0,120}upcoming TabShow 2\.2 release/);
+  assert.match(privacy, /Applies to:[\s\S]{0,120}upcoming TabShow 2\.3 release/);
   assert.match(privacy, /activeTab[\s\S]{0,160}removed[\s\S]{0,120}implementation did not use it/i);
-  assert.match(privacy, /TabShow 2\.1 and 2\.2 add no permissions/i);
+  assert.match(privacy, /TabShow 2\.1, 2\.2, and 2\.3 add no permissions/i);
   assert.match(privacy, /does not read page contents/i);
   assert.match(privacy, /up to 90 local daily check-ins/i);
   assert.match(privacy, /Repeated panel openings update the current day's check-in/i);
@@ -111,7 +111,7 @@ test("privacy and support match the shipped permission and cross-window behavior
 
 test("changelog preserves the complete user-facing release history", async () => {
   const changelog = await (await render("/changelog")).text();
-  for (const version of ["2.2", "2.1", "2.0", "1.0.0", "0.9.2", "0.9.1", "0.9.0", "0.8.2", "0.8.1", "0.8.0", "0.7.1", "0.7.0", "0.6.0", "0.5.0"]) {
+  for (const version of ["2.3", "2.2", "2.1", "2.0", "1.0.0", "0.9.2", "0.9.1", "0.9.0", "0.8.2", "0.8.1", "0.8.0", "0.7.1", "0.7.0", "0.6.0", "0.5.0"]) {
     assert.match(changelog, new RegExp(`Version (?:<!-- -->)?${version.replaceAll(".", "\\.")}`));
   }
   assert.match(changelog, /Featurebase feedback board/);

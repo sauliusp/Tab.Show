@@ -10,7 +10,7 @@ Why: brand-first, memorable, and explicit about the distinctive behavior. It rem
 
 ## Package summary
 
-`Preview live Chrome tabs before you switch. Search every window and find the right page without losing your place.`
+`Preview live Chrome tabs before you switch. Search your tabs and find the right page without losing your place.`
 
 Why: it leads with the distinctive live-preview benefit, includes cross-window search, and ends on the outcome. It is below Chrome's 132-character limit.
 

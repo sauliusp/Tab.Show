@@ -1,0 +1,4 @@
+audio/candidates/
+audio/voiceover-raw.*
+output/*-silent.mp4
+source/voice-transcript-check.json

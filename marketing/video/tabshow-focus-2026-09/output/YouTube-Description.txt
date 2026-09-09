@@ -1,0 +1,15 @@
+Preview the full page without losing your focus. TabShow helps you find the right Chrome tab: hover to see it live, move away to return, or click to stay.
+
+Get TabShow for Chrome: https://tab.show/
+Chrome Web Store: https://chromewebstore.google.com/detail/tabshow-live-tab-preview/njdjagodlomkhingeecipnlnnhnipkho
+
+Search by title, URL or website. Use the arrow keys to select a result and Enter to open it. All windows searches windows in the same Chrome profile; separate Work and Personal profiles stay separate. Hover previews stay in the current window. Tabs in another window open when you choose them.
+
+Free to use. No account. No tracking in the extension.
+
+Contact: sauliusthedev@gmail.com
+Feedback and ideas: https://narsheek.featurebase.app/
+
+This separate narrated walkthrough preserves the existing TabShow videos. Synthetic narration, original sample-free music, authentic TabShow interface captures, and illustrative example pages. No private browsing data is shown.
+
+#TabShow #ChromeExtension #Productivity

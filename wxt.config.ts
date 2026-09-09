@@ -8,7 +8,7 @@ export default defineConfig({
     name: 'TabShow: Live Tab Preview',
     short_name: 'TabShow',
     description: 'Search or point at open tabs to preview the live page, then switch or snap back without losing your place.',
-    version: '2.2.0',
+    version: '2.3.0',
     side_panel: {
       default_path: 'sidepanel.html'
     },

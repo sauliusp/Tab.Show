@@ -30,7 +30,7 @@ describe('project copy style', () => {
     expect(PRODUCT_COPY_DIRECTORIES.flatMap(directory => findEmDashFiles(join(ROOT, directory)))).toEqual([]);
   });
 
-  it('keeps the 2.2 release version synchronized across package and update metadata', () => {
+  it('keeps the 2.3 release version synchronized across package and update metadata', () => {
     const packageJson = JSON.parse(readFileSync(join(ROOT, 'package.json'), 'utf8')) as { version: string };
     const packageLock = JSON.parse(readFileSync(join(ROOT, 'package-lock.json'), 'utf8')) as {
       version: string;
@@ -44,13 +44,13 @@ describe('project copy style', () => {
       packages: Record<string, { version?: string }>;
     };
 
-    expect(packageJson.version).toBe('2.2.0');
+    expect(packageJson.version).toBe('2.3.0');
     expect(packageLock.version).toBe(packageJson.version);
     expect(packageLock.packages['']?.version).toBe(packageJson.version);
     expect(wxtConfig).toContain(`version: '${packageJson.version}'`);
     const updateDocument = new DOMParser().parseFromString(whatsNew, 'text/html');
-    expect(updateDocument.querySelector('.status-update')?.textContent).toBe('Version 2.2');
-    expect(updateDocument.title).toContain('TabShow 2.2');
+    expect(updateDocument.querySelector('.status-update')?.textContent).toBe('Version 2.3');
+    expect(updateDocument.title).toContain('TabShow 2.3');
     expect(websitePackage.version).toBe(packageJson.version);
     expect(websiteLock.version).toBe(packageJson.version);
     expect(websiteLock.packages['']?.version).toBe(packageJson.version);

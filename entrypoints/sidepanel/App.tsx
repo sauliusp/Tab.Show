@@ -198,25 +198,26 @@ function App() {
             ].map(option => {
               const selected = allWindows === option.value;
               return (
-                <ButtonBase
-                  key={option.label}
-                  aria-label={option.label}
-                  aria-pressed={selected}
-                  onClick={() => setAllWindows(option.value)}
-                  sx={{
-                    py: 0.7,
-                    gap: 0.75,
-                    borderRadius: 1,
-                    fontSize: 11.5,
-                    fontWeight: 750,
-                    color: selected ? 'primary.contrastText' : 'text.secondary',
-                    backgroundColor: selected ? 'primary.main' : 'transparent',
-                    boxShadow: selected ? '0 2px 8px rgba(44, 42, 74, 0.18)' : 'none',
-                    '&:hover': { backgroundColor: selected ? 'primary.dark' : 'background.paper' }
-                  }}
-                >
-                  {option.icon}{option.label}
-                </ButtonBase>
+                <Tooltip key={option.label} describeChild title={option.value ? 'All windows in this Chrome profile. Windows in other profiles stay separate.' : 'Tabs in this window.'}>
+                  <ButtonBase
+                    aria-label={option.label}
+                    aria-pressed={selected}
+                    onClick={() => setAllWindows(option.value)}
+                    sx={{
+                      py: 0.7,
+                      gap: 0.75,
+                      borderRadius: 1,
+                      fontSize: 11.5,
+                      fontWeight: 750,
+                      color: selected ? 'primary.contrastText' : 'text.secondary',
+                      backgroundColor: selected ? 'primary.main' : 'transparent',
+                      boxShadow: selected ? '0 2px 8px rgba(44, 42, 74, 0.18)' : 'none',
+                      '&:hover': { backgroundColor: selected ? 'primary.dark' : 'background.paper' }
+                    }}
+                  >
+                    {option.icon}{option.label}
+                  </ButtonBase>
+                </Tooltip>
               );
             })}
           </Box>
@@ -253,9 +254,12 @@ function App() {
             onOpen={() => { setIsSettingsOpen(false); setIsChaosOpen(true); }}
           />
         </Box>
-        <Typography id="keyboard-search-hint" sx={{ mt: -0.35, fontSize: 10.5, color: 'text.secondary' }}>
-          ↑↓ select · Enter open · Esc return
-        </Typography>
+        <Box sx={{ mt: -0.35, display: 'flex', justifyContent: 'space-between', gap: 1, alignItems: 'baseline' }}>
+          <Typography id="keyboard-search-hint" sx={{ fontSize: 10.5, color: 'text.secondary' }}>
+            ↑↓ select · Enter open · Esc return
+          </Typography>
+          {allWindows && <Typography component="span" title="All windows in this Chrome profile. Windows in other profiles stay separate." sx={{ fontSize: 10.5, color: 'text.secondary', whiteSpace: 'nowrap' }}>This profile</Typography>}
+        </Box>
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, minWidth: 0, '@media (max-width: 380px)': { gap: 0.5 } }}>
           <Select size="small" value={sortMode} onChange={(event) => setSortMode(event.target.value as TabSortMode)} sx={{ width: 128, minWidth: 100, flexShrink: 1, fontSize: 11.5, '& .MuiSelect-select': { py: 0.65 } }} aria-label="Sort tabs">
             <MenuItem value="current">Current order</MenuItem>
@@ -270,7 +274,7 @@ function App() {
             <Box
               role="status"
               aria-live="polite"
-              aria-label={`Open tabs: ${openTabs.length}${allWindows ? `; Chrome windows: ${openWindowCount}` : ''}`}
+              aria-label={`Open tabs: ${openTabs.length}${allWindows ? `; Chrome windows: ${openWindowCount}; current profile only` : ''}`}
               data-testid="tab-count-summary"
               sx={{
                 ml: 'auto',

@@ -1,0 +1,76 @@
+{
+  "text": "Preview the full page without losing your focus. With TabShow, hover a tab to see it live. Move away. Your original page comes back. Found the right page? Click to stay. Search by title or website. Use the arrow keys. Find tabs across windows in the same Chrome profile. It's free. No account. No tracking. Find the right tab. Keep your flow.",
+  "scenes": [
+    {
+      "scene": 0,
+      "text": "Preview the full page without losing your focus.",
+      "start": 0.2,
+      "end": 2.7,
+      "duration": 2.5,
+      "raw_start": 0,
+      "raw_end": 2.5
+    },
+    {
+      "scene": 1,
+      "text": "With TabShow, hover a tab to see it live.",
+      "start": 3.35,
+      "end": 6.65,
+      "duration": 3.3,
+      "raw_start": 2.5,
+      "raw_end": 5.8
+    },
+    {
+      "scene": 2,
+      "text": "Move away. Your original page comes back.",
+      "start": 7.25,
+      "end": 10.27,
+      "duration": 3.02,
+      "raw_start": 5.8,
+      "raw_end": 8.82
+    },
+    {
+      "scene": 3,
+      "text": "Found the right page? Click to stay.",
+      "start": 10.82,
+      "end": 13.24,
+      "duration": 2.42,
+      "raw_start": 8.82,
+      "raw_end": 11.24
+    },
+    {
+      "scene": 4,
+      "text": "Search by title or website. Use the arrow keys. Find tabs across windows in the same Chrome profile.",
+      "start": 13.79,
+      "end": 21.45,
+      "duration": 7.66,
+      "raw_start": 11.24,
+      "raw_end": 18.9
+    },
+    {
+      "scene": 5,
+      "text": "It's free. No account. No tracking.",
+      "start": 22.2,
+      "end": 24.62,
+      "duration": 2.42,
+      "raw_start": 18.9,
+      "raw_end": 21.32
+    },
+    {
+      "scene": 6,
+      "text": "Find the right tab. Keep your flow.",
+      "start": 25.27,
+      "end": 27.49,
+      "duration": 2.22,
+      "raw_start": 21.32,
+      "raw_end": 23.54
+    }
+  ],
+  "duration": 30.483333333333334,
+  "reference_sha256": "d3d941a853e0dedca33123ace64371865ecb05e5c0237369f4e588bd8f8a691c",
+  "model": "mlx-community/chatterbox-multilingual-v3",
+  "exaggeration": 0.35,
+  "cfg_weight": 0.5,
+  "processing": "Complete generated scene reads with pauses between scenes and a closing hold. No time stretching, pitch changes or internal speech edits.",
+  "fps": 60,
+  "end_hold": 2.993333333333336
+}

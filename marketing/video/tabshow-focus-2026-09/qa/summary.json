@@ -1,0 +1,15 @@
+{
+  "duration_seconds": 30.483333333333334,
+  "format": "1920x1080 H.264 60fps; AAC stereo",
+  "sha256": "ca1876902635ee57b4300ba1c4614655f6bc9a16ede62f288b178844bc0023b1",
+  "speech_words": 62,
+  "voice_seconds": 23.54,
+  "closing_hold_seconds": 2.993333333333336,
+  "transcript_match": true,
+  "normalization": "Case, punctuation, and ASR spelling Tap Show / TapShow normalized to TabShow. All intended narration words match.",
+  "voice_provenance": "Same private reference digest, model and settings as Tabosmart. New natural performances; pauses between scenes only.",
+  "visual_provenance": "Actual production React panel captures from the September TabShow campaign; illustrative example pages and browser framing. Source captures remain unchanged.",
+  "human_voice_similarity_review": "Pending user review.",
+  "decode": "Full decode and black-frame scan passed; no black intervals reported.",
+  "published": false
+}

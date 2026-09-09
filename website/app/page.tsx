@@ -20,7 +20,7 @@ export const metadata: Metadata = {
 const faq = [
   { q: "Is TabShow free?", a: "Yes. Every feature is free to use. If you would like to support its development, you can leave a tip through Buy Me a Coffee. Support is entirely optional." },
   { q: "Does TabShow read the contents of webpages?", a: "No. TabShow does not request host permissions and cannot read page contents. It uses Chrome's tab metadata, such as titles, URLs, favicons, groups, and status, to power the side panel." },
-  { q: "Can I search tabs across every Chrome window?", a: "Yes. Choose All windows to search and organize tabs across Chrome windows. For safety, a tab in another window switches only when clicked; hover preview does not steal focus across windows." },
+  { q: "Can I search tabs across every Chrome window?", a: "Yes. Choose All windows to search tabs across windows in the same Chrome profile. Windows in other profiles, such as separate Work and Personal profiles, stay separate. For safety, a tab in another window switches only when clicked; hover preview does not steal focus across windows." },
   { q: "What happens when I move away from a preview?", a: "TabShow returns you to the original tab. If the preview was the right page, click it to make the switch permanent." },
   { q: "Can I use TabShow with the keyboard?", a: "Yes. Arrow keys select search results, Enter opens the selected tab, and Escape returns to the original tab. Hover a current-window result when you want a live preview. The side panel shortcut can be customized in Chrome's extension shortcut settings." },
 ];
@@ -75,7 +75,15 @@ export default function Home() {
             <li><b>Preview the live page</b><span>The real tab appears in your main browser window.</span></li>
             <li><b>Decide without penalty</b><span>Click to switch. Move away to return to the original tab.</span></li>
           </ol>
-          <ProductImage src="/images/tabshow-2.1-02-search-150-tabs.png" alt="TabShow 2.1 searching 150 open Chrome tabs by title, URL, or domain" />
+          <figure className="product-demo" id="demo">
+            <video controls playsInline preload="none" poster="/video/tabshow-focus-poster.jpg" width="1920" height="1080" aria-label="TabShow: full-page preview in 30 seconds">
+              <source src="/video/tabshow-focus-30s.mp4" type="video/mp4" />
+              <track kind="captions" src="/video/tabshow-focus-en.vtt" srcLang="en" label="English" />
+              Your browser does not support video playback. <a href="/video/tabshow-focus-30s.mp4">Download the TabShow demo</a>.
+            </video>
+            <figcaption>See the page. Keep your focus. A 30-second walkthrough with voice.</figcaption>
+            <details><summary>Read the transcript</summary><p>Preview the full page without losing your focus. With TabShow, hover a tab to see it live. Move away. Your original page comes back. Found the right page? Click to stay. Search by title or website. Use the arrow keys. Find tabs across windows in the same Chrome profile. It’s free. No account. No tracking. Find the right tab. Keep your flow.</p></details>
+          </figure>
         </section>
 
         <section className="section ink-section">
@@ -83,7 +91,7 @@ export default function Home() {
             <div className="section-heading light-heading"><p className="eyebrow"><span /> TabShow</p><h2>More context.<br /><em>Still one sharp tool.</em></h2></div>
             <div className="feature-ledger">
               <article><span>01</span><h3>Find faster</h3><p>Search open tabs by title, URL, or domain instead of scanning the tab strip.</p></article>
-              <article><span>02</span><h3>See every window</h3><p>Switch scope when the page you need lives in another Chrome window.</p></article>
+              <article><span>02</span><h3>See every window</h3><p>Search across windows in the same Chrome profile. Other profiles stay separate.</p></article>
               <article><span>03</span><h3>Sort with intent</h3><p>Keep browser order or sort by recent use, recent addition, domain, or group.</p></article>
               <article><span>04</span><h3>Stay on the keys</h3><p>Arrow keys select, Enter opens, and Escape returns to your original tab. Hover when you want a live preview.</p></article>
             </div>
