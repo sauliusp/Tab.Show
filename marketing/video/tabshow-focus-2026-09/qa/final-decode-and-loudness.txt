@@ -355,4 +355,4 @@ Output #0, null, to 'pipe:':
   True peak:
     Peak:       -1.0 dBFS
 [out#0/null @ 0x7f9fc6f05600] video:786KiB audio:5716KiB subtitle:0KiB other streams:0KiB global headers:0KiB muxing overhead: unknown
-frame= 1829 fps=0.0 q=-0.0 Lsize=N/A time=00:00:30.48 bitrate=N/A speed=  49x    
+frame= 1829 fps=0.0 q=-0.0 Lsize=N/A time=00:00:30.48 bitrate=N/A speed=  49x

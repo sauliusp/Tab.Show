@@ -18,13 +18,18 @@ Prepared on 9 September 2026. Publication is pending the user's review. This rel
 - `npm run zip`: passed; package integrity, 2.3.0 manifest and unchanged permissions verified. See `package.json` for digest.
 - Website `npm test`: build and 8 rendered-route tests passed. Website lint passed.
 - Video: complete decode, black-frame check, transcript check, dimensions, frame rate and loudness checked. See `marketing/video/tabshow-focus-2026-09/qa/summary.json`.
-- Real unpacked Chrome verification is recorded separately when complete. Unit tests and campaign captures do not establish a successful installed extension update.
+- Real Chrome for Testing 151.0.7922.34: unpacked 2.3 loaded, onboarding opened, same-profile hint and accessible scope copy appeared, two windows and five tabs were counted, empty search kept full totals, and keyboard selection switched both within and across windows. The packaged update page rendered correctly. See `chrome-smoke.json`.
+- Pointer hover/leave and the automatic update popup from an installed Store version were not independently re-tested in this smoke pass.
 
 ## Search Console
 
 `https://tab.show/` ownership was auto-verified through the live HTML tag in the developer account. `sitemap.xml` was resubmitted successfully on 9 September; its table shows Success and nine discovered pages. The previous last-read date is 1 September. This is a URL-prefix property, not DNS verification of every subdomain. See `search-console.json`.
 
-## Publication order after approval
+## Draft surfaces
+
+The new YouTube video `aM7cm82avYw` is saved as Private with HD processing complete, English captions and a custom thumbnail. Existing public videos remain intact. Chrome Web Store requires the developer account's passkey re-verification; package upload and promo-field changes have not been performed.
+
+## Publication order
 
 1. Finish the Codex PR review loop and verify the merge to main.
 2. Obtain the user's review approval for the video, website and Store release.
