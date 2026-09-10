@@ -11,7 +11,7 @@ import DarkModeRounded from '@mui/icons-material/DarkModeRounded';
 import { useColorScheme } from '../contexts/ColorSchemeContext';
 import { useUserSettings } from '../contexts/UserSettingsContext';
 import { EXTENSION_URLS } from '../parameters';
-import { AppearanceMode } from '../services/UserSettingsService';
+import type { AppearanceMode } from '../services/UserSettingsService';
 
 interface SettingsOverlayProps {
   open: boolean;
@@ -29,7 +29,7 @@ export function SettingsOverlay({ open, onClose }: SettingsOverlayProps) {
 
   const handleHoverDelayChange = (_event: Event, value: number | number[]) => {
     const delayMs = Array.isArray(value) ? value[0] : value;
-    setHoverPreviewDelayMs(delayMs);
+    if (delayMs !== undefined) setHoverPreviewDelayMs(delayMs);
   };
 
   return (

@@ -10,7 +10,7 @@ import VolumeOffRounded from '@mui/icons-material/VolumeOffRounded';
 import PushPinRounded from '@mui/icons-material/PushPinRounded';
 import BedtimeRounded from '@mui/icons-material/BedtimeRounded';
 import LaunchRounded from '@mui/icons-material/LaunchRounded';
-import { Tab, TabVisualState, AvatarOverlay } from '../types/Tab';
+import type { Tab, TabVisualState, AvatarOverlay } from '../types/Tab';
 import { getTabVisualState } from '../utils/tabVisualState';
 import { TabItemActionButton } from './TabItemActionButton';
 import { TabFavicon } from './TabFavicon';

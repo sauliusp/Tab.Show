@@ -39,6 +39,15 @@ describe('TabChaosHistoryService', () => {
     expect(latest.bestScore).toBe(personalBest);
   });
 
+  it('counts across a year boundary and resets after a missed day', () => {
+    tabChaosHistoryService.recordCheckIn(stats(30, new Date(2025, 11, 31, 12).getTime()));
+    const nextYear = tabChaosHistoryService.recordCheckIn(stats(30, new Date(2026, 0, 1, 12).getTime()));
+    const afterGap = tabChaosHistoryService.recordCheckIn(stats(30, new Date(2026, 0, 3, 12).getTime()));
+
+    expect(nextYear.checkInStreak).toBe(2);
+    expect(afterGap.checkInStreak).toBe(1);
+  });
+
   it('coalesces repeated same-day openings so a valid streak survives heavy use', () => {
     const dayOne = new Date(2026, 7, 28, 12).getTime();
     tabChaosHistoryService.recordCheckIn(stats(30, dayOne));

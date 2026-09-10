@@ -4,6 +4,20 @@ import { defineConfig } from 'wxt';
 export default defineConfig({
   modules: ['@wxt-dev/module-react'],
   publicDir: 'public',
+  zip: {
+    includeSources: [
+      'entrypoints/**',
+      'src/**',
+      'assets/**',
+      'public/**',
+      'package.json',
+      'package-lock.json',
+      'tsconfig.json',
+      'wxt.config.ts',
+      'vitest.config.ts',
+      'README.md',
+    ],
+  },
   manifest: {
     name: 'TabShow: Live Tab Preview',
     short_name: 'TabShow',

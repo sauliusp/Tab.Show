@@ -12,7 +12,7 @@ import {
   Typography
 } from '@mui/material';
 import { ExpandLess, ExpandMore, Folder, LaunchRounded } from '@mui/icons-material';
-import { Tab, TabGroup, TabListState, TabSortMode } from '../types/Tab';
+import type { Tab, TabGroup, TabListState, TabSortMode } from '../types/Tab';
 import { TabItem } from './TabItem';
 import { getDuplicateCounts, getDuplicateKey, selectTabs } from '../utils/tabSelectors';
 
@@ -129,8 +129,8 @@ export function TabList({
     getScrollElement: () => parentRef.current,
     estimateSize: (index) => {
       const item = virtualItems[index];
-      if (item.type === 'group') return 48; // Group header height
-      if (item.type === 'window') return 58;
+      if (item?.type === 'group') return 48; // Group header height
+      if (item?.type === 'window') return 58;
       return 54; // Two-line tab row
     },
     overscan: 5,
@@ -310,6 +310,7 @@ export function TabList({
       >
         {virtualizer.getVirtualItems().map((virtualItem) => {
           const item = virtualItems[virtualItem.index];
+          if (!item) return null;
           let groupColor: string | undefined;
           
           if (item.isNested && item.parentId) {

@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { calculateTabChaos } from './tabChaos';
-import { Tab } from '../types/Tab';
+import type { Tab } from '../types/Tab';
 
 const DAY = 24 * 60 * 60 * 1000;
 

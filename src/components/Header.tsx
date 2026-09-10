@@ -2,7 +2,7 @@ import React from 'react';
 import { Box, IconButton, Tooltip, Typography } from '@mui/material';
 import SettingsRounded from '@mui/icons-material/SettingsRounded';
 import TabRounded from '@mui/icons-material/TabRounded';
-import { Tab } from '../types/Tab';
+import type { Tab } from '../types/Tab';
 
 interface HeaderProps {
   originalTab: Tab | null;

@@ -1,5 +1,5 @@
-import { createTheme, Theme, darken, getContrastRatio, lighten } from '@mui/material/styles';
-import { ColorPairing, getDefaultColorPairing } from '../constants/colorPairings';
+import { createTheme, type Theme, darken, getContrastRatio, lighten } from '@mui/material/styles';
+import { type ColorPairing, getDefaultColorPairing } from '../constants/colorPairings';
 
 // Extend the Material UI theme to include custom colors
 declare module '@mui/material/styles' {

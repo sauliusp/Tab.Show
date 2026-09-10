@@ -1,7 +1,7 @@
 import React from 'react';
 import Avatar from '@mui/material/Avatar';
-import { SxProps, Theme } from '@mui/material/styles';
-import { Tab } from '../types/Tab';
+import type { SxProps, Theme } from '@mui/material/styles';
+import type { Tab } from '../types/Tab';
 
 export function getFaviconCandidates(tab: Tab): string[] {
   return tab.favIconUrl ? [tab.favIconUrl] : [];

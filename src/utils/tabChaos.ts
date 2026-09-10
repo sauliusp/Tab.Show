@@ -1,4 +1,4 @@
-import { Tab, TabGroup } from '../types/Tab';
+import type { Tab, TabGroup } from '../types/Tab';
 import { getDuplicateKey, getTabDomain } from './tabSelectors';
 
 const DAY_MS = 24 * 60 * 60 * 1000;

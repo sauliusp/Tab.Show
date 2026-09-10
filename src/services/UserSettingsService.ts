@@ -1,4 +1,4 @@
-import { ColorPairing, DEFAULT_COLOR_PAIRING_ID, getColorPairingById } from '../constants/colorPairings';
+import { type ColorPairing, DEFAULT_COLOR_PAIRING_ID, getColorPairingById } from '../constants/colorPairings';
 
 const STORAGE_KEY = 'tab.show.userSettings';
 export const DEFAULT_HOVER_PREVIEW_DELAY_MS = 250;
