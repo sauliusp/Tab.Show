@@ -1,6 +1,6 @@
 # TabShow Product Hunt submission
 
-Prepared 2026-07-23. Paste these values into a Product Hunt draft; do not schedule the launch until TabShow 2.0 is publicly available in the Chrome Web Store.
+Refreshed 2026-09-05 for TabShow 2.1. Paste these values into a Product Hunt draft; do not schedule without separate approval. TabShow 2.1.0 is publicly installable in the Chrome Web Store.
 
 ## Core fields
 
@@ -59,7 +59,7 @@ None. The extension is already free.
 5. `gallery/05-all-windows.png`
 6. `gallery/06-context-and-sorting.png`
 
-Do not attach the old 1.x promo video. Leave video blank unless a public YouTube demo showing the real 2.0 interface is ready.
+Use the authentic 48-second v2.1 master: `https://www.youtube.com/watch?v=gfOky71v2wI`. Google has not yet published its submitted Chrome Web Store placement; do not represent it as live in the Store until publication.
 
 ## First maker comment
 
@@ -69,7 +69,7 @@ I built it around a small but recurring frustration: once Chrome’s tab strip c
 
 TabShow puts open tabs in Chrome’s side panel. Point at a tab in the current window to preview the live page. Click if it is the right one, or move away to return to the page you were using.
 
-Version 2.0 adds:
+Version 2.1 adds:
 
 - Search by title, URL, or domain
 - Current-window and all-window views
