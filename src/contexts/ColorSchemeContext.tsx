@@ -1,7 +1,7 @@
 import React from 'react';
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
-import { COLOR_PAIRINGS, ColorPairing, getColorPairingById } from '../constants/colorPairings';
+import { COLOR_PAIRINGS, type ColorPairing, getColorPairingById } from '../constants/colorPairings';
 import { userSettingsService } from '../services/UserSettingsService';
 import { createAppTheme } from '../styles/theme';
 import { useUserSettings } from './UserSettingsContext';

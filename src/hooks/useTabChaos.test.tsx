@@ -45,8 +45,10 @@ describe('useTabChaos tab movement events', () => {
 
     expect(onDetached.addListener).toHaveBeenCalledOnce();
     expect(onAttached.addListener).toHaveBeenCalledOnce();
-    const detachedListener = onDetached.addListener.mock.calls[0][0];
-    const attachedListener = onAttached.addListener.mock.calls[0][0];
+    const detachedListener = onDetached.addListener.mock.calls[0]?.[0];
+    const attachedListener = onAttached.addListener.mock.calls[0]?.[0];
+    expect(detachedListener).toEqual(expect.any(Function));
+    expect(attachedListener).toEqual(expect.any(Function));
 
     unmount();
 

@@ -14,7 +14,7 @@ export interface ColorPairing {
   colors: ColorPairingColors;
 }
 
-export const COLOR_PAIRINGS: ColorPairing[] = [
+export const COLOR_PAIRINGS: [ColorPairing, ...ColorPairing[]] = [
   {
     id: 'charcoal-violet-amber',
     name: 'Charcoal Violet + Amber',

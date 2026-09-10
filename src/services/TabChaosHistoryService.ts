@@ -1,4 +1,4 @@
-import { TabChaosStats } from '../utils/tabChaos';
+import type { TabChaosStats } from '../utils/tabChaos';
 
 const STORAGE_KEY = 'tab.show.chaosHistory.v1';
 const MAX_OBSERVATIONS = 90;
@@ -30,7 +30,7 @@ function localDay(timestamp: number): string {
 }
 
 function dayNumber(day: string): number {
-  const [year, month, date] = day.split('-').map(Number);
+  const [year = NaN, month = NaN, date = NaN] = day.split('-').map(Number);
   return Date.UTC(year, month - 1, date) / 86_400_000;
 }
 
@@ -39,9 +39,12 @@ function calculateStreak(observations: ChaosObservation[], today: string): numbe
     .sort((a, b) => dayNumber(b) - dayNumber(a));
   if (!days.length || days[0] !== today) return 0;
   let streak = 1;
-  for (let index = 1; index < days.length; index += 1) {
-    if (dayNumber(days[index - 1]) - dayNumber(days[index]) !== 1) break;
+  let previousDay = dayNumber(today);
+  for (const day of days.slice(1)) {
+    const currentDay = dayNumber(day);
+    if (previousDay - currentDay !== 1) break;
     streak += 1;
+    previousDay = currentDay;
   }
   return streak;
 }

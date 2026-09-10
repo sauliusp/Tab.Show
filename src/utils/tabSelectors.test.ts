@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { Tab } from '../types/Tab';
+import type { Tab } from '../types/Tab';
 import { getDuplicateCounts, getDuplicateKey, getTabDomain, selectTabs } from './tabSelectors';
 
 function makeTabs(count = 150): Tab[] {
@@ -20,7 +20,10 @@ function makeTabs(count = 150): Tab[] {
 describe('tab selectors at 150-tab scale', () => {
   it('searches title and URL case-insensitively without mutating input', () => {
     const tabs = makeTabs();
-    tabs[75] = { ...tabs[75], url: 'https://stripe.example/URL-ONLY-Needle' };
+    const target = tabs[75];
+    expect(target).toBeDefined();
+    if (!target) throw new Error('Missing search fixture');
+    target.url = 'https://stripe.example/URL-ONLY-Needle';
     const before = tabs.map(tab => tab.id);
     expect(selectTabs(tabs, { query: ' žĄSIS ', sortMode: 'current', currentWindowId: 10 }).map(tab => tab.id)).toEqual([150]);
     expect(selectTabs(tabs, { query: 'url-only-needle', sortMode: 'current', currentWindowId: 10 }).map(tab => tab.id)).toEqual([76]);
@@ -44,13 +47,13 @@ describe('tab selectors at 150-tab scale', () => {
   });
 
   it('normalizes domains and duplicate URLs safely', () => {
-    const tabs: Tab[] = [
+    const tabs = [
       { id: 1, url: 'https://WWW.Example.com:443/path/#one' },
       { id: 2, url: 'https://example.com/path' },
       { id: 3, url: 'not a url/#fragment' },
       { id: 4, url: 'not a url' },
       { id: 5 },
-    ];
+    ] satisfies [Tab, Tab, Tab, Tab, Tab];
     const counts = getDuplicateCounts(tabs);
     expect(getTabDomain(tabs[0])).toBe('example.com');
     expect(getDuplicateKey(tabs[0])).toBe(getDuplicateKey(tabs[1]));

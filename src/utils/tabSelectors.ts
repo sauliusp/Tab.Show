@@ -1,4 +1,4 @@
-import { Tab, TabSortMode } from '../types/Tab';
+import type { Tab, TabSortMode } from '../types/Tab';
 
 export function getTabDomain(tab: Tab): string {
   try {
@@ -18,7 +18,7 @@ export function getDuplicateKey(tab: Tab): string {
     if (url.pathname !== '/') url.pathname = url.pathname.replace(/\/$/, '');
     return url.toString();
   } catch {
-    return rawUrl.split('#')[0].replace(/\/$/, '');
+    return rawUrl.replace(/#[\s\S]*$/, '').replace(/\/$/, '');
   }
 }
 

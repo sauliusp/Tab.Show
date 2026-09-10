@@ -1,4 +1,4 @@
-import { Tab } from '../types/Tab';
+import type { Tab } from '../types/Tab';
 
 class TabService {
   private static instance: TabService;

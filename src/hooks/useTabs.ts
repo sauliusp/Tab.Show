@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
-import { Tab, TabGroup, TabListItem, TabListState } from '../types/Tab';
+import type { Tab, TabGroup, TabListItem, TabListState } from '../types/Tab';
 import { tabService } from '../services/TabService';
 import { DEFAULT_HOVER_PREVIEW_DELAY_MS } from '../services/UserSettingsService';
 

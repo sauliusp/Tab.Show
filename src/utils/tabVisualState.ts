@@ -1,4 +1,4 @@
-import { Tab, TabVisualState } from '../types/Tab';
+import type { Tab, TabVisualState } from '../types/Tab';
 import { tabService } from '../services/TabService';
 
 // Cache for visual state calculations to avoid recalculation

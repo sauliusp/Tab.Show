@@ -1,5 +1,5 @@
 import React from 'react';
-import { AppearanceMode, DEFAULT_HOVER_PREVIEW_DELAY_MS, userSettingsService } from '../services/UserSettingsService';
+import { type AppearanceMode, DEFAULT_HOVER_PREVIEW_DELAY_MS, userSettingsService } from '../services/UserSettingsService';
 
 interface UserSettingsContextValue {
   hoverPreviewDelayMs: number;

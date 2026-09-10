@@ -5,8 +5,8 @@ import EmojiEventsRounded from '@mui/icons-material/EmojiEventsRounded';
 import LocalFireDepartmentRounded from '@mui/icons-material/LocalFireDepartmentRounded';
 import TipsAndUpdatesRounded from '@mui/icons-material/TipsAndUpdatesRounded';
 import { useTheme } from '@mui/material/styles';
-import { ChaosTrend } from '../services/TabChaosHistoryService';
-import { getChaosScoreColor, TabChaosStats } from '../utils/tabChaos';
+import type { ChaosTrend } from '../services/TabChaosHistoryService';
+import { getChaosScoreColor, type TabChaosStats } from '../utils/tabChaos';
 import { getReadableForegroundColor, getReadableTextColor } from '../utils/colorContrast';
 
 interface ChaosScoreOverlayProps {

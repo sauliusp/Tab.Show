@@ -1,8 +1,8 @@
 import React from 'react';
-import { Tab, TabGroup } from '../types/Tab';
+import type { Tab, TabGroup } from '../types/Tab';
 import { tabService } from '../services/TabService';
-import { ChaosTrend, tabChaosHistoryService } from '../services/TabChaosHistoryService';
-import { calculateTabChaos, TabChaosStats } from '../utils/tabChaos';
+import { type ChaosTrend, tabChaosHistoryService } from '../services/TabChaosHistoryService';
+import { calculateTabChaos, type TabChaosStats } from '../utils/tabChaos';
 
 interface ChaosTrendBaseline {
   previousScore: number | null;

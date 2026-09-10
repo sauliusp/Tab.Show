@@ -17,7 +17,7 @@ import { PanelEngagementBar } from '../../src/components/PanelEngagementBar';
 import { useUserSettings } from '../../src/contexts/UserSettingsContext';
 import { useTabChaos } from '../../src/hooks/useTabChaos';
 import './App.css';
-import { Tab, TabSortMode } from '../../src/types/Tab';
+import type { Tab, TabSortMode } from '../../src/types/Tab';
 import { selectTabs } from '../../src/utils/tabSelectors';
 
 function App() {
