@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { StudioBanner } from "./studio-banner";
 import {
   Community,
   Faq,
@@ -42,6 +43,7 @@ export default function Home() {
     <>
       <Header />
       <main>
+        <StudioBanner />
         <section className="hero shell">
           <div className="hero-copy">
             <p className="eyebrow"><span /> Live tab preview for Chrome</p>
