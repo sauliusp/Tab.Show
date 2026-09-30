@@ -1,6 +1,6 @@
 # TabShow Product Hunt submission
 
-Prepared 2026-07-23. Paste these values into a Product Hunt draft; do not schedule the launch until TabShow 2.0 is publicly available in the Chrome Web Store.
+Refreshed 2026-09-18 for TabShow 2.3. Paste these values into a Product Hunt draft; do not schedule without separate approval. TabShow 2.3.0 is publicly installable in the Chrome Web Store.
 
 ## Core fields
 
@@ -18,9 +18,9 @@ Use the clean URL. Product Hunt does not accept tracking URLs as the primary pro
 
 `Preview Chrome tabs before you switch`
 
-**Description: 251 characters**
+**Description: 257 characters**
 
-`TabShow puts open Chrome tabs in a searchable side panel. Point at a current-window tab to preview the live page, click to switch, or move away to snap back. Search across windows, sort tabs, and navigate by keyboard. Free, with no account or backend.`
+`TabShow puts open Chrome tabs in a searchable side panel. Point at a current-window tab to preview the live page, click to switch, or move away to snap back. Search same-profile windows, sort tabs, and navigate by keyboard. Free, with no account or backend.`
 
 **Additional link**
 
@@ -59,7 +59,7 @@ None. The extension is already free.
 5. `gallery/05-all-windows.png`
 6. `gallery/06-context-and-sorting.png`
 
-Do not attach the old 1.x promo video. Leave video blank unless a public YouTube demo showing the real 2.0 interface is ready.
+Use the authentic 48-second v2.1 master: `https://www.youtube.com/watch?v=gfOky71v2wI`. It is public in the current Chrome Web Store v2.3.0 listing.
 
 ## First maker comment
 
@@ -69,10 +69,10 @@ I built it around a small but recurring frustration: once Chrome’s tab strip c
 
 TabShow puts open tabs in Chrome’s side panel. Point at a tab in the current window to preview the live page. Click if it is the right one, or move away to return to the page you were using.
 
-Version 2.0 adds:
+Version 2.3 includes:
 
 - Search by title, URL, or domain
-- Current-window and all-window views
+- Current-window and same-profile all-window views; other profiles stay separate
 - Arrow-key navigation, Enter to switch, and Escape to return
 - Sorting by browser order, recent use, recent addition, domain, or group
 - Context for groups, pinned tabs, audio, sleeping tabs, and duplicates

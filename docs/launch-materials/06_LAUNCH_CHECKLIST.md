@@ -1,4 +1,4 @@
-# TabShow 2.0 approval checklist
+# TabShow 2.1 approval checklist
 
 ## Locally complete
 
