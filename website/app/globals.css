@@ -284,7 +284,7 @@ h1 em, h2 em { color: var(--orange); font-style: normal; }
   *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .001ms !important; animation-duration: .001ms !important; animation-iteration-count: 1 !important; }
 }
 
-/* MortalityStudio attribution: an intentionally blunt poster above the product. */
+/* MortalityStudio attribution follows the product introduction and demo. */
 .studio-banner { background: #141414; color: #f4f5ef; border-bottom: 5px solid #f26741; }
 .studio-banner__inner { width: min(calc(100% - 64px), 1240px); margin-inline: auto; padding-block: 25px 32px; display: grid; grid-template-columns: 1fr 1.12fr; gap: 25px 56px; align-items: center; }
 .studio-banner__credit { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 14px; }
