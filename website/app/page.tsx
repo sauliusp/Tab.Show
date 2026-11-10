@@ -43,7 +43,6 @@ export default function Home() {
     <>
       <Header />
       <main>
-        <StudioBanner />
         <section className="hero shell">
           <div className="hero-copy">
             <p className="eyebrow"><span /> Live tab preview for Chrome</p>
@@ -87,6 +86,8 @@ export default function Home() {
             <details><summary>Read the transcript</summary><p>Preview the full page without losing your focus. With TabShow, hover a tab to see it live. Move away. Your original page comes back. Found the right page? Click to stay. Search by title or website. Use the arrow keys. Find tabs across windows in the same Chrome profile. It’s free. No account. No tracking. Find the right tab. Keep your flow.</p></details>
           </figure>
         </section>
+
+        <StudioBanner />
 
         <section className="section ink-section">
           <div className="shell">
