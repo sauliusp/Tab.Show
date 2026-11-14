@@ -529,11 +529,15 @@ export function useTabs({
       const clickedTab = tabItem.data as Tab;
       let completed = false;
       try {
-        if (keepPanelOpen && clickedTab.windowId !== hostWindowIdRef.current && originalTab?.id
-          && (previewTabId !== null || inFlightPreviewTabIdRef.current !== null)) {
-          // Leave the host window on its committed tab before opening another
-          // window, so returning to a persistent panel never leaves a preview behind.
-          await queueProgrammaticTabSwitch(originalTab.id, 'restore host before switching windows', isCurrentIntent);
+        if (keepPanelOpen && clickedTab.windowId !== hostWindowIdRef.current && originalTab?.id) {
+          // An earlier click may still activate a host tab after its intent was
+          // superseded. Restore behind every queued activation, even without a
+          // hover preview, before leaving the persistent panel's window.
+          try {
+            await queueProgrammaticTabSwitch(originalTab.id, 'restore host before switching windows', isCurrentIntent);
+          } catch {
+            // A closed or unavailable origin must not block the requested switch.
+          }
         }
         if (!isCurrentIntent()) return;
         await queueProgrammaticTabSwitch(tabId, 'select tab', isCurrentIntent);
@@ -559,7 +563,7 @@ export function useTabs({
     } else {
       committingSelectionRef.current = false;
     }
-  }, [tabListState, keepPanelOpen, originalTab, previewTabId, clearHoverPreviewDelayTimeout, queueProgrammaticTabSwitch, updateCommittedTab, logError]);
+  }, [tabListState, keepPanelOpen, originalTab, clearHoverPreviewDelayTimeout, queueProgrammaticTabSwitch, updateCommittedTab, logError]);
 
   const handleCancel = useCallback(async () => {
     const intent = ++selectionIntentRef.current;

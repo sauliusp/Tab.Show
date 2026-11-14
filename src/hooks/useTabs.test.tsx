@@ -263,6 +263,60 @@ describe('useTabs interaction contract', () => {
     expect(mock.close).not.toHaveBeenCalled();
   });
 
+  it('restores the host origin after a pending local selection is superseded by another window', async () => {
+    const mock = createBrowserMock();
+    let finishLocalSelection!: () => void;
+    const pendingLocalSelection = new Promise<void>(resolve => { finishLocalSelection = resolve; });
+    const activate = mock.updateTab.getMockImplementation()!;
+    mock.updateTab.mockImplementation(async (tabId, changes) => {
+      if (tabId === 2) await pendingLocalSelection;
+      return activate(tabId, changes);
+    });
+    vi.stubGlobal('browser', mock.browserMock);
+    const { result } = renderHook(() => useTabs({ keepPanelOpen: true, allWindows: true }));
+    await settleInitialization();
+    let localSelection!: Promise<void>;
+    await act(async () => { localSelection = result.current.handleTabClick(2); });
+    expect(mock.updateTab).toHaveBeenCalledWith(2, { active: true });
+    expect(result.current.previewTabId).toBeNull();
+
+    let otherWindowSelection!: Promise<void>;
+    act(() => { otherWindowSelection = result.current.handleTabClick(3); });
+    await act(async () => {
+      finishLocalSelection();
+      await localSelection;
+      await otherWindowSelection;
+    });
+
+    expect(mock.updateTab.mock.calls.map(([tabId]) => tabId)).toEqual([2, 1, 3]);
+    expect(mock.tabs.find(tab => tab.windowId === 10 && tab.active)?.id).toBe(1);
+    expect(mock.tabs.find(tab => tab.windowId === 20 && tab.active)?.id).toBe(3);
+    expect(mock.getFocusedWindow()).toBe(20);
+    expect(result.current.originalTab?.id).toBe(1);
+    expect(result.current.previewTabId).toBeNull();
+    expect(mock.close).not.toHaveBeenCalled();
+  });
+
+  it('still selects the requested window if restoring the host tab fails', async () => {
+    const mock = createBrowserMock();
+    const activate = mock.updateTab.getMockImplementation()!;
+    mock.updateTab.mockImplementation(async (tabId, changes) => {
+      if (tabId === 1) throw new Error('Host tab could not be activated');
+      return activate(tabId, changes);
+    });
+    vi.stubGlobal('browser', mock.browserMock);
+    const { result } = renderHook(() => useTabs({ keepPanelOpen: true, allWindows: true, hoverPreviewDelayMs: 0 }));
+    await settleInitialization();
+    await act(async () => { result.current.handleTabHover(2); });
+
+    await act(async () => { await result.current.handleTabClick(3); });
+
+    expect(mock.updateTab).toHaveBeenLastCalledWith(3, { active: true });
+    expect(mock.getFocusedWindow()).toBe(20);
+    expect(result.current.previewTabId).toBeNull();
+    expect(mock.close).not.toHaveBeenCalled();
+  });
+
   it('still restores the selected origin and closes a persistent panel on Escape', async () => {
     const mock = createBrowserMock();
     vi.stubGlobal('browser', mock.browserMock);
