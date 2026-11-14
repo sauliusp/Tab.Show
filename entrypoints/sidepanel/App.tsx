@@ -26,11 +26,15 @@ function App() {
   const [isSettingsOpen, setIsSettingsOpen] = React.useState(false);
   const [isChaosOpen, setIsChaosOpen] = React.useState(false);
   const [query, setQuery] = React.useState('');
-  const [sortMode, setSortMode] = React.useState<TabSortMode>('current');
   const [highlightedTabId, setHighlightedTabId] = React.useState<number | null>(null);
   const [inputModality, setInputModality] = React.useState<'pointer' | 'keyboard'>('pointer');
   const [currentWindowId, setCurrentWindowId] = React.useState<number | null>(null);
-  const { hoverPreviewDelayMs, allWindows, setAllWindows } = useUserSettings();
+  const { hoverPreviewDelayMs, allWindows, setAllWindows, keepPanelOpen, hoverPreviewEnabled, sortMode, setSortMode } = useUserSettings();
+  const [scrollRequest, setScrollRequest] = React.useState<{ tabId: number; sequence: number } | null>(null);
+  const scrollSequence = React.useRef(0);
+  const revealTab = React.useCallback((tabId: number | null) => {
+    setScrollRequest(tabId === null ? null : { tabId, sequence: ++scrollSequence.current });
+  }, []);
   const chaos = useTabChaos();
   
   // Use the custom hook for tab management
@@ -46,7 +50,7 @@ function App() {
     handleTabHoverEnd,
     cancelPendingPreview,
     handleCancel
-  } = useTabs({ hoverPreviewDelayMs, allWindows });
+  } = useTabs({ hoverPreviewDelayMs, allWindows, keepPanelOpen, hoverPreviewEnabled });
 
   React.useEffect(() => {
     const focusSearch = () => {
@@ -84,11 +88,24 @@ function App() {
     [openTabs]
   );
 
+  const lastOriginalTabId = React.useRef<number | undefined>(undefined);
   React.useEffect(() => {
-    if (!matchingTabs.some(tab => tab.id === highlightedTabId)) {
-      setHighlightedTabId(matchingTabs[0]?.id ?? null);
+    if (isLoading) return;
+    const originalChanged = lastOriginalTabId.current !== originalTab?.id;
+    lastOriginalTabId.current = originalTab?.id;
+    // Opening the panel and explicit same-window switches reveal the current tab.
+    // Editing/clearing search and background metadata changes must not reset a
+    // valid keyboard selection or replay an old scroll request.
+    if (originalChanged && !query.trim() && matchingTabs.some(tab => tab.id === originalTab?.id)) {
+      if (originalTab?.id === undefined) return;
+      setHighlightedTabId(originalTab.id);
+      revealTab(originalTab.id);
+    } else if (!matchingTabs.some(tab => tab.id === highlightedTabId)) {
+      const nextId = matchingTabs[0]?.id ?? null;
+      setHighlightedTabId(nextId);
+      revealTab(nextId);
     }
-  }, [matchingTabs, highlightedTabId]);
+  }, [isLoading, matchingTabs, highlightedTabId, originalTab?.id, query, revealTab]);
 
   const activeHighlightedTabId = React.useMemo(() => (
     matchingTabs.some(tab => tab.id === highlightedTabId)
@@ -99,15 +116,18 @@ function App() {
   const handlePointerIntent = React.useCallback((tabId: number) => {
     setInputModality('pointer');
     setHighlightedTabId(tabId);
-    handleTabHover(tabId);
-  }, [handleTabHover]);
+    revealTab(null);
+    if (hoverPreviewEnabled) handleTabHover(tabId);
+  }, [handleTabHover, hoverPreviewEnabled, revealTab]);
 
   const handleKeyboard = (event: React.KeyboardEvent) => {
+    if (isSettingsOpen || isChaosOpen) return;
     const target = event.target as HTMLElement;
     if (target.closest('a[href]') && event.key !== 'Escape') return;
-    if (target.closest('button,[role="button"],[role="combobox"],[role="menu"],[role="menuitem"],input[type="checkbox"]')) return;
+    if (target !== searchInputRef.current && target.closest('[role="combobox"],[role="menu"],[role="menuitem"],[role="dialog"]')) return;
     if (event.nativeEvent.isComposing || event.keyCode === 229) return;
     if (event.key === 'Escape') { event.preventDefault(); void handleCancel(); return; }
+    if (target !== searchInputRef.current && target.closest('button,[role="button"],input[type="checkbox"]')) return;
     if (event.key === 'Enter') {
       const selectedTab = matchingTabs.find(tab => tab.id === activeHighlightedTabId) ?? matchingTabs[0];
       if (selectedTab?.id !== undefined) {
@@ -126,7 +146,9 @@ function App() {
       : Math.max(0, Math.min(matchingTabs.length - 1, currentIndex + (event.key === 'ArrowDown' ? 1 : -1)));
     const next = matchingTabs[nextIndex];
     if (next?.id !== undefined) {
+      cancelPendingPreview();
       setHighlightedTabId(next.id);
+      revealTab(next.id);
     }
   };
 
@@ -135,7 +157,7 @@ function App() {
     clearVisualStateCache();
   }, [theme]);
 
-  const handleCloseTab = async (tabId: number) => {
+  const handleCloseTab = React.useCallback(async (tabId: number) => {
     try {
       const success = await tabService.closeTab(tabId);
       if (success) {
@@ -148,7 +170,7 @@ function App() {
     } catch (error) {
       console.error(`Error closing tab ${tabId}:`, error);
     }
-  };
+  }, []);
 
 
   return (
@@ -236,10 +258,14 @@ function App() {
             fullWidth
             size="small"
             value={query}
-            onChange={(event) => { setInputModality('keyboard'); cancelPendingPreview(); setQuery(event.target.value); }}
+            onChange={(event) => { setInputModality('keyboard'); cancelPendingPreview(); setHighlightedTabId(null); setQuery(event.target.value); }}
             placeholder="Search tabs, no mouse needed"
             inputProps={{
+              role: 'combobox',
               'aria-label': 'Search tabs',
+              'aria-haspopup': 'grid',
+              'aria-expanded': matchingTabs.length > 0,
+              'aria-autocomplete': 'list',
               'aria-controls': 'tab-results',
               'aria-describedby': 'keyboard-search-hint',
               'aria-activedescendant': activeHighlightedTabId === null ? undefined : `tab-option-${activeHighlightedTabId}`
@@ -261,7 +287,7 @@ function App() {
           {allWindows && <Typography component="span" title="All windows in this Chrome profile. Windows in other profiles stay separate." sx={{ fontSize: 10.5, color: 'text.secondary', whiteSpace: 'nowrap' }}>This profile</Typography>}
         </Box>
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, minWidth: 0, '@media (max-width: 380px)': { gap: 0.5 } }}>
-          <Select size="small" value={sortMode} onChange={(event) => setSortMode(event.target.value as TabSortMode)} sx={{ width: 128, minWidth: 100, flexShrink: 1, fontSize: 11.5, '& .MuiSelect-select': { py: 0.65 } }} aria-label="Sort tabs">
+          <Select size="small" value={sortMode} onChange={(event) => { setSortMode(event.target.value as TabSortMode); revealTab(activeHighlightedTabId); }} sx={{ width: 128, minWidth: 100, flexShrink: 1, fontSize: 11.5, '& .MuiSelect-select': { py: 0.65 } }} inputProps={{ 'aria-label': 'Sort tabs' }}>
             <MenuItem value="current">Current order</MenuItem>
             <MenuItem value="recently-used">Recently used</MenuItem>
             <MenuItem value="recently-opened">Recently added (approx.)</MenuItem>
@@ -333,6 +359,8 @@ function App() {
         allWindows={allWindows}
         currentWindowId={currentWindowId}
         highlightedTabId={activeHighlightedTabId}
+        scrollRequest={scrollRequest}
+        hoverPreviewEnabled={hoverPreviewEnabled}
         pointerPreviewEnabled={inputModality === 'pointer'}
         onPointerIntent={handlePointerIntent}
       />

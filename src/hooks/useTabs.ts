@@ -3,16 +3,18 @@ import type { Tab, TabGroup, TabListItem, TabListState } from '../types/Tab';
 import { tabService } from '../services/TabService';
 import { DEFAULT_HOVER_PREVIEW_DELAY_MS } from '../services/UserSettingsService';
 
-const HOVER_SWITCH_TIMEOUT = 500;
-
 interface UseTabsOptions {
   hoverPreviewDelayMs?: number;
   allWindows?: boolean;
+  keepPanelOpen?: boolean;
+  hoverPreviewEnabled?: boolean;
 }
 
 export function useTabs({
   hoverPreviewDelayMs = DEFAULT_HOVER_PREVIEW_DELAY_MS,
-  allWindows = false
+  allWindows = false,
+  keepPanelOpen = false,
+  hoverPreviewEnabled = true
 }: UseTabsOptions = {}) {
   const [isLoading, setIsLoading] = useState(true);
   const [tabListState, setTabListState] = useState<TabListState>({
@@ -24,9 +26,6 @@ export function useTabs({
   const [previewTabId, setPreviewTabId] = useState<number | null>(null);
   const [originalTabIndex, setOriginalTabIndex] = useState<number>(-1);
 
-  const isSwitchingOnHoverRef = useRef(false);
-  const hoverSwitchTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const isHoverOperationInProgressRef = useRef(false);
   const hoverPreviewDelayTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const pendingHoverTabIdRef = useRef<number | null>(null);
   const hostWindowIdRef = useRef<number | null>(null);
@@ -38,6 +37,11 @@ export function useTabs({
   const inFlightPreviewTabIdRef = useRef<number | null>(null);
   const restorationQueuedRef = useRef(false);
   const committingSelectionRef = useRef(false);
+  const selectionIntentRef = useRef(0);
+  const hoverOptionsRef = useRef({ hoverPreviewDelayMs, hoverPreviewEnabled });
+  const previousHoverOptionsRef = useRef({ hoverPreviewDelayMs, hoverPreviewEnabled });
+  // Event callbacks retained by a row must still respect the latest preference.
+  hoverOptionsRef.current = { hoverPreviewDelayMs, hoverPreviewEnabled };
 
   // Helper function to build tab list state from tabs and groups
   const buildTabListState = useCallback((tabs: Tab[], groups: TabGroup[]): TabListState => {
@@ -123,13 +127,8 @@ export function useTabs({
     }
   }, [logError, buildTabListState, allWindows]);
 
-  const clearHoverSwitchFlag = useCallback(() => {
-    isSwitchingOnHoverRef.current = false;
+  const clearProgrammaticTarget = useCallback(() => {
     programmaticTargetTabIdRef.current = null;
-    if (hoverSwitchTimeoutRef.current) {
-      clearTimeout(hoverSwitchTimeoutRef.current);
-      hoverSwitchTimeoutRef.current = null;
-    }
   }, []);
 
   const clearHoverPreviewDelayTimeout = useCallback(() => {
@@ -140,39 +139,26 @@ export function useTabs({
     pendingHoverTabIdRef.current = null;
   }, []);
 
-  const setHoverSwitchFlag = useCallback(() => {
-    // Clear any existing timeout before setting a new one
-    if (hoverSwitchTimeoutRef.current) {
-      clearTimeout(hoverSwitchTimeoutRef.current);
-      hoverSwitchTimeoutRef.current = null;
-    }
-    
-    isSwitchingOnHoverRef.current = true;
-    hoverSwitchTimeoutRef.current = setTimeout(() => {
-      console.warn('Failsafe: Resetting hover flag.');
-      isSwitchingOnHoverRef.current = false;
-    }, HOVER_SWITCH_TIMEOUT);
-  }, []);
 
   const executeProgrammaticTabSwitch = useCallback(async (tabId: number, context: string) => {
     try {
       await tabService.activateTab(tabId);
     } catch (error) {
       logError(context, error);
-      clearHoverSwitchFlag();
+      clearProgrammaticTarget();
       throw error;
     }
-  }, [logError, clearHoverSwitchFlag]);
+  }, [logError, clearProgrammaticTarget]);
 
-  const queueProgrammaticTabSwitch = useCallback((tabId: number, context: string) => {
+  const queueProgrammaticTabSwitch = useCallback((tabId: number, context: string, isCurrentIntent?: () => boolean) => {
     const operation = tabSwitchQueueRef.current.then(() => {
+      if (isCurrentIntent && !isCurrentIntent()) return;
       programmaticTargetTabIdRef.current = tabId;
-      setHoverSwitchFlag();
       return executeProgrammaticTabSwitch(tabId, context);
     });
     tabSwitchQueueRef.current = operation.catch(() => undefined);
     return operation;
-  }, [executeProgrammaticTabSwitch, setHoverSwitchFlag]);
+  }, [executeProgrammaticTabSwitch]);
 
   // Tab group event handlers
   const handleTabGroupUpdated = useCallback(async () => {
@@ -383,26 +369,54 @@ export function useTabs({
     }
   }, [originalTab, previewTabId, logError, buildTabListState, allWindows]);
 
+  const updateCommittedTab = useCallback((selectedTab: Tab) => {
+    setTabListState(previous => {
+      const itemId = `tab-${selectedTab.id}`;
+      const item = previous.items[itemId];
+      if (!item || item.type !== 'tab') return previous;
+      return {
+        ...previous,
+        items: {
+          ...previous.items,
+          [itemId]: { ...item, data: selectedTab },
+        },
+      };
+    });
+  }, []);
+
   const handleTabActivated = useCallback(async (activeInfo: any) => {
-    if (isSwitchingOnHoverRef.current && programmaticTargetTabIdRef.current === activeInfo.tabId) {
+    // A slow API activation is still programmatic. Keep its exact target
+    // authoritative until the event arrives or a manual choice wins.
+    if (programmaticTargetTabIdRef.current === activeInfo.tabId) {
       console.log(`Programmatic switch to tab ${activeInfo.tabId} detected. Resetting flag.`);
-      clearHoverSwitchFlag();
+      clearProgrammaticTarget();
       return; 
     }
 
-    if (isSwitchingOnHoverRef.current) clearHoverSwitchFlag();
+    // Tab activation events are profile-wide. Only a manual selection in this
+    // panel's own window can become the tab a preview returns to.
+    if (activeInfo.windowId !== hostWindowIdRef.current) return;
+
+    clearProgrammaticTarget();
+    const intent = ++selectionIntentRef.current;
+    committingSelectionRef.current = false;
+    interactionGenerationRef.current += 1;
+    clearHoverPreviewDelayTimeout();
 
     console.log(`MANUAL switch to tab ${activeInfo.tabId} detected (Keyboard or Mouse).`);
     try {
       const activatedTab = await tabService.getTabById(activeInfo.tabId);
-      if (activatedTab) {
+      if (activatedTab && intent === selectionIntentRef.current) {
+        // A manual selection updates Recently used immediately. Hover previews
+        // return above and must not reorder the list beneath the pointer.
+        updateCommittedTab(activatedTab);
         setOriginalTab(activatedTab);
         setPreviewTabId(null);
       }
     } catch (error) {
       logError(`get tab info for tabId: ${activeInfo.tabId}`, error);
     }
-  }, [clearHoverSwitchFlag, logError]);
+  }, [clearProgrammaticTarget, clearHoverPreviewDelayTimeout, updateCommittedTab, logError]);
 
   const handleWindowFocusChanged = useCallback(async (windowId: number) => {
     try {
@@ -416,6 +430,7 @@ export function useTabs({
 
   // Tab interaction handlers
   const performTabHover = useCallback(async (tabId: number, generation: number) => {
+    if (!hoverOptionsRef.current.hoverPreviewEnabled || generation !== interactionGenerationRef.current) return;
     const currentActiveTab = previewTabId || originalTab?.id;
     if (tabId === currentActiveTab) {
       return; // No action needed if hovering over the already active tab
@@ -432,8 +447,6 @@ export function useTabs({
     
     console.log(`Hover detected on tab ${tabId}. Preparing to preview.`);
     
-    // Mark hover operation as in progress
-    isHoverOperationInProgressRef.current = true;
     inFlightPreviewTabIdRef.current = tabId;
     
     try {
@@ -444,8 +457,6 @@ export function useTabs({
     } catch (error) {
       // Error handling is already done in executeProgrammaticTabSwitch
     } finally {
-      // Always clear the hover operation flag
-      isHoverOperationInProgressRef.current = false;
       if (inFlightPreviewTabIdRef.current === tabId) {
         inFlightPreviewTabIdRef.current = null;
       }
@@ -454,6 +465,11 @@ export function useTabs({
 
   const handleTabHover = useCallback((tabId: number) => {
     const generation = ++interactionGenerationRef.current;
+    const options = hoverOptionsRef.current;
+    if (!options.hoverPreviewEnabled || committingSelectionRef.current) {
+      clearHoverPreviewDelayTimeout();
+      return;
+    }
     const currentActiveTab = previewTabId || originalTab?.id;
     if (tabId === currentActiveTab) {
       clearHoverPreviewDelayTimeout();
@@ -462,7 +478,7 @@ export function useTabs({
 
     pendingHoverTabIdRef.current = tabId;
 
-    if (hoverPreviewDelayMs <= 0) {
+    if (options.hoverPreviewDelayMs <= 0) {
       clearHoverPreviewDelayTimeout();
       void performTabHover(tabId, generation);
       return;
@@ -480,11 +496,10 @@ export function useTabs({
       }
       pendingHoverTabIdRef.current = null;
       void performTabHover(tabId, generation);
-    }, hoverPreviewDelayMs);
+    }, options.hoverPreviewDelayMs);
   }, [
     previewTabId,
     originalTab,
-    hoverPreviewDelayMs,
     performTabHover,
     clearHoverPreviewDelayTimeout
   ]);
@@ -502,6 +517,8 @@ export function useTabs({
   }, [clearHoverPreviewDelayTimeout]);
 
   const handleTabClick = useCallback(async (tabId: number) => {
+    const intent = ++selectionIntentRef.current;
+    const isCurrentIntent = () => intent === selectionIntentRef.current;
     committingSelectionRef.current = true;
     interactionGenerationRef.current += 1;
     clearHoverPreviewDelayTimeout();
@@ -510,34 +527,59 @@ export function useTabs({
     const tabItem = tabListState.items[tabItemId];
     if (tabItem && tabItem.type === 'tab') {
       const clickedTab = tabItem.data as Tab;
+      let completed = false;
       try {
-        await queueProgrammaticTabSwitch(tabId, 'select tab');
-        setOriginalTab(clickedTab);
+        if (keepPanelOpen && clickedTab.windowId !== hostWindowIdRef.current && originalTab?.id
+          && (previewTabId !== null || inFlightPreviewTabIdRef.current !== null)) {
+          // Leave the host window on its committed tab before opening another
+          // window, so returning to a persistent panel never leaves a preview behind.
+          await queueProgrammaticTabSwitch(originalTab.id, 'restore host before switching windows', isCurrentIntent);
+        }
+        if (!isCurrentIntent()) return;
+        await queueProgrammaticTabSwitch(tabId, 'select tab', isCurrentIntent);
+        if (!isCurrentIntent()) return;
+        // The list's snapshot predates the activation. Read Chrome's updated
+        // lastAccessed rather than inventing a timestamp or retaining stale data.
+        const selectedTab = await tabService.getTabById(tabId) ?? clickedTab;
+        if (!isCurrentIntent()) return;
+        updateCommittedTab(selectedTab);
+        if (!keepPanelOpen || clickedTab.windowId === hostWindowIdRef.current) {
+          setOriginalTab(selectedTab);
+        }
         setPreviewTabId(null);
-        await tabService.closeSidePanel(hostWindowIdRef.current ?? undefined);
+        if (!keepPanelOpen) await tabService.closeSidePanel(hostWindowIdRef.current ?? undefined);
+        completed = true;
       } catch (error) {
-        committingSelectionRef.current = false;
-        logError('select tab and close side panel', error);
+        logError('select tab', error);
+      } finally {
+        // Older selections must not unblock hover while a newer click or Escape
+        // is still in flight. Only the latest intent owns the preview session.
+        if (isCurrentIntent() && (keepPanelOpen || !completed)) committingSelectionRef.current = false;
       }
     } else {
       committingSelectionRef.current = false;
     }
-  }, [tabListState, clearHoverPreviewDelayTimeout, queueProgrammaticTabSwitch, logError]);
+  }, [tabListState, keepPanelOpen, originalTab, previewTabId, clearHoverPreviewDelayTimeout, queueProgrammaticTabSwitch, updateCommittedTab, logError]);
 
   const handleCancel = useCallback(async () => {
+    const intent = ++selectionIntentRef.current;
+    const isCurrentIntent = () => intent === selectionIntentRef.current;
+    committingSelectionRef.current = true;
     interactionGenerationRef.current += 1;
     clearHoverPreviewDelayTimeout();
     if (originalTab?.id) {
       try {
-        await queueProgrammaticTabSwitch(originalTab.id, 'restore original tab');
+        await queueProgrammaticTabSwitch(originalTab.id, 'restore original tab', isCurrentIntent);
       } catch {
         // Closing the panel is still the least surprising fallback.
       }
     }
+    if (!isCurrentIntent()) return;
     setPreviewTabId(null);
     try {
       await tabService.closeSidePanel(hostWindowIdRef.current ?? undefined);
     } catch (error) {
+      if (isCurrentIntent()) committingSelectionRef.current = false;
       logError('close side panel', error);
     }
   }, [originalTab, clearHoverPreviewDelayTimeout, queueProgrammaticTabSwitch, logError]);
@@ -549,9 +591,6 @@ export function useTabs({
     if (originalTab?.id && previewMayBeActive && !committingSelectionRef.current && !restorationQueuedRef.current) {
       restorationQueuedRef.current = true;
       console.log(`Hover ended. Returning to original tab ${originalTab.id}`);
-      
-      // Clear any ongoing hover operations
-      isHoverOperationInProgressRef.current = false;
       
       // 1. SET THE FLAG: A programmatic switch back is about to happen.
       try {
@@ -566,6 +605,18 @@ export function useTabs({
       }
     }
   }, [originalTab, previewTabId, queueProgrammaticTabSwitch, clearHoverPreviewDelayTimeout]);
+
+  useEffect(() => {
+    const previous = previousHoverOptionsRef.current;
+    previousHoverOptionsRef.current = { hoverPreviewDelayMs, hoverPreviewEnabled };
+    if (previous.hoverPreviewDelayMs !== hoverPreviewDelayMs || previous.hoverPreviewEnabled !== hoverPreviewEnabled) {
+      cancelPendingPreview();
+    }
+    if (previous.hoverPreviewEnabled && !hoverPreviewEnabled) {
+      // Finish any in-flight preview before restoring, without closing the panel.
+      void handleSidePanelHoverEnd();
+    }
+  }, [hoverPreviewDelayMs, hoverPreviewEnabled, cancelPendingPreview, handleSidePanelHoverEnd]);
 
   // Group expansion handler
   const handleGroupToggle = useCallback(async (groupId: number) => {
@@ -596,6 +647,8 @@ export function useTabs({
     browser.tabs.onUpdated.addListener(handleTabUpdated);
     browser.tabs.onCreated.addListener(handleTabCreated);
     browser.tabs.onMoved.addListener(handleTabMoved);
+    browser.tabs.onDetached?.addListener(handleTabMoved);
+    browser.tabs.onAttached?.addListener(handleTabMoved);
     browser.tabs.onReplaced.addListener(handleTabReplaced);
     browser.tabs.onActivated.addListener(handleTabActivated);
     browser.windows.onFocusChanged.addListener(handleWindowFocusChanged);
@@ -615,6 +668,8 @@ export function useTabs({
       browser.tabs.onUpdated.removeListener(handleTabUpdated);
       browser.tabs.onCreated.removeListener(handleTabCreated);
       browser.tabs.onMoved.removeListener(handleTabMoved);
+      browser.tabs.onDetached?.removeListener(handleTabMoved);
+      browser.tabs.onAttached?.removeListener(handleTabMoved);
       browser.tabs.onReplaced.removeListener(handleTabReplaced);
       browser.tabs.onActivated.removeListener(handleTabActivated);
       browser.windows.onFocusChanged.removeListener(handleWindowFocusChanged);
@@ -629,8 +684,7 @@ export function useTabs({
   }, [
     handleTabRemoved, handleTabUpdated, handleTabCreated, handleTabMoved,
     handleTabReplaced, handleTabActivated, handleWindowFocusChanged, 
-    handleTabGroupCreated, handleTabGroupUpdated, handleTabGroupRemoved,
-    clearHoverSwitchFlag
+    handleTabGroupCreated, handleTabGroupUpdated, handleTabGroupRemoved
   ]);
 
   // Initialize on mount

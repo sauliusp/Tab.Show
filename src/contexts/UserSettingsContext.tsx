@@ -1,5 +1,6 @@
 import React from 'react';
 import { type AppearanceMode, DEFAULT_HOVER_PREVIEW_DELAY_MS, userSettingsService } from '../services/UserSettingsService';
+import type { TabSortMode } from '../types/Tab';
 
 interface UserSettingsContextValue {
   hoverPreviewDelayMs: number;
@@ -8,6 +9,12 @@ interface UserSettingsContextValue {
   setAllWindows: (allWindows: boolean) => void;
   appearanceMode: AppearanceMode;
   setAppearanceMode: (appearanceMode: AppearanceMode) => void;
+  keepPanelOpen: boolean;
+  setKeepPanelOpen: (keepPanelOpen: boolean) => void;
+  hoverPreviewEnabled: boolean;
+  setHoverPreviewEnabled: (hoverPreviewEnabled: boolean) => void;
+  sortMode: TabSortMode;
+  setSortMode: (sortMode: TabSortMode) => void;
 }
 
 const UserSettingsContext = React.createContext<UserSettingsContextValue | undefined>(undefined);
@@ -18,6 +25,9 @@ export function UserSettingsProvider({ children }: { children: React.ReactNode }
   ));
   const [allWindows, setAllWindows] = React.useState<boolean>(() => userSettingsService.getAllWindows());
   const [appearanceMode, setAppearanceMode] = React.useState<AppearanceMode>(() => userSettingsService.getAppearanceMode());
+  const [keepPanelOpen, setKeepPanelOpen] = React.useState(() => userSettingsService.getKeepPanelOpen());
+  const [hoverPreviewEnabled, setHoverPreviewEnabled] = React.useState(() => userSettingsService.getHoverPreviewEnabled());
+  const [sortMode, setSortMode] = React.useState<TabSortMode>(() => userSettingsService.getSortMode());
 
   React.useEffect(() => {
     userSettingsService.saveHoverPreviewDelayMs(hoverPreviewDelayMs);
@@ -30,6 +40,18 @@ export function UserSettingsProvider({ children }: { children: React.ReactNode }
   React.useEffect(() => {
     userSettingsService.saveAppearanceMode(appearanceMode);
   }, [appearanceMode]);
+
+  React.useEffect(() => {
+    userSettingsService.saveKeepPanelOpen(keepPanelOpen);
+  }, [keepPanelOpen]);
+
+  React.useEffect(() => {
+    userSettingsService.saveHoverPreviewEnabled(hoverPreviewEnabled);
+  }, [hoverPreviewEnabled]);
+
+  React.useEffect(() => {
+    userSettingsService.saveSortMode(sortMode);
+  }, [sortMode]);
 
   const setHoverPreviewDelayMs = React.useCallback((delayMs: number) => {
     const safeDelayMs = Number.isFinite(delayMs)
@@ -45,8 +67,14 @@ export function UserSettingsProvider({ children }: { children: React.ReactNode }
     allWindows,
     setAllWindows,
     appearanceMode,
-    setAppearanceMode
-  }), [hoverPreviewDelayMs, setHoverPreviewDelayMs, allWindows, appearanceMode]);
+    setAppearanceMode,
+    keepPanelOpen,
+    setKeepPanelOpen,
+    hoverPreviewEnabled,
+    setHoverPreviewEnabled,
+    sortMode,
+    setSortMode,
+  }), [hoverPreviewDelayMs, setHoverPreviewDelayMs, allWindows, appearanceMode, keepPanelOpen, hoverPreviewEnabled, sortMode]);
 
   return (
     <UserSettingsContext.Provider value={contextValue}>

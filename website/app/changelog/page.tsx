@@ -2,8 +2,8 @@
 import { FEEDBACK_URL, PlainPage, pageMetadata } from "../site";
 
 export const metadata = pageMetadata(
-  "TabShow Changelog | Version 2.3",
-  "TabShow 2.3 clarifies which Chrome windows appear and adds a short narrated demo. Full-page live previews, with no new permissions.",
+  "TabShow Changelog | Version 2.4 Release Candidate",
+  "TabShow 2.4 adds optional panel persistence, a hover-preview switch, saved sorting, and current-tab visibility. Read the release status and history.",
   "/changelog",
 );
 
@@ -106,10 +106,11 @@ export default function ChangelogPage() {
   return (
     <PlainPage
       eyebrow="Changelog"
-      title="TabShow 2.3"
-      accent="makes window scope clear."
-      lead="A clearer window scope and a short voiced walkthrough of live preview. Version 2.3 is prepared for release. Chrome Web Store availability follows review."
+      title="TabShow 2.4"
+      accent="keeps your place in the panel."
+      lead="Version 2.4 is a release candidate. Chrome Web Store currently offers 2.3, published September 10, 2026. The new settings below become available after review and publication."
       nav={[
+        { href: "#version-2-4", label: "Version 2.4" },
         { href: "#version-2-3", label: "Version 2.3" },
         { href: "#version-2-2", label: "Version 2.2" },
         { href: "#version-2-1", label: "Version 2.1" },
@@ -119,8 +120,25 @@ export default function ChangelogPage() {
         { href: "#next", label: "What comes next" },
       ]}
     >
+      <section id="version-2-4">
+        <p className="eyebrow"><span /> November 14, 2026 · Release candidate</p>
+        <h2>Version 2.4</h2>
+        <h3>Keep the panel open when you want it</h3>
+        <p>Turn on <strong>Keep panel open after choosing a tab</strong> in Settings to keep browsing the list after a click or Enter. It is off by default. Chrome's pin control keeps the toolbar button accessible; this setting controls whether TabShow closes after a selection.</p>
+        <h3>Choose whether hovering previews a page</h3>
+        <p><strong>Preview tabs on hover</strong> is on by default. Turn it off to search and browse without changing the current page. Clicking or pressing Enter still opens a tab, and turning previews off returns an active preview to its original tab.</p>
+        <h3>Open at your current tab</h3>
+        <p>The panel brings the current tab into view when it opens. Choosing a tab with the panel kept open preserves your place in the list. Your sort choice is saved between visits.</p>
+        <h3>Find help and check your version</h3>
+        <p>Settings includes the installed version, help, and release notes. Search by title, URL, or domain is still at the top of the panel; it has been available since version 2.0.</p>
+        <h3>More reliable previews and window changes</h3>
+        <p>A selection in another Chrome window no longer replaces the tab a preview returns to. Tabs moved between windows refresh in the list, and hover settings take effect without reopening the panel.</p>
+        <h3>Existing preferences stay yours</h3>
+        <p>Every feature remains free. This release adds no permissions, account, or tracking. System appearance follows the operating system; custom Chrome theme colors are not imported.</p>
+      </section>
+
       <section id="version-2-3">
-        <p className="eyebrow"><span /> Prepared for release</p>
+        <p className="eyebrow"><span /> Published September 10, 2026</p>
         <h2>Version 2.3</h2>
         <h3>All windows, within this profile</h3>
         <p>All windows shows tabs from windows in the same Chrome profile. A small This profile hint and an explanation on the scope control make the boundary clear. Windows in another profile, such as Work or Personal, stay separate.</p>
@@ -131,7 +149,7 @@ export default function ChangelogPage() {
       </section>
 
       <section id="version-2-2">
-        <p className="eyebrow"><span /> Prepared for release</p>
+        <p className="eyebrow"><span /> Previous release</p>
         <h2>Version 2.2</h2>
         <h3>Optional support for the maker</h3>
         <p>A quiet Support TabShow link sits at the bottom of the panel, with a Buy me a coffee button in Settings. Every feature remains free. Leaving a tip is entirely optional.</p>
@@ -166,7 +184,7 @@ export default function ChangelogPage() {
         <h3>Keyboard selection and switching</h3>
         <p>Arrow keys select results, Enter opens the selected tab, and Escape returns to the original tab. Live preview remains a hover interaction.</p>
         <h3>All-window awareness</h3>
-        <p>Choose an explicit All windows scope with complete tab and window totals. Tabs from another window switch only on click, preventing hover from stealing focus.</p>
+        <p>Choose an explicit All windows scope with complete tab and window totals. Open a tab in another window with a click or Enter. Hovering does not move focus to that window.</p>
         <h3>Flexible sorting</h3>
         <p>Keep Chrome's current order or sort by recently used, recently added (approximate), domain, or tab group.</p>
         <h3>Richer tab context</h3>
@@ -178,7 +196,7 @@ export default function ChangelogPage() {
       <section id="history">
         <p className="eyebrow"><span /> August–December 2025</p>
         <h2>Previous releases</h2>
-        <p>The useful product history belongs here, not buried inside the Chrome Web Store description. These entries preserve the user-facing changes while removing obsolete launch copy.</p>
+        <p>Earlier changes to previewing, settings, and the tab list.</p>
         <div className="release-timeline">
           {previousReleases.map((release) => (
             <article key={release.version}>
@@ -196,7 +214,7 @@ export default function ChangelogPage() {
 
       <section id="privacy">
         <h2>Privacy and permissions</h2>
-        <p>TabShow 2.3 still has no account, backend, advertising, host permissions, or access to webpage contents. Version 2.3 adds no permissions, and the unused <code>activeTab</code> permission remains removed.</p>
+        <p>TabShow has no account, backend, advertising, host permissions, or access to webpage contents. The 2.4 release candidate adds no permissions. The unused <code>activeTab</code> permission remains removed.</p>
         <p>See the full <a className="text-link" href="/privacy">plain-language privacy page →</a></p>
       </section>
 

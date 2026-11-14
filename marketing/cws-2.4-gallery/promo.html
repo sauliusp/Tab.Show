@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>TabShow 2.4 · Promotional tile</title>
+  <style>
+    @font-face {
+      font-family: "Inter Local";
+      src: url("../video/tabshow-install-2026-09/assets/fonts/Inter-Variable.ttf") format("truetype");
+      font-style: normal;
+      font-weight: 100 900;
+      font-display: block;
+    }
+    :root { --width: 440px; --height: 280px; font-family: "Inter Local", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-synthesis: none; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; background: #f7f3e9; color: #211d42; }
+    * { box-sizing: border-box; }
+    html, body { width: var(--width); height: var(--height); margin: 0; padding: 0; overflow: hidden; }
+    .tile { width: var(--width); height: var(--height); position: relative; overflow: hidden; background: #f7f3e9; }
+    .brand { position: absolute; left: 22px; top: 22px; display: flex; align-items: center; gap: 8px; font-size: 18px; font-weight: 760; letter-spacing: -0.6px; }
+    .brand img { width: 29px; height: 29px; border-radius: 7px; }
+    h1 { position: absolute; left: 22px; top: 85px; width: 210px; margin: 0; font-size: 30px; line-height: 1.09; font-weight: 760; letter-spacing: -1.15px; }
+    h1 em { display: block; font-style: normal; color: #c95618; }
+    .proof { position: absolute; left: 22px; bottom: 26px; margin: 0; color: #655e77; font-size: 12px; font-weight: 550; }
+    .capture { position: absolute; left: 244px; top: 44px; width: 184px; margin: 0; box-shadow: 0 8px 24px #211d4222; border: 1px solid #dcd5c8; border-radius: 9px 9px 0 0; overflow: hidden; background: #fffdf7; }
+    .capture img { display: block; width: 100%; height: auto; }
+    .marquee { --width: 1400px; --height: 560px; }
+    .marquee .brand { left: 64px; top: 48px; gap: 13px; font-size: 31px; letter-spacing: -0.8px; }
+    .marquee .brand img { width: 46px; height: 46px; border-radius: 11px; }
+    .marquee h1 { left: 64px; top: 166px; width: 790px; font-size: 73px; line-height: 1.07; letter-spacing: -3.6px; }
+    .marquee .proof { left: 64px; bottom: 65px; font-size: 22px; letter-spacing: -0.3px; }
+    .marquee .capture { left: 930px; top: 42px; width: 400px; border-radius: 15px 15px 0 0; box-shadow: 0 15px 40px #211d4226; }
+    #capture-status { position: absolute; z-index: 2; bottom: 8px; left: 8px; right: 8px; margin: 0; padding: 8px; color: #642a16; background: #fff0d8; border: 1px solid #bf4c29; font-size: 12px; line-height: 1.4; }
+    #capture-status[hidden] { display: none; }
+  </style>
+</head>
+<body>
+  <main class="tile" aria-label="TabShow promotional image">
+    <div class="brand"><img id="brand-icon" src="../../public/icon/96.png" alt=""><span>TabShow</span></div>
+    <h1 id="headline">Preview before<em>you switch.</em></h1>
+    <p class="proof" id="proof">Free · No account</p>
+    <figure class="capture"><img id="product-image" src="../source/appshots-2.4/01-preview.jpg" alt="Actual TabShow side panel with a live-preview selection"></figure>
+    <p id="capture-status" role="status">Loading local screenshot and font…</p>
+  </main>
+  <script>
+    const marquee = new URLSearchParams(location.search).get("size") === "marquee";
+    if (marquee) {
+      document.documentElement.classList.add("marquee");
+      document.getElementById("headline").innerHTML = "See the page<em>before you switch.</em>";
+      document.getElementById("proof").textContent = "Live tab preview for Chrome · Free · No account";
+    }
+    document.title = `TabShow 2.4 · ${marquee ? "1400 × 560 marquee" : "440 × 280 small promo"}`;
+    const waitForImage = (image) => new Promise((resolve, reject) => {
+      const finish = () => image.naturalWidth ? resolve() : reject(new Error(`Missing local image: ${image.getAttribute("src")}`));
+      if (image.complete) finish();
+      else {
+        image.addEventListener("load", finish, { once: true });
+        image.addEventListener("error", finish, { once: true });
+      }
+    });
+    window.promoReady = Promise.all([
+      waitForImage(document.getElementById("brand-icon")),
+      waitForImage(document.getElementById("product-image")),
+      document.fonts.ready,
+    ]).then(() => {
+      document.getElementById("capture-status").hidden = true;
+      document.documentElement.dataset.captureReady = "true";
+    }).catch((error) => {
+      document.getElementById("capture-status").textContent = error.message;
+      document.documentElement.dataset.captureReady = "error";
+    });
+  </script>
+</body>
+</html>

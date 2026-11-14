@@ -40,3 +40,7 @@ The new YouTube video `ZznCNcOynjw` is saved as Private with HD processing compl
 6. Confirm dashboard submission and public Store availability independently. Pending review is not live.
 
 Merging to GitHub main does not deploy the website or submit a Store update.
+
+## Later verification: 14 November 2026
+
+The authenticated Chrome developer dashboard now shows TabShow 2.3.0 as Published / public, with the promo video field set to `https://www.youtube.com/watch?v=ZznCNcOynjw`. The public Store listing reports 10 September 2026 as its update date. These observations supersede the unconfirmed Store submission state above; the preparation record remains for history.

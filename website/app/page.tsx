@@ -21,9 +21,12 @@ export const metadata: Metadata = {
 const faq = [
   { q: "Is TabShow free?", a: "Yes. Every feature is free to use. If you would like to support its development, you can leave a tip through Buy Me a Coffee. Support is entirely optional." },
   { q: "Does TabShow read the contents of webpages?", a: "No. TabShow does not request host permissions and cannot read page contents. It uses Chrome's tab metadata, such as titles, URLs, favicons, groups, and status, to power the side panel." },
-  { q: "Can I search tabs across every Chrome window?", a: "Yes. Choose All windows to search tabs across windows in the same Chrome profile. Windows in other profiles, such as separate Work and Personal profiles, stay separate. For safety, a tab in another window switches only when clicked; hover preview does not steal focus across windows." },
+  { q: "Can I search tabs across every Chrome window?", a: "Yes. Choose All windows to search tabs across windows in the same Chrome profile. Windows in other profiles, such as separate Work and Personal profiles, stay separate. For safety, open a tab in another window with a click or Enter; hovering does not move focus across windows." },
   { q: "What happens when I move away from a preview?", a: "TabShow returns you to the original tab. If the preview was the right page, click it to make the switch permanent." },
   { q: "Can I use TabShow with the keyboard?", a: "Yes. Arrow keys select search results, Enter opens the selected tab, and Escape returns to the original tab. Hover a current-window result when you want a live preview. The side panel shortcut can be customized in Chrome's extension shortcut settings." },
+  { q: "Can I keep the panel open after choosing a tab?", a: "The 2.4 release candidate adds Settings → Keep panel open after choosing a tab. It is off by default, so selecting a tab still closes the panel unless you enable it. Chrome's pin control only keeps the toolbar button accessible. Check the changelog for release availability." },
+  { q: "Can I turn hover previews off?", a: "The 2.4 release candidate adds Settings → Preview tabs on hover. Turn it off to browse and search the list without changing pages. Click or press Enter to switch. Hover preview remains on by default." },
+  { q: "Does TabShow follow my Chrome theme?", a: "TabShow offers System, Light, and Dark appearance plus its own color pairings. System follows your operating system's light or dark setting. It does not import colors from custom Chrome themes." },
 ];
 
 export default function Home() {
@@ -54,7 +57,7 @@ export default function Home() {
             </div>
             <p className="micro-proof">No account <span>·</span> No backend <span>·</span> No host permissions</p>
           </div>
-          <ProductImage src="/images/tabshow-2.1-01-live-preview.png" alt="TabShow 2.1 live preview showing the current Chrome tab in violet and a hovered preview tab in amber" priority />
+          <ProductImage src="/images/tabshow-2.4-01-live-preview.png" alt="TabShow side panel showing the original tab and a live preview of another tab" priority />
         </section>
 
         <section className="proof-strip" aria-label="TabShow highlights">
@@ -72,9 +75,9 @@ export default function Home() {
             <p>Most tab tools ask you to organize more. TabShow helps at the exact moment a collapsed title or familiar favicon is no longer enough.</p>
           </div>
           <ol className="workflow">
-            <li><b>Search or point</b><span>Use the side panel to narrow the list or hover any tab.</span></li>
+            <li><b>Search or point</b><span>Search the list or hover a tab from the current window.</span></li>
             <li><b>Preview the live page</b><span>The real tab appears in your main browser window.</span></li>
-            <li><b>Decide without penalty</b><span>Click to switch. Move away to return to the original tab.</span></li>
+            <li><b>Choose the right page</b><span>Click to switch. Move away to return to the original tab.</span></li>
           </ol>
           <figure className="product-demo" id="demo">
             <video controls playsInline preload="none" poster="/video/tabshow-focus-poster.jpg" width="1920" height="1080" aria-label="TabShow: full-page preview in 30 seconds">
@@ -108,7 +111,18 @@ export default function Home() {
             <p className="section-copy">TabShow keeps live tabs live. It does not close them into a list, save cloud sessions, or ask you to rebuild browsing around projects. If you need workspace sync or aggressive memory cleanup, another tool may fit better. If you need to identify the right live page quickly, that is TabShow’s job.</p>
             <a className="text-link" href="/chrome-tab-preview-extension">Explore live tab preview <span aria-hidden="true">→</span></a>
           </div>
-          <ProductImage src="/images/tabshow-2.1-04-all-windows.png" alt="TabShow 2.1 All windows view listing tabs across four Chrome windows" />
+          <ProductImage src="/images/tabshow-2.4-04-all-windows.png" alt="TabShow All windows view with separate sections for Chrome windows in the same profile" />
+        </section>
+
+        <section className="section shell visual-pair" id="panel-settings">
+          <div>
+            <p className="eyebrow"><span /> In the 2.4 release candidate</p>
+            <h2>Choose how<br /><em>the panel behaves.</em></h2>
+            <p className="section-copy">Keep the panel open after choosing a tab, or turn hover previews off and switch only with a click or Enter. Your sort order stays saved, and opening the panel brings your current tab into view.</p>
+            <p className="section-copy">The defaults stay the same: hover to preview, click to switch and close. The new settings are optional.</p>
+            <a className="text-link" href="/changelog#version-2-4">Check 2.4 release status <span aria-hidden="true">→</span></a>
+          </div>
+          <ProductImage src="/images/tabshow-2.4-05-panel-settings.png" alt="TabShow Settings with controls to keep the panel open and turn hover previews on or off" />
         </section>
 
         <section className="section privacy-section">
@@ -116,7 +130,7 @@ export default function Home() {
             <div><p className="eyebrow"><span /> Privacy by design</p><h2>Your tabs stay<br /><em>in your browser.</em></h2></div>
             <div className="privacy-copy">
               <p>TabShow has no account, backend, ads, or tracking. It does not request host permissions, so it cannot access the contents of the websites you visit.</p>
-              <ul className="check-list"><li>Tab metadata powers listing, search, sorting, and switching.</li><li>Chrome’s side-panel and tab-group APIs provide the interface.</li><li>Your color, delay, and window-scope settings stay local.</li></ul>
+              <ul className="check-list"><li>Tab metadata powers listing, search, sorting, and switching.</li><li>Chrome’s side-panel and tab-group APIs provide the interface.</li><li>Your preferences stay in your browser.</li></ul>
               <a className="text-link" href="/privacy">Read every permission in plain language <span aria-hidden="true">→</span></a>
             </div>
           </div>

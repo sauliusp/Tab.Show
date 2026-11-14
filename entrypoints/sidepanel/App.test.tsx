@@ -51,7 +51,7 @@ describe('side-panel browser-rendered interaction', () => {
     const mock = browserWith150Tabs();
     vi.stubGlobal('browser', mock.api);
     render(<UserSettingsProvider><ColorSchemeProvider><App /></ColorSchemeProvider></UserSettingsProvider>);
-    const search = screen.getByRole('textbox', { name: 'Search tabs' });
+    const search = screen.getByRole('combobox', { name: 'Search tabs' });
     await expectOpenTabCount(150);
     expect(search).toHaveFocus();
     fireEvent.change(search, { target: { value: 'figma.example/final-target' } });
@@ -66,7 +66,7 @@ describe('side-panel browser-rendered interaction', () => {
     const mock = browserWith150Tabs();
     vi.stubGlobal('browser', mock.api);
     render(<UserSettingsProvider><ColorSchemeProvider><App /></ColorSchemeProvider></UserSettingsProvider>);
-    const search = screen.getByRole('textbox', { name: 'Search tabs' });
+    const search = screen.getByRole('combobox', { name: 'Search tabs' });
     await expectOpenTabCount(150);
     fireEvent.change(search, { target: { value: 'QA Tab 00' } });
     await expectOpenTabCount(150);
@@ -85,7 +85,7 @@ describe('side-panel browser-rendered interaction', () => {
     const mock = browserWith150Tabs();
     vi.stubGlobal('browser', mock.api);
     render(<UserSettingsProvider><ColorSchemeProvider><App /></ColorSchemeProvider></UserSettingsProvider>);
-    const search = screen.getByRole('textbox', { name: 'Search tabs' });
+    const search = screen.getByRole('combobox', { name: 'Search tabs' });
     await expectOpenTabCount(150);
     fireEvent.change(search, { target: { value: 'QA Tab 00' } });
     await expectOpenTabCount(150);
@@ -103,7 +103,7 @@ describe('side-panel browser-rendered interaction', () => {
     const mock = browserWith150Tabs();
     vi.stubGlobal('browser', mock.api);
     render(<UserSettingsProvider><ColorSchemeProvider><App /></ColorSchemeProvider></UserSettingsProvider>);
-    const search = screen.getByRole('textbox', { name: 'Search tabs' });
+    const search = screen.getByRole('combobox', { name: 'Search tabs' });
     await expectOpenTabCount(150);
     fireEvent.change(search, { target: { value: 'QA Tab 00' } });
     await expectOpenTabCount(150);
@@ -118,7 +118,7 @@ describe('side-panel browser-rendered interaction', () => {
     const mock = browserWith150Tabs();
     vi.stubGlobal('browser', mock.api);
     render(<UserSettingsProvider><ColorSchemeProvider><App /></ColorSchemeProvider></UserSettingsProvider>);
-    const search = screen.getByRole('textbox', { name: 'Search tabs' });
+    const search = screen.getByRole('combobox', { name: 'Search tabs' });
     await expectOpenTabCount(150);
     fireEvent.change(search, { target: { value: 'figma.example/final-target' } });
     await expectOpenTabCount(150);
@@ -133,7 +133,7 @@ describe('side-panel browser-rendered interaction', () => {
     const mock = browserWith150Tabs();
     vi.stubGlobal('browser', mock.api);
     render(<UserSettingsProvider><ColorSchemeProvider><App /></ColorSchemeProvider></UserSettingsProvider>);
-    const search = screen.getByRole('textbox', { name: 'Search tabs' });
+    const search = screen.getByRole('combobox', { name: 'Search tabs' });
     await expectOpenTabCount(150);
 
     fireEvent.keyDown(search, { key: 'Enter', keyCode: 229, isComposing: true });
@@ -165,7 +165,7 @@ describe('side-panel browser-rendered interaction', () => {
     await screen.findByText('Current order');
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
     fireEvent.click(screen.getByRole('button', { name: 'open settings' }));
-    expect(screen.getByRole('dialog', { name: 'User Settings' })).toBeVisible();
+    expect(screen.getByRole('dialog', { name: 'Settings' })).toBeVisible();
   });
 
   it('lets support links handle keyboard activation without switching an existing tab', async () => {
@@ -178,7 +178,7 @@ describe('side-panel browser-rendered interaction', () => {
     expect(supportLink).toBeVisible();
     expect(screen.queryByRole('link', { name: 'Buy me a coffee' })).not.toBeInTheDocument();
     fireEvent.click(screen.getByRole('button', { name: 'open settings' }));
-    const coffeeLink = within(screen.getByRole('dialog', { name: 'User Settings' })).getByRole('link', { name: 'Buy me a coffee' });
+    const coffeeLink = within(screen.getByRole('dialog', { name: 'Settings' })).getByRole('link', { name: 'Buy me a coffee' });
 
     for (const link of [supportLink, coffeeLink]) {
       expect(link).toHaveAttribute('href', 'https://buymeacoffee.com/saulius.developer');
@@ -192,7 +192,7 @@ describe('side-panel browser-rendered interaction', () => {
     expect(mock.close).not.toHaveBeenCalled();
   });
 
-  it.each(['Support TabShow', 'Buy me a coffee'])('restores the original tab with Escape while %s has focus', async (name) => {
+  it.each(['Support TabShow', 'Buy me a coffee'])('handles Escape at the correct layer while %s has focus', async (name) => {
     const mock = browserWith150Tabs();
     vi.stubGlobal('browser', mock.api);
     render(<UserSettingsProvider><ColorSchemeProvider><App /></ColorSchemeProvider></UserSettingsProvider>);
@@ -206,8 +206,14 @@ describe('side-panel browser-rendered interaction', () => {
 
     fireEvent.keyDown(link, { key: 'Escape' });
 
-    await waitFor(() => expect(mock.update).toHaveBeenCalledWith(1, { active: true }));
-    expect(mock.close).toHaveBeenCalledWith({ windowId: 10 });
+    if (name === 'Buy me a coffee') {
+      await waitFor(() => expect(screen.queryByRole('dialog', { name: 'Settings' })).not.toBeInTheDocument());
+      expect(mock.update).not.toHaveBeenCalled();
+      expect(mock.close).not.toHaveBeenCalled();
+    } else {
+      await waitFor(() => expect(mock.update).toHaveBeenCalledWith(1, { active: true }));
+      expect(mock.close).toHaveBeenCalledWith({ windowId: 10 });
+    }
   });
 
   it('shows clear loading and empty-search states instead of a blank list', async () => {
@@ -224,7 +230,7 @@ describe('side-panel browser-rendered interaction', () => {
     vi.stubGlobal('browser', loadedMock.api);
     render(<UserSettingsProvider><ColorSchemeProvider><App /></ColorSchemeProvider></UserSettingsProvider>);
     await expectOpenTabCount(150);
-    fireEvent.change(screen.getByRole('textbox', { name: 'Search tabs' }), { target: { value: 'zzzz-no-such-tab-qa' } });
+    fireEvent.change(screen.getByRole('combobox', { name: 'Search tabs' }), { target: { value: 'zzzz-no-such-tab-qa' } });
     expect(await screen.findByText('No tabs match your search')).toBeVisible();
     expect(screen.getByText('Try a different title, URL, or domain.')).toBeVisible();
   });
@@ -237,7 +243,7 @@ describe('side-panel browser-rendered interaction', () => {
     fireEvent.click(allWindows);
     await waitFor(() => expect(allWindows).toHaveAttribute('aria-pressed', 'true'));
     await expectOpenTabCount(150, 2);
-    fireEvent.change(screen.getByRole('textbox', { name: 'Search tabs' }), { target: { value: 'figma.example/final-target' } });
+    fireEvent.change(screen.getByRole('combobox', { name: 'Search tabs' }), { target: { value: 'figma.example/final-target' } });
     await expectOpenTabCount(150, 2);
     expect(screen.queryByText('Live preview · Current window')).not.toBeInTheDocument();
   });
@@ -272,7 +278,7 @@ describe('side-panel browser-rendered interaction', () => {
     expect(screen.queryByText('Live preview · Current window')).not.toBeInTheDocument();
     const topControls = screen.getByTestId('top-control-grid');
     expect(topControls).toContainElement(screen.getByTestId('tab-scope-control'));
-    expect(topControls).toContainElement(screen.getByRole('textbox', { name: 'Search tabs' }));
+    expect(topControls).toContainElement(screen.getByRole('combobox', { name: 'Search tabs' }));
     expect(topControls).toContainElement(screen.getByRole('button', { name: 'open settings' }));
     expect(topControls).toContainElement(scoreButton);
     expect(screen.queryByText(/Tab chaos ·/)).not.toBeInTheDocument();
@@ -316,6 +322,6 @@ describe('side-panel browser-rendered interaction', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Use light appearance' }));
     await waitFor(() => expect(document.documentElement.dataset.colorScheme).toBe('light'));
     fireEvent.click(screen.getByRole('button', { name: 'Use system appearance' }));
-    await waitFor(() => expect(screen.getByText('Following your system, currently light.')).toBeVisible());
+    await waitFor(() => expect(screen.getByText(/Following your system, currently light\./)).toBeVisible());
   });
 });

@@ -1,18 +1,19 @@
 # TabShow website
 
-The local, launch-ready SEO website for TabShow 2.1. It is a public vinext/Sites project with nine routes, factual product copy, campaign-tagged Chrome Web Store links, and the five current Chrome Web Store product images.
+The public vinext/Sites website for TabShow, with nine routes, product guidance, campaign-tagged Chrome Web Store links, and five 2.4 product images. Version 2.4 is a release candidate; the website distinguishes its new settings from the published 2.3 extension. Update release-status copy only after verifying submission or publication in the Chrome Web Store dashboard.
 
 ## Local verification
 
 Requires Node.js 22.13 or newer.
 
 ```bash
-npm install
-npm run lint
+npm ci
 npm test
 ```
 
-`npm test` creates a production build and verifies the rendered route metadata, canonicals, structured data, campaign links, sitemap, and robots output.
+`npm test` creates a production build and verifies rendered route metadata, canonicals, structured data, release availability, settings guidance, product image references, sitemap, and robots output.
+
+For hosted publication, use the Sites source workflow and build helper from the opened authoritative checkout. Preserve the existing `.openai/hosting.json` project identity and public access.
 
 ## Routes
 
