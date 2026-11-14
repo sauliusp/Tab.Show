@@ -8,9 +8,9 @@ Open Settings and turn on **Keep panel open after choosing a tab**. Click a tab 
 
 This option is off by default. Chrome's pin icon only puts TabShow in the toolbar; the new setting controls whether it stays open after a selection.
 
-## Keep your place in the list
+## Keep your chosen tab in view
 
-Opening TabShow brings your current tab into view. Choosing a tab keeps your place in the list, and your sort order stays saved. Moving tabs between Chrome windows also updates the list correctly.
+Opening TabShow brings your current tab into view. With the panel kept open, switching within the current window keeps your chosen tab visible. Your sort order stays saved. Moving tabs between Chrome windows also updates the list correctly.
 
 ## Choose when to preview
 

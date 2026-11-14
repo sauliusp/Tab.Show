@@ -107,7 +107,7 @@ export default function ChangelogPage() {
     <PlainPage
       eyebrow="Changelog"
       title="TabShow 2.4"
-      accent="keeps your place in the panel."
+      accent="keeps your chosen tab in view."
       lead="Version 2.4 is a release candidate. Chrome Web Store currently offers 2.3, published September 10, 2026. The new settings below become available after review and publication."
       nav={[
         { href: "#version-2-4", label: "Version 2.4" },
@@ -128,7 +128,7 @@ export default function ChangelogPage() {
         <h3>Choose whether hovering previews a page</h3>
         <p><strong>Preview tabs on hover</strong> is on by default. Turn it off to search and browse without changing the current page. Clicking or pressing Enter still opens a tab, and turning previews off returns an active preview to its original tab.</p>
         <h3>Open at your current tab</h3>
-        <p>The panel brings the current tab into view when it opens. Choosing a tab with the panel kept open preserves your place in the list. Your sort choice is saved between visits.</p>
+        <p>The panel brings the current tab into view when it opens. With the panel kept open, switching within the current window keeps your chosen tab visible. Your sort choice is saved between visits.</p>
         <h3>Find help and check your version</h3>
         <p>Settings includes the installed version, help, and release notes. Search by title, URL, or domain is still at the top of the panel; it has been available since version 2.0.</p>
         <h3>More reliable previews and window changes</h3>

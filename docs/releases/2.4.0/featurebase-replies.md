@@ -1,6 +1,16 @@
-# Featurebase response drafts
+# Featurebase responses and status record
 
-Prepared 14 November 2026. These are unsent drafts. Replace the release-availability sentence with the verified Store state immediately before posting, and record the posted comment links afterward. Do not mark the two implemented requests Completed until the release is publicly available.
+On 14 November 2026, five responses were posted and their rendered discussion entries verified in the authenticated Featurebase dashboard. The two implemented requests were changed from In Review to In Progress. None was marked newly Completed. The replies explicitly identify 2.4 as a release candidate still in testing and review, not available in the Store.
+
+Posted request locations:
+
+- [Keep panel open](https://narsheek.featurebase.app/dashboard/requests/6af1a7295d52c7a40415b504): public request comment; In Progress.
+- [Scroll current tab into view](https://narsheek.featurebase.app/dashboard/requests/68de6edfdc74aa6f373ae7cc): public request comment covering the original request and mattrazzo's additional report; In Progress.
+- [Tab Search](https://narsheek.featurebase.app/dashboard/requests/68dc9fb97c9997cb6b9f72d6): direct reply to mattrazzo; existing Completed state retained.
+- [Color customization](https://narsheek.featurebase.app/dashboard/requests/68de7017ec52ffe5f4d25bbd): direct reply to mattrazzo; existing Completed state retained for color pairings, with exact Chrome-theme matching explicitly distinguished.
+- [Thumbnails and fisheye menu](https://narsheek.featurebase.app/dashboard/requests/6af1a4a7d1ecc85c0f9a24a7): public request comment declining inclusion in 2.4 and explaining capture/interaction costs; In Review retained without a roadmap promise.
+
+Private dashboard screenshots are retained outside the public repository. The response text below preserves the preparation drafts; posted text uses the same decisions and clarifies that Recently used intentionally moves the chosen tab to the top. After Store submission, report only the observed availability state. Mark the two implemented requests Completed only once 2.4 is publicly available.
 
 ## Option to keep panel open
 

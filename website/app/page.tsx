@@ -71,8 +71,8 @@ export default function Home() {
 
         <section className="section shell" id="how-it-works">
           <div className="section-heading split-heading">
-            <div><p className="eyebrow"><span /> One interaction</p><h2>Recognize first.<br /><em>Switch second.</em></h2></div>
-            <p>Most tab tools ask you to organize more. TabShow helps at the exact moment a collapsed title or familiar favicon is no longer enough.</p>
+            <div><p className="eyebrow"><span /> Live preview</p><h2>See the page.<br /><em>Choose the tab.</em></h2></div>
+            <p>When several tabs have similar titles or icons, hover a result to see the page in your current window.</p>
           </div>
           <ol className="workflow">
             <li><b>Search or point</b><span>Search the list or hover a tab from the current window.</span></li>
@@ -85,7 +85,7 @@ export default function Home() {
               <track kind="captions" src="/video/tabshow-focus-en.vtt" srcLang="en" label="English" />
               Your browser does not support video playback. <a href="/video/tabshow-focus-30s.mp4">Download the TabShow demo</a>.
             </video>
-            <figcaption>See the page. Keep your focus. A 30-second walkthrough with voice.</figcaption>
+            <figcaption>A 30-second demo of live preview, search, and tab switching.</figcaption>
             <details><summary>Read the transcript</summary><p>Preview the full page without losing your focus. With TabShow, hover a tab to see it live. Move away. Your original page comes back. Found the right page? Click to stay. Search by title or website. Use the arrow keys. Find tabs across windows in the same Chrome profile. It’s free. No account. No tracking. Find the right tab. Keep your flow.</p></details>
           </figure>
         </section>
@@ -94,22 +94,22 @@ export default function Home() {
 
         <section className="section ink-section">
           <div className="shell">
-            <div className="section-heading light-heading"><p className="eyebrow"><span /> TabShow</p><h2>More context.<br /><em>Still one sharp tool.</em></h2></div>
+            <div className="section-heading light-heading"><p className="eyebrow"><span /> In the side panel</p><h2>Search, sort,<br /><em>and switch tabs.</em></h2></div>
             <div className="feature-ledger">
-              <article><span>01</span><h3>Find faster</h3><p>Search open tabs by title, URL, or domain instead of scanning the tab strip.</p></article>
-              <article><span>02</span><h3>See every window</h3><p>Search across windows in the same Chrome profile. Other profiles stay separate.</p></article>
-              <article><span>03</span><h3>Sort with intent</h3><p>Keep browser order or sort by recent use, recent addition, domain, or group.</p></article>
-              <article><span>04</span><h3>Stay on the keys</h3><p>Arrow keys select, Enter opens, and Escape returns to your original tab. Hover when you want a live preview.</p></article>
+              <article><span>01</span><h3>Search by title or site</h3><p>Type a page title, URL, or domain to narrow the list of open tabs.</p></article>
+              <article><span>02</span><h3>Find tabs across windows</h3><p>Search across windows in the same Chrome profile. Other profiles stay separate.</p></article>
+              <article><span>03</span><h3>Choose a sort order</h3><p>Keep browser order or sort by recent use, recent addition, domain, or group.</p></article>
+              <article><span>04</span><h3>Use the keyboard</h3><p>Arrow keys select, Enter opens, and Escape returns to your original tab. Hover when you want a live preview.</p></article>
             </div>
           </div>
         </section>
 
         <section className="section shell visual-pair">
           <div>
-            <p className="eyebrow"><span /> Honest positioning</p>
-            <h2>A recognition tool.<br /><em>Not another workspace.</em></h2>
-            <p className="section-copy">TabShow keeps live tabs live. It does not close them into a list, save cloud sessions, or ask you to rebuild browsing around projects. If you need workspace sync or aggressive memory cleanup, another tool may fit better. If you need to identify the right live page quickly, that is TabShow’s job.</p>
-            <a className="text-link" href="/chrome-tab-preview-extension">Explore live tab preview <span aria-hidden="true">→</span></a>
+            <p className="eyebrow"><span /> All windows</p>
+            <h2>One list.<br /><em>For this Chrome profile.</em></h2>
+            <p className="section-copy">Choose All windows to search tabs in every open window of your current Chrome profile. Each window has its own section. Click a tab or press Enter to bring that window forward.</p>
+            <a className="text-link" href="/chrome-tab-preview-extension">How live preview works <span aria-hidden="true">→</span></a>
           </div>
           <ProductImage src="/images/tabshow-2.4-04-all-windows.png" alt="TabShow All windows view with separate sections for Chrome windows in the same profile" />
         </section>

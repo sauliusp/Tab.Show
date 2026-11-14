@@ -21,7 +21,7 @@ export default defineConfig({
   manifest: {
     name: 'TabShow: Live Tab Preview',
     short_name: 'TabShow',
-    description: 'Search or point at open tabs to preview the live page, then switch or snap back without losing your place.',
+    description: 'Preview live Chrome tabs before you switch. Search your tabs and find the right page without losing your place.',
     version: '2.4.0',
     side_panel: {
       default_path: 'sidepanel.html'

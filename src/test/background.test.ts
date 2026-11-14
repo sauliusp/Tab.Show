@@ -19,7 +19,7 @@ describe('installation and update pages', () => {
       sidePanel: { setPanelBehavior },
       tabs: { create },
     });
-    await import('./background');
+    await import('../../entrypoints/background');
   });
 
   it('opens a first-use page and enables the toolbar action on installation', async () => {

@@ -30,7 +30,7 @@ export default function SupportPage() {
       <h3>Turn hover previews off</h3>
       <p>Turn off <strong>Preview tabs on hover</strong> in Settings. Search and keyboard selection leave the page alone; click or press Enter when you want to switch. Hover preview is on by default, and you can adjust its delay while it is enabled.</p>
       <h3>Keep your sort order and position</h3>
-      <p>Version 2.4 saves your chosen sort order. Opening the panel brings your current tab into view. When you keep the panel open, selecting a tab does not send the list back to the top.</p>
+      <p>Version 2.4 saves your chosen sort order. Opening the panel brings your current tab into view. When you keep the panel open, switching within the current window keeps your chosen tab visible. Recently used moves the chosen tab to the top.</p>
       <h3>Appearance and Chrome themes</h3>
       <p>System, Light, and Dark appearance are already available in Settings. System follows your operating system's light or dark preference. TabShow also has its own color pairings; it does not import colors from custom Chrome themes.</p>
     </section>

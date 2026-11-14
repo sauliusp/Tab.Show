@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
+import { access } from "node:fs/promises";
 
 const workerUrl = new URL("../dist/server/index.js", import.meta.url);
 workerUrl.searchParams.set("test", `${process.pid}-${Date.now()}`);
@@ -24,6 +25,20 @@ const routes = [
   ["/changelog", "TabShow Changelog", "TabShow 2.4"],
   ["/support", "TabShow Support", "Get back to the tab"],
 ];
+
+test("every rendered local product image and video exists in the release source", async () => {
+  const checked = new Set();
+  for (const [path] of routes) {
+    const html = await (await render(path)).text();
+    for (const match of html.matchAll(/\bsrc=["'](\/(?:images|video)\/[^"']+)["']/g)) {
+      const asset = match[1].split("?")[0];
+      if (checked.has(asset)) continue;
+      checked.add(asset);
+      await assert.doesNotReject(access(new URL(`../public${asset}`, import.meta.url)), `Missing product asset: ${asset}`);
+    }
+  }
+  assert.ok(checked.size > 0, "No local product assets were checked");
+});
 
 test("server-renders the complete SEO route set with unique titles and canonicals", async () => {
   const seenTitles = new Set();

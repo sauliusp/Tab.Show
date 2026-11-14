@@ -37,7 +37,7 @@ export function Footer() {
   return (
     <footer className="site-footer">
       <div className="shell footer-grid">
-        <div><Link className="brand footer-brand" href="/"><img src="/icon.png" alt="" width="38" height="38" /><span>TabShow<small>Find the tab. Keep your place.</small></span></Link><p>One sharp Chrome tool for recognizing the right live page.</p></div>
+        <div><Link className="brand footer-brand" href="/"><img src="/icon.png" alt="" width="38" height="38" /><span>TabShow<small>Find the tab. Keep your place.</small></span></Link><p>Search and preview open Chrome tabs from the side panel.</p></div>
         <div><h2>Product</h2><a href="/chrome-tab-preview-extension">Live tab preview</a><a href="/changelog">Changelog</a><a href="/privacy">Privacy</a><a href="/support">Support</a></div>
         <div><h2>Compare</h2><a href="/onetab-alternative">OneTab alternative</a><a href="/workona-alternative">Workona alternative</a><a href="/tab-manager-plus-alternative">Tab Manager Plus alternative</a><a href="/find-lost-chrome-tab">Find a lost tab</a></div>
         <div><h2>Community</h2><a href={FEEDBACK_URL} target="_blank" rel="noreferrer">Share feedback ↗</a><a href={REVIEW_URL} target="_blank" rel="noreferrer">Rate TabShow ↗</a><a href={SUPPORT_URL} target="_blank" rel="noopener noreferrer">Support TabShow ↗</a><a href={storeUrl("footer")} target="_blank" rel="noreferrer">Chrome Web Store ↗</a></div>
