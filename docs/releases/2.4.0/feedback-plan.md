@@ -20,7 +20,7 @@ Retain each metric's dashboard definition. Do not divide installs by page views 
 
 ## Product and engineering assessment
 
-**Keep-open behavior:** a strong improvement because it removes repeated reopening for an existing user. Preserve close-on-selection for everyone who prefers the current workflow. When persistent mode is enabled, a committed selection must become the new preview return target. Escape must remain predictable. Chrome confirms that its side-panel pin pins the action icon; it does not impose a persistent selection workflow. [Side Panel API](https://developer.chrome.com/docs/extensions/reference/api/sidePanel)
+**Keep-open behavior:** a strong improvement because it removes repeated reopening for an existing user. Preserve close-on-selection for everyone who prefers the current workflow. When persistent mode is enabled, a committed selection in the panel's own window becomes the new preview return target. Choosing a tab in another window preserves the original window's return tab. Escape must remain predictable. Chrome confirms that its side-panel pin pins the action icon; it does not impose a persistent selection workflow. [Side Panel API](https://developer.chrome.com/docs/extensions/reference/api/sidePanel)
 
 **Current-tab visibility:** a direct reliability improvement. On opening, reveal the current tab. After a user deliberately scrolls or navigates, avoid unsolicited jumps caused by background tab events. Test long lists, filters, groups, and tabs moved between windows.
 

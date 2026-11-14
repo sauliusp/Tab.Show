@@ -30,7 +30,7 @@
         if (!globalThis.chrome?.sidePanel?.open || !globalThis.chrome?.windows?.getCurrent) throw new Error('Side panel API unavailable');
         const currentWindow = await chrome.windows.getCurrent();
         await chrome.sidePanel.open({ windowId: currentWindow.id });
-        statusNodes.forEach((node) => { node.textContent = 'TabShow is open. Hover a tab to preview it.'; });
+        statusNodes.forEach((node) => { node.textContent = 'TabShow is open. Search for a tab or choose one from the list.'; });
       } catch (_) {
         statusNodes.forEach((node) => { node.textContent = `Use the toolbar icon or press ${shortcutText} to open TabShow.`; });
       }

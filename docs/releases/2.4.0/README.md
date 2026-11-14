@@ -6,7 +6,7 @@ This release addresses repeated panel closure, losing the current tab in a long 
 
 ## Release scope
 
-- Add **Keep panel open after choosing a tab**. It is off by default. When enabled, choosing a tab commits the switch and makes that tab the starting point for subsequent previews.
+- Add **Keep panel open after choosing a tab**. It is off by default. When enabled, choosing a tab keeps the panel open. A choice in the current window becomes the starting point for subsequent previews; choosing another window preserves the original window's return tab.
 - Add **Preview tabs on hover**. It is on by default. Users can turn it off while retaining search, keyboard selection, and click-to-switch.
 - Save the selected sort order.
 - Reveal the current tab when the panel opens and keep list position stable during normal use.

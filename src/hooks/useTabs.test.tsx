@@ -210,7 +210,7 @@ describe('useTabs interaction contract', () => {
     expect(mock.close).toHaveBeenCalledWith({ windowId: 10 });
   });
 
-  it('recognizes a slow programmatic activation after the hover timeout', async () => {
+  it('recognizes a slow programmatic activation instead of treating it as a manual choice', async () => {
     const mock = createBrowserMock();
     let finishSelection!: () => void;
     const pendingSelection = new Promise<void>(resolve => { finishSelection = resolve; });

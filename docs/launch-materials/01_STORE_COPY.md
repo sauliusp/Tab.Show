@@ -22,7 +22,7 @@ Search by page title, URL, or domain. Start typing when the panel opens, use the
 
 KEEP THE PANEL OPEN IF YOU WANT
 
-By default, choosing a tab closes TabShow. Turn on “Keep panel open after choosing a tab” in Settings to leave it beside your page. Each chosen tab becomes the starting point for your next preview.
+By default, choosing a tab closes TabShow. Turn on “Keep panel open after choosing a tab” in Settings to leave it open. Choosing a tab in the current window makes it the starting point for your next preview.
 
 Opening TabShow brings your current tab into view. Your preferred sort order stays saved.
 

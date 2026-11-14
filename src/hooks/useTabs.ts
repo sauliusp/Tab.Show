@@ -3,8 +3,6 @@ import type { Tab, TabGroup, TabListItem, TabListState } from '../types/Tab';
 import { tabService } from '../services/TabService';
 import { DEFAULT_HOVER_PREVIEW_DELAY_MS } from '../services/UserSettingsService';
 
-const HOVER_SWITCH_TIMEOUT = 500;
-
 interface UseTabsOptions {
   hoverPreviewDelayMs?: number;
   allWindows?: boolean;
@@ -28,9 +26,6 @@ export function useTabs({
   const [previewTabId, setPreviewTabId] = useState<number | null>(null);
   const [originalTabIndex, setOriginalTabIndex] = useState<number>(-1);
 
-  const isSwitchingOnHoverRef = useRef(false);
-  const hoverSwitchTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const isHoverOperationInProgressRef = useRef(false);
   const hoverPreviewDelayTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const pendingHoverTabIdRef = useRef<number | null>(null);
   const hostWindowIdRef = useRef<number | null>(null);
@@ -132,13 +127,8 @@ export function useTabs({
     }
   }, [logError, buildTabListState, allWindows]);
 
-  const clearHoverSwitchFlag = useCallback(() => {
-    isSwitchingOnHoverRef.current = false;
+  const clearProgrammaticTarget = useCallback(() => {
     programmaticTargetTabIdRef.current = null;
-    if (hoverSwitchTimeoutRef.current) {
-      clearTimeout(hoverSwitchTimeoutRef.current);
-      hoverSwitchTimeoutRef.current = null;
-    }
   }, []);
 
   const clearHoverPreviewDelayTimeout = useCallback(() => {
@@ -149,40 +139,26 @@ export function useTabs({
     pendingHoverTabIdRef.current = null;
   }, []);
 
-  const setHoverSwitchFlag = useCallback(() => {
-    // Clear any existing timeout before setting a new one
-    if (hoverSwitchTimeoutRef.current) {
-      clearTimeout(hoverSwitchTimeoutRef.current);
-      hoverSwitchTimeoutRef.current = null;
-    }
-    
-    isSwitchingOnHoverRef.current = true;
-    hoverSwitchTimeoutRef.current = setTimeout(() => {
-      console.warn('Failsafe: Resetting hover flag.');
-      isSwitchingOnHoverRef.current = false;
-    }, HOVER_SWITCH_TIMEOUT);
-  }, []);
 
   const executeProgrammaticTabSwitch = useCallback(async (tabId: number, context: string) => {
     try {
       await tabService.activateTab(tabId);
     } catch (error) {
       logError(context, error);
-      clearHoverSwitchFlag();
+      clearProgrammaticTarget();
       throw error;
     }
-  }, [logError, clearHoverSwitchFlag]);
+  }, [logError, clearProgrammaticTarget]);
 
   const queueProgrammaticTabSwitch = useCallback((tabId: number, context: string, isCurrentIntent?: () => boolean) => {
     const operation = tabSwitchQueueRef.current.then(() => {
       if (isCurrentIntent && !isCurrentIntent()) return;
       programmaticTargetTabIdRef.current = tabId;
-      setHoverSwitchFlag();
       return executeProgrammaticTabSwitch(tabId, context);
     });
     tabSwitchQueueRef.current = operation.catch(() => undefined);
     return operation;
-  }, [executeProgrammaticTabSwitch, setHoverSwitchFlag]);
+  }, [executeProgrammaticTabSwitch]);
 
   // Tab group event handlers
   const handleTabGroupUpdated = useCallback(async () => {
@@ -409,11 +385,11 @@ export function useTabs({
   }, []);
 
   const handleTabActivated = useCallback(async (activeInfo: any) => {
-    // An API activation may take longer than the visual hover timeout. Keep its
-    // exact target authoritative until the event arrives or a manual choice wins.
+    // A slow API activation is still programmatic. Keep its exact target
+    // authoritative until the event arrives or a manual choice wins.
     if (programmaticTargetTabIdRef.current === activeInfo.tabId) {
       console.log(`Programmatic switch to tab ${activeInfo.tabId} detected. Resetting flag.`);
-      clearHoverSwitchFlag();
+      clearProgrammaticTarget();
       return; 
     }
 
@@ -421,7 +397,7 @@ export function useTabs({
     // panel's own window can become the tab a preview returns to.
     if (activeInfo.windowId !== hostWindowIdRef.current) return;
 
-    clearHoverSwitchFlag();
+    clearProgrammaticTarget();
     const intent = ++selectionIntentRef.current;
     committingSelectionRef.current = false;
     interactionGenerationRef.current += 1;
@@ -440,7 +416,7 @@ export function useTabs({
     } catch (error) {
       logError(`get tab info for tabId: ${activeInfo.tabId}`, error);
     }
-  }, [clearHoverSwitchFlag, clearHoverPreviewDelayTimeout, updateCommittedTab, logError]);
+  }, [clearProgrammaticTarget, clearHoverPreviewDelayTimeout, updateCommittedTab, logError]);
 
   const handleWindowFocusChanged = useCallback(async (windowId: number) => {
     try {
@@ -471,8 +447,6 @@ export function useTabs({
     
     console.log(`Hover detected on tab ${tabId}. Preparing to preview.`);
     
-    // Mark hover operation as in progress
-    isHoverOperationInProgressRef.current = true;
     inFlightPreviewTabIdRef.current = tabId;
     
     try {
@@ -483,8 +457,6 @@ export function useTabs({
     } catch (error) {
       // Error handling is already done in executeProgrammaticTabSwitch
     } finally {
-      // Always clear the hover operation flag
-      isHoverOperationInProgressRef.current = false;
       if (inFlightPreviewTabIdRef.current === tabId) {
         inFlightPreviewTabIdRef.current = null;
       }
@@ -620,9 +592,6 @@ export function useTabs({
       restorationQueuedRef.current = true;
       console.log(`Hover ended. Returning to original tab ${originalTab.id}`);
       
-      // Clear any ongoing hover operations
-      isHoverOperationInProgressRef.current = false;
-      
       // 1. SET THE FLAG: A programmatic switch back is about to happen.
       try {
         // 2. PERFORM THE ACTION: Return to the original tab.
@@ -715,8 +684,7 @@ export function useTabs({
   }, [
     handleTabRemoved, handleTabUpdated, handleTabCreated, handleTabMoved,
     handleTabReplaced, handleTabActivated, handleWindowFocusChanged, 
-    handleTabGroupCreated, handleTabGroupUpdated, handleTabGroupRemoved,
-    clearHoverSwitchFlag
+    handleTabGroupCreated, handleTabGroupUpdated, handleTabGroupRemoved
   ]);
 
   // Initialize on mount

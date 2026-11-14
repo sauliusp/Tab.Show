@@ -4,7 +4,7 @@ Status: release candidate. Publish these notes with the verified release; they d
 
 ## Keep the panel open
 
-Open Settings and turn on **Keep panel open after choosing a tab**. Click a tab or press Enter, and TabShow stays open beside your page. The chosen tab becomes the starting point for your next preview.
+Open Settings and turn on **Keep panel open after choosing a tab**. Click a tab or press Enter, and TabShow stays open. Choosing a tab in the current window makes it the starting point for your next preview. Choosing one in another window does not change where previews return in the original window.
 
 This option is off by default. Chrome's pin icon only puts TabShow in the toolbar; the new setting controls whether it stays open after a selection.
 
