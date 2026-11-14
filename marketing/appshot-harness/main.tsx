@@ -26,6 +26,8 @@ window.localStorage.setItem('tab.show.userSettings', JSON.stringify({
   hoverPreviewDelayMs,
   allWindows,
   appearanceMode,
+  keepPanelOpen: params.get('keepPanelOpen') === 'true',
+  hoverPreviewEnabled: params.get('hover') !== 'false',
 }));
 window.localStorage.removeItem('tab.show.chaosHistory.v1');
 if (scenario === 'chaos') {

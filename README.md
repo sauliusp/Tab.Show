@@ -2,7 +2,7 @@
 
 TabShow is a free Chrome extension for searching and previewing live tabs from the side panel.
 
-Current release candidate: **2.2.0**. See [release notes](docs/launch-materials/09_2_2_RELEASE_NOTES.md) and the [Chrome Web Store handoff](docs/releases/2.2.0/README.md).
+Current release candidate: **2.4.0**. See [release notes](docs/launch-materials/11_2_4_RELEASE_NOTES.md) and the [release record](docs/releases/2.4.0/README.md).
 
 ## Development
 
@@ -13,7 +13,7 @@ Use Node.js 22.13 or later and install dependencies with `npm ci`.
 - `npm run compile`: check TypeScript.
 - `npm run zip`: build and package the Chrome MV3 extension in `.output/`.
 
-The WXT manifest lives in `wxt.config.ts`. The welcome and update pages live in `public/pages/`; the background worker opens the update page when Chrome installs a different extension version.
+The WXT manifest lives in `wxt.config.ts`. The welcome and update pages live in `public/pages/`; the background worker opens release notes in an inactive tab for a newer major or minor version. Patch updates do not open a tab.
 
 WXT 0.21 uses Vite as an explicit peer dependency. Keep `vite` and `web-ext` installed: Vite builds the extension, and `web-ext` opens the browser during development. Development builds now live in `.output/chrome-mv3-dev/`; production builds still use `.output/chrome-mv3/`.
 

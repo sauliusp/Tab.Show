@@ -60,7 +60,7 @@ export function CoffeeButton() {
 }
 
 export function ProductImage({ src, alt, priority = false }: { src: string; alt: string; priority?: boolean }) {
-  return <figure className="product-visual"><img src={src} alt={alt} width="1280" height="800" loading={priority ? "eager" : "lazy"} fetchPriority={priority ? "high" : "auto"} /></figure>;
+  return <figure className="product-visual"><img src={src} alt={alt} width="1280" height="800" loading={priority ? "eager" : "lazy"} fetchPriority={priority ? "high" : "auto"} /><figcaption>TabShow 2.4 release candidate · <a href="/changelog#version-2-4">Release status</a></figcaption></figure>;
 }
 
 export function Community() {
@@ -70,7 +70,7 @@ export function Community() {
         <div><p className="eyebrow"><span /> Built in public</p><h2>Help shape<br /><em>what comes next.</em></h2><p>Suggest a feature, report a problem, comment, or upvote the ideas that would improve your tab workflow.</p></div>
         <div className="community-actions">
           <a href={FEEDBACK_URL} target="_blank" rel="noreferrer"><span>01</span><div><b>Share feedback</b><small>Open the public Featurebase board</small></div><i aria-hidden="true">↗</i></a>
-          <a href={REVIEW_URL} target="_blank" rel="noreferrer"><span>02</span><div><b>Rate TabShow</b><small>If TabShow has earned five stars, a quick review helps others find it.</small></div><i aria-hidden="true">↗</i></a>
+          <a href={REVIEW_URL} target="_blank" rel="noreferrer"><span>02</span><div><b>Rate TabShow</b><small>Share your experience to help others decide whether TabShow fits.</small></div><i aria-hidden="true">↗</i></a>
           <a className="coffee-invitation" href={SUPPORT_URL} target="_blank" rel="noopener noreferrer"><span className="coffee-mark"><CoffeeIcon /></span><div><b>Buy me a coffee</b><small>TabShow is free to use. If it helps you, you can leave a small tip.</small></div><i aria-hidden="true">↗</i></a>
         </div>
       </div>

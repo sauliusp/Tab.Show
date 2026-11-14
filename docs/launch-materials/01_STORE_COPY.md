@@ -1,103 +1,97 @@
-# TabShow 2.3 Chrome Web Store copy
+# TabShow 2.4 Chrome Web Store copy
 
-Status: release-ready draft. This text is grounded in the 2.3 release candidate and keeps the Store listing focused on the shipped product rather than embedding a long changelog.
+Status: draft for the 2.4 release candidate. Verify the final package and assets before saving or publishing. This document does not confirm submission or public availability.
 
 ## Package title
 
 `TabShow: Live Tab Preview`
 
-Why: brand-first, memorable, and explicit about the distinctive behavior. It removes the current keyword-shaped sentence masquerading as a product name.
-
 ## Package summary
 
 `Preview live Chrome tabs before you switch. Search your tabs and find the right page without losing your place.`
 
-Why: it leads with the distinctive live-preview benefit, includes tab search, and ends on the outcome. It is below Chrome's 132-character limit.
-
 ## Detailed description
 
-Stop clicking through Chrome tabs just to find the right one.
+Find the right tab without clicking through every page.
 
-TabShow is a lightweight tab manager built around one fast idea: see the page before you switch. It puts your open tabs in Chrome's side panel, where you can search, preview, and open the tab you need without losing your place.
+TabShow puts your open Chrome tabs in a searchable side panel. Hover a tab to see the live page in your current window. Move away to return to where you started, or click to choose that page.
 
-SEE THE PAGE BEFORE YOU SWITCH
+SEARCH YOUR OPEN TABS
 
-Point at a tab in your current window and its live page appears in the main browser area. Found the right one? Click to keep it. Not the one? Move away and TabShow returns you to the page you were using.
+Search by page title, URL, or domain. Start typing when the panel opens, use the arrow keys to select a result, and press Enter to choose it. Escape returns to your starting tab and closes the panel. Keyboard selection does not change the page until you press Enter.
 
-FIND A TAB FAST
+KEEP THE PANEL OPEN IF YOU WANT
 
-Start typing as soon as the panel opens. Search by page title, URL, or domain. Use Arrow Up and Arrow Down to select a result, Enter to open it, or Escape to return to your original tab and close the panel. Keyboard selection stays switch-free until you press Enter. Live preview remains available on hover.
+By default, choosing a tab closes TabShow. Turn on “Keep panel open after choosing a tab” in Settings to leave it beside your page. Each chosen tab becomes the starting point for your next preview.
 
-FIND TABS ACROSS WINDOWS IN ONE CHROME PROFILE
+Opening TabShow brings your current tab into view. Your preferred sort order stays saved.
 
-Stay focused on the current window or search all open windows in the same Chrome profile from one compact list. Other Chrome profiles stay separate. Tabs from another window switch only when you click, so a casual hover never pulls you away unexpectedly.
+CONTROL HOVER PREVIEWS
 
-BUILT FOR REAL TAB CHAOS
+Live previews are on by default. Adjust “Hover preview delay” to avoid accidental switches, or turn off “Preview tabs on hover” to browse the list without changing the page. Search and click-to-switch work either way.
 
-• Sort by Chrome order, recent use, recent addition, domain, or tab group.
-• See tab groups, pinned tabs, audio, muted, sleeping, and duplicate indicators.
-• Close tabs directly from the side panel.
-• Keep the real open-tab and window totals visible while search filters the list.
-• Choose light, dark, or system appearance with readable selected and preview colors.
+FIND TABS ACROSS WINDOWS
 
-KNOW YOUR TAB CHAOS SCORE
+Choose Current window or All windows to find tabs in the same Chrome profile. Separate Work and Personal profiles stay separate. Tabs in another window switch only when you choose them; hovering never changes the focused window.
 
-See a local score based on tab volume, window sprawl, duplicates, long-neglected tabs, and tabs outside groups. Check the trend over time and get one practical suggestion for calming the current session. The score and its history stay in your browser.
+MORE CONTEXT IN THE LIST
 
-PRIVATE BY DESIGN
+• Sort by Chrome order, recent use, recent addition (approximate), domain, or tab group.
+• See existing groups and pinned, audio, muted, sleeping, and duplicate indicators.
+• Close individual tabs from the side panel.
+• Keep open-tab and window totals visible while searching.
+• Choose light, dark, or system appearance and a color pairing. System follows your light/dark preference, not custom Chrome theme colors.
+• See a local Tab Chaos Score and a practical suggestion based on your open tabs.
 
-• No account or sign-in.
-• No TabShow backend.
-• No advertising or extension analytics.
-• No host permissions.
-• No access to webpage contents.
-• Tab information and settings stay in your browser.
+YOUR TAB DATA STAYS IN YOUR BROWSER
 
-TabShow uses Chrome permissions only to show the side panel, list the tab details Chrome provides, display existing tab groups, and switch or close tabs when you ask it to.
+No account, ads, extension analytics, or TabShow backend. No host permissions or access to webpage contents. TabShow uses the tab details Chrome provides to list, search, sort, preview, switch, and close tabs. Settings and the local score history stay in your browser.
 
-Find the right tab without switching away. TabShow is free to use. Supporting its development through Buy Me a Coffee is entirely optional.
+Every feature is free. Supporting development through Buy Me a Coffee is optional.
 
-## Version 2.3 update summary
+WHAT'S NEW IN 2.4
 
-TabShow 2.3 makes the All windows scope clearer: it includes windows in the same Chrome profile, while other profiles stay separate. The refreshed update page links to a short voiced demo of full-page previews, search, and keyboard navigation. Every feature remains free, with no new permissions.
+Optional keep-open mode, a switch for hover previews, saved sorting, and your current tab in view when opening the panel. Tab lists also update correctly when tabs move between windows. Settings now includes the installed version, help, and release notes. Existing defaults stay the same.
 
-## Promotional video
+Changelog: https://tab.show/changelog
+Privacy: https://tab.show/privacy
+Help: https://tab.show/support
+Feedback: https://narsheek.featurebase.app/
 
-Use the new voiced edition: https://www.youtube.com/watch?v=ZznCNcOynjw
+## Store assets
 
-The revised 31-second edition includes an opening pause and English captions. It is saved privately for publication after the reviewed pull request merges. The original and upbeat editions remain available. Verify that the new edition is public before saving it in the Chrome Web Store video field.
+Use current captures of the packaged extension. Recommended gallery order:
 
-## Permission and privacy language
+1. Live page preview beside the side panel, with the original/preview relationship visible.
+2. Search by title or website.
+3. Keyboard selection and the current tab in view.
+4. Tabs across windows in the same Chrome profile.
+5. The keep-open setting and hover controls.
 
-Use these explanations in the Dashboard Privacy section and on the future `/privacy` page. They describe the permission's actual use, not merely its API definition.
+Each image should explain one task with short text. Do not use generated UI, unsupported claims, an obsolete version label, or a screenshot that hides the page being previewed. Existing branding can be retained.
+
+The existing voiced walkthrough is `https://www.youtube.com/watch?v=ZznCNcOynjw`. Verify the live video's visibility, captions, and shown behavior before retaining it. Its default preview-and-close workflow remains relevant, but it does not demonstrate the new optional settings. Do not call it a 2.4 feature walkthrough unless it is updated accordingly.
+
+## Permission and privacy checks
+
+Compare the final manifest and behavior with these explanations before submission.
 
 | Permission | Plain-language justification |
 |---|---|
-| `sidePanel` | Displays TabShow beside the page you are viewing. |
+| `sidePanel` | Displays TabShow beside the page being viewed. |
 | `tabs` | Reads open-tab titles, URLs, favicons, window membership, and status so TabShow can list, search, sort, preview, switch, and close tabs. It does not grant access to webpage contents. |
-| `tabGroups` | Reads tab-group names, colors, membership, and collapsed state so existing Chrome groups can be represented and expanded or collapsed from TabShow. |
+| `tabGroups` | Reads group names, colors, membership, and collapsed state so existing groups can be displayed and expanded or collapsed. |
 
-The previously declared `activeTab` permission had no implementation use and remains absent from the 2.3 manifest rather than being given a cosmetic justification.
+No thumbnail capture, history access, accounts, or new host access is planned for 2.4. Do not add justifications for permissions that the final package does not use.
 
-Tab Chaos trend data stays in local extension storage. It retains up to 90 daily check-ins containing a timestamp, local calendar day, derived score, and open-tab count, plus the all-time best score. Repeated panel openings update the current day's record. It does not store titles, URLs, domains, favicons, or page contents. Users can delete it by clearing TabShow's extension data in Chrome or uninstalling the extension.
+The local Tab Chaos history retains up to 90 daily check-ins containing a timestamp, calendar day, derived score, and open-tab count, plus the all-time best score. It does not retain titles, URLs, domains, favicons, or page contents. New panel preferences stay local with the existing settings.
 
-## Copy deliberately removed
+## Community copy
 
-- Historical release notes, old names (`Narsheek`, `TabGlance`), contributor asides, and emojis.
-- The ADHD reference.
-- `Best`, `join thousands`, `zero impact`, `100% free forever`, and rating claims without their denominator.
-- Competitor names and repetitive keyword strings.
-- Claims that hover preview works across other windows.
+Use voluntary, neutral requests:
 
-Release history belongs at `https://tab.show/changelog`; support belongs at `https://tab.show/support`.
+- Feedback: “Report a problem or suggest an improvement.”
+- Review: “Leave an honest review to help others decide whether TabShow fits their workflow.”
+- Share: “Find the right Chrome tab without losing your place.”
 
-## Community calls to action
-
-These are approved cross-surface messages for the extension and website. They are not inserted into the Store description itself, where they would distract from installation.
-
-- Feedback: `Help shape TabShow. Suggest a feature, report a problem, or upvote what we should build next.`
-- Feedback button: `Share feedback`
-- Review: `Love TabShow? A 5-star review helps more people find it.`
-- Review button: `Rate TabShow`
-
-Feedback points to `https://narsheek.featurebase.app/`. Reviews point to the official Chrome Web Store reviews page. Both actions must remain voluntary, unincentivized, and equally available; neither is used to unlock functionality or filter users by sentiment.
+Do not ask specifically for five stars, filter review invitations by sentiment, or offer features or benefits in exchange for reviews.

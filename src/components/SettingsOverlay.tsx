@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Typography, IconButton, RadioGroup, FormControlLabel, Radio, Button, Slider, ToggleButton, ToggleButtonGroup } from '@mui/material';
+import { Box, Typography, IconButton, RadioGroup, FormControlLabel, Radio, Button, Slider, ToggleButton, ToggleButtonGroup, Drawer, Switch } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import CloseIcon from '@mui/icons-material/Close';
 import LightbulbRounded from '@mui/icons-material/LightbulbRounded';
@@ -21,7 +21,15 @@ interface SettingsOverlayProps {
 export function SettingsOverlay({ open, onClose }: SettingsOverlayProps) {
   const theme = useTheme();
   const { colorPairingId, availablePairings, setColorPairingById, resolvedMode } = useColorScheme();
-  const { hoverPreviewDelayMs, setHoverPreviewDelayMs, appearanceMode, setAppearanceMode } = useUserSettings();
+  const {
+    hoverPreviewDelayMs, setHoverPreviewDelayMs, appearanceMode, setAppearanceMode,
+    keepPanelOpen, setKeepPanelOpen, hoverPreviewEnabled, setHoverPreviewEnabled,
+  } = useUserSettings();
+  const version = typeof browser !== 'undefined' ? browser.runtime?.getManifest?.().version : undefined;
+  const localPageUrl = (page: 'welcome' | 'whats-new') => {
+    const path = `/pages/${page}/index.html` as const;
+    return typeof browser !== 'undefined' && browser.runtime?.getURL ? browser.runtime.getURL(path) : path;
+  };
 
   const handleSelectionChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setColorPairingById(event.target.value);
@@ -33,27 +41,28 @@ export function SettingsOverlay({ open, onClose }: SettingsOverlayProps) {
   };
 
   return (
-    <Box
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="settings-overlay-title"
-      sx={{
-        position: 'fixed',
-        top: 0,
-        right: 0,
-        bottom: 0,
-        width: 320,
-        maxWidth: '80%',
-        backgroundColor: theme.palette.background.paper,
-        borderLeft: `1px solid ${theme.palette.divider}`,
-        boxShadow: open ? '0 0 16px rgba(0, 0, 0, 0.35)' : 'none',
-        transform: open ? 'translateX(0)' : 'translateX(100%)',
-        transition: 'transform 0.3s ease, box-shadow 0.3s ease',
-        zIndex: 1200,
-        pointerEvents: open ? 'auto' : 'none',
-        visibility: open ? 'visible' : 'hidden',
-        display: 'flex',
-        flexDirection: 'column',
+    <Drawer
+      anchor="right"
+      open={open}
+      onClose={onClose}
+      slotProps={{
+        paper: {
+          role: 'dialog',
+          'aria-modal': true,
+          'aria-labelledby': 'settings-overlay-title',
+          onKeyDown: (event: React.KeyboardEvent) => {
+            event.stopPropagation();
+            if (event.key === 'Escape') {
+              event.preventDefault();
+              onClose();
+            }
+          },
+          sx: {
+            width: 360,
+            maxWidth: '100%',
+            borderLeft: `1px solid ${theme.palette.divider}`,
+          },
+        },
       }}
     >
       <Box
@@ -66,7 +75,7 @@ export function SettingsOverlay({ open, onClose }: SettingsOverlayProps) {
         }}
       >
         <Typography id="settings-overlay-title" variant="h6" sx={{ fontSize: '1rem' }}>
-          User Settings
+          Settings
         </Typography>
         <IconButton aria-label="Close settings" onClick={onClose} size="small">
           <CloseIcon fontSize="small" />
@@ -74,6 +83,31 @@ export function SettingsOverlay({ open, onClose }: SettingsOverlayProps) {
       </Box>
 
       <Box sx={{ p: 2, overflowY: 'auto' }}>
+        <Box sx={{ mb: 2.5 }}>
+          <Typography variant="subtitle2" sx={{ color: theme.palette.text.secondary, mb: 1 }}>
+            Tab switching
+          </Typography>
+          <FormControlLabel
+            control={<Switch checked={keepPanelOpen} onChange={(_event, checked) => setKeepPanelOpen(checked)} size="small" />}
+            label={<Typography variant="body2">Keep panel open after choosing a tab</Typography>}
+            sx={{ alignItems: 'flex-start', ml: -0.5, mr: 0 }}
+          />
+          <Typography variant="caption" sx={{ display: 'block', color: theme.palette.text.secondary, mt: 0.5 }}>
+            Keep the list beside your page when you click a tab or press Enter. Chrome’s pin button only pins the toolbar icon.
+          </Typography>
+        </Box>
+
+        <Box sx={{ mb: 2.5 }}>
+          <FormControlLabel
+            control={<Switch checked={hoverPreviewEnabled} onChange={(_event, checked) => setHoverPreviewEnabled(checked)} size="small" />}
+            label={<Typography variant="body2">Preview tabs on hover</Typography>}
+            sx={{ ml: -0.5, mr: 0 }}
+          />
+          <Typography variant="caption" sx={{ display: 'block', color: theme.palette.text.secondary, mt: 0.5 }}>
+            Point at a tab in this window to preview its live page. Turn off to switch only by clicking or pressing Enter.
+          </Typography>
+        </Box>
+
         <Box sx={{ mb: 2.5 }}>
           <Typography variant="subtitle2" sx={{ color: theme.palette.text.secondary, mb: 1 }}>
             Appearance
@@ -98,6 +132,7 @@ export function SettingsOverlay({ open, onClose }: SettingsOverlayProps) {
           </ToggleButtonGroup>
           <Typography variant="caption" sx={{ mt: 0.75, display: 'block', color: theme.palette.text.secondary }}>
             {appearanceMode === 'system' ? `Following your system, currently ${resolvedMode}.` : `Always use ${appearanceMode} mode.`}
+            {' '}System follows light or dark appearance; it does not copy custom Chrome theme colors.
           </Typography>
         </Box>
 
@@ -110,6 +145,7 @@ export function SettingsOverlay({ open, onClose }: SettingsOverlayProps) {
           </Typography>
           <Slider
             value={hoverPreviewDelayMs}
+            disabled={!hoverPreviewEnabled}
             onChange={handleHoverDelayChange}
             min={0}
             max={1000}
@@ -175,7 +211,7 @@ export function SettingsOverlay({ open, onClose }: SettingsOverlayProps) {
             Help improve TabShow
           </Typography>
           <Typography variant="caption" sx={{ color: theme.palette.text.secondary, display: 'block', mt: 0.5, mb: 1.25 }}>
-            Share what would make your tab workflow better, or leave a quick review if TabShow has earned five stars.
+            Share what would make your tab workflow better, or leave an honest review to help others decide.
           </Typography>
           <Box sx={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 1 }}>
             <Button
@@ -201,6 +237,18 @@ export function SettingsOverlay({ open, onClose }: SettingsOverlayProps) {
               sx={{ textTransform: 'none', fontSize: 11.5, color: theme.palette.text.secondary }}
             >
               Rate TabShow
+            </Button>
+          </Box>
+        </Box>
+
+        <Box sx={{ mt: 2, pt: 2, borderTop: `1px solid ${theme.palette.divider}` }}>
+          <Typography variant="subtitle2">About TabShow{version ? ` ${version}` : ''}</Typography>
+          <Box sx={{ display: 'flex', gap: 1, mt: 0.5, flexWrap: 'wrap' }}>
+            <Button component="a" href={localPageUrl('whats-new')} target="_blank" rel="noopener noreferrer" size="small" sx={{ textTransform: 'none' }}>
+              What’s new
+            </Button>
+            <Button component="a" href={localPageUrl('welcome')} target="_blank" rel="noopener noreferrer" size="small" sx={{ textTransform: 'none' }}>
+              Getting started
             </Button>
           </Box>
         </Box>
@@ -259,7 +307,7 @@ export function SettingsOverlay({ open, onClose }: SettingsOverlayProps) {
           </Button>
         </Box>
       </Box>
-    </Box>
+    </Drawer>
   );
 }
 

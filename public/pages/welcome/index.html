@@ -35,19 +35,10 @@
         <p class="action-note" data-panel-status>One click. No setup form.</p>
       </div>
 
-      <div class="product-shot" role="img" aria-label="TabShow side panel showing current and all-window controls, search, sorting, and a list of tabs">
-        <div class="shot-toolbar">
-          <div class="scope-control"><span class="scope-active">▣&nbsp; Current window</span><span>▤&nbsp; All windows</span></div>
-          <span class="gear" aria-hidden="true">⚙</span>
-        </div>
-        <div class="shot-search">⌕ <span>Search tabs</span></div>
-        <div class="shot-meta"><span>Current order⌄</span><small>24 tabs</small></div>
-        <div class="window-label"><b>◉ Live preview · Current window</b><small>Hover a tab to preview it instantly</small></div>
-        <div class="fake-tab is-original"><span class="fake-favicon violet">T</span><span><b>TabShow: Welcome</b><small>tab.show</small></span><em>Original</em></div>
-        <div class="fake-tab is-preview"><span class="fake-favicon amber">D</span><span><b>Design notes</b><small>docs.google.com</small></span><em>Preview</em></div>
-        <div class="fake-tab"><span class="fake-favicon blue">L</span><span><b>Launch plan</b><small>linear.app</small></span></div>
-        <div class="cursor" aria-hidden="true">↖</div>
-      </div>
+      <figure class="product-shot product-shot-capture">
+        <img src="../assets/tabshow-panel-2.4.png" width="420" alt="TabShow 2.4 side panel with tab search, window scope, sorting, and the current tab in view">
+        <figcaption>The TabShow side panel. Open it beside any page.</figcaption>
+      </figure>
     </section>
 
     <section class="quickstart shell" aria-labelledby="quickstart-title">
@@ -67,7 +58,7 @@
         </li>
         <li>
           <span class="step-number">3</span>
-          <div><h3>Click when it’s the one</h3><p>TabShow commits the switch and closes the panel. That’s the whole workflow.</p></div>
+          <div><h3>Click when it’s the one</h3><p>The selected page becomes your current tab. By default, TabShow closes the panel. Turn on <strong>Settings → Keep panel open after choosing a tab</strong> if you want it to stay beside your page.</p></div>
         </li>
       </ol>
     </section>
@@ -105,9 +96,14 @@
       <div class="feature-grid">
         <article><span class="feature-icon">⌕</span><h3>Type to find anything</h3><p>Search tab titles, web addresses, or domains. Use <kbd>↑</kbd> <kbd>↓</kbd> to select a result and <kbd>Enter</kbd> to open it. Hover a result when you want a live preview.</p></article>
         <article><span class="feature-icon">▤</span><h3>Reach every window</h3><p>Switch from <strong>Current window</strong> to <strong>All windows</strong>. Windows in the same Chrome profile appear here. Other profiles stay separate. Tabs in another window are click-to-switch, so hovering never steals focus.</p></article>
-        <article><span class="feature-icon">↕</span><h3>Sort the way you think</h3><p>Use current order, recently used, recently added (approx.), domain, or tab group. Your window scope and panel settings stay saved.</p></article>
+        <article><span class="feature-icon">↕</span><h3>Sort the way you think</h3><p>Use current order, recently used, recently added (approx.), domain, or tab group. Your sort order, window scope, and panel settings stay saved.</p></article>
       </div>
-      <div class="tip-row"><span><kbd>Esc</kbd> restores your original tab and closes TabShow.</span><span>Use <strong>⚙ Settings</strong> to tune hover delay and colors.</span></div>
+      <div class="settings-note">
+        <h3>Make the panel work your way</h3>
+        <p>In <strong>Settings</strong>, adjust <strong>Hover preview delay</strong> or turn off <strong>Preview tabs on hover</strong> to browse the list without switching pages. <strong>Appearance → System</strong> follows your light or dark preference; it does not copy a custom Chrome theme’s colors.</p>
+        <p>Chrome’s pin icon puts TabShow in the toolbar. To keep the panel open when you select a tab, use <strong>Keep panel open after choosing a tab</strong> in TabShow’s settings.</p>
+      </div>
+      <div class="tip-row"><span><kbd>Esc</kbd> cancels the preview and closes TabShow.</span><span>Version and help links are in <strong>Settings</strong>.</span></div>
     </section>
 
     <section class="closing-cta shell">
