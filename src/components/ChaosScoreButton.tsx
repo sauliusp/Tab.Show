@@ -1,3 +1,4 @@
+import { t, formatNumber } from '../i18n';
 import React from 'react';
 import { Box, CircularProgress, IconButton, Tooltip } from '@mui/material';
 import { darken } from '@mui/material/styles';
@@ -18,18 +19,18 @@ export function ChaosScoreButton({ stats, trend, isLoading, onOpen }: ChaosScore
   const scoreColor = getChaosScoreColor(score);
   const scoreTextColor = getReadableTextColor(scoreColor);
   const trendLabel = trend?.scoreDelta == null
-    ? 'Start your trend'
+    ? t('panelTrendStart')
     : trend.scoreDelta < 0
-      ? `${Math.abs(trend.scoreDelta)} lower than last check`
+      ? t('panelTrendLower', { count: Math.abs(trend.scoreDelta) })
       : trend.scoreDelta > 0
-        ? `${trend.scoreDelta} higher than last check`
-        : 'No change since last check';
+        ? t('panelTrendHigher', { count: trend.scoreDelta })
+        : t('panelTrendUnchanged');
   const label = stats
-    ? `Open Tab Chaos Score: ${score}, ${stats.level}`
-    : 'Open Tab Chaos Score';
+    ? t('panelOpenChaosScore', { score, level: stats.level })
+    : t('panelOpenChaos');
   const tooltip = stats
-    ? `Tab chaos ${score}/100 · ${stats.level} · ${trendLabel}`
-    : 'Calculating Tab Chaos Score…';
+    ? t('panelChaosTooltip', { score, level: stats.level, trend: trendLabel })
+    : t('panelChaosLoading');
 
   return (
     <Tooltip title={tooltip} placement="bottom-end">
@@ -79,10 +80,10 @@ export function ChaosScoreButton({ stats, trend, isLoading, onOpen }: ChaosScore
                 ? (
                   <>
                     <Box component="span" sx={{ fontSize: 7.5, fontWeight: 950, letterSpacing: 0.55, lineHeight: 1 }}>
-                      CHAOS
+                      {t('panelChaosCompact')}
                     </Box>
                     <Box component="span" sx={{ fontSize: score >= 100 ? 12 : 14, fontWeight: 950, lineHeight: 1 }}>
-                      {score}
+                      {formatNumber(score)}
                     </Box>
                   </>
                 )

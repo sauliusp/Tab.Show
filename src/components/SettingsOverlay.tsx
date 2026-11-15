@@ -1,5 +1,6 @@
+import { t, formatNumber, type MessageKey } from '../i18n';
 import React from 'react';
-import { Box, Typography, IconButton, RadioGroup, FormControlLabel, Radio, Button, Slider, ToggleButton, ToggleButtonGroup } from '@mui/material';
+import { Box, Typography, IconButton, RadioGroup, FormControlLabel, Radio, Button, Slider, ToggleButton, ToggleButtonGroup, Drawer, Switch } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import CloseIcon from '@mui/icons-material/Close';
 import LightbulbRounded from '@mui/icons-material/LightbulbRounded';
@@ -13,6 +14,15 @@ import { useUserSettings } from '../contexts/UserSettingsContext';
 import { EXTENSION_URLS } from '../parameters';
 import type { AppearanceMode } from '../services/UserSettingsService';
 
+const pairingMessages: Record<string, { name: MessageKey; description: MessageKey }> = {
+  'charcoal-violet-amber': { name: 'panelPairVioletAmber', description: 'panelPairVioletAmberDescription' },
+  'ink-porcelain-signal-blue': { name: 'panelPairInkBlue', description: 'panelPairInkBlueDescription' },
+  'graphite-soft-clay-electric-coral': { name: 'panelPairGraphiteCoral', description: 'panelPairGraphiteCoralDescription' },
+  'midnight-teal-mist-citrine': { name: 'panelPairTealCitrine', description: 'panelPairTealCitrineDescription' },
+  'slate-spruce-seafoam': { name: 'panelPairSlateSeafoam', description: 'panelPairSlateSeafoamDescription' },
+  'mocha-rose-quartz': { name: 'panelPairMochaRose', description: 'panelPairMochaRoseDescription' },
+};
+
 interface SettingsOverlayProps {
   open: boolean;
   onClose: () => void;
@@ -21,7 +31,15 @@ interface SettingsOverlayProps {
 export function SettingsOverlay({ open, onClose }: SettingsOverlayProps) {
   const theme = useTheme();
   const { colorPairingId, availablePairings, setColorPairingById, resolvedMode } = useColorScheme();
-  const { hoverPreviewDelayMs, setHoverPreviewDelayMs, appearanceMode, setAppearanceMode } = useUserSettings();
+  const {
+    hoverPreviewDelayMs, setHoverPreviewDelayMs, appearanceMode, setAppearanceMode,
+    keepPanelOpen, setKeepPanelOpen, hoverPreviewEnabled, setHoverPreviewEnabled,
+  } = useUserSettings();
+  const version = typeof browser !== 'undefined' ? browser.runtime?.getManifest?.().version : undefined;
+  const localPageUrl = (page: 'welcome' | 'whats-new') => {
+    const path = `/pages/${page}/index.html` as const;
+    return typeof browser !== 'undefined' && browser.runtime?.getURL ? browser.runtime.getURL(path) : path;
+  };
 
   const handleSelectionChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setColorPairingById(event.target.value);
@@ -33,27 +51,28 @@ export function SettingsOverlay({ open, onClose }: SettingsOverlayProps) {
   };
 
   return (
-    <Box
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="settings-overlay-title"
-      sx={{
-        position: 'fixed',
-        top: 0,
-        right: 0,
-        bottom: 0,
-        width: 320,
-        maxWidth: '80%',
-        backgroundColor: theme.palette.background.paper,
-        borderLeft: `1px solid ${theme.palette.divider}`,
-        boxShadow: open ? '0 0 16px rgba(0, 0, 0, 0.35)' : 'none',
-        transform: open ? 'translateX(0)' : 'translateX(100%)',
-        transition: 'transform 0.3s ease, box-shadow 0.3s ease',
-        zIndex: 1200,
-        pointerEvents: open ? 'auto' : 'none',
-        visibility: open ? 'visible' : 'hidden',
-        display: 'flex',
-        flexDirection: 'column',
+    <Drawer
+      anchor="right"
+      open={open}
+      onClose={onClose}
+      slotProps={{
+        paper: {
+          role: 'dialog',
+          'aria-modal': true,
+          'aria-labelledby': 'settings-overlay-title',
+          onKeyDown: (event: React.KeyboardEvent) => {
+            event.stopPropagation();
+            if (event.key === 'Escape') {
+              event.preventDefault();
+              onClose();
+            }
+          },
+          sx: {
+            width: 360,
+            maxWidth: '100%',
+            borderLeft: `1px solid ${theme.palette.divider}`,
+          },
+        },
       }}
     >
       <Box
@@ -66,9 +85,9 @@ export function SettingsOverlay({ open, onClose }: SettingsOverlayProps) {
         }}
       >
         <Typography id="settings-overlay-title" variant="h6" sx={{ fontSize: '1rem' }}>
-          User Settings
+          {t('panelSettings')}
         </Typography>
-        <IconButton aria-label="Close settings" onClick={onClose} size="small">
+        <IconButton aria-label={t('panelCloseSettings')} onClick={onClose} size="small">
           <CloseIcon fontSize="small" />
         </IconButton>
       </Box>
@@ -76,7 +95,32 @@ export function SettingsOverlay({ open, onClose }: SettingsOverlayProps) {
       <Box sx={{ p: 2, overflowY: 'auto' }}>
         <Box sx={{ mb: 2.5 }}>
           <Typography variant="subtitle2" sx={{ color: theme.palette.text.secondary, mb: 1 }}>
-            Appearance
+            {t('panelTabSwitching')}
+          </Typography>
+          <FormControlLabel
+            control={<Switch checked={keepPanelOpen} onChange={(_event, checked) => setKeepPanelOpen(checked)} size="small" />}
+            label={<Typography variant="body2">{t('panelKeepOpen')}</Typography>}
+            sx={{ alignItems: 'flex-start', ml: -0.5, mr: 0 }}
+          />
+          <Typography variant="caption" sx={{ display: 'block', color: theme.palette.text.secondary, mt: 0.5 }}>
+            {t('panelKeepOpenDescription')}
+          </Typography>
+        </Box>
+
+        <Box sx={{ mb: 2.5 }}>
+          <FormControlLabel
+            control={<Switch checked={hoverPreviewEnabled} onChange={(_event, checked) => setHoverPreviewEnabled(checked)} size="small" />}
+            label={<Typography variant="body2">{t('panelHoverPreview')}</Typography>}
+            sx={{ ml: -0.5, mr: 0 }}
+          />
+          <Typography variant="caption" sx={{ display: 'block', color: theme.palette.text.secondary, mt: 0.5 }}>
+            {t('panelHoverPreviewDescription')}
+          </Typography>
+        </Box>
+
+        <Box sx={{ mb: 2.5 }}>
+          <Typography variant="subtitle2" sx={{ color: theme.palette.text.secondary, mb: 1 }}>
+            {t('panelAppearance')}
           </Typography>
           <ToggleButtonGroup
             exclusive
@@ -84,58 +128,62 @@ export function SettingsOverlay({ open, onClose }: SettingsOverlayProps) {
             size="small"
             value={appearanceMode}
             onChange={(_event, value: AppearanceMode | null) => { if (value) setAppearanceMode(value); }}
-            aria-label="Appearance mode"
+            aria-label={t('panelAppearanceMode')}
           >
-            <ToggleButton value="system" aria-label="Use system appearance" sx={{ gap: 0.5, py: 0.8, textTransform: 'none', fontSize: 10.5 }}>
-              <BrightnessAutoRounded sx={{ fontSize: 16 }} /> System
+            <ToggleButton value="system" aria-label={t('panelUseSystemAppearance')} sx={{ gap: 0.5, py: 0.8, textTransform: 'none', fontSize: 10.5 }}>
+              <BrightnessAutoRounded sx={{ fontSize: 16 }} /> {t('panelSystem')}
             </ToggleButton>
-            <ToggleButton value="light" aria-label="Use light appearance" sx={{ gap: 0.5, py: 0.8, textTransform: 'none', fontSize: 10.5 }}>
-              <LightModeRounded sx={{ fontSize: 16 }} /> Light
+            <ToggleButton value="light" aria-label={t('panelUseLightAppearance')} sx={{ gap: 0.5, py: 0.8, textTransform: 'none', fontSize: 10.5 }}>
+              <LightModeRounded sx={{ fontSize: 16 }} /> {t('panelLight')}
             </ToggleButton>
-            <ToggleButton value="dark" aria-label="Use dark appearance" sx={{ gap: 0.5, py: 0.8, textTransform: 'none', fontSize: 10.5 }}>
-              <DarkModeRounded sx={{ fontSize: 16 }} /> Dark
+            <ToggleButton value="dark" aria-label={t('panelUseDarkAppearance')} sx={{ gap: 0.5, py: 0.8, textTransform: 'none', fontSize: 10.5 }}>
+              <DarkModeRounded sx={{ fontSize: 16 }} /> {t('panelDark')}
             </ToggleButton>
           </ToggleButtonGroup>
           <Typography variant="caption" sx={{ mt: 0.75, display: 'block', color: theme.palette.text.secondary }}>
-            {appearanceMode === 'system' ? `Following your system, currently ${resolvedMode}.` : `Always use ${appearanceMode} mode.`}
+            {appearanceMode === 'system' ? t(resolvedMode === 'dark' ? 'panelFollowingDark' : 'panelFollowingLight') : t(appearanceMode === 'dark' ? 'panelAlwaysDark' : 'panelAlwaysLight')}
+            {' '}{t('panelSystemThemeHint')}
           </Typography>
         </Box>
 
         <Box sx={{ mb: 2.5 }}>
           <Typography variant="subtitle2" sx={{ color: theme.palette.text.secondary, mb: 1 }}>
-            Hover preview delay
+            {t('panelHoverDelay')}
           </Typography>
           <Typography variant="body2" sx={{ color: theme.palette.text.primary, mb: 1 }}>
-            {`${(hoverPreviewDelayMs / 1000).toFixed(2)}s (${hoverPreviewDelayMs} ms)`}
+            {t('panelDelayValue', { seconds: formatNumber(hoverPreviewDelayMs / 1000, { minimumFractionDigits: 2, maximumFractionDigits: 2 }), milliseconds: hoverPreviewDelayMs })}
           </Typography>
           <Slider
             value={hoverPreviewDelayMs}
+            disabled={!hoverPreviewEnabled}
             onChange={handleHoverDelayChange}
             min={0}
             max={1000}
             step={50}
             valueLabelDisplay="auto"
-            valueLabelFormat={(value) => `${value} ms`}
-            aria-label="Hover preview delay in milliseconds"
+            valueLabelFormat={(value) => t('panelMilliseconds', { value })}
+            aria-label={t('panelHoverDelayAria')}
           />
           <Typography variant="caption" sx={{ color: theme.palette.text.secondary }}>
-            Increase the delay to avoid accidental previews when you brush past the sidebar.
+            {t('panelHoverDelayHint')}
           </Typography>
         </Box>
 
         <Typography variant="subtitle2" sx={{ color: theme.palette.text.secondary, mb: 1.5 }}>
-          Choose your color pairing
+          {t('panelChoosePairing')}
         </Typography>
 
-        <RadioGroup value={colorPairingId} onChange={handleSelectionChange}>
+        <RadioGroup value={colorPairingId} onChange={handleSelectionChange} sx={{ minWidth: 0 }}>
           {availablePairings.map((pairing) => {
             const isActive = pairing.id === colorPairingId;
+            const messages = pairingMessages[pairing.id];
             return (
               <Box
                 key={pairing.id}
                 sx={{
                   border: `1px solid ${isActive ? theme.palette.primary.main : theme.palette.divider}`,
                   borderRadius: 2,
+                  minWidth: 0,
                   p: 1.5,
                   mb: 1.5,
                   backgroundColor: isActive ? theme.palette.primary.main + '14' : 'transparent',
@@ -146,23 +194,26 @@ export function SettingsOverlay({ open, onClose }: SettingsOverlayProps) {
                   value={pairing.id}
                   control={<Radio size="small" />}
                   label={
-                    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
-                      <Typography variant="subtitle1" sx={{ fontSize: '0.95rem', color: theme.palette.text.primary }}>
-                        {pairing.name}
+                    <Box sx={{ display: 'flex', flexDirection: 'column', minWidth: 0, gap: 1 }}>
+                      <Typography variant="subtitle1" sx={{ fontSize: '0.95rem', color: theme.palette.text.primary, overflowWrap: 'anywhere' }}>
+                        {messages ? t(messages.name) : pairing.name}
                       </Typography>
-                      <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
-                        <ColorSwatch color={pairing.colors.primary} label="Primary" />
-                        <ColorSwatch color={pairing.colors.secondary} label="Secondary" />
+                      <Box sx={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 1.5, rowGap: 0.75 }}>
+                        <ColorSwatch color={pairing.colors.primary} label={t('panelPrimary')} />
+                        <ColorSwatch color={pairing.colors.secondary} label={t('panelSecondary')} />
                       </Box>
                       <Typography variant="body2" sx={{ color: theme.palette.text.secondary }}>
-                        {pairing.comment}
+                        {messages ? t(messages.description) : pairing.comment}
                       </Typography>
                     </Box>
                   }
                   sx={{
                     alignItems: 'flex-start',
                     width: '100%',
+                    minWidth: 0,
                     margin: 0,
+                    '& .MuiRadio-root': { flexShrink: 0 },
+                    '& .MuiFormControlLabel-label': { minWidth: 0, flex: 1, overflowWrap: 'anywhere' },
                   }}
                 />
               </Box>
@@ -172,12 +223,12 @@ export function SettingsOverlay({ open, onClose }: SettingsOverlayProps) {
 
         <Box sx={{ mt: 1, pt: 2, borderTop: `1px solid ${theme.palette.divider}` }}>
           <Typography variant="subtitle2" sx={{ color: theme.palette.text.primary }}>
-            Help improve TabShow
+            {t('panelImproveHeading')}
           </Typography>
           <Typography variant="caption" sx={{ color: theme.palette.text.secondary, display: 'block', mt: 0.5, mb: 1.25 }}>
-            Share what would make your tab workflow better, or leave a quick review if TabShow has earned five stars.
+            {t('panelImproveDescription')}
           </Typography>
-          <Box sx={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 1 }}>
+          <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0, 1fr))', gap: 1 }}>
             <Button
               component="a"
               href={EXTENSION_URLS.FEATURE_REQUEST}
@@ -186,9 +237,9 @@ export function SettingsOverlay({ open, onClose }: SettingsOverlayProps) {
               size="small"
               variant="outlined"
               startIcon={<LightbulbRounded sx={{ fontSize: 16 }} />}
-              sx={{ textTransform: 'none', fontSize: 11.5 }}
+              sx={{ minWidth: 0, overflowWrap: 'anywhere', textTransform: 'none', fontSize: 11.5 }}
             >
-              Share an idea
+              {t('panelShareIdea')}
             </Button>
             <Button
               component="a"
@@ -198,19 +249,31 @@ export function SettingsOverlay({ open, onClose }: SettingsOverlayProps) {
               size="small"
               variant="text"
               startIcon={<StarRounded sx={{ fontSize: 16 }} />}
-              sx={{ textTransform: 'none', fontSize: 11.5, color: theme.palette.text.secondary }}
+              sx={{ minWidth: 0, overflowWrap: 'anywhere', textTransform: 'none', fontSize: 11.5, color: theme.palette.text.secondary }}
             >
-              Rate TabShow
+              {t('panelRate')}
+            </Button>
+          </Box>
+        </Box>
+
+        <Box sx={{ mt: 2, pt: 2, borderTop: `1px solid ${theme.palette.divider}` }}>
+          <Typography variant="subtitle2">{version ? t('panelAboutVersion', { version }) : t('panelAbout')}</Typography>
+          <Box sx={{ display: 'flex', gap: 1, mt: 0.5, flexWrap: 'wrap' }}>
+            <Button component="a" href={localPageUrl('whats-new')} target="_blank" rel="noopener noreferrer" size="small" sx={{ textTransform: 'none' }}>
+              {t('panelWhatsNew')}
+            </Button>
+            <Button component="a" href={localPageUrl('welcome')} target="_blank" rel="noopener noreferrer" size="small" sx={{ textTransform: 'none' }}>
+              {t('panelGettingStarted')}
             </Button>
           </Box>
         </Box>
 
         <Box sx={{ mt: 2, pt: 2, borderTop: `1px solid ${theme.palette.divider}` }}>
           <Typography variant="subtitle2" sx={{ color: theme.palette.text.primary }}>
-            Support TabShow
+            {t('panelSupport')}
           </Typography>
           <Typography variant="caption" sx={{ color: theme.palette.text.secondary, display: 'block', mt: 0.5, mb: 1.25 }}>
-            TabShow is free. If it makes your day easier, you can support my work with a coffee. Always optional.
+            {t('panelSupportDescription')}
           </Typography>
           <Button
             component="a"
@@ -233,7 +296,7 @@ export function SettingsOverlay({ open, onClose }: SettingsOverlayProps) {
               '&.Mui-focusVisible': { outline: '2px solid', outlineColor: 'text.primary', outlineOffset: 3 },
             }}
           >
-            Buy me a coffee
+            {t('panelCoffee')}
           </Button>
         </Box>
 
@@ -255,28 +318,29 @@ export function SettingsOverlay({ open, onClose }: SettingsOverlayProps) {
               color: theme.palette.primary.contrastText,
             }}
           >
-            Done
+            {t('panelDone')}
           </Button>
         </Box>
       </Box>
-    </Box>
+    </Drawer>
   );
 }
 
 function ColorSwatch({ color, label }: { color: string; label: string }) {
   const theme = useTheme();
   return (
-    <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.75 }}>
+    <Box sx={{ display: 'flex', alignItems: 'center', minWidth: 0, maxWidth: '100%', gap: 0.75 }}>
       <Box
         sx={{
           width: 20,
           height: 20,
+          flexShrink: 0,
           borderRadius: 1,
           backgroundColor: color,
           border: `1px solid ${theme.palette.mode === 'dark' ? theme.palette.common.white + '33' : theme.palette.common.black + '20'}`,
         }}
       />
-      <Typography variant="caption" sx={{ color: theme.palette.text.secondary }}>
+      <Typography variant="caption" sx={{ minWidth: 0, overflowWrap: 'anywhere', color: theme.palette.text.secondary }}>
         {label}
       </Typography>
     </Box>

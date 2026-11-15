@@ -1,0 +1,1677 @@
+{
+  "panelLocale": {
+    "message": "zh-CN",
+    "description": "BCP 47 language tag for this catalog: en, de, zh-CN or zh-TW. Keep the translated catalog value consistent with its locale."
+  },
+  "panelPageTitle": {
+    "message": "TabShow 侧边栏"
+  },
+  "panelExtensionName": {
+    "message": "TabShow：标签页实时预览",
+    "description": "Extension name, at most 75 characters. Keep TabShow unchanged."
+  },
+  "panelExtensionShortName": {
+    "message": "TabShow",
+    "description": "Brand name; do not translate."
+  },
+  "panelExtensionDescription": {
+    "message": "在侧边栏搜索已打开的 Chrome 标签页，悬停即可预览实际页面。移出侧边栏返回预览前的页面，点击即可选定。",
+    "description": "Chrome extension summary: at most 132 characters."
+  },
+  "panelActionTitle": {
+    "message": "打开或关闭 TabShow 侧边栏"
+  },
+  "panelActionDescription": {
+    "message": "打开或关闭侧边栏"
+  },
+  "panelTabScope": {
+    "message": "标签页范围"
+  },
+  "panelCurrentWindow": {
+    "message": "当前窗口"
+  },
+  "panelAllWindows": {
+    "message": "所有窗口"
+  },
+  "panelAllWindowsHint": {
+    "message": "当前 Chrome 个人资料中的所有窗口。其他个人资料的窗口不会显示在这里。"
+  },
+  "panelCurrentWindowHint": {
+    "message": "此窗口中的标签页。"
+  },
+  "panelSettings": {
+    "message": "设置"
+  },
+  "panelOpenSettings": {
+    "message": "打开设置"
+  },
+  "panelSearchPlaceholder": {
+    "message": "搜索标签页，可用键盘操作"
+  },
+  "panelSearch": {
+    "message": "搜索标签页"
+  },
+  "panelThisProfile": {
+    "message": "当前个人资料"
+  },
+  "panelSortTabs": {
+    "message": "标签页排序"
+  },
+  "panelSortCurrent": {
+    "message": "当前顺序"
+  },
+  "panelSortRecent": {
+    "message": "最近使用"
+  },
+  "panelSortAdded": {
+    "message": "最近添加（大致顺序）"
+  },
+  "panelSortDomain": {
+    "message": "按域名"
+  },
+  "panelSortGroup": {
+    "message": "按标签页分组"
+  },
+  "panelLoading": {
+    "message": "正在加载…"
+  },
+  "panelKeyboardHint": {
+    "message": "↑↓ 选择 · Enter 打开 · Esc 返回",
+    "description": "Compact keyboard guide. Keep key names recognizable."
+  },
+  "panelCountsAllWindows": {
+    "message": "已打开的标签页：$count$；Chrome 窗口：$windows$；仅限当前个人资料",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      },
+      "windows": {
+        "content": "$2"
+      }
+    }
+  },
+  "panelCountsCurrentWindow": {
+    "message": "已打开的标签页：$count$",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "panelOpenTabsCompact": {
+    "message": "标签页",
+    "description": "Compact counter label. Keep short."
+  },
+  "panelWindowsCompact": {
+    "message": "窗口",
+    "description": "Compact counter label. Keep short."
+  },
+  "panelNoAddress": {
+    "message": "无网址"
+  },
+  "panelOtherWindowHint": {
+    "message": "位于另一个 Chrome 窗口。点击切换，不支持悬停预览。"
+  },
+  "panelUntitledTab": {
+    "message": "无标题标签页"
+  },
+  "panelTab": {
+    "message": "标签页"
+  },
+  "panelOtherWindowSwitch": {
+    "message": "位于其他窗口，点击切换"
+  },
+  "panelPinned": {
+    "message": "已固定"
+  },
+  "panelMuted": {
+    "message": "已静音"
+  },
+  "panelPlayingAudio": {
+    "message": "正在播放音频"
+  },
+  "panelSleeping": {
+    "message": "已休眠"
+  },
+  "panelOpenTab": {
+    "message": "打开 $title$，$address$",
+    "placeholders": {
+      "title": {
+        "content": "$1"
+      },
+      "address": {
+        "content": "$2"
+      }
+    }
+  },
+  "panelOpenCurrentTab": {
+    "message": "打开 $title$，$address$。当前标签页。",
+    "placeholders": {
+      "title": {
+        "content": "$1"
+      },
+      "address": {
+        "content": "$2"
+      }
+    }
+  },
+  "panelOpenOtherTab": {
+    "message": "打开 $title$，$address$。位于其他窗口。",
+    "placeholders": {
+      "title": {
+        "content": "$1"
+      },
+      "address": {
+        "content": "$2"
+      }
+    }
+  },
+  "panelSharedUrl_one": {
+    "message": "$count$ 个标签页使用此网址",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "panelSharedUrl_other": {
+    "message": "$count$ 个标签页使用此网址",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "panelDuplicates_one": {
+    "message": "$count$ 个重复项",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "panelDuplicates_other": {
+    "message": "$count$ 个重复项",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "panelSwitch": {
+    "message": "切换",
+    "description": "Compact action for a tab in another Chrome window."
+  },
+  "panelWindowPreviewUnavailable": {
+    "message": "无法预览 · 点击标签页即可切换到该窗口"
+  },
+  "panelLoadingTabs": {
+    "message": "正在加载标签页…"
+  },
+  "panelLoadingWindows": {
+    "message": "正在获取 Chrome 窗口。"
+  },
+  "panelSearchNoMatches": {
+    "message": "没有匹配的标签页"
+  },
+  "panelSearchTryAgain": {
+    "message": "试试其他标题、网址或域名。"
+  },
+  "panelNoTabsInScope": {
+    "message": "此范围内没有标签页"
+  },
+  "panelOpenTabHere": {
+    "message": "打开一个标签页后，它就会显示在这里。"
+  },
+  "panelTryAllWindows": {
+    "message": "试试“所有窗口”，或在当前窗口打开一个标签页。"
+  },
+  "panelUnnamedGroup": {
+    "message": "未命名分组"
+  },
+  "panelOpenTabs": {
+    "message": "已打开的标签页"
+  },
+  "panelSwitchToWindow": {
+    "message": "切换到窗口 $number$",
+    "placeholders": {
+      "number": {
+        "content": "$1"
+      }
+    }
+  },
+  "panelCollapseGroup": {
+    "message": "收起 $title$",
+    "placeholders": {
+      "title": {
+        "content": "$1"
+      }
+    }
+  },
+  "panelExpandGroup": {
+    "message": "展开 $title$",
+    "placeholders": {
+      "title": {
+        "content": "$1"
+      }
+    }
+  },
+  "panelCloseTab": {
+    "message": "关闭标签页"
+  },
+  "panelCloseSettings": {
+    "message": "关闭设置"
+  },
+  "panelAppearanceMode": {
+    "message": "外观模式"
+  },
+  "panelUseSystemAppearance": {
+    "message": "跟随系统外观"
+  },
+  "panelUseLightAppearance": {
+    "message": "使用浅色外观"
+  },
+  "panelUseDarkAppearance": {
+    "message": "使用深色外观"
+  },
+  "panelHoverDelayAria": {
+    "message": "悬停预览延迟，单位为毫秒"
+  },
+  "panelKeepOpen": {
+    "message": "选择标签页后保持侧边栏打开"
+  },
+  "panelHoverPreview": {
+    "message": "悬停时预览标签页"
+  },
+  "panelTabSwitching": {
+    "message": "标签页切换"
+  },
+  "panelKeepOpenDescription": {
+    "message": "点击标签页或按 Enter 后，让列表继续显示在页面旁边。Chrome 的固定按钮只会将图标固定在工具栏。"
+  },
+  "panelHoverPreviewDescription": {
+    "message": "将鼠标停在当前窗口的标签页上，预览实际页面。关闭后，只能通过点击或按 Enter 切换。"
+  },
+  "panelAppearance": {
+    "message": "外观"
+  },
+  "panelHoverDelay": {
+    "message": "悬停预览延迟"
+  },
+  "panelHoverDelayHint": {
+    "message": "延长等待时间，避免鼠标经过侧边栏时意外触发预览。"
+  },
+  "panelChoosePairing": {
+    "message": "选择配色"
+  },
+  "panelImproveHeading": {
+    "message": "帮助改进 TabShow"
+  },
+  "panelImproveDescription": {
+    "message": "告诉我们怎样能让标签页操作更方便，也欢迎留下真实评价，帮助其他人选择。"
+  },
+  "panelShareIdea": {
+    "message": "提出建议"
+  },
+  "panelRate": {
+    "message": "评价 TabShow"
+  },
+  "panelWhatsNew": {
+    "message": "更新内容"
+  },
+  "panelGettingStarted": {
+    "message": "使用入门"
+  },
+  "panelSupport": {
+    "message": "支持 TabShow"
+  },
+  "panelSupportDescription": {
+    "message": "TabShow 免费使用。如果它帮到了你，可以请我喝杯咖啡，支持后续开发。完全自愿。"
+  },
+  "panelCoffee": {
+    "message": "请我喝杯咖啡"
+  },
+  "panelDone": {
+    "message": "完成"
+  },
+  "panelSystem": {
+    "message": "跟随系统"
+  },
+  "panelLight": {
+    "message": "浅色"
+  },
+  "panelDark": {
+    "message": "深色"
+  },
+  "panelPrimary": {
+    "message": "主色"
+  },
+  "panelSecondary": {
+    "message": "辅助色"
+  },
+  "panelFollowingDark": {
+    "message": "跟随系统，当前为深色。"
+  },
+  "panelFollowingLight": {
+    "message": "跟随系统，当前为浅色。"
+  },
+  "panelAlwaysDark": {
+    "message": "始终使用深色模式。"
+  },
+  "panelAlwaysLight": {
+    "message": "始终使用浅色模式。"
+  },
+  "panelSystemThemeHint": {
+    "message": "“跟随系统”只跟随浅色或深色外观，不会复制 Chrome 自定义主题的配色。"
+  },
+  "panelDelayValue": {
+    "message": "$seconds$ 秒（$milliseconds$ 毫秒）",
+    "placeholders": {
+      "seconds": {
+        "content": "$1"
+      },
+      "milliseconds": {
+        "content": "$2"
+      }
+    }
+  },
+  "panelMilliseconds": {
+    "message": "$value$ 毫秒",
+    "placeholders": {
+      "value": {
+        "content": "$1"
+      }
+    }
+  },
+  "panelAbout": {
+    "message": "关于 TabShow"
+  },
+  "panelAboutVersion": {
+    "message": "关于 TabShow $version$",
+    "placeholders": {
+      "version": {
+        "content": "$1"
+      }
+    }
+  },
+  "panelPairVioletAmber": {
+    "message": "炭紫 + 琥珀"
+  },
+  "panelPairVioletAmberDescription": {
+    "message": "紫色表示当前标签页，琥珀色表示预览。"
+  },
+  "panelPairInkBlue": {
+    "message": "墨黑 + 亮蓝"
+  },
+  "panelPairInkBlueDescription": {
+    "message": "深灰色表示当前标签页，蓝色表示预览。"
+  },
+  "panelPairGraphiteCoral": {
+    "message": "石墨灰 + 珊瑚红"
+  },
+  "panelPairGraphiteCoralDescription": {
+    "message": "石墨灰表示当前标签页，珊瑚红表示预览。"
+  },
+  "panelPairTealCitrine": {
+    "message": "深青 + 柠檬黄"
+  },
+  "panelPairTealCitrineDescription": {
+    "message": "青色表示当前标签页，黄色表示预览。"
+  },
+  "panelPairSlateSeafoam": {
+    "message": "岩灰 + 海沫绿"
+  },
+  "panelPairSlateSeafoamDescription": {
+    "message": "岩灰色表示当前标签页，海沫绿表示预览。"
+  },
+  "panelPairMochaRose": {
+    "message": "摩卡棕 + 玫瑰粉"
+  },
+  "panelPairMochaRoseDescription": {
+    "message": "棕色表示当前标签页，玫瑰粉表示预览。"
+  },
+  "panelDirection": {
+    "message": "ltr",
+    "description": "Text direction for this catalog. Use ltr for English, German and Chinese; rtl only for right-to-left languages."
+  },
+  "panelCopied": {
+    "message": "已复制"
+  },
+  "panelTellFriend": {
+    "message": "分享给朋友"
+  },
+  "panelClipboardError": {
+    "message": "无法访问剪贴板"
+  },
+  "panelClipboardCopied": {
+    "message": "已复制 Chrome 扩展链接"
+  },
+  "panelSharePasteHint": {
+    "message": "可粘贴到消息、邮件或帖子中。"
+  },
+  "panelShareMessage": {
+    "message": "试试 TabShow：搜索和预览 Chrome 标签页，找到想要的页面再切换。$url$",
+    "placeholders": {
+      "url": {
+        "content": "$1"
+      }
+    }
+  },
+  "panelSuggestFeature": {
+    "message": "建议新功能"
+  },
+  "panelFree": {
+    "message": "免费使用"
+  },
+  "panelOpenStore": {
+    "message": "打开 Chrome 网上应用店"
+  },
+  "panelCopyAddress": {
+    "message": "从地址栏复制链接。"
+  },
+  "panelTrendStart": {
+    "message": "开始记录变化"
+  },
+  "panelTrendUnchanged": {
+    "message": "与上次查看时相同"
+  },
+  "panelOpenChaos": {
+    "message": "查看标签页杂乱度"
+  },
+  "panelChaosLoading": {
+    "message": "正在计算标签页杂乱度…"
+  },
+  "panelTrendLower": {
+    "message": "比上次降低 $count$ 分",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "panelTrendHigher": {
+    "message": "比上次增加 $count$ 分",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "panelOpenChaosScore": {
+    "message": "查看标签页杂乱度：$score$，$level$",
+    "placeholders": {
+      "score": {
+        "content": "$1"
+      },
+      "level": {
+        "content": "$2"
+      }
+    }
+  },
+  "panelChaosTooltip": {
+    "message": "标签页杂乱度 $score$/100 · $level$ · $trend$",
+    "placeholders": {
+      "score": {
+        "content": "$1"
+      },
+      "level": {
+        "content": "$2"
+      },
+      "trend": {
+        "content": "$3"
+      }
+    }
+  },
+  "panelChaosCompact": {
+    "message": "杂乱度"
+  },
+  "panelVisitedToday": {
+    "message": "今天访问过"
+  },
+  "panelNotAvailable": {
+    "message": "暂无数据"
+  },
+  "panelChaosTitle": {
+    "message": "标签页杂乱度"
+  },
+  "panelChaosSubtitle": {
+    "message": "供你参考，无需追求低分。"
+  },
+  "panelCloseChaos": {
+    "message": "关闭标签页杂乱度"
+  },
+  "panelTrendFirstCheck": {
+    "message": "从这次查看开始记录变化。"
+  },
+  "panelStatOpenTabs": {
+    "message": "已打开的标签页"
+  },
+  "panelStatWindows": {
+    "message": "Chrome 窗口"
+  },
+  "panelStatDuplicates": {
+    "message": "重复项"
+  },
+  "panelStatGroups": {
+    "message": "标签页分组"
+  },
+  "panelPersonalBest": {
+    "message": "历史最低分"
+  },
+  "panelCheckInStreak": {
+    "message": "连续查看天数"
+  },
+  "panelScoreFactors": {
+    "message": "分数是如何计算的"
+  },
+  "panelYourSession": {
+    "message": "当前浏览情况"
+  },
+  "panelDaysAgo_one": {
+    "message": "$count$ 天前",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "panelDaysAgo_other": {
+    "message": "$count$ 天前",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "panelDays_one": {
+    "message": "$count$ 天",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "panelDays_other": {
+    "message": "$count$ 天",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "panelTopDomains": {
+    "message": "标签页最多的域名：$domains$",
+    "placeholders": {
+      "domains": {
+        "content": "$1"
+      }
+    }
+  },
+  "panelDomainCount": {
+    "message": "$domain$（$count$）",
+    "placeholders": {
+      "domain": {
+        "content": "$1"
+      },
+      "count": {
+        "content": "$2"
+      }
+    }
+  },
+  "panelListSeparator": {
+    "message": "、"
+  },
+  "panelCurrentPosition": {
+    "message": "当前标签页：此窗口的第 $position$ 个，共 $total$ 个",
+    "placeholders": {
+      "position": {
+        "content": "$1"
+      },
+      "total": {
+        "content": "$2"
+      }
+    }
+  },
+  "panelLeastRecent": {
+    "message": "最久未访问：$domain$ · $elapsed$",
+    "placeholders": {
+      "domain": {
+        "content": "$1"
+      },
+      "elapsed": {
+        "content": "$2"
+      }
+    }
+  },
+  "panelDiscardedTabs_one": {
+    "message": "已休眠：$count$ 个标签页",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "panelDiscardedTabs_other": {
+    "message": "已休眠：$count$ 个标签页",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "panelChaosPrivacy": {
+    "message": "数据仅在本地计算和保存，TabShow 不会上传你的标签页数据。下次查看时，可以比较变化。"
+  },
+  "panelInstantPreview": {
+    "message": "即时预览标签页"
+  },
+  "panelPreviewingFrom": {
+    "message": "预览起点：$title$",
+    "placeholders": {
+      "title": {
+        "content": "$1"
+      }
+    }
+  },
+  "panelCurrentTab": {
+    "message": "当前标签页"
+  },
+  "services_chaos_level_clear": {
+    "message": "清爽"
+  },
+  "services_chaos_level_clear_description": {
+    "message": "标签页一目了然。"
+  },
+  "services_chaos_level_lively": {
+    "message": "稍多"
+  },
+  "services_chaos_level_lively_description": {
+    "message": "有一些待处理的标签页，仍然容易查找。"
+  },
+  "services_chaos_level_busy": {
+    "message": "繁忙"
+  },
+  "services_chaos_level_busy_description": {
+    "message": "标签页较多，可以用搜索和排序来查找。"
+  },
+  "services_chaos_level_wild": {
+    "message": "较乱"
+  },
+  "services_chaos_level_wild_description": {
+    "message": "标签页有些分散，可以用 TabShow 查找所需页面。"
+  },
+  "services_chaos_level_maximum": {
+    "message": "非常杂乱"
+  },
+  "services_chaos_level_maximum_description": {
+    "message": "标签页很多，可以先处理重复或长期未访问的页面。"
+  },
+  "services_chaos_domain_browser": {
+    "message": "Chrome"
+  },
+  "services_chaos_domain_extension": {
+    "message": "Chrome 扩展"
+  },
+  "services_chaos_domain_other": {
+    "message": "其他"
+  },
+  "services_chaos_untitled_tab": {
+    "message": "无标题标签页"
+  },
+  "services_chaos_factor_volume": {
+    "message": "标签页数量"
+  },
+  "services_chaos_factor_windows": {
+    "message": "窗口数量"
+  },
+  "services_chaos_factor_duplicates": {
+    "message": "重复项"
+  },
+  "services_chaos_factor_stale": {
+    "message": "至少 7 天未访问"
+  },
+  "services_chaos_factor_ungrouped": {
+    "message": "未分组标签页"
+  },
+  "services_chaos_detail_volume_one": {
+    "message": "$count$ 个已打开的标签页",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "services_chaos_detail_volume_other": {
+    "message": "$count$ 个已打开的标签页",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "services_chaos_detail_windows_one": {
+    "message": "$count$ 个 Chrome 窗口",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "services_chaos_detail_windows_other": {
+    "message": "$count$ 个 Chrome 窗口",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "services_chaos_detail_duplicates_one": {
+    "message": "$count$ 个多余的重复项",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "services_chaos_detail_duplicates_other": {
+    "message": "$count$ 个多余的重复项",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "services_chaos_detail_stale_one": {
+    "message": "$count$ 个长期未访问的标签页",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "services_chaos_detail_stale_other": {
+    "message": "$count$ 个长期未访问的标签页",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "services_chaos_detail_ungrouped_one": {
+    "message": "$count$ 个未分组的标签页",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "services_chaos_detail_ungrouped_other": {
+    "message": "$count$ 个未分组的标签页",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "services_chaos_summary_single_window_one": {
+    "message": "$windows$ 个窗口中共有 $count$ 个标签页。",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      },
+      "windows": {
+        "content": "$2",
+        "example": "1"
+      }
+    }
+  },
+  "services_chaos_summary_single_window_other": {
+    "message": "$windows$ 个窗口中共有 $count$ 个标签页。",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      },
+      "windows": {
+        "content": "$2",
+        "example": "1"
+      }
+    }
+  },
+  "services_chaos_summary_multiple_windows_one": {
+    "message": "$windows$ 个窗口中共有 $count$ 个标签页。",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      },
+      "windows": {
+        "content": "$2",
+        "example": "3"
+      }
+    }
+  },
+  "services_chaos_summary_multiple_windows_other": {
+    "message": "$windows$ 个窗口中共有 $count$ 个标签页。",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      },
+      "windows": {
+        "content": "$2",
+        "example": "3"
+      }
+    }
+  },
+  "services_chaos_summary_duplicates_one": {
+    "message": "有 $count$ 个重复标签页，关闭它即可减少重复内容。",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "services_chaos_summary_duplicates_other": {
+    "message": "有 $count$ 个重复标签页，关闭它们即可减少重复内容。",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "services_chaos_summary_stale_one": {
+    "message": "$count$ 个标签页至少一周未访问。",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "services_chaos_summary_stale_other": {
+    "message": "$count$ 个标签页至少一周未访问。",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "services_chaos_summary_windows": {
+    "message": "已打开的标签页分布在 $count$ 个 Chrome 窗口中。",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "services_chaos_summary_ungrouped": {
+    "message": "$count$ 个标签页尚未分组，目前需要靠搜索或记忆来查找。",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "services_chaos_quick_calm_title": {
+    "message": "需要时再查找"
+  },
+  "services_chaos_quick_calm_detail": {
+    "message": "当前标签页不难查找，无需特意整理。"
+  },
+  "services_chaos_quick_duplicates_title_one": {
+    "message": "关闭 $count$ 个重复标签页",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "services_chaos_quick_duplicates_title_other": {
+    "message": "关闭 $count$ 个重复标签页",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "services_chaos_quick_duplicates_detail": {
+    "message": "关闭重复页面即可降低分数，不必重新整理其他标签页。"
+  },
+  "services_chaos_quick_stale_title": {
+    "message": "按“最近使用”排序"
+  },
+  "services_chaos_quick_stale_detail": {
+    "message": "较久未使用的标签页会排在后面，方便逐个决定保留还是关闭。"
+  },
+  "services_chaos_quick_windows_title": {
+    "message": "只查看“当前窗口”"
+  },
+  "services_chaos_quick_windows_detail": {
+    "message": "需要跨窗口查找时切换到“所有窗口”，专注当前内容时再切回来。"
+  },
+  "services_chaos_quick_ungrouped_title": {
+    "message": "试试“按域名”排序"
+  },
+  "services_chaos_quick_ungrouped_detail": {
+    "message": "让同一网站的标签页排在一起，无需手动分组。"
+  },
+  "services_chaos_trend_first": {
+    "message": "首次在本地记录。下次查看时，可以比较变化。"
+  },
+  "services_chaos_trend_down_one": {
+    "message": "比上次查看时降低 $count$ 分。",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "services_chaos_trend_down_other": {
+    "message": "比上次查看时降低 $count$ 分。",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "services_chaos_trend_up_one": {
+    "message": "比上次查看时增加 $count$ 分。",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "services_chaos_trend_up_other": {
+    "message": "比上次查看时增加 $count$ 分。",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "services_chaos_trend_steady": {
+    "message": "与上次查看时相同。"
+  },
+  "pagesWelcomeTitle": {
+    "message": "欢迎使用 TabShow",
+    "description": "Text on the TabShow welcome page."
+  },
+  "pagesWelcomeInstalled": {
+    "message": "$part1$ 已安装",
+    "description": "Text on the TabShow welcome page.",
+    "placeholders": {
+      "part1": {
+        "content": "$1",
+        "example": "✓"
+      }
+    }
+  },
+  "pagesWelcomeEyebrow": {
+    "message": "欢迎使用 TabShow",
+    "description": "Text on the TabShow welcome page."
+  },
+  "pagesWelcomeHeadingPart2": {
+    "message": "预览页面，移出侧边栏即可返回。",
+    "description": "Inline text in pagesWelcomeHeading. Translate consistently with the same setting or control in the side panel."
+  },
+  "pagesWelcomeHeading": {
+    "message": "找到所需标签页。$part1$$part2$",
+    "description": "Text on the TabShow welcome page.",
+    "placeholders": {
+      "part1": {
+        "content": "$1",
+        "example": "line break"
+      },
+      "part2": {
+        "content": "$2",
+        "example": "Without losing your place."
+      }
+    }
+  },
+  "pagesWelcomeIntro": {
+    "message": "在侧边栏中搜索已打开的标签页。将鼠标停在某个标签页上即可预览实际页面，找到想要的页面后再点击选定。",
+    "description": "Text on the TabShow welcome page."
+  },
+  "pagesOrUse": {
+    "message": "或使用",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesWelcomeOpenNote": {
+    "message": "点击即可使用，无需填写设置表单。",
+    "description": "Text on the TabShow welcome page."
+  },
+  "pagesWelcomeImageCaption": {
+    "message": "TabShow 侧边栏，可在任何页面旁打开。",
+    "description": "Text on the TabShow welcome page."
+  },
+  "pagesWelcomeStartEyebrow": {
+    "message": "第一次预览",
+    "description": "Text on the TabShow welcome page."
+  },
+  "pagesWelcomeStartHeading": {
+    "message": "三步开始使用。",
+    "description": "Text on the TabShow welcome page."
+  },
+  "pagesWelcomeStartIntro": {
+    "message": "现在就试试。侧边栏可以在本页旁边打开。",
+    "description": "Text on the TabShow welcome page."
+  },
+  "pagesWelcomeStepOpenHeading": {
+    "message": "打开侧边栏",
+    "description": "Text on the TabShow welcome page."
+  },
+  "pagesWelcomeStepOpen": {
+    "message": "点击上方按钮、工具栏图标，或使用快捷键。",
+    "description": "Text on the TabShow welcome page."
+  },
+  "pagesWelcomeStepPreviewHeading": {
+    "message": "将鼠标移到另一个标签页",
+    "description": "Text on the TabShow welcome page."
+  },
+  "pagesWelcomeStepPreview": {
+    "message": "该标签页的完整页面会显示出来。将鼠标移出侧边栏，TabShow 就会返回预览前的页面。",
+    "description": "Text on the TabShow welcome page."
+  },
+  "pagesWelcomeStepChooseHeading": {
+    "message": "找到后点击选定",
+    "description": "Text on the TabShow welcome page."
+  },
+  "pagesWelcomeStepChoosePart1": {
+    "message": "设置 → 选择标签页后保持侧边栏打开",
+    "description": "Inline text in pagesWelcomeStepChoose. Translate consistently with the same setting or control in the side panel."
+  },
+  "pagesWelcomeStepChoose": {
+    "message": "选中的页面会成为当前标签页。默认情况下，TabShow 随后会关闭侧边栏。如果希望侧边栏继续显示，请开启$part1$。",
+    "description": "Text on the TabShow welcome page.",
+    "placeholders": {
+      "part1": {
+        "content": "$1",
+        "example": "Settings → Keep panel open after choosing a tab"
+      }
+    }
+  },
+  "pagesWelcomeShortcutEyebrow": {
+    "message": "用快捷键打开",
+    "description": "Text on the TabShow welcome page."
+  },
+  "pagesWelcomeShortcutHeading": {
+    "message": "按下快捷键，即可打开 TabShow。",
+    "description": "Text on the TabShow welcome page."
+  },
+  "pagesWelcomeShortcutIntro": {
+    "message": "以下是 TabShow 建议的默认快捷键。如果其他扩展已占用这些按键，Chrome 可能不会自动分配。",
+    "description": "Text on the TabShow welcome page."
+  },
+  "pagesWelcomeShortcutChange": {
+    "message": "更改快捷键",
+    "description": "Text on the TabShow welcome page."
+  },
+  "pagesWelcomeShortcutStepCopy": {
+    "message": "复制这个 Chrome 地址。",
+    "description": "Text on the TabShow welcome page."
+  },
+  "pagesWelcomeShortcutStepPaste": {
+    "message": "粘贴到地址栏，然后按 Enter。",
+    "description": "Text on the TabShow welcome page."
+  },
+  "pagesWelcomeShortcutStepAssign": {
+    "message": "找到 TabShow，点击铅笔图标，然后按下你想使用的组合键。",
+    "description": "Text on the TabShow welcome page."
+  },
+  "pagesWelcomeFeaturesEyebrow": {
+    "message": "更多用法",
+    "description": "Text on the TabShow welcome page."
+  },
+  "pagesWelcomeFeaturesHeading": {
+    "message": "搜索、跨窗口查找和排序。",
+    "description": "Text on the TabShow welcome page."
+  },
+  "pagesWelcomeSearchHeading": {
+    "message": "输入关键词查找",
+    "description": "Text on the TabShow welcome page."
+  },
+  "pagesWelcomeSearch": {
+    "message": "搜索标签页标题、网址或域名。用 $part1$ $part2$ 选择结果，按 $part3$ 打开。将鼠标停在结果上可预览实际页面。",
+    "description": "Text on the TabShow welcome page.",
+    "placeholders": {
+      "part1": {
+        "content": "$1",
+        "example": "↑"
+      },
+      "part2": {
+        "content": "$2",
+        "example": "↓"
+      },
+      "part3": {
+        "content": "$3",
+        "example": "Enter"
+      }
+    }
+  },
+  "pagesWelcomeWindowsHeading": {
+    "message": "查找其他窗口的标签页",
+    "description": "Text on the TabShow welcome page."
+  },
+  "pagesWelcomeWindowsPart1": {
+    "message": "当前窗口",
+    "description": "Inline text in pagesWelcomeWindows. Translate consistently with the same setting or control in the side panel."
+  },
+  "pagesWelcomeWindowsPart2": {
+    "message": "所有窗口",
+    "description": "Inline text in pagesWelcomeWindows. Translate consistently with the same setting or control in the side panel."
+  },
+  "pagesWelcomeWindows": {
+    "message": "从$part1$切换到$part2$，即可查看同一 Chrome 个人资料中的窗口。其他个人资料的窗口不会显示在这里。其他窗口中的标签页需要点击切换，悬停不会改变窗口焦点。",
+    "description": "Text on the TabShow welcome page.",
+    "placeholders": {
+      "part1": {
+        "content": "$1",
+        "example": "Current window"
+      },
+      "part2": {
+        "content": "$2",
+        "example": "All windows"
+      }
+    }
+  },
+  "pagesWelcomeSortHeading": {
+    "message": "选择排序方式",
+    "description": "Text on the TabShow welcome page."
+  },
+  "pagesWelcomeSort": {
+    "message": "可按当前顺序、最近使用、最近添加（大致顺序）、域名或标签页分组排列。排序方式、窗口范围和侧边栏设置都会保留。",
+    "description": "Text on the TabShow welcome page."
+  },
+  "pagesWelcomeSettingsHeading": {
+    "message": "调整侧边栏设置",
+    "description": "Text on the TabShow welcome page."
+  },
+  "pagesWelcomeSettingsPart1": {
+    "message": "设置",
+    "description": "Inline text in pagesWelcomeSettings. Translate consistently with the same setting or control in the side panel."
+  },
+  "pagesWelcomeSettingsPart2": {
+    "message": "悬停预览延迟",
+    "description": "Inline text in pagesWelcomeSettings. Translate consistently with the same setting or control in the side panel."
+  },
+  "pagesWelcomeSettingsPart3": {
+    "message": "悬停时预览标签页",
+    "description": "Inline text in pagesWelcomeSettings. Translate consistently with the same setting or control in the side panel."
+  },
+  "pagesWelcomeSettingsPart4": {
+    "message": "外观 → 跟随系统",
+    "description": "Inline text in pagesWelcomeSettings. Translate consistently with the same setting or control in the side panel."
+  },
+  "pagesWelcomeSettings": {
+    "message": "在$part1$中调整$part2$，或关闭$part3$，即可浏览列表而不切换页面。$part4$会跟随系统的浅色或深色外观，不会复制 Chrome 自定义主题的配色。",
+    "description": "Text on the TabShow welcome page.",
+    "placeholders": {
+      "part1": {
+        "content": "$1",
+        "example": "Settings"
+      },
+      "part2": {
+        "content": "$2",
+        "example": "Hover preview delay"
+      },
+      "part3": {
+        "content": "$3",
+        "example": "Preview tabs on hover"
+      },
+      "part4": {
+        "content": "$4",
+        "example": "Appearance → System"
+      }
+    }
+  },
+  "pagesWelcomePinPart1": {
+    "message": "选择标签页后保持侧边栏打开",
+    "description": "Inline text in pagesWelcomePin. Translate consistently with the same setting or control in the side panel."
+  },
+  "pagesWelcomePin": {
+    "message": "Chrome 的固定图标只会将 TabShow 固定在工具栏。若要在选择标签页后保留侧边栏，请在 TabShow 设置中开启$part1$。",
+    "description": "Text on the TabShow welcome page.",
+    "placeholders": {
+      "part1": {
+        "content": "$1",
+        "example": "Keep panel open after choosing a tab"
+      }
+    }
+  },
+  "pagesWelcomeEscape": {
+    "message": "按 $part1$ 取消预览并关闭 TabShow。",
+    "description": "Text on the TabShow welcome page.",
+    "placeholders": {
+      "part1": {
+        "content": "$1",
+        "example": "Esc"
+      }
+    }
+  },
+  "pagesWelcomeHelpPart1": {
+    "message": "设置",
+    "description": "Inline text in pagesWelcomeHelp. Translate consistently with the same setting or control in the side panel."
+  },
+  "pagesWelcomeHelp": {
+    "message": "版本信息和帮助链接位于$part1$中。",
+    "description": "Text on the TabShow welcome page.",
+    "placeholders": {
+      "part1": {
+        "content": "$1",
+        "example": "Settings"
+      }
+    }
+  },
+  "pagesWelcomeClosingHeading": {
+    "message": "开始查看你的标签页。",
+    "description": "Text on the TabShow welcome page."
+  },
+  "pagesWelcomeClosing": {
+    "message": "打开 TabShow，试一次预览。",
+    "description": "Text on the TabShow welcome page."
+  },
+  "pagesWelcomePrivacy": {
+    "message": "你的标签页数据保留在浏览器中，不会上传。",
+    "description": "Text on the TabShow welcome page."
+  },
+  "pagesSuggestImprovement": {
+    "message": "提出改进建议 ↗",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesBrandHome": {
+    "message": "TabShow 首页",
+    "description": "Accessible name for the link back to the top of the page."
+  },
+  "pagesOpenNow": {
+    "message": "立即打开 TabShow $part1$",
+    "description": "Text on the TabShow release notes page.",
+    "placeholders": {
+      "part1": {
+        "content": "$1",
+        "example": "→"
+      }
+    }
+  },
+  "pagesOpen": {
+    "message": "打开 TabShow $part1$",
+    "description": "Text on the TabShow release notes page.",
+    "placeholders": {
+      "part1": {
+        "content": "$1",
+        "example": "→"
+      }
+    }
+  },
+  "pagesCopy": {
+    "message": "复制",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesCopyShortcutAddress": {
+    "message": "复制 Chrome 扩展快捷键设置地址",
+    "description": "Accessible name for copying the chrome://extensions/shortcuts address."
+  },
+  "pagesShortcutMacLabel": {
+    "message": "Mac：Command + Shift + X",
+    "description": "Accessible keyboard shortcut. Keep Command/Ctrl + Shift + X unchanged."
+  },
+  "pagesShortcutOtherLabel": {
+    "message": "Windows 和 Linux：Ctrl + Shift + X",
+    "description": "Accessible keyboard shortcut. Keep Command/Ctrl + Shift + X unchanged."
+  },
+  "pagesWelcomeImageAlt": {
+    "message": "TabShow 2.4 侧边栏，包含标签页搜索、窗口范围和排序选项，当前标签页显示在列表中",
+    "description": "Alt text for the screenshot of the TabShow 2.4 side panel."
+  },
+  "pagesUpdateTitle": {
+    "message": "TabShow 2.4：更新内容",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesUpdateVersion": {
+    "message": "2.4 版本",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesUpdateEyebrow": {
+    "message": "TabShow 2.4 更新内容",
+    "description": "Accessible section name for the TabShow 2.4 changes."
+  },
+  "pagesUpdateHeadingPart2": {
+    "message": "侧边栏可以保持打开。",
+    "description": "Inline text in pagesUpdateHeading. Translate consistently with the same setting or control in the side panel."
+  },
+  "pagesUpdateHeading": {
+    "message": "切换标签页。$part1$$part2$",
+    "description": "Text on the TabShow release notes page.",
+    "placeholders": {
+      "part1": {
+        "content": "$1",
+        "example": "line break"
+      },
+      "part2": {
+        "content": "$2",
+        "example": "Keep the panel open."
+      }
+    }
+  },
+  "pagesUpdateIntro": {
+    "message": "现在，选择标签页后可以让 TabShow 继续显示在页面旁边。排序方式会保留，打开侧边栏时也会自动显示当前标签页所在位置。",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesSeePreview": {
+    "message": "查看预览演示 ↗",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesUpdateOpenNote": {
+    "message": "所有功能免费，没有新增权限。",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesUpdateKeepOpenEyebrow": {
+    "message": "按需开启",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesUpdateKeepOpenHeading": {
+    "message": "让侧边栏保持打开。",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesUpdateKeepOpenPart1": {
+    "message": "设置 → 选择标签页后保持侧边栏打开",
+    "description": "Inline text in pagesUpdateKeepOpen. Translate consistently with the same setting or control in the side panel."
+  },
+  "pagesUpdateKeepOpen": {
+    "message": "开启$part1$后，点击标签页或按 Enter，侧边栏都会保持打开。在当前窗口选中的标签页，会成为下一次预览的返回位置。",
+    "description": "Text on the TabShow release notes page.",
+    "placeholders": {
+      "part1": {
+        "content": "$1",
+        "example": "Settings → Keep panel open after choosing a tab"
+      }
+    }
+  },
+  "pagesUpdateKeepOpenDefault": {
+    "message": "此选项默认关闭，原有操作方式保持不变。Chrome 的固定图标只会将 TabShow 固定在工具栏。",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesUpdateCurrentEyebrow": {
+    "message": "快速定位",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesUpdateCurrentHeading": {
+    "message": "直接找到当前标签页。",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesUpdateCurrent": {
+    "message": "打开 TabShow 时，列表会显示当前标签页所在位置。开启保持打开后，在当前窗口切换标签页，列表也会让选中的标签页保持可见。你选择的排序方式会保留。",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesUpdateMoving": {
+    "message": "将标签页移到另一个 Chrome 窗口后，它也会显示在正确的窗口分区中。",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesUpdateHoverEyebrow": {
+    "message": "按需预览",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesUpdateHoverHeading": {
+    "message": "控制悬停预览。",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesUpdateHoverPart1": {
+    "message": "设置 → 悬停时预览标签页",
+    "description": "Inline text in pagesUpdateHover. Translate consistently with the same setting or control in the side panel."
+  },
+  "pagesUpdateHover": {
+    "message": "在$part1$中打开或关闭实时预览。此功能默认开启。",
+    "description": "Text on the TabShow release notes page.",
+    "placeholders": {
+      "part1": {
+        "content": "$1",
+        "example": "Settings → Preview tabs on hover"
+      }
+    }
+  },
+  "pagesUpdateDelayPart1": {
+    "message": "悬停预览延迟",
+    "description": "Inline text in pagesUpdateDelay. Translate consistently with the same setting or control in the side panel."
+  },
+  "pagesUpdateDelay": {
+    "message": "如果想保留预览，但避免意外切换，可以延长$part1$。无论是否开启预览，搜索和键盘选择都可以使用。",
+    "description": "Text on the TabShow release notes page.",
+    "placeholders": {
+      "part1": {
+        "content": "$1",
+        "example": "Hover preview delay"
+      }
+    }
+  },
+  "pagesUpdateHelpEyebrow": {
+    "message": "设置说明更清楚",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesUpdateHelpHeading": {
+    "message": "更容易找到帮助。",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesUpdateHelp": {
+    "message": "设置中现在显示已安装的版本，并提供帮助和更新内容链接。",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesUpdateThemePart1": {
+    "message": "外观 → 跟随系统",
+    "description": "Inline text in pagesUpdateTheme. Translate consistently with the same setting or control in the side panel."
+  },
+  "pagesUpdateTheme": {
+    "message": "$part1$会跟随系统的浅色或深色外观，不会复制 Chrome 自定义主题的配色。",
+    "description": "Text on the TabShow release notes page.",
+    "placeholders": {
+      "part1": {
+        "content": "$1",
+        "example": "Appearance → System"
+      }
+    }
+  },
+  "pagesUpdateShortcutHeading": {
+    "message": "仍然可以用快捷键打开。",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesUpdateShortcutPart1": {
+    "message": "Command + Shift + X",
+    "description": "Inline text in pagesUpdateShortcut. Translate consistently with the same setting or control in the side panel."
+  },
+  "pagesUpdateShortcutPart2": {
+    "message": "Ctrl + Shift + X",
+    "description": "Inline text in pagesUpdateShortcut. Translate consistently with the same setting or control in the side panel."
+  },
+  "pagesUpdateShortcut": {
+    "message": "建议的默认快捷键：Mac 使用 $part1$，Windows 和 Linux 使用 $part2$。如果尚未分配快捷键，将下方地址粘贴到 Chrome 地址栏，再为 TabShow 设置。",
+    "description": "Text on the TabShow release notes page.",
+    "placeholders": {
+      "part1": {
+        "content": "$1",
+        "example": "Command + Shift + X"
+      },
+      "part2": {
+        "content": "$2",
+        "example": "Ctrl + Shift + X"
+      }
+    }
+  },
+  "pagesUpdateKeyboard": {
+    "message": "$part1$ 选择 · $part2$ 选定 · $part3$ 返回并关闭。开启保持打开后，在当前窗口选中的标签页会成为新的预览返回位置。",
+    "description": "Text on the TabShow release notes page.",
+    "placeholders": {
+      "part1": {
+        "content": "$1",
+        "example": "↑↓"
+      },
+      "part2": {
+        "content": "$2",
+        "example": "Enter"
+      },
+      "part3": {
+        "content": "$3",
+        "example": "Esc"
+      }
+    }
+  },
+  "pagesUpdateFeedbackEyebrow": {
+    "message": "感谢你的反馈",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesUpdateFeedbackHeading": {
+    "message": "告诉我们你的使用体验。",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesUpdateFeedback": {
+    "message": "欢迎报告问题、提出改进建议，或留下真实评价。",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesShareFeedback": {
+    "message": "提交反馈 ↗",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesReview": {
+    "message": "评价 TabShow ↗",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesPreviousReleases": {
+    "message": "历史版本",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesPreviousVersions": {
+    "message": "0.5-2.3 版本",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesUpdatePrivacy": {
+    "message": "TabShow 2.4 · 你的标签页数据保留在浏览器中。",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesHelpSupport": {
+    "message": "帮助与支持 ↗",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesKeyboardShortcuts": {
+    "message": "键盘快捷键",
+    "description": "Accessible section name for keyboard shortcuts."
+  },
+  "pagesHistory1Heading": {
+    "message": "2.3 版本",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesHistory1": {
+    "message": "说明了“所有窗口”仅包含当前 Chrome 个人资料中的窗口。新增简短的语音演示，介绍实时预览、搜索和键盘操作。",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesHistory2Heading": {
+    "message": "2.2 版本",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesHistory2": {
+    "message": "新增“支持 TabShow”和“请我喝杯咖啡”链接。所有功能仍然免费，支持完全自愿。链接获得焦点时可按 Enter 打开；Esc 仍会返回原标签页。",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesHistory3Heading": {
+    "message": "2.1 版本",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesHistory3": {
+    "message": "新增本地计算的标签页杂乱度、深色/浅色/跟随系统外观、“建议新功能”和“分享给朋友”。搜索时，标签页与窗口总数保持稳定。",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesHistory4Heading": {
+    "message": "2.0 版本",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesHistory4": {
+    "message": "新增搜索、键盘操作、所有窗口范围、多种排序方式、更多标签页状态信息，以及更清楚的加载和空列表提示。",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesHistory5Heading": {
+    "message": "1.0.0",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesHistory5": {
+    "message": "新增可调整的悬停延迟、预览加载提示、更方便的设置入口和评价链接。",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesHistory6Heading": {
+    "message": "0.9",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesHistory6": {
+    "message": "新增配色设置，改善标题和网站图标的实时更新，并更新 TabShow 品牌设计与商店介绍。",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesHistory7Heading": {
+    "message": "0.8",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesHistory7": {
+    "message": "重新设计标签页分组，提升悬停预览的可靠性，并新增完整网址提示和反馈页面。",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesHistory8Heading": {
+    "message": "0.7",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesHistory8": {
+    "message": "改善大量标签页下的运行速度，并新增欢迎页和更新内容页。",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesHistory9Heading": {
+    "message": "0.5-0.6",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesHistory9": {
+    "message": "推出悬停预览、关闭标签页、键盘操作和可视化标签页分组。",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesCopied": {
+    "message": "已复制",
+    "description": "Clipboard success feedback."
+  },
+  "pagesSelected": {
+    "message": "已选中",
+    "description": "Feedback when the address is selected because clipboard writing is unavailable."
+  },
+  "pagesPanelOpened": {
+    "message": "TabShow 已打开。搜索标签页，或从列表中选择。",
+    "description": "Confirmation after opening the side panel."
+  },
+  "pagesPanelOpenFallback": {
+    "message": "使用工具栏图标，或按 $shortcut$ 打开 TabShow。",
+    "description": "Fallback if this page cannot open the side panel. Keep the shortcut placeholder.",
+    "placeholders": {
+      "shortcut": {
+        "content": "$1",
+        "example": "Ctrl + Shift + X"
+      }
+    }
+  },
+  "pagesLanguages": {
+    "message": "支持英语、德语、简体中文和繁体中文。TabShow 会跟随 Chrome 的界面语言。",
+    "description": "Supported interface languages and automatic selection based on Chrome display language. Keep all four language names."
+  }
+}

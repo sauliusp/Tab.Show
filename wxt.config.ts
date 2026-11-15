@@ -8,6 +8,7 @@ export default defineConfig({
     includeSources: [
       'entrypoints/**',
       'src/**',
+      'scripts/**',
       'assets/**',
       'public/**',
       'package.json',
@@ -19,15 +20,16 @@ export default defineConfig({
     ],
   },
   manifest: {
-    name: 'TabShow: Live Tab Preview',
-    short_name: 'TabShow',
-    description: 'Search or point at open tabs to preview the live page, then switch or snap back without losing your place.',
-    version: '2.3.0',
+    default_locale: 'en',
+    name: '__MSG_panelExtensionName__',
+    short_name: '__MSG_panelExtensionShortName__',
+    description: '__MSG_panelExtensionDescription__',
+    version: '2.4.0',
     side_panel: {
       default_path: 'sidepanel.html'
     },
     action: {
-      default_title: 'Toggle TabShow Side Panel'
+      default_title: '__MSG_panelActionTitle__'
     },
     commands: {
       // This is a reserved command name for the extension action
@@ -36,7 +38,7 @@ export default defineConfig({
           default: 'Ctrl+Shift+X',
           mac: 'Command+Shift+X',
         },
-        description: 'Toggle the side panel', 
+        description: '__MSG_panelActionDescription__',
       },
     },
     permissions: [

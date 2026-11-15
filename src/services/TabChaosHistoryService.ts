@@ -1,4 +1,4 @@
-import type { TabChaosStats } from '../utils/tabChaos';
+import { getChaosTrendMessage, type TabChaosStats } from '../utils/tabChaos';
 
 const STORAGE_KEY = 'tab.show.chaosHistory.v1';
 const MAX_OBSERVATIONS = 90;
@@ -93,21 +93,13 @@ class TabChaosHistoryService {
 
     const scoreDelta = previous ? stats.score - previous.score : null;
     const tabsDelta = previous ? stats.totalTabs - previous.tabCount : null;
-    const message = scoreDelta === null
-      ? 'First local check-in. This becomes more useful over time.'
-      : scoreDelta < 0
-        ? `Down ${Math.abs(scoreDelta)} point${Math.abs(scoreDelta) === 1 ? '' : 's'} since your last check.`
-        : scoreDelta > 0
-          ? `Up ${scoreDelta} point${scoreDelta === 1 ? '' : 's'} since your last check.`
-          : 'Steady since your last check.';
-
     return {
       previousScore: previous?.score ?? null,
       scoreDelta,
       tabsDelta,
       bestScore,
       checkInStreak: calculateStreak(observations, observation.day),
-      message,
+      message: getChaosTrendMessage(scoreDelta),
     };
   }
 }

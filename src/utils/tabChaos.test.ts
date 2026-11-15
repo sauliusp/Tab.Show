@@ -1,5 +1,5 @@
-import { describe, expect, it } from 'vitest';
-import { calculateTabChaos } from './tabChaos';
+import { describe, expect, it, vi } from 'vitest';
+import { calculateTabChaos, getChaosTrendMessage } from './tabChaos';
 import type { Tab } from '../types/Tab';
 
 const DAY = 24 * 60 * 60 * 1000;
@@ -62,5 +62,40 @@ describe('calculateTabChaos', () => {
     expect(result.topDomains).toContainEqual({ domain: 'Chrome', count: 2 });
     expect(result.topDomains).toContainEqual({ domain: 'Chrome extension', count: 1 });
     expect(result.leastRecentTab?.domain).toBe('Chrome');
+  });
+
+  it('keeps complete English messages when a browser locale has no translated entry', () => {
+    vi.stubGlobal('browser', {
+      i18n: { getMessage: (key: string) => key === 'panelLocale' ? 'zh_CN' : '' },
+    });
+    const result = calculateTabChaos([{ id: 1, windowId: 1, index: 0 }], [], { now: 1000 });
+
+    expect(result.summary).toBe('1 tab across 1 window.');
+    expect(result.factors.find(factor => factor.id === 'volume')?.detail).toBe('1 open tab');
+    expect(result.factors.find(factor => factor.id === 'duplicates')?.detail).toBe('0 extra copies');
+    expect(getChaosTrendMessage(-1)).toBe('Down 1 point since your last check.');
+    expect(getChaosTrendMessage(2)).toBe('Up 2 points since your last check.');
+  });
+
+  it('uses localized full messages and formatted numbers without translating page data', () => {
+    const getMessage = vi.fn((key: string, substitutions?: string[]) => {
+      if (key === 'panelLocale') return 'de';
+      if (key === 'services_chaos_detail_volume_other') return `Tabs: ${substitutions?.[0]}`;
+      if (key === 'services_chaos_quick_duplicates_title_other') return `${substitutions?.[0]} Duplikate schließen`;
+      if (key === 'services_chaos_level_maximum') return 'Viele offene Tabs';
+      return '';
+    });
+    vi.stubGlobal('browser', { i18n: { getMessage } });
+    const tabs = Array.from({ length: 1235 }, (_, index) => ({
+      id: index + 1, windowId: 1, index, title: '研究资料 $1', url: 'https://research.example/page', lastAccessed: index,
+    }));
+    const result = calculateTabChaos(tabs, [], { now: 8 * DAY });
+
+    expect(result.factors.find(factor => factor.id === 'volume')?.detail).toBe('Tabs: 1.235');
+    expect(result.quickWin.title).toBe('1.234 Duplikate schließen');
+    expect(result.level).toBe('Viele offene Tabs');
+    expect(result.leastRecentTab?.title).toBe('研究资料 $1');
+    expect(result.leastRecentTab?.domain).toBe('research.example');
+    expect(getMessage.mock.calls.every(([key]) => !key.includes('研究资料'))).toBe(true);
   });
 });

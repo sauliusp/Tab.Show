@@ -36,6 +36,21 @@ describe('tab selectors at 150-tab scale', () => {
     expect(selected.slice(0, 30).map(tab => tab.index)).toEqual(Array.from({ length: 30 }, (_, i) => i));
   });
 
+  it('finds Simplified Chinese, Traditional Chinese, and mixed-script titles without changing the query', () => {
+    const tabs: Tab[] = [
+      { id: 1, windowId: 10, index: 0, title: '项目资料 - Figma', url: 'https://design.example/one' },
+      { id: 2, windowId: 10, index: 1, title: '專案資料 - Figma', url: 'https://design.example/two' },
+      { id: 3, windowId: 10, index: 2, title: 'Übersicht für Recherche', url: 'https://research.example/three' },
+    ];
+    const matches = (query: string) => selectTabs(tabs, { query, sortMode: 'current', currentWindowId: 10 }).map(tab => tab.id);
+
+    expect(matches('项目资料')).toEqual([1]);
+    expect(matches('專案資料')).toEqual([2]);
+    expect(matches('资料 - figma')).toEqual([1]);
+    expect(matches('ÜBERSICHT')).toEqual([3]);
+    expect(matches('xiangmu')).toEqual([]);
+  });
+
   it('supports every sort mode deterministically', () => {
     const tabs = makeTabs();
     for (const sortMode of ['current', 'recently-used', 'recently-opened', 'domain', 'group'] as const) {

@@ -2,20 +2,13 @@ import React from 'react';
 import type { Tab, TabGroup } from '../types/Tab';
 import { tabService } from '../services/TabService';
 import { type ChaosTrend, tabChaosHistoryService } from '../services/TabChaosHistoryService';
-import { calculateTabChaos, type TabChaosStats } from '../utils/tabChaos';
+import { calculateTabChaos, getChaosTrendMessage, type TabChaosStats } from '../utils/tabChaos';
 
 interface ChaosTrendBaseline {
   previousScore: number | null;
   previousTabCount: number | null;
   bestScore: number;
   checkInStreak: number;
-}
-
-function getTrendMessage(scoreDelta: number | null): string {
-  if (scoreDelta === null) return 'First local check-in. This becomes more useful over time.';
-  if (scoreDelta < 0) return `Down ${Math.abs(scoreDelta)} point${Math.abs(scoreDelta) === 1 ? '' : 's'} since your last check.`;
-  if (scoreDelta > 0) return `Up ${scoreDelta} point${scoreDelta === 1 ? '' : 's'} since your last check.`;
-  return 'Steady since your last check.';
 }
 
 function deriveLiveTrend(stats: TabChaosStats, baseline: ChaosTrendBaseline): ChaosTrend {
@@ -27,7 +20,7 @@ function deriveLiveTrend(stats: TabChaosStats, baseline: ChaosTrendBaseline): Ch
     tabsDelta,
     bestScore: baseline.bestScore,
     checkInStreak: baseline.checkInStreak,
-    message: getTrendMessage(scoreDelta),
+    message: getChaosTrendMessage(scoreDelta),
   };
 }
 

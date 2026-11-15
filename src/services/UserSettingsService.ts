@@ -1,14 +1,23 @@
 import { type ColorPairing, DEFAULT_COLOR_PAIRING_ID, getColorPairingById } from '../constants/colorPairings';
+import type { TabSortMode } from '../types/Tab';
 
 const STORAGE_KEY = 'tab.show.userSettings';
 export const DEFAULT_HOVER_PREVIEW_DELAY_MS = 250;
 export type AppearanceMode = 'system' | 'light' | 'dark';
+const SORT_MODES: readonly TabSortMode[] = ['current', 'recently-used', 'recently-opened', 'domain', 'group'];
+
+function isSortMode(value: unknown): value is TabSortMode {
+  return typeof value === 'string' && SORT_MODES.includes(value as TabSortMode);
+}
 
 export interface UserSettings {
   colorPairingId: string;
   hoverPreviewDelayMs: number;
   allWindows: boolean;
   appearanceMode: AppearanceMode;
+  keepPanelOpen: boolean;
+  hoverPreviewEnabled: boolean;
+  sortMode: TabSortMode;
 }
 
 class UserSettingsService {
@@ -31,7 +40,10 @@ class UserSettingsService {
       colorPairingId: DEFAULT_COLOR_PAIRING_ID,
       hoverPreviewDelayMs: DEFAULT_HOVER_PREVIEW_DELAY_MS,
       allWindows: false,
-      appearanceMode: 'system'
+      appearanceMode: 'system',
+      keepPanelOpen: false,
+      hoverPreviewEnabled: true,
+      sortMode: 'current',
     };
   }
 
@@ -66,6 +78,10 @@ class UserSettingsService {
       if (parsed?.appearanceMode === 'system' || parsed?.appearanceMode === 'light' || parsed?.appearanceMode === 'dark') {
         settings.appearanceMode = parsed.appearanceMode;
       }
+
+      if (typeof parsed?.keepPanelOpen === 'boolean') settings.keepPanelOpen = parsed.keepPanelOpen;
+      if (typeof parsed?.hoverPreviewEnabled === 'boolean') settings.hoverPreviewEnabled = parsed.hoverPreviewEnabled;
+      if (isSortMode(parsed?.sortMode)) settings.sortMode = parsed.sortMode;
 
       return Object.keys(settings).length ? settings : null;
     } catch (error) {
@@ -121,6 +137,30 @@ class UserSettingsService {
 
   getAppearanceMode(): AppearanceMode {
     return this.getSettings().appearanceMode;
+  }
+
+  getKeepPanelOpen(): boolean {
+    return this.getSettings().keepPanelOpen;
+  }
+
+  getHoverPreviewEnabled(): boolean {
+    return this.getSettings().hoverPreviewEnabled;
+  }
+
+  getSortMode(): TabSortMode {
+    return this.getSettings().sortMode;
+  }
+
+  saveKeepPanelOpen(keepPanelOpen: boolean): void {
+    this.writeSettings({ ...this.getSettings(), keepPanelOpen });
+  }
+
+  saveHoverPreviewEnabled(hoverPreviewEnabled: boolean): void {
+    this.writeSettings({ ...this.getSettings(), hoverPreviewEnabled });
+  }
+
+  saveSortMode(sortMode: TabSortMode): void {
+    this.writeSettings({ ...this.getSettings(), sortMode: isSortMode(sortMode) ? sortMode : 'current' });
   }
 
   saveColorPairingId(colorPairingId: string): void {

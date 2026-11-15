@@ -1,5 +1,13 @@
 # TabShow launch assets
 
+## Current release candidate: 2.4
+
+Use the [2.4 asset record](output/chrome-web-store-2.4/README.md) and [release validation record](../docs/releases/2.4.0/README.md). Four new gallery images and two promotional tiles are ready; the first native browser capture remains pending. Current interface captures are in [source/appshots-2.4](source/appshots-2.4/README.md).
+
+The current Store promo is the [31-second live-preview demo](https://www.youtube.com/watch?v=ZznCNcOynjw). Its public playback was verified on 14 November 2026. The default preview, return, search, and keyboard behavior it shows remains accurate in 2.4. The local website copy is `website/public/video/tabshow-focus-30s.mp4`.
+
+The sections below preserve older campaign assets and are not the current Store upload set.
+
 ## Product video
 
 The published 48-second install film is available on [YouTube](https://www.youtube.com/watch?v=gfOky71v2wI).

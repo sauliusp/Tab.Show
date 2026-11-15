@@ -53,7 +53,7 @@ The campaign images use authentic TabShow appshots. ImageGen supplied only the t
 - Feature feedback: `https://narsheek.featurebase.app/`
 - Store reviews: `https://chromewebstore.google.com/detail/tabshow-hover-preview-foc/njdjagodlomkhingeecipnlnnhnipkho/reviews`
 
-The actions are subtle, voluntary, equally available, and never used as a sentiment gate. The site asks for a five-star review only if TabShow has earned it.
+The actions are subtle, voluntary, equally available, and never used as a sentiment gate. The site asks for an honest review to help others decide whether TabShow fits their workflow.
 
 ## Local commands
 
@@ -70,9 +70,9 @@ npm test
 
 1. Disconnect `tab.show` and `www.tab.show` from the old Lovable project; routing has already moved to Sites.
 2. Optionally remove the two `_lovable` verification TXT records after Lovable confirms the disconnection.
-3. Connect privacy-respecting analytics. Track page views and outbound Store CTA campaign parameters only; never collect tab or browsing content.
+3. Verify the existing consent-gated website analytics and Store CTA campaign parameters; never collect tab or browsing content.
 4. Verify Search Console ownership and submit `https://tab.show/sitemap.xml`.
-5. Populate the Store Homepage, Support, and Privacy URLs and save the Store draft only after the separate Dashboard approval.
+5. Verify the Store Homepage, Support, and Privacy URLs against the released site as part of the authorized release workflow.
 
 ## Go/no-go rules
 

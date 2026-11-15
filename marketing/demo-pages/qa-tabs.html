@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<title>TabShow QA tabs</title>
+<style>body{font:18px system-ui;max-width:900px;margin:40px auto;padding:20px}nav{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}a{padding:12px;border:1px solid #ccc;border-radius:6px;color:#332949}h1{font-size:32px}</style>
+<h1>TabShow QA tabs</h1>
+<p>Open these sample links in the disposable QA profile to check long lists and mixed-language search.</p>
+<nav id="tabs"></nav>
+<script>
+const selected = new URLSearchParams(location.search).get('tab');
+if(selected){
+  document.title = `Sample ${selected} · 项目 · 專案`;
+  document.querySelector('h1').textContent = document.title;
+} else {
+  for(let i=1;i<=30;i++){
+    const link=document.createElement('a');
+    link.href=`?tab=${String(i).padStart(2,'0')}`;
+    link.textContent=`Sample ${String(i).padStart(2,'0')}`;
+    document.querySelector('nav').append(link);
+  }
+}
+</script>
+</html>

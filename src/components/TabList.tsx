@@ -1,13 +1,12 @@
+import { t } from '../i18n';
 import React, { useMemo, useRef } from 'react';
 import { useTheme } from '@mui/material/styles';
-import { useVirtualizer } from '@tanstack/react-virtual';
+import { defaultRangeExtractor, useVirtualizer } from '@tanstack/react-virtual';
 import { 
-  List, 
   ListItem, 
   ListItemButton, 
   ListItemIcon, 
   ListItemText, 
-  Collapse,
   Box,
   Typography
 } from '@mui/material';
@@ -32,6 +31,8 @@ interface TabListProps {
   currentWindowId: number | null;
   highlightedTabId: number | null;
   pointerPreviewEnabled: boolean;
+  hoverPreviewEnabled: boolean;
+  scrollRequest: { tabId: number; sequence: number } | null;
   onPointerIntent: (tabId: number) => void;
 }
 
@@ -51,6 +52,8 @@ export function TabList({
   currentWindowId,
   highlightedTabId,
   pointerPreviewEnabled,
+  hoverPreviewEnabled,
+  scrollRequest,
   onPointerIntent
 }: TabListProps) {
   const theme = useTheme();
@@ -97,8 +100,8 @@ export function TabList({
           id: `window-${windowId}`,
           type: 'window',
           data: {
-            title: `Switch to window ${windowNumber}`,
-            subtitle: 'Preview unavailable · click a tab to open that window',
+            title: t('panelSwitchToWindow', { number: windowNumber }),
+            subtitle: t('panelWindowPreviewUnavailable'),
           }
         });
       }
@@ -122,10 +125,19 @@ export function TabList({
   const duplicateCounts = useMemo(() => {
     return getDuplicateCounts(Object.values(tabListState.items).filter(item => item.type === 'tab').map(item => item.data as Tab));
   }, [tabListState.items]);
+  const highlightedIndex = virtualItems.findIndex(item => item.type === 'tab' && (item.data as Tab).id === highlightedTabId);
+  const rangeExtractor = React.useCallback((range: Parameters<typeof defaultRangeExtractor>[0]) => {
+    const indexes = defaultRangeExtractor(range);
+    // Keep the active descendant in the DOM even after a manual scroll. This
+    // renders one extra row; it never changes the user's scroll position.
+    if (highlightedIndex >= 0 && !indexes.includes(highlightedIndex)) indexes.push(highlightedIndex);
+    return indexes.sort((a, b) => a - b);
+  }, [highlightedIndex]);
   
   // Set up the virtualizer
   const virtualizer = useVirtualizer({
     count: virtualItems.length,
+    getItemKey: index => virtualItems[index]?.id ?? index,
     getScrollElement: () => parentRef.current,
     estimateSize: (index) => {
       const item = virtualItems[index];
@@ -134,19 +146,30 @@ export function TabList({
       return 54; // Two-line tab row
     },
     overscan: 5,
+    rangeExtractor,
   });
 
   const emptyState = isLoading
-    ? { title: 'Loading tabs…', detail: 'Getting your Chrome windows ready.' }
+    ? { title: t('panelLoadingTabs'), detail: t('panelLoadingWindows') }
     : query.trim()
-      ? { title: 'No tabs match your search', detail: 'Try a different title, URL, or domain.' }
-      : { title: 'No tabs in this scope', detail: allWindows ? 'Open a tab to see it here.' : 'Try All windows or open a tab in this window.' };
+      ? { title: t('panelSearchNoMatches'), detail: t('panelSearchTryAgain') }
+      : { title: t('panelNoTabsInScope'), detail: allWindows ? t('panelOpenTabHere') : t('panelTryAllWindows') };
 
+  const handledScrollRequest = useRef<number | null>(null);
+  const viewportHeight = virtualizer.scrollRect?.height ?? 0;
   React.useEffect(() => {
-    const index = virtualItems.findIndex(item => item.type === 'tab' && (item.data as Tab).id === highlightedTabId);
-    if (index >= 0 && (parentRef.current?.clientHeight ?? 0) > 0) virtualizer.scrollToIndex(index, { align: 'auto' });
-  }, [highlightedTabId, virtualItems, virtualizer]);
-  
+    if (!scrollRequest || handledScrollRequest.current === scrollRequest.sequence) return;
+    const index = virtualItems.findIndex(item => item.type === 'tab' && (item.data as Tab).id === scrollRequest.tabId);
+    if (index < 0 || viewportHeight === 0) return;
+    // Rows have fixed heights, so one precise offset is sufficient. The
+    // virtualizer's scrollToIndex retry loop can otherwise undo a user's wheel
+    // scroll on a later animation frame.
+    const offset = virtualizer.getOffsetForIndex(index, 'auto');
+    if (!offset) return;
+    virtualizer.scrollToOffset(offset[0], { align: 'start' });
+    handledScrollRequest.current = scrollRequest.sequence;
+  }, [scrollRequest, virtualItems, virtualizer, viewportHeight]);
+
   // Helper function to get group color
   const getGroupColor = (color?: string) => {
     const colorMap: Record<string, string> = {
@@ -164,13 +187,13 @@ export function TabList({
   };
   
   // Render a virtual item
-  const renderVirtualItem = (virtualItem: any, groupColor?: string) => {
-    const { type, data, isNested } = virtualItem;
+  const renderVirtualItem = (virtualItem: typeof virtualItems[number], rowIndex: number, groupColor?: string) => {
+    const { type, data } = virtualItem;
     
     if (type === 'window') {
       const windowSection = data as { title: string; subtitle: string };
       return (
-        <Box sx={{
+        <Box role="row" aria-rowindex={rowIndex}><Box role="gridcell" sx={{
           mx: 1.25,
           my: 0.6,
           px: 1.1,
@@ -195,7 +218,7 @@ export function TabList({
               {windowSection.subtitle}
             </Typography>
           </Box>
-        </Box>
+        </Box></Box>
       );
     }
     if (type === 'group') {
@@ -204,9 +227,12 @@ export function TabList({
       const groupColor = getGroupColor(group.color);
       
       return (
-        <ListItem disablePadding>
+        <ListItem component="div" role="row" aria-rowindex={rowIndex} disablePadding>
+          <Box role="gridcell" sx={{ width: '100%' }}>
           <ListItemButton 
             onClick={() => onGroupToggle(group.id)}
+            aria-expanded={isExpanded}
+            aria-label={t(isExpanded ? 'panelCollapseGroup' : 'panelExpandGroup', { title: group.title || t('panelUnnamedGroup') })}
             sx={{
               pl: 2,
               pr: 2,
@@ -237,12 +263,13 @@ export function TabList({
                     float: 'left'
                   }}
                 >
-                  {group.title || 'Unnamed Group'}
+                  {group.title || t('panelUnnamedGroup')}
                 </Typography>
               }
             />
             {isExpanded ? <ExpandLess /> : <ExpandMore />}
           </ListItemButton>
+          </Box>
         </ListItem>
       );
     } else {
@@ -261,6 +288,8 @@ export function TabList({
           duplicateCount={duplicateCounts.get(getDuplicateKey(tab)) ?? 1}
           isOtherWindow={allWindows && tab.windowId !== currentWindowId}
           pointerPreviewEnabled={pointerPreviewEnabled}
+          hoverPreviewEnabled={hoverPreviewEnabled}
+          rowIndex={rowIndex}
           onPointerIntent={onPointerIntent}
         />
       );
@@ -270,6 +299,9 @@ export function TabList({
   return (
     <Box
       id="tab-results"
+      role="grid"
+      aria-label={t('panelOpenTabs')}
+      aria-rowcount={virtualItems.length}
       ref={parentRef}
       sx={{
         height: '100%',
@@ -334,7 +366,7 @@ export function TabList({
                 paddingLeft: item.isNested ? theme.spacing(2) : 0,
               }}
             >
-              {renderVirtualItem(item, groupColor)}
+              {renderVirtualItem(item, virtualItem.index + 1, groupColor)}
             </div>
           );
         })}

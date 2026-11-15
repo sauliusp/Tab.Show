@@ -37,7 +37,7 @@ export function Footer() {
   return (
     <footer className="site-footer">
       <div className="shell footer-grid">
-        <div><Link className="brand footer-brand" href="/"><img src="/icon.png" alt="" width="38" height="38" /><span>TabShow<small>Find the tab. Keep your place.</small></span></Link><p>One sharp Chrome tool for recognizing the right live page.</p></div>
+        <div><Link className="brand footer-brand" href="/"><img src="/icon.png" alt="" width="38" height="38" /><span>TabShow<small>Find the tab. Keep your place.</small></span></Link><p>Search and preview open Chrome tabs from the side panel.</p></div>
         <div><h2>Product</h2><a href="/chrome-tab-preview-extension">Live tab preview</a><a href="/changelog">Changelog</a><a href="/privacy">Privacy</a><a href="/support">Support</a></div>
         <div><h2>Compare</h2><a href="/onetab-alternative">OneTab alternative</a><a href="/workona-alternative">Workona alternative</a><a href="/tab-manager-plus-alternative">Tab Manager Plus alternative</a><a href="/find-lost-chrome-tab">Find a lost tab</a></div>
         <div><h2>Community</h2><a href={FEEDBACK_URL} target="_blank" rel="noreferrer">Share feedback ↗</a><a href={REVIEW_URL} target="_blank" rel="noreferrer">Rate TabShow ↗</a><a href={SUPPORT_URL} target="_blank" rel="noopener noreferrer">Support TabShow ↗</a><a href={storeUrl("footer")} target="_blank" rel="noreferrer">Chrome Web Store ↗</a></div>
@@ -60,7 +60,7 @@ export function CoffeeButton() {
 }
 
 export function ProductImage({ src, alt, priority = false }: { src: string; alt: string; priority?: boolean }) {
-  return <figure className="product-visual"><img src={src} alt={alt} width="1280" height="800" loading={priority ? "eager" : "lazy"} fetchPriority={priority ? "high" : "auto"} /></figure>;
+  return <figure className="product-visual"><img src={src} alt={alt} width="1280" height="800" loading={priority ? "eager" : "lazy"} fetchPriority={priority ? "high" : "auto"} /><figcaption>TabShow 2.4 release candidate · <a href="/changelog#version-2-4">Release status</a></figcaption></figure>;
 }
 
 export function Community() {
@@ -70,7 +70,7 @@ export function Community() {
         <div><p className="eyebrow"><span /> Built in public</p><h2>Help shape<br /><em>what comes next.</em></h2><p>Suggest a feature, report a problem, comment, or upvote the ideas that would improve your tab workflow.</p></div>
         <div className="community-actions">
           <a href={FEEDBACK_URL} target="_blank" rel="noreferrer"><span>01</span><div><b>Share feedback</b><small>Open the public Featurebase board</small></div><i aria-hidden="true">↗</i></a>
-          <a href={REVIEW_URL} target="_blank" rel="noreferrer"><span>02</span><div><b>Rate TabShow</b><small>If TabShow has earned five stars, a quick review helps others find it.</small></div><i aria-hidden="true">↗</i></a>
+          <a href={REVIEW_URL} target="_blank" rel="noreferrer"><span>02</span><div><b>Rate TabShow</b><small>Share your experience to help others decide whether TabShow fits.</small></div><i aria-hidden="true">↗</i></a>
           <a className="coffee-invitation" href={SUPPORT_URL} target="_blank" rel="noopener noreferrer"><span className="coffee-mark"><CoffeeIcon /></span><div><b>Buy me a coffee</b><small>TabShow is free to use. If it helps you, you can leave a small tip.</small></div><i aria-hidden="true">↗</i></a>
         </div>
       </div>

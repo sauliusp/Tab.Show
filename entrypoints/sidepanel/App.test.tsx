@@ -1,4 +1,4 @@
-import { createEvent, fireEvent, render, screen, waitFor, within } from '@testing-library/react';
+import { act, createEvent, fireEvent, render, screen, waitFor, within } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
 import App from './App';
 import { UserSettingsProvider } from '../../src/contexts/UserSettingsContext';
@@ -47,11 +47,35 @@ async function expectOpenTabCount(count: number, windowCount?: number) {
 }
 
 describe('side-panel browser-rendered interaction', () => {
+  it('keeps Chinese composition Enter and arrow keys inside the search input', async () => {
+    const mock = browserWith150Tabs();
+    const tabs = await mock.api.tabs.query({});
+    tabs[0]!.title = '設計索引';
+    tabs[149]!.title = '設計文件';
+    vi.stubGlobal('browser', mock.api);
+    render(<UserSettingsProvider><ColorSchemeProvider><App /></ColorSchemeProvider></UserSettingsProvider>);
+    const search = screen.getByRole('combobox', { name: 'Search tabs' });
+    await expectOpenTabCount(150);
+    fireEvent.compositionStart(search);
+    fireEvent.change(search, { target: { value: '設計' } });
+    fireEvent.keyDown(search, { key: 'Enter', isComposing: true });
+    fireEvent.keyDown(search, { key: 'ArrowDown', isComposing: true });
+    fireEvent.keyDown(search, { key: 'Enter', keyCode: 229 });
+    expect(search).toHaveValue('設計');
+    expect(search).toHaveAttribute('aria-activedescendant', 'tab-option-1');
+    expect(mock.update).not.toHaveBeenCalled();
+    expect(mock.close).not.toHaveBeenCalled();
+    fireEvent.compositionEnd(search);
+    fireEvent.change(search, { target: { value: '設計文件' } });
+    fireEvent.keyDown(search, { key: 'Enter' });
+    await waitFor(() => expect(mock.update).toHaveBeenCalledWith(150, { active: true }));
+  });
+
   it('stays usable with 150 tabs and commits an URL search result from the keyboard', async () => {
     const mock = browserWith150Tabs();
     vi.stubGlobal('browser', mock.api);
     render(<UserSettingsProvider><ColorSchemeProvider><App /></ColorSchemeProvider></UserSettingsProvider>);
-    const search = screen.getByRole('textbox', { name: 'Search tabs' });
+    const search = screen.getByRole('combobox', { name: 'Search tabs' });
     await expectOpenTabCount(150);
     expect(search).toHaveFocus();
     fireEvent.change(search, { target: { value: 'figma.example/final-target' } });
@@ -66,7 +90,7 @@ describe('side-panel browser-rendered interaction', () => {
     const mock = browserWith150Tabs();
     vi.stubGlobal('browser', mock.api);
     render(<UserSettingsProvider><ColorSchemeProvider><App /></ColorSchemeProvider></UserSettingsProvider>);
-    const search = screen.getByRole('textbox', { name: 'Search tabs' });
+    const search = screen.getByRole('combobox', { name: 'Search tabs' });
     await expectOpenTabCount(150);
     fireEvent.change(search, { target: { value: 'QA Tab 00' } });
     await expectOpenTabCount(150);
@@ -80,12 +104,61 @@ describe('side-panel browser-rendered interaction', () => {
     expect(mock.close).toHaveBeenCalledWith({ windowId: 10 });
   });
 
+  it.each(['body', 'html'] as const)('handles Escape from the panel %s after a persistent selection', async (target) => {
+    window.localStorage.setItem('tab.show.userSettings', JSON.stringify({ keepPanelOpen: true }));
+    const mock = browserWith150Tabs();
+    vi.stubGlobal('browser', mock.api);
+    const view = render(<UserSettingsProvider><ColorSchemeProvider><App /></ColorSchemeProvider></UserSettingsProvider>);
+    const search = screen.getByRole('combobox', { name: 'Search tabs' });
+    await expectOpenTabCount(150);
+    fireEvent.change(search, { target: { value: 'QA Tab 002' } });
+    await act(async () => { fireEvent.keyDown(search, { key: 'Enter' }); });
+    expect(mock.update).toHaveBeenCalledWith(2, { active: true });
+    expect(mock.close).not.toHaveBeenCalled();
+
+    search.blur();
+    expect(document.body).toHaveFocus();
+    const targetElement = target === 'body' ? document.body : document.documentElement;
+    const escape = createEvent.keyDown(targetElement, { key: 'Escape' });
+    fireEvent(targetElement, escape);
+
+    await waitFor(() => expect(mock.close).toHaveBeenCalledOnce());
+    expect(mock.update).toHaveBeenLastCalledWith(2, { active: true });
+    expect(mock.update).toHaveBeenCalledTimes(2);
+    expect(escape.defaultPrevented).toBe(true);
+
+    view.unmount();
+    fireEvent.keyDown(targetElement, { key: 'Escape' });
+    expect(mock.close).toHaveBeenCalledOnce();
+  });
+
+  it.each(['settings', 'sort'] as const)('does not let body Escape bypass the open %s layer', async (layer) => {
+    const mock = browserWith150Tabs();
+    vi.stubGlobal('browser', mock.api);
+    render(<UserSettingsProvider><ColorSchemeProvider><App /></ColorSchemeProvider></UserSettingsProvider>);
+    await expectOpenTabCount(150);
+    if (layer === 'settings') {
+      fireEvent.click(screen.getByRole('button', { name: 'open settings' }));
+      expect(screen.getByRole('dialog', { name: 'Settings' })).toBeVisible();
+    } else {
+      fireEvent.mouseDown(screen.getByRole('combobox', { name: 'Sort tabs' }));
+      expect(screen.getByRole('listbox')).toBeVisible();
+    }
+
+    const escape = createEvent.keyDown(document.body, { key: 'Escape' });
+    fireEvent(document.body, escape);
+
+    expect(escape.defaultPrevented).toBe(false);
+    expect(mock.update).not.toHaveBeenCalled();
+    expect(mock.close).not.toHaveBeenCalled();
+  });
+
   it('keeps keyboard selection immediate and switch-free when pointer delay is one second', async () => {
     window.localStorage.setItem('tab.show.userSettings', JSON.stringify({ hoverPreviewDelayMs: 1000 }));
     const mock = browserWith150Tabs();
     vi.stubGlobal('browser', mock.api);
     render(<UserSettingsProvider><ColorSchemeProvider><App /></ColorSchemeProvider></UserSettingsProvider>);
-    const search = screen.getByRole('textbox', { name: 'Search tabs' });
+    const search = screen.getByRole('combobox', { name: 'Search tabs' });
     await expectOpenTabCount(150);
     fireEvent.change(search, { target: { value: 'QA Tab 00' } });
     await expectOpenTabCount(150);
@@ -103,7 +176,7 @@ describe('side-panel browser-rendered interaction', () => {
     const mock = browserWith150Tabs();
     vi.stubGlobal('browser', mock.api);
     render(<UserSettingsProvider><ColorSchemeProvider><App /></ColorSchemeProvider></UserSettingsProvider>);
-    const search = screen.getByRole('textbox', { name: 'Search tabs' });
+    const search = screen.getByRole('combobox', { name: 'Search tabs' });
     await expectOpenTabCount(150);
     fireEvent.change(search, { target: { value: 'QA Tab 00' } });
     await expectOpenTabCount(150);
@@ -118,7 +191,7 @@ describe('side-panel browser-rendered interaction', () => {
     const mock = browserWith150Tabs();
     vi.stubGlobal('browser', mock.api);
     render(<UserSettingsProvider><ColorSchemeProvider><App /></ColorSchemeProvider></UserSettingsProvider>);
-    const search = screen.getByRole('textbox', { name: 'Search tabs' });
+    const search = screen.getByRole('combobox', { name: 'Search tabs' });
     await expectOpenTabCount(150);
     fireEvent.change(search, { target: { value: 'figma.example/final-target' } });
     await expectOpenTabCount(150);
@@ -133,7 +206,7 @@ describe('side-panel browser-rendered interaction', () => {
     const mock = browserWith150Tabs();
     vi.stubGlobal('browser', mock.api);
     render(<UserSettingsProvider><ColorSchemeProvider><App /></ColorSchemeProvider></UserSettingsProvider>);
-    const search = screen.getByRole('textbox', { name: 'Search tabs' });
+    const search = screen.getByRole('combobox', { name: 'Search tabs' });
     await expectOpenTabCount(150);
 
     fireEvent.keyDown(search, { key: 'Enter', keyCode: 229, isComposing: true });
@@ -158,6 +231,49 @@ describe('side-panel browser-rendered interaction', () => {
     expect(mock.close).not.toHaveBeenCalled();
   });
 
+  it('keeps arrow keys in an open sort menu from moving the tab selection', async () => {
+    const mock = browserWith150Tabs();
+    vi.stubGlobal('browser', mock.api);
+    render(<UserSettingsProvider><ColorSchemeProvider><App /></ColorSchemeProvider></UserSettingsProvider>);
+    await expectOpenTabCount(150);
+    // Finish the initial search-focus retry before opening a user-controlled menu.
+    await act(async () => { await new Promise(resolve => setTimeout(resolve, 60)); });
+    const search = screen.getByRole('combobox', { name: 'Search tabs' });
+    const highlighted = search.getAttribute('aria-activedescendant');
+    fireEvent.mouseDown(screen.getByRole('combobox', { name: 'Sort tabs' }));
+    const currentOrder = screen.getByRole('option', { name: 'Current order' });
+    currentOrder.focus();
+
+    fireEvent.keyDown(currentOrder, { key: 'ArrowDown' });
+
+    expect(screen.getByRole('option', { name: 'Recently used' })).toHaveFocus();
+    expect(search).toHaveAttribute('aria-activedescendant', highlighted);
+    expect(mock.update).not.toHaveBeenCalled();
+    expect(mock.close).not.toHaveBeenCalled();
+  });
+
+  it('changes sort with Enter without selecting a browser tab and restores trigger focus', async () => {
+    const mock = browserWith150Tabs();
+    vi.stubGlobal('browser', mock.api);
+    render(<UserSettingsProvider><ColorSchemeProvider><App /></ColorSchemeProvider></UserSettingsProvider>);
+    await expectOpenTabCount(150);
+    // Finish the initial search-focus retry before opening a user-controlled menu.
+    await act(async () => { await new Promise(resolve => setTimeout(resolve, 60)); });
+    const sort = screen.getByRole('combobox', { name: 'Sort tabs' });
+    fireEvent.mouseDown(sort);
+    const recentlyUsed = screen.getByRole('option', { name: 'Recently used' });
+    recentlyUsed.focus();
+
+    await act(async () => { fireEvent.keyDown(recentlyUsed, { key: 'Enter' }); });
+
+    await waitFor(() => expect(screen.queryByRole('listbox')).not.toBeInTheDocument());
+    expect(sort).toHaveTextContent('Recently used');
+    expect(JSON.parse(window.localStorage.getItem('tab.show.userSettings') ?? '{}').sortMode).toBe('recently-used');
+    expect(mock.update).not.toHaveBeenCalled();
+    expect(mock.close).not.toHaveBeenCalled();
+    expect(sort).toHaveFocus();
+  });
+
   it('keeps the closed settings drawer out of the accessibility tree', async () => {
     const mock = browserWith150Tabs();
     vi.stubGlobal('browser', mock.api);
@@ -165,7 +281,7 @@ describe('side-panel browser-rendered interaction', () => {
     await screen.findByText('Current order');
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
     fireEvent.click(screen.getByRole('button', { name: 'open settings' }));
-    expect(screen.getByRole('dialog', { name: 'User Settings' })).toBeVisible();
+    expect(screen.getByRole('dialog', { name: 'Settings' })).toBeVisible();
   });
 
   it('lets support links handle keyboard activation without switching an existing tab', async () => {
@@ -178,7 +294,7 @@ describe('side-panel browser-rendered interaction', () => {
     expect(supportLink).toBeVisible();
     expect(screen.queryByRole('link', { name: 'Buy me a coffee' })).not.toBeInTheDocument();
     fireEvent.click(screen.getByRole('button', { name: 'open settings' }));
-    const coffeeLink = within(screen.getByRole('dialog', { name: 'User Settings' })).getByRole('link', { name: 'Buy me a coffee' });
+    const coffeeLink = within(screen.getByRole('dialog', { name: 'Settings' })).getByRole('link', { name: 'Buy me a coffee' });
 
     for (const link of [supportLink, coffeeLink]) {
       expect(link).toHaveAttribute('href', 'https://buymeacoffee.com/saulius.developer');
@@ -192,7 +308,7 @@ describe('side-panel browser-rendered interaction', () => {
     expect(mock.close).not.toHaveBeenCalled();
   });
 
-  it.each(['Support TabShow', 'Buy me a coffee'])('restores the original tab with Escape while %s has focus', async (name) => {
+  it.each(['Support TabShow', 'Buy me a coffee'])('handles Escape at the correct layer while %s has focus', async (name) => {
     const mock = browserWith150Tabs();
     vi.stubGlobal('browser', mock.api);
     render(<UserSettingsProvider><ColorSchemeProvider><App /></ColorSchemeProvider></UserSettingsProvider>);
@@ -206,8 +322,14 @@ describe('side-panel browser-rendered interaction', () => {
 
     fireEvent.keyDown(link, { key: 'Escape' });
 
-    await waitFor(() => expect(mock.update).toHaveBeenCalledWith(1, { active: true }));
-    expect(mock.close).toHaveBeenCalledWith({ windowId: 10 });
+    if (name === 'Buy me a coffee') {
+      await waitFor(() => expect(screen.queryByRole('dialog', { name: 'Settings' })).not.toBeInTheDocument());
+      expect(mock.update).not.toHaveBeenCalled();
+      expect(mock.close).not.toHaveBeenCalled();
+    } else {
+      await waitFor(() => expect(mock.update).toHaveBeenCalledWith(1, { active: true }));
+      expect(mock.close).toHaveBeenCalledWith({ windowId: 10 });
+    }
   });
 
   it('shows clear loading and empty-search states instead of a blank list', async () => {
@@ -224,7 +346,7 @@ describe('side-panel browser-rendered interaction', () => {
     vi.stubGlobal('browser', loadedMock.api);
     render(<UserSettingsProvider><ColorSchemeProvider><App /></ColorSchemeProvider></UserSettingsProvider>);
     await expectOpenTabCount(150);
-    fireEvent.change(screen.getByRole('textbox', { name: 'Search tabs' }), { target: { value: 'zzzz-no-such-tab-qa' } });
+    fireEvent.change(screen.getByRole('combobox', { name: 'Search tabs' }), { target: { value: 'zzzz-no-such-tab-qa' } });
     expect(await screen.findByText('No tabs match your search')).toBeVisible();
     expect(screen.getByText('Try a different title, URL, or domain.')).toBeVisible();
   });
@@ -237,7 +359,7 @@ describe('side-panel browser-rendered interaction', () => {
     fireEvent.click(allWindows);
     await waitFor(() => expect(allWindows).toHaveAttribute('aria-pressed', 'true'));
     await expectOpenTabCount(150, 2);
-    fireEvent.change(screen.getByRole('textbox', { name: 'Search tabs' }), { target: { value: 'figma.example/final-target' } });
+    fireEvent.change(screen.getByRole('combobox', { name: 'Search tabs' }), { target: { value: 'figma.example/final-target' } });
     await expectOpenTabCount(150, 2);
     expect(screen.queryByText('Live preview · Current window')).not.toBeInTheDocument();
   });
@@ -272,7 +394,7 @@ describe('side-panel browser-rendered interaction', () => {
     expect(screen.queryByText('Live preview · Current window')).not.toBeInTheDocument();
     const topControls = screen.getByTestId('top-control-grid');
     expect(topControls).toContainElement(screen.getByTestId('tab-scope-control'));
-    expect(topControls).toContainElement(screen.getByRole('textbox', { name: 'Search tabs' }));
+    expect(topControls).toContainElement(screen.getByRole('combobox', { name: 'Search tabs' }));
     expect(topControls).toContainElement(screen.getByRole('button', { name: 'open settings' }));
     expect(topControls).toContainElement(scoreButton);
     expect(screen.queryByText(/Tab chaos ·/)).not.toBeInTheDocument();
@@ -316,6 +438,6 @@ describe('side-panel browser-rendered interaction', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Use light appearance' }));
     await waitFor(() => expect(document.documentElement.dataset.colorScheme).toBe('light'));
     fireEvent.click(screen.getByRole('button', { name: 'Use system appearance' }));
-    await waitFor(() => expect(screen.getByText('Following your system, currently light.')).toBeVisible());
+    await waitFor(() => expect(screen.getByText(/Following your system, currently light\./)).toBeVisible());
   });
 });

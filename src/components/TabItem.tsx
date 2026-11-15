@@ -1,3 +1,4 @@
+import { t, plural } from '../i18n';
 import React from 'react';
 import { useTheme } from '@mui/material/styles';
 import ListItem from '@mui/material/ListItem';
@@ -5,12 +6,13 @@ import ListItemAvatar from '@mui/material/ListItemAvatar';
 import ListItemText from '@mui/material/ListItemText';
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
+import ButtonBase from '@mui/material/ButtonBase';
 import VolumeUpRounded from '@mui/icons-material/VolumeUpRounded';
 import VolumeOffRounded from '@mui/icons-material/VolumeOffRounded';
 import PushPinRounded from '@mui/icons-material/PushPinRounded';
 import BedtimeRounded from '@mui/icons-material/BedtimeRounded';
 import LaunchRounded from '@mui/icons-material/LaunchRounded';
-import type { Tab, TabVisualState, AvatarOverlay } from '../types/Tab';
+import type { Tab, AvatarOverlay } from '../types/Tab';
 import { getTabVisualState } from '../utils/tabVisualState';
 import { TabItemActionButton } from './TabItemActionButton';
 import { TabFavicon } from './TabFavicon';
@@ -28,6 +30,8 @@ interface TabItemProps {
   duplicateCount?: number;
   isOtherWindow?: boolean;
   pointerPreviewEnabled?: boolean;
+  hoverPreviewEnabled?: boolean;
+  rowIndex?: number;
   onPointerIntent?: (tabId: number) => void;
 }
 
@@ -52,6 +56,13 @@ function arePropsEqual(prevProps: TabItemProps, nextProps: TabItemProps): boolea
     prevProps.duplicateCount === nextProps.duplicateCount &&
     prevProps.isOtherWindow === nextProps.isOtherWindow
     && prevProps.pointerPreviewEnabled === nextProps.pointerPreviewEnabled
+    && prevProps.hoverPreviewEnabled === nextProps.hoverPreviewEnabled
+    && prevProps.rowIndex === nextProps.rowIndex
+    && prevProps.onTabHover === nextProps.onTabHover
+    && prevProps.onTabHoverEnd === nextProps.onTabHoverEnd
+    && prevProps.onTabClick === nextProps.onTabClick
+    && prevProps.onCloseTab === nextProps.onCloseTab
+    && prevProps.onPointerIntent === nextProps.onPointerIntent
   );
 }
 
@@ -68,14 +79,14 @@ export const TabItem = React.memo(({
   duplicateCount = 1,
   isOtherWindow = false,
   pointerPreviewEnabled = true,
+  hoverPreviewEnabled = true,
+  rowIndex,
   onPointerIntent
 }: TabItemProps) => {
   const theme = useTheme();
   
   // Performance monitoring
   //usePerformanceMonitor('TabItem');
-  
-  if (!tab.id) return null;
   
   const visualState = getTabVisualState(tab, previewTabId, originalTab, theme);
   const isOriginalTab = originalTab?.id === tab.id;
@@ -86,7 +97,7 @@ export const TabItem = React.memo(({
     : isPreviewTab
       ? theme.palette.secondary.contrastText
       : theme.palette.text.secondary;
-  const showHoverSpinner = isHovered && !isPreviewTab && !isOriginalTab && !isOtherWindow;
+  const showHoverSpinner = hoverPreviewEnabled && pointerPreviewEnabled && isHovered && !isPreviewTab && !isOriginalTab && !isOtherWindow;
   const avatarBorder = isOriginalTab
     ? `3px solid ${theme.palette.custom.original}`
     : showHoverSpinner
@@ -96,7 +107,7 @@ export const TabItem = React.memo(({
         : 'none';
 
   const secondaryLabel = React.useMemo(() => {
-    if (!tab.url) return 'No address';
+    if (!tab.url) return t('panelNoAddress');
     try {
       const parsed = new URL(tab.url);
       return parsed.hostname || `${parsed.protocol}//${parsed.pathname.split('/')[0]}`;
@@ -104,6 +115,8 @@ export const TabItem = React.memo(({
       return tab.url;
     }
   }, [tab.url]);
+
+  if (tab.id === undefined) return null;
   
   // Render avatar overlay based on type and position
   const renderAvatarOverlay = (overlay: AvatarOverlay) => {
@@ -173,16 +186,19 @@ export const TabItem = React.memo(({
 
   return (
     <ListItem
+      component="div"
+      role="row"
       id={`tab-option-${tab.id}`}
-      aria-current={highlighted ? 'true' : undefined}
+      aria-selected={Boolean(highlighted)}
+      aria-rowindex={rowIndex}
       title={isOtherWindow
-        ? 'Another Chrome window. Click to switch. Hover preview is unavailable.'
-        : tab.url || tab.title || 'Untitled Tab'}
+        ? t('panelOtherWindowHint')
+        : tab.url || tab.title || t('panelUntitledTab')}
       onMouseEnter={() => {
         setIsHovered(true);
         if (pointerPreviewEnabled) {
           onPointerIntent?.(tab.id!);
-          if (!onPointerIntent) onTabHover(tab.id!);
+          if (!onPointerIntent && hoverPreviewEnabled) onTabHover(tab.id!);
         }
       }}
       onMouseMove={() => {
@@ -194,7 +210,6 @@ export const TabItem = React.memo(({
         setIsHovered(false);
         onTabHoverEnd?.(tab.id!);
       }}
-      onClick={() => onTabClick(tab.id!)}
       sx={{
         ...visualState.listItemStyles,
         cursor: 'pointer',
@@ -204,6 +219,7 @@ export const TabItem = React.memo(({
         border: 1,
         borderColor: isPreviewTab ? 'secondary.main' : isOriginalTab ? 'primary.main' : 'divider',
         overflow: 'hidden',
+        height: 'calc(100% - 6px)',
         backgroundColor: highlighted && !isOriginalTab && !isPreviewTab
           ? theme.palette.action.selected
           : visualState.listItemStyles.backgroundColor,
@@ -217,13 +233,20 @@ export const TabItem = React.memo(({
         '&:hover': visualState.hoverStyles
       }}
     >
+      <Box role="gridcell" sx={{ flex: 1, minWidth: 0 }}>
+      <ButtonBase
+        component="div"
+        onClick={() => onTabClick(tab.id!)}
+        aria-label={t(isOriginalTab ? 'panelOpenCurrentTab' : isOtherWindow ? 'panelOpenOtherTab' : 'panelOpenTab', { title: tab.title || t('panelUntitledTab'), address: secondaryLabel })}
+        sx={{ width: '100%', minWidth: 0, textAlign: 'left', color: 'inherit', borderRadius: 1, '&.Mui-focusVisible': { outline: '2px solid', outlineColor: 'text.primary', outlineOffset: 1 } }}
+      >
       <ListItemAvatar sx={{
         minWidth: '34px',
         marginRight: '9px'
       }}>
         <TabFavicon
           tab={tab}
-          alt={tab.title || 'Tab'}
+          alt={tab.title || t('panelTab')}
           showImage={!showHoverSpinner}
           sx={{
             ...visualState.avatarStyles,
@@ -256,11 +279,11 @@ export const TabItem = React.memo(({
         primary={
           <Box component="span" sx={{ display: 'flex', alignItems: 'center', gap: 0.5, minWidth: 0 }}>
             <Box component="span" sx={{ ...visualState.textStyles, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-              {tab.title || 'Untitled Tab'}
+              {tab.title || t('panelUntitledTab')}
             </Box>
             {duplicateCount > 1 && (
-              <Box component="span" title={`${duplicateCount} tabs share this URL`} sx={{ flexShrink: 0, fontSize: 10, fontWeight: 800, color: 'inherit', opacity: 0.78 }}>
-                {duplicateCount} duplicates
+              <Box component="span" title={plural('panelSharedUrl', duplicateCount)} sx={{ flexShrink: 0, fontSize: 10, fontWeight: 800, color: 'inherit', opacity: 0.78 }}>
+                {plural('panelDuplicates', duplicateCount)}
               </Box>
             )}
           </Box>
@@ -288,7 +311,7 @@ export const TabItem = React.memo(({
         {isOtherWindow && (
           <Box
             component="span"
-            aria-label="Another window; click to switch"
+            aria-label={t('panelOtherWindowSwitch')}
             sx={{
               display: 'inline-flex',
               alignItems: 'center',
@@ -303,23 +326,27 @@ export const TabItem = React.memo(({
               whiteSpace: 'nowrap'
             }}
           >
-            Switch
+            {t('panelSwitch')}
             <LaunchRounded sx={{ fontSize: 12 }} />
           </Box>
         )}
-        {tab.pinned && <PushPinRounded sx={{ fontSize: 15 }} titleAccess="Pinned" />}
+        {tab.pinned && <PushPinRounded sx={{ fontSize: 15 }} titleAccess={t('panelPinned')} />}
         {tab.mutedInfo?.muted
-          ? <VolumeOffRounded sx={{ fontSize: 16 }} titleAccess="Muted" />
-          : tab.audible && <VolumeUpRounded sx={{ fontSize: 16 }} titleAccess="Playing audio" />}
-        {tab.discarded && <BedtimeRounded sx={{ fontSize: 15 }} titleAccess="Sleeping" />}
+          ? <VolumeOffRounded sx={{ fontSize: 16 }} titleAccess={t('panelMuted')} />
+          : tab.audible && <VolumeUpRounded sx={{ fontSize: 16 }} titleAccess={t('panelPlayingAudio')} />}
+        {tab.discarded && <BedtimeRounded sx={{ fontSize: 15 }} titleAccess={t('panelSleeping')} />}
+      </Box>
+      </ButtonBase>
       </Box>
       
       {!isOtherWindow && (
+        <Box role="gridcell">
         <TabItemActionButton
           tabId={tab.id}
           onCloseTab={onCloseTab}
           iconColor={isOriginalTab || isPreviewTab ? stateForeground : undefined}
         />
+        </Box>
       )}
     </ListItem>
   );

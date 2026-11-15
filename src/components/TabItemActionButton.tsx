@@ -1,3 +1,4 @@
+import { t } from '../i18n';
 import React from 'react';
 import CloseRounded from '@mui/icons-material/CloseRounded';
 import IconButton from '@mui/material/IconButton';
@@ -10,9 +11,9 @@ interface TabItemActionButtonProps {
 }
 
 export const TabItemActionButton = React.memo(({ tabId, onCloseTab, iconColor }: TabItemActionButtonProps) => (
-  <Tooltip title="Close tab" placement="left">
+  <Tooltip title={t('panelCloseTab')} placement="left">
     <IconButton
-      aria-label="Close tab"
+      aria-label={t('panelCloseTab')}
       size="small"
       onClick={(event) => {
         event.stopPropagation();

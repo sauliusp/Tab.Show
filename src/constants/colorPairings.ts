@@ -18,7 +18,7 @@ export const COLOR_PAIRINGS: [ColorPairing, ...ColorPairing[]] = [
   {
     id: 'charcoal-violet-amber',
     name: 'Charcoal Violet + Amber',
-    comment: 'Authoritative base with upbeat, clear call-to-action accents.',
+    comment: 'Violet for your current tab, amber for previews.',
     colors: {
       background: '#F4F4FA',
       primary: '#2C2A4A',
@@ -31,7 +31,7 @@ export const COLOR_PAIRINGS: [ColorPairing, ...ColorPairing[]] = [
   {
     id: 'ink-porcelain-signal-blue',
     name: 'Ink Black + Signal Blue',
-    comment: 'Crisp contrast with a dependable, modern tech accent.',
+    comment: 'Dark gray for your current tab, blue for previews.',
     colors: {
       background: '#F8FAFC',
       primary: '#1F2933',
@@ -44,7 +44,7 @@ export const COLOR_PAIRINGS: [ColorPairing, ...ColorPairing[]] = [
   {
     id: 'graphite-soft-clay-electric-coral',
     name: 'Graphite + Electric Coral',
-    comment: 'Warm neutrals with coral bursts to draw quick focus.',
+    comment: 'Graphite for your current tab, coral for previews.',
     colors: {
       background: '#FCF7F4',
       primary: '#2D2A32',
@@ -57,7 +57,7 @@ export const COLOR_PAIRINGS: [ColorPairing, ...ColorPairing[]] = [
   {
     id: 'midnight-teal-mist-citrine',
     name: 'Midnight Teal + Citrine',
-    comment: 'Sophisticated teal foundation with bright citrine highlights.',
+    comment: 'Teal for your current tab, yellow for previews.',
     colors: {
       background: '#F2F5F7',
       primary: '#124559',
@@ -70,7 +70,7 @@ export const COLOR_PAIRINGS: [ColorPairing, ...ColorPairing[]] = [
   {
     id: 'slate-spruce-seafoam',
     name: 'Slate Stone + Seafoam',
-    comment: 'Balanced slate core with calm spruce and seafoam cues.',
+    comment: 'Slate for your current tab, seafoam for previews.',
     colors: {
       background: '#F5F7FA',
       primary: '#35424C',
@@ -83,7 +83,7 @@ export const COLOR_PAIRINGS: [ColorPairing, ...ColorPairing[]] = [
   {
     id: 'mocha-rose-quartz',
     name: 'Mocha + Rose Quartz',
-    comment: 'Boutique warmth where mocha depth meets rose quartz softness.',
+    comment: 'Brown for your current tab, rose for previews.',
     colors: {
       background: '#F9F4F1',
       primary: '#4B3A33',

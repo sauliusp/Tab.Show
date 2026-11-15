@@ -17,7 +17,7 @@ const now = Date.now();
 
 const baseTabs = [
   { id: 101, windowId: 10, index: 0, active: true, pinned: true, groupId: -1, title: 'Q3 launch plan: Google Docs', url: 'https://docs.google.com/document/d/tabshow-launch-plan', favIconUrl: favicon('D', '#4285f4'), lastAccessed: now },
-  { id: 102, windowId: 10, index: 1, active: false, groupId: 31, title: 'TabShow 2.1: product design', url: 'https://www.figma.com/design/tabshow-2', favIconUrl: favicon('F', '#a259ff'), lastAccessed: now - 15_000 },
+  { id: 102, windowId: 10, index: 1, active: false, groupId: 31, title: 'TabShow 2.4: product design', url: 'https://www.figma.com/design/tabshow-2', favIconUrl: favicon('F', '#a259ff'), lastAccessed: now - 15_000 },
   { id: 103, windowId: 10, index: 2, active: false, groupId: 31, title: 'TabShow launch campaign', url: 'https://www.notion.so/tabshow-launch', favIconUrl: favicon('N', '#191919'), lastAccessed: now - 32_000 },
   { id: 104, windowId: 10, index: 3, active: false, groupId: 31, title: 'Website hero: final review', url: 'https://www.figma.com/design/tabshow-website', favIconUrl: favicon('F', '#f24e1e'), lastAccessed: now - 45_000 },
   { id: 105, windowId: 10, index: 4, active: false, groupId: 32, title: 'Chrome Web Store dashboard', url: 'https://chrome.google.com/webstore/devconsole', favIconUrl: favicon('C', '#34a853'), lastAccessed: now - 85_000 },
@@ -62,11 +62,25 @@ function buildTabs(requestedCount: number) {
   return [...baseTabs, ...generated];
 }
 
-export function createMockBrowser(requestedCount = baseTabs.length) {
+type Message = { message: string; placeholders?: Record<string, { content: string }> };
+
+export function createMockBrowser(requestedCount = baseTabs.length, catalog: Record<string, Message> = {}) {
   const tabs = buildTabs(Math.max(1, requestedCount));
   const updates: Array<{ id: number; at: number }> = [];
   return {
     qa: { updates },
+    i18n: {
+      getMessage(key: string, substitutions: string[] = []) {
+        const entry = catalog[key];
+        if (!entry) return '';
+        return entry.message.replace(/\$\$|\$([a-zA-Z0-9_]+)\$/g, (token, name: string | undefined) => {
+          if (token === '$$') return '$';
+          const content = entry.placeholders?.[name!.toLowerCase()]?.content;
+          return content?.replace(/\$(\d+)/g, (_match, index: string) => substitutions[Number(index) - 1] ?? '') ?? token;
+        });
+      },
+      getUILanguage() { return catalog.panelLocale?.message ?? 'en'; },
+    },
     tabs: {
       async query(query: { active?: boolean; currentWindow?: boolean } = {}) {
         return tabs.filter(tab => (!query.active || tab.id === activeTabId) && (!query.currentWindow || tab.windowId === 10));
@@ -98,7 +112,7 @@ export function createMockBrowser(requestedCount = baseTabs.length) {
     sidePanel: { async close() {} },
     runtime: {
       getURL(path: string) { return path.startsWith('data:') ? path : `http://127.0.0.1:4174/${path.replace(/^\//, '')}`; },
-      getManifest() { return { version: '2.1.0' }; },
+      getManifest() { return { version: '2.4.0' }; },
     },
   };
 }

@@ -1,3 +1,4 @@
+import { t, plural, formatNumber } from '../i18n';
 import React from 'react';
 import { Box, Drawer, IconButton, LinearProgress, Typography } from '@mui/material';
 import CloseRounded from '@mui/icons-material/CloseRounded';
@@ -33,9 +34,9 @@ export function ChaosScoreOverlay({ open, onClose, stats, trend }: ChaosScoreOve
   const severityLabelColor = getReadableForegroundColor(scoreColor, theme.palette.background.paper);
   const leastRecentLabel = stats.leastRecentTab
     ? stats.leastRecentTab.daysAgo === 0
-      ? 'visited today'
-      : `${stats.leastRecentTab.daysAgo} day${stats.leastRecentTab.daysAgo === 1 ? '' : 's'} ago`
-    : 'not available';
+      ? t('panelVisitedToday')
+      : plural('panelDaysAgo', stats.leastRecentTab.daysAgo)
+    : t('panelNotAvailable');
 
   return (
     <Drawer
@@ -63,18 +64,18 @@ export function ChaosScoreOverlay({ open, onClose, stats, trend }: ChaosScoreOve
       <Box sx={{ display: 'flex', minHeight: 0, flex: 1, flexDirection: 'column' }}>
         <Box sx={{ px: 2, py: 1.35, display: 'flex', alignItems: 'center', borderBottom: 1, borderColor: 'divider' }}>
           <Box sx={{ flex: 1 }}>
-            <Typography id="chaos-score-title" sx={{ fontSize: 15, fontWeight: 900 }}>Tab Chaos Score</Typography>
-            <Typography sx={{ fontSize: 10.25, color: 'text.secondary' }}>A useful signal, not a judgment.</Typography>
+            <Typography id="chaos-score-title" sx={{ fontSize: 15, fontWeight: 900 }}>{t('panelChaosTitle')}</Typography>
+            <Typography sx={{ fontSize: 10.25, color: 'text.secondary' }}>{t('panelChaosSubtitle')}</Typography>
           </Box>
-          <IconButton autoFocus aria-label="Close Tab Chaos Score" onClick={onClose} size="small"><CloseRounded /></IconButton>
+          <IconButton autoFocus aria-label={t('panelCloseChaos')} onClick={onClose} size="small"><CloseRounded /></IconButton>
         </Box>
 
         <Box sx={{ p: 2, overflowY: 'auto' }}>
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
             <Box sx={{ width: 74, height: 74, display: 'grid', placeItems: 'center', borderRadius: '50%', color: scoreTextColor, backgroundColor: scoreColor, boxShadow: `0 8px 22px ${scoreColor}55` }}>
               <Box sx={{ textAlign: 'center' }}>
-                <Typography sx={{ fontSize: 27, lineHeight: 1, fontWeight: 950 }}>{stats.score}</Typography>
-                <Typography sx={{ mt: 0.2, fontSize: 8.5, fontWeight: 800, opacity: 0.85 }}>/ 100</Typography>
+                <Typography sx={{ fontSize: 27, lineHeight: 1, fontWeight: 950 }}>{formatNumber(stats.score)}</Typography>
+                <Typography sx={{ mt: 0.2, fontSize: 8.5, fontWeight: 800, opacity: 0.85 }}>/ {formatNumber(100)}</Typography>
               </Box>
             </Box>
             <Box sx={{ minWidth: 0, flex: 1 }}>
@@ -89,36 +90,36 @@ export function ChaosScoreOverlay({ open, onClose, stats, trend }: ChaosScoreOve
 
           <Box sx={{ mt: 1.5, p: 1.25, borderRadius: 2, backgroundColor: `${scoreColor}16`, border: `1px solid ${scoreColor}44` }}>
             <Typography sx={{ fontSize: 11.25, lineHeight: 1.45, fontWeight: 750 }}>{stats.summary}</Typography>
-            <Typography sx={{ mt: 0.35, fontSize: 10.25, lineHeight: 1.4, color: 'text.secondary' }}>{trend?.message ?? 'Your trend starts with this check-in.'}</Typography>
+            <Typography sx={{ mt: 0.35, fontSize: 10.25, lineHeight: 1.4, color: 'text.secondary' }}>{trend?.message ?? t('panelTrendFirstCheck')}</Typography>
           </Box>
 
           <Box sx={{ mt: 1.5, display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 0.8 }}>
-            <StatTile label="open tabs" value={stats.totalTabs} />
-            <StatTile label="Chrome windows" value={stats.windowsCount} />
-            <StatTile label="duplicate copies" value={stats.duplicateTabs} />
-            <StatTile label="tab groups" value={stats.groupCount} />
+            <StatTile label={t('panelStatOpenTabs')} value={formatNumber(stats.totalTabs)} />
+            <StatTile label={t('panelStatWindows')} value={formatNumber(stats.windowsCount)} />
+            <StatTile label={t('panelStatDuplicates')} value={formatNumber(stats.duplicateTabs)} />
+            <StatTile label={t('panelStatGroups')} value={formatNumber(stats.groupCount)} />
           </Box>
 
           {trend && (
             <Box sx={{ mt: 1.5, display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 0.8 }}>
               <Box sx={{ p: 1.1, display: 'flex', gap: 0.75, alignItems: 'center', borderRadius: 1.75, backgroundColor: 'action.hover' }}>
                 <EmojiEventsRounded sx={{ fontSize: 19, color: 'secondary.main' }} />
-                <Box><Typography sx={{ fontSize: 12.5, fontWeight: 900 }}>{trend.bestScore}</Typography><Typography sx={{ fontSize: 9.75, color: 'text.secondary' }}>personal best</Typography></Box>
+                <Box><Typography sx={{ fontSize: 12.5, fontWeight: 900 }}>{formatNumber(trend.bestScore)}</Typography><Typography sx={{ fontSize: 9.75, color: 'text.secondary' }}>{t('panelPersonalBest')}</Typography></Box>
               </Box>
               <Box sx={{ p: 1.1, display: 'flex', gap: 0.75, alignItems: 'center', borderRadius: 1.75, backgroundColor: 'action.hover' }}>
                 <LocalFireDepartmentRounded sx={{ fontSize: 19, color: 'secondary.main' }} />
-                <Box><Typography sx={{ fontSize: 12.5, fontWeight: 900 }}>{trend.checkInStreak} day{trend.checkInStreak === 1 ? '' : 's'}</Typography><Typography sx={{ fontSize: 9.75, color: 'text.secondary' }}>check-in streak</Typography></Box>
+                <Box><Typography sx={{ fontSize: 12.5, fontWeight: 900 }}>{plural('panelDays', trend.checkInStreak)}</Typography><Typography sx={{ fontSize: 9.75, color: 'text.secondary' }}>{t('panelCheckInStreak')}</Typography></Box>
               </Box>
             </Box>
           )}
 
-          <Typography sx={{ mt: 1.8, mb: 0.7, fontSize: 10.5, fontWeight: 900, textTransform: 'uppercase', letterSpacing: 0.7, color: 'text.secondary' }}>What shapes the score</Typography>
+          <Typography sx={{ mt: 1.8, mb: 0.7, fontSize: 10.5, fontWeight: 900, textTransform: 'uppercase', letterSpacing: 0.7, color: 'text.secondary' }}>{t('panelScoreFactors')}</Typography>
           <Box sx={{ display: 'grid', gap: 0.9 }}>
             {stats.factors.filter(factor => factor.points > 0).map(factor => (
               <Box key={factor.id}>
                 <Box sx={{ mb: 0.35, display: 'flex', alignItems: 'baseline', gap: 1 }}>
                   <Typography sx={{ flex: 1, fontSize: 10.75, fontWeight: 750 }}>{factor.label}</Typography>
-                  <Typography sx={{ fontSize: 9.75, color: 'text.secondary' }}>+{factor.points} · {factor.detail}</Typography>
+                  <Typography sx={{ fontSize: 9.75, color: 'text.secondary' }}>+{formatNumber(factor.points)} · {factor.detail}</Typography>
                 </Box>
                 <LinearProgress variant="determinate" value={(factor.points / 42) * 100} sx={{ height: 4, borderRadius: 3, '& .MuiLinearProgress-bar': { backgroundColor: scoreColor } }} />
               </Box>
@@ -133,16 +134,16 @@ export function ChaosScoreOverlay({ open, onClose, stats, trend }: ChaosScoreOve
             </Box>
           </Box>
 
-          <Typography sx={{ mt: 1.8, mb: 0.65, fontSize: 10.5, fontWeight: 900, textTransform: 'uppercase', letterSpacing: 0.7, color: 'text.secondary' }}>Your session</Typography>
+          <Typography sx={{ mt: 1.8, mb: 0.65, fontSize: 10.5, fontWeight: 900, textTransform: 'uppercase', letterSpacing: 0.7, color: 'text.secondary' }}>{t('panelYourSession')}</Typography>
           <Box sx={{ display: 'grid', gap: 0.65 }}>
-            {stats.topDomains.length > 0 && <Typography sx={{ fontSize: 10.5, lineHeight: 1.4 }}><strong>Top domains:</strong> {stats.topDomains.map(item => `${item.domain} (${item.count})`).join(', ')}</Typography>}
-            {stats.currentPosition && <Typography sx={{ fontSize: 10.5 }}><strong>Current tab:</strong> {stats.currentPosition.position} of {stats.currentPosition.total} in this window</Typography>}
-            {stats.leastRecentTab && <Typography noWrap title={stats.leastRecentTab.title} sx={{ fontSize: 10.5 }}><strong>Longest untouched:</strong> {stats.leastRecentTab.domain} · {leastRecentLabel}</Typography>}
-            {stats.sleepingTabs > 0 && <Typography sx={{ fontSize: 10.5 }}><strong>Sleeping:</strong> {stats.sleepingTabs} discarded tab{stats.sleepingTabs === 1 ? '' : 's'}</Typography>}
+            {stats.topDomains.length > 0 && <Typography sx={{ fontSize: 10.5, lineHeight: 1.4 }}>{t('panelTopDomains', { domains: stats.topDomains.map(item => t('panelDomainCount', { domain: item.domain, count: item.count })).join(t('panelListSeparator')) })}</Typography>}
+            {stats.currentPosition && <Typography sx={{ fontSize: 10.5 }}>{t('panelCurrentPosition', { position: stats.currentPosition.position, total: stats.currentPosition.total })}</Typography>}
+            {stats.leastRecentTab && <Typography noWrap title={stats.leastRecentTab.title} sx={{ fontSize: 10.5 }}>{t('panelLeastRecent', { domain: stats.leastRecentTab.domain, elapsed: leastRecentLabel })}</Typography>}
+            {stats.sleepingTabs > 0 && <Typography sx={{ fontSize: 10.5 }}>{plural('panelDiscardedTabs', stats.sleepingTabs)}</Typography>}
           </Box>
 
           <Typography sx={{ mt: 2, p: 1, borderRadius: 1.5, textAlign: 'center', fontSize: 9.75, lineHeight: 1.4, color: 'text.secondary', backgroundColor: 'action.hover' }}>
-            Calculated and stored locally. TabShow does not send your tab data anywhere. Come back later to see how your session changed.
+            {t('panelChaosPrivacy')}
           </Typography>
         </Box>
       </Box>

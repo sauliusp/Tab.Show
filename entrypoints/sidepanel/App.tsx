@@ -1,3 +1,4 @@
+import { t, formatNumber, getLocale } from '../../src/i18n';
 import React from 'react';
 import { useTheme } from '@mui/material/styles';
 import { Box, ButtonBase, IconButton, MenuItem, Select, TextField, Tooltip, Typography } from '@mui/material';
@@ -22,15 +23,24 @@ import { selectTabs } from '../../src/utils/tabSelectors';
 
 function App() {
   const theme = useTheme();
+  React.useEffect(() => {
+    document.documentElement.lang = getLocale();
+    document.documentElement.dir = t('panelDirection');
+    document.title = t('panelPageTitle');
+  }, []);
   const searchInputRef = React.useRef<HTMLInputElement>(null);
   const [isSettingsOpen, setIsSettingsOpen] = React.useState(false);
   const [isChaosOpen, setIsChaosOpen] = React.useState(false);
   const [query, setQuery] = React.useState('');
-  const [sortMode, setSortMode] = React.useState<TabSortMode>('current');
   const [highlightedTabId, setHighlightedTabId] = React.useState<number | null>(null);
   const [inputModality, setInputModality] = React.useState<'pointer' | 'keyboard'>('pointer');
   const [currentWindowId, setCurrentWindowId] = React.useState<number | null>(null);
-  const { hoverPreviewDelayMs, allWindows, setAllWindows } = useUserSettings();
+  const { hoverPreviewDelayMs, allWindows, setAllWindows, keepPanelOpen, hoverPreviewEnabled, sortMode, setSortMode } = useUserSettings();
+  const [scrollRequest, setScrollRequest] = React.useState<{ tabId: number; sequence: number } | null>(null);
+  const scrollSequence = React.useRef(0);
+  const revealTab = React.useCallback((tabId: number | null) => {
+    setScrollRequest(tabId === null ? null : { tabId, sequence: ++scrollSequence.current });
+  }, []);
   const chaos = useTabChaos();
   
   // Use the custom hook for tab management
@@ -46,7 +56,7 @@ function App() {
     handleTabHoverEnd,
     cancelPendingPreview,
     handleCancel
-  } = useTabs({ hoverPreviewDelayMs, allWindows });
+  } = useTabs({ hoverPreviewDelayMs, allWindows, keepPanelOpen, hoverPreviewEnabled });
 
   React.useEffect(() => {
     const focusSearch = () => {
@@ -84,11 +94,24 @@ function App() {
     [openTabs]
   );
 
+  const lastOriginalTabId = React.useRef<number | undefined>(undefined);
   React.useEffect(() => {
-    if (!matchingTabs.some(tab => tab.id === highlightedTabId)) {
-      setHighlightedTabId(matchingTabs[0]?.id ?? null);
+    if (isLoading) return;
+    const originalChanged = lastOriginalTabId.current !== originalTab?.id;
+    lastOriginalTabId.current = originalTab?.id;
+    // Opening the panel and explicit same-window switches reveal the current tab.
+    // Editing/clearing search and background metadata changes must not reset a
+    // valid keyboard selection or replay an old scroll request.
+    if (originalChanged && !query.trim() && matchingTabs.some(tab => tab.id === originalTab?.id)) {
+      if (originalTab?.id === undefined) return;
+      setHighlightedTabId(originalTab.id);
+      revealTab(originalTab.id);
+    } else if (!matchingTabs.some(tab => tab.id === highlightedTabId)) {
+      const nextId = matchingTabs[0]?.id ?? null;
+      setHighlightedTabId(nextId);
+      revealTab(nextId);
     }
-  }, [matchingTabs, highlightedTabId]);
+  }, [isLoading, matchingTabs, highlightedTabId, originalTab?.id, query, revealTab]);
 
   const activeHighlightedTabId = React.useMemo(() => (
     matchingTabs.some(tab => tab.id === highlightedTabId)
@@ -99,15 +122,18 @@ function App() {
   const handlePointerIntent = React.useCallback((tabId: number) => {
     setInputModality('pointer');
     setHighlightedTabId(tabId);
-    handleTabHover(tabId);
-  }, [handleTabHover]);
+    revealTab(null);
+    if (hoverPreviewEnabled) handleTabHover(tabId);
+  }, [handleTabHover, hoverPreviewEnabled, revealTab]);
 
   const handleKeyboard = (event: React.KeyboardEvent) => {
+    if (isSettingsOpen || isChaosOpen) return;
     const target = event.target as HTMLElement;
     if (target.closest('a[href]') && event.key !== 'Escape') return;
-    if (target.closest('button,[role="button"],[role="combobox"],[role="menu"],[role="menuitem"],input[type="checkbox"]')) return;
+    if (target !== searchInputRef.current && target.closest('[role="combobox"],[role="listbox"],[role="option"],[role="menu"],[role="menuitem"],[role="dialog"]')) return;
     if (event.nativeEvent.isComposing || event.keyCode === 229) return;
     if (event.key === 'Escape') { event.preventDefault(); void handleCancel(); return; }
+    if (target !== searchInputRef.current && target.closest('button,[role="button"],input[type="checkbox"]')) return;
     if (event.key === 'Enter') {
       const selectedTab = matchingTabs.find(tab => tab.id === activeHighlightedTabId) ?? matchingTabs[0];
       if (selectedTab?.id !== undefined) {
@@ -126,16 +152,32 @@ function App() {
       : Math.max(0, Math.min(matchingTabs.length - 1, currentIndex + (event.key === 'ArrowDown' ? 1 : -1)));
     const next = matchingTabs[nextIndex];
     if (next?.id !== undefined) {
+      cancelPendingPreview();
       setHighlightedTabId(next.id);
+      revealTab(next.id);
     }
   };
+
+  React.useEffect(() => {
+    // Pointer interaction can leave focus on the document, outside the panel
+    // root. Child controls keep their existing keyboard handlers.
+    const handleDocumentEscape = (event: KeyboardEvent) => {
+      if (event.key !== 'Escape' || event.defaultPrevented || event.isComposing || event.keyCode === 229) return;
+      if (event.target !== document.body && event.target !== document.documentElement) return;
+      if (isSettingsOpen || isChaosOpen || document.querySelector('[role="dialog"],[role="menu"],[role="listbox"]')) return;
+      event.preventDefault();
+      void handleCancel();
+    };
+    document.addEventListener('keydown', handleDocumentEscape);
+    return () => document.removeEventListener('keydown', handleDocumentEscape);
+  }, [handleCancel, isSettingsOpen, isChaosOpen]);
 
   // Clear visual state cache when theme changes to prevent stale cached values
   React.useEffect(() => {
     clearVisualStateCache();
   }, [theme]);
 
-  const handleCloseTab = async (tabId: number) => {
+  const handleCloseTab = React.useCallback(async (tabId: number) => {
     try {
       const success = await tabService.closeTab(tabId);
       if (success) {
@@ -148,7 +190,7 @@ function App() {
     } catch (error) {
       console.error(`Error closing tab ${tabId}:`, error);
     }
-  };
+  }, []);
 
 
   return (
@@ -177,14 +219,14 @@ function App() {
         >
           <Box
             role="group"
-            aria-label="Tab scope"
+            aria-label={t('panelTabScope')}
             data-testid="tab-scope-control"
             sx={{
               p: 0.35,
               minWidth: 0,
               minHeight: 40,
               display: 'grid',
-              gridTemplateColumns: '1fr 1fr',
+              gridTemplateColumns: 'repeat(2, minmax(0, 1fr))',
               gap: 0.35,
               border: 1,
               borderColor: 'divider',
@@ -193,18 +235,19 @@ function App() {
             }}
           >
             {[
-              { value: false, label: 'Current window', icon: <TabRounded sx={{ fontSize: 16 }} /> },
-              { value: true, label: 'All windows', icon: <WindowRounded sx={{ fontSize: 16 }} /> }
+              { value: false, label: t('panelCurrentWindow'), icon: <TabRounded sx={{ fontSize: 16 }} /> },
+              { value: true, label: t('panelAllWindows'), icon: <WindowRounded sx={{ fontSize: 16 }} /> }
             ].map(option => {
               const selected = allWindows === option.value;
               return (
-                <Tooltip key={option.label} describeChild title={option.value ? 'All windows in this Chrome profile. Windows in other profiles stay separate.' : 'Tabs in this window.'}>
+                <Tooltip key={option.label} describeChild title={option.value ? t('panelAllWindowsHint') : t('panelCurrentWindowHint')}>
                   <ButtonBase
                     aria-label={option.label}
                     aria-pressed={selected}
                     onClick={() => setAllWindows(option.value)}
                     sx={{
                       py: 0.7,
+                      minWidth: 0,
                       gap: 0.75,
                       borderRadius: 1,
                       fontSize: 11.5,
@@ -215,15 +258,15 @@ function App() {
                       '&:hover': { backgroundColor: selected ? 'primary.dark' : 'background.paper' }
                     }}
                   >
-                    {option.icon}{option.label}
+                    {option.icon}<Box component="span" sx={{ minWidth: 0, overflowWrap: 'anywhere', lineHeight: 1.25 }}>{option.label}</Box>
                   </ButtonBase>
                 </Tooltip>
               );
             })}
           </Box>
-          <Tooltip title="Settings">
+          <Tooltip title={t('panelSettings')}>
             <IconButton
-              aria-label="open settings"
+              aria-label={t('panelOpenSettings')}
               onClick={() => setIsSettingsOpen(true)}
               sx={{ width: 40, height: 40, border: 1, borderColor: 'divider', borderRadius: 1.5 }}
             >
@@ -236,10 +279,14 @@ function App() {
             fullWidth
             size="small"
             value={query}
-            onChange={(event) => { setInputModality('keyboard'); cancelPendingPreview(); setQuery(event.target.value); }}
-            placeholder="Search tabs, no mouse needed"
+            onChange={(event) => { setInputModality('keyboard'); cancelPendingPreview(); setHighlightedTabId(null); setQuery(event.target.value); }}
+            placeholder={t('panelSearchPlaceholder')}
             inputProps={{
-              'aria-label': 'Search tabs',
+              role: 'combobox',
+              'aria-label': t('panelSearch'),
+              'aria-haspopup': 'grid',
+              'aria-expanded': matchingTabs.length > 0,
+              'aria-autocomplete': 'list',
               'aria-controls': 'tab-results',
               'aria-describedby': 'keyboard-search-hint',
               'aria-activedescendant': activeHighlightedTabId === null ? undefined : `tab-option-${activeHighlightedTabId}`
@@ -254,27 +301,27 @@ function App() {
             onOpen={() => { setIsSettingsOpen(false); setIsChaosOpen(true); }}
           />
         </Box>
-        <Box sx={{ mt: -0.35, display: 'flex', justifyContent: 'space-between', gap: 1, alignItems: 'baseline' }}>
+        <Box sx={{ mt: -0.35, display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', columnGap: 1, rowGap: 0.25, alignItems: 'baseline' }}>
           <Typography id="keyboard-search-hint" sx={{ fontSize: 10.5, color: 'text.secondary' }}>
-            ↑↓ select · Enter open · Esc return
+            {t('panelKeyboardHint')}
           </Typography>
-          {allWindows && <Typography component="span" title="All windows in this Chrome profile. Windows in other profiles stay separate." sx={{ fontSize: 10.5, color: 'text.secondary', whiteSpace: 'nowrap' }}>This profile</Typography>}
+          {allWindows && <Typography component="span" title={t('panelAllWindowsHint')} sx={{ fontSize: 10.5, color: 'text.secondary', whiteSpace: 'nowrap' }}>{t('panelThisProfile')}</Typography>}
         </Box>
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, minWidth: 0, '@media (max-width: 380px)': { gap: 0.5 } }}>
-          <Select size="small" value={sortMode} onChange={(event) => setSortMode(event.target.value as TabSortMode)} sx={{ width: 128, minWidth: 100, flexShrink: 1, fontSize: 11.5, '& .MuiSelect-select': { py: 0.65 } }} aria-label="Sort tabs">
-            <MenuItem value="current">Current order</MenuItem>
-            <MenuItem value="recently-used">Recently used</MenuItem>
-            <MenuItem value="recently-opened">Recently added (approx.)</MenuItem>
-            <MenuItem value="domain">By domain</MenuItem>
-            <MenuItem value="group">By tab group</MenuItem>
+          <Select size="small" value={sortMode} onChange={(event) => { setSortMode(event.target.value as TabSortMode); revealTab(activeHighlightedTabId); }} sx={{ width: 128, minWidth: 100, flexShrink: 1, fontSize: 11.5, '& .MuiSelect-select': { py: 0.65 } }} inputProps={{ 'aria-label': t('panelSortTabs') }}>
+            <MenuItem value="current">{t('panelSortCurrent')}</MenuItem>
+            <MenuItem value="recently-used">{t('panelSortRecent')}</MenuItem>
+            <MenuItem value="recently-opened">{t('panelSortAdded')}</MenuItem>
+            <MenuItem value="domain">{t('panelSortDomain')}</MenuItem>
+            <MenuItem value="group">{t('panelSortGroup')}</MenuItem>
           </Select>
           {isLoading ? (
-            <Typography sx={{ ml: 'auto', fontSize: 10.5, color: 'text.secondary' }}>Loading…</Typography>
+            <Typography sx={{ ml: 'auto', fontSize: 10.5, color: 'text.secondary' }}>{t('panelLoading')}</Typography>
           ) : (
             <Box
               role="status"
               aria-live="polite"
-              aria-label={`Open tabs: ${openTabs.length}${allWindows ? `; Chrome windows: ${openWindowCount}; current profile only` : ''}`}
+              aria-label={allWindows ? t('panelCountsAllWindows', { count: openTabs.length, windows: openWindowCount }) : t('panelCountsCurrentWindow', { count: openTabs.length })}
               data-testid="tab-count-summary"
               sx={{
                 ml: 'auto',
@@ -295,20 +342,20 @@ function App() {
             >
               <TabRounded sx={{ flexShrink: 0, fontSize: 14, color: 'text.secondary' }} />
               <Typography component="span" sx={{ fontSize: 8, lineHeight: 1, fontWeight: 900, letterSpacing: 0.45, color: 'text.secondary', '@media (max-width: 380px)': { display: 'none' } }}>
-                OPEN TABS
+                {t('panelOpenTabsCompact')}
               </Typography>
               <Typography component="strong" sx={{ fontSize: 13, lineHeight: 1, fontWeight: 950, color: 'text.primary' }}>
-                {openTabs.length}
+                {formatNumber(openTabs.length)}
               </Typography>
               {allWindows && (
                 <>
                   <Box aria-hidden="true" sx={{ height: 16, mx: 0.15, borderLeft: 1, borderColor: 'divider' }} />
                   <WindowRounded sx={{ flexShrink: 0, fontSize: 13, color: 'text.secondary' }} />
                   <Typography component="span" sx={{ fontSize: 8, lineHeight: 1, fontWeight: 900, letterSpacing: 0.4, color: 'text.secondary', '@media (max-width: 380px)': { display: 'none' } }}>
-                    WINDOWS
+                    {t('panelWindowsCompact')}
                   </Typography>
                   <Typography component="strong" sx={{ fontSize: 12, lineHeight: 1, fontWeight: 900, color: 'text.primary' }}>
-                    {openWindowCount}
+                    {formatNumber(openWindowCount)}
                   </Typography>
                 </>
               )}
@@ -333,6 +380,8 @@ function App() {
         allWindows={allWindows}
         currentWindowId={currentWindowId}
         highlightedTabId={activeHighlightedTabId}
+        scrollRequest={scrollRequest}
+        hoverPreviewEnabled={hoverPreviewEnabled}
         pointerPreviewEnabled={inputModality === 'pointer'}
         onPointerIntent={handlePointerIntent}
       />

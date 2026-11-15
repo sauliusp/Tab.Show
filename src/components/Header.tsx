@@ -1,3 +1,4 @@
+import { t } from '../i18n';
 import React from 'react';
 import { Box, IconButton, Tooltip, Typography } from '@mui/material';
 import SettingsRounded from '@mui/icons-material/SettingsRounded';
@@ -29,11 +30,11 @@ export function Header({ originalTab, onOpenSettings }: HeaderProps) {
           TabShow
         </Typography>
         <Typography noWrap sx={{ mt: 0.2, fontSize: 10.5, color: 'text.secondary' }}>
-          {originalTab ? `Previewing from ${originalTab.title || 'current tab'}` : 'Instant tab preview'}
+          {originalTab ? t('panelPreviewingFrom', { title: originalTab.title || t('panelCurrentTab') }) : t('panelInstantPreview')}
         </Typography>
       </Box>
-      <Tooltip title="Settings">
-        <IconButton aria-label="open settings" onClick={onOpenSettings} size="small" sx={{ border: 1, borderColor: 'divider' }}>
+      <Tooltip title={t('panelSettings')}>
+        <IconButton aria-label={t('panelOpenSettings')} onClick={onOpenSettings} size="small" sx={{ border: 1, borderColor: 'divider' }}>
           <SettingsRounded fontSize="small" />
         </IconButton>
       </Tooltip>
