@@ -23,7 +23,7 @@ const faq = [
   { q: "Does TabShow read the contents of webpages?", a: "No. TabShow does not request host permissions and cannot read page contents. It uses Chrome's tab metadata, such as titles, URLs, favicons, groups, and status, to power the side panel." },
   { q: "Can I search tabs across every Chrome window?", a: "Yes. Choose All windows to search tabs across windows in the same Chrome profile. Windows in other profiles, such as separate Work and Personal profiles, stay separate. For safety, open a tab in another window with a click or Enter; hovering does not move focus across windows." },
   { q: "What happens when I move away from a preview?", a: "TabShow returns you to the original tab. If the preview was the right page, click it to make the switch permanent." },
-  { q: "Can I use TabShow with the keyboard?", a: "Yes. Arrow keys select search results, Enter opens the selected tab, and Escape returns to the original tab. Hover a current-window result when you want a live preview. The side panel shortcut can be customized in Chrome's extension shortcut settings." },
+  { q: "Can I use TabShow with the keyboard?", a: "Yes. With keyboard focus in the panel, Arrow keys select search results, Enter opens the selected tab, and Escape returns to the original tab. After a hover preview, move away to return and click Search to resume keyboard commands. The side panel shortcut can be customized in Chrome's extension shortcut settings." },
   { q: "Can I keep the panel open after choosing a tab?", a: "The 2.4 release candidate adds Settings → Keep panel open after choosing a tab. It is off by default, so selecting a tab still closes the panel unless you enable it. Chrome's pin control only keeps the toolbar button accessible. Check the changelog for release availability." },
   { q: "Can I turn hover previews off?", a: "The 2.4 release candidate adds Settings → Preview tabs on hover. Turn it off to browse and search the list without changing pages. Click or press Enter to switch. Hover preview remains on by default." },
   { q: "Does TabShow follow my Chrome theme?", a: "TabShow offers System, Light, and Dark appearance plus its own color pairings. System follows your operating system's light or dark setting. It does not import colors from custom Chrome themes." },
@@ -100,7 +100,7 @@ export default function Home() {
               <article><span>01</span><h3>Search by title or site</h3><p>Type a page title, URL, or domain to narrow the list of open tabs.</p></article>
               <article><span>02</span><h3>Find tabs across windows</h3><p>Search across windows in the same Chrome profile. Other profiles stay separate.</p></article>
               <article><span>03</span><h3>Choose a sort order</h3><p>Keep browser order or sort by recent use, recent addition, domain, or group.</p></article>
-              <article><span>04</span><h3>Use the keyboard</h3><p>Arrow keys select, Enter opens, and Escape returns to your original tab. Hover when you want a live preview.</p></article>
+              <article><span>04</span><h3>Use the keyboard</h3><p>With the panel focused, Arrow keys select, Enter opens, and Escape returns to your original tab. Hover when you want a live preview.</p></article>
             </div>
           </div>
         </section>

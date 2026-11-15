@@ -14,11 +14,12 @@ export default function SupportPage() {
     <section id="shortcuts">
       <h2>Keyboard navigation</h2>
       <p>The suggested side-panel shortcut is <strong>Shift + Ctrl + X</strong> on Windows or Linux and <strong>Shift + Command + X</strong> on macOS. Chrome can override or clear extension shortcuts, so verify yours at <code>chrome://extensions/shortcuts</code>.</p>
-      <ul><li><strong>Arrow Down / Arrow Up:</strong> select matching tabs.</li><li><strong>Enter:</strong> open the selected tab.</li><li><strong>Escape:</strong> return to the original tab and close the panel.</li><li><strong>Hover:</strong> preview a current-window tab when hover previews are enabled.</li></ul>
+      <ul><li><strong>Arrow Down / Arrow Up:</strong> select matching tabs.</li><li><strong>Enter:</strong> open the selected tab.</li><li><strong>Escape:</strong> return to the original tab and close the panel while it has keyboard focus.</li><li><strong>Hover:</strong> preview a current-window tab when hover previews are enabled.</li></ul>
     </section>
     <section id="preview">
       <h2>How preview works</h2>
-      <p>In the current Chrome window, pointing at a tab temporarily activates its live page. The original tab remains marked. Move your pointer out of the side panel to return, or press Escape to return and close the panel. Click a result to make it your selected tab.</p>
+      <p>In the current Chrome window, pointing at a tab temporarily activates its live page. The original tab remains marked. Move your pointer out of the side panel to return. Click a result to make it your selected tab.</p>
+      <p>A preview can move keyboard focus into the page. Click Search to resume panel keyboard commands. While the panel has keyboard focus, Escape returns to the original tab and closes the panel.</p>
       <p>In All windows scope, tabs belonging to another window show a switch indicator. They do not hover-preview. Click one or select it with the keyboard and press Enter to focus that window and tab.</p>
     </section>
     <section id="panel-settings">
@@ -26,7 +27,7 @@ export default function SupportPage() {
       <p>These controls are part of the <strong>2.4 release candidate</strong>. The Chrome Web Store currently offers 2.3. See the <a href="/changelog#version-2-4">release status</a> before checking for new settings.</p>
       <h3>Keep the panel open after choosing a tab</h3>
       <p>Open Settings and turn on <strong>Keep panel open after choosing a tab</strong>. Clicking a result or pressing Enter keeps the panel open. When you select a tab in the current window, it becomes the tab your next preview returns to. The setting is off by default.</p>
-      <p>Chrome's pin control keeps the TabShow toolbar button accessible. It does not control whether TabShow closes after you choose a tab. Escape still returns to the selected tab and closes the panel.</p>
+      <p>Chrome's pin control keeps the TabShow toolbar button accessible. It does not control whether TabShow closes after you choose a tab. With keyboard focus in the panel, Escape returns to the selected tab and closes the panel.</p>
       <h3>Turn hover previews off</h3>
       <p>Turn off <strong>Preview tabs on hover</strong> in Settings. Search and keyboard selection leave the page alone; click or press Enter when you want to switch. Hover preview is on by default, and you can adjust its delay while it is enabled.</p>
       <h3>Keep your sort order and position</h3>

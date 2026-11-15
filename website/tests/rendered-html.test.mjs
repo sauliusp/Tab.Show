@@ -133,6 +133,10 @@ test("privacy and support match the shipped permission and cross-window behavior
   assert.match(support, /Chrome Web Store currently offers 2\.3/);
   assert.match(support, /chrome:\/\/extensions/);
   assert.doesNotMatch(support, /closing it restores the original tab/);
+  assert.match(support, /while it has keyboard focus/);
+  assert.match(support, /Click Search to resume panel keyboard commands/);
+  assert.match(support, /Move your pointer out of the side panel to return/);
+  assert.doesNotMatch(support, /out of the side panel to return, or press Escape/);
 });
 
 test("changelog preserves the complete user-facing release history", async () => {

@@ -18,7 +18,7 @@ TabShow puts your open Chrome tabs in a searchable side panel. Hover a tab to se
 
 SEARCH YOUR OPEN TABS
 
-Search by page title, URL, or domain. Start typing when the panel opens, use the arrow keys to select a result, and press Enter to choose it. Escape returns to your starting tab and closes the panel. Keyboard selection does not change the page until you press Enter.
+Search by page title, URL, or domain. Start typing when the panel opens, use the arrow keys to select a result, and press Enter to choose it. With keyboard focus in the panel, Escape returns to your starting tab and closes the panel. Keyboard selection does not change the page until you press Enter. After a hover preview, move the pointer out of the panel to return; click Search to resume keyboard commands.
 
 KEEP THE PANEL OPEN IF YOU WANT
 

@@ -12,6 +12,10 @@ Posted request locations:
 
 Private dashboard screenshots are retained outside the public repository. The response text below preserves the preparation drafts; posted text uses the same decisions and clarifies that Recently used intentionally moves the chosen tab to the top. After Store submission, report only the observed availability state. Mark the two implemented requests Completed only once 2.4 is publicly available.
 
+## Keyboard clarification for the next release update
+
+The earlier preparation text below is retained as a record. Future updates should say: Escape returns and closes the panel while it has keyboard focus. After a hover preview, move the pointer out of the panel to return; click Search to resume panel keyboard commands. This clarification has not been posted by editing this file.
+
 ## Option to keep panel open
 
 Chrome's pin icon pins TabShow to the toolbar; it does not keep the panel open after a selection. That distinction was unclear.

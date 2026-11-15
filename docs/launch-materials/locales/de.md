@@ -20,7 +20,7 @@ TabShow zeigt deine offenen Chrome-Tabs in einer durchsuchbaren Seitenleiste. Be
 
 OFFENE TABS DURCHSUCHEN
 
-Suche nach Seitentitel, URL oder Domain. Tippe direkt nach dem Öffnen der Seitenleiste, wähle mit den Pfeiltasten ein Ergebnis und öffne es mit Enter. Escape kehrt zum Ausgangstab zurück und schließt die Seitenleiste. Die Auswahl per Pfeiltasten wechselt die Seite erst, wenn du Enter drückst.
+Suche nach Seitentitel, URL oder Domain. Tippe direkt nach dem Öffnen der Seitenleiste, wähle mit den Pfeiltasten ein Ergebnis und öffne es mit Enter. Solange die Seitenleiste den Tastaturfokus hat, kehrt Escape zum Ausgangstab zurück und schließt sie. Die Auswahl per Pfeiltasten wechselt die Seite erst, wenn du Enter drückst. Nach einer Vorschau bewegst du die Maus aus der Seitenleiste, um zurückzukehren. Klicke in die Suche, um wieder die Tastatur zu verwenden.
 
 SEITENLEISTE AUF WUNSCH OFFEN LASSEN
 

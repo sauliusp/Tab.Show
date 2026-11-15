@@ -18,6 +18,8 @@ Opening TabShow brings your current tab into view. With the panel kept open, swi
 
 To keep previews but avoid accidental switches, increase **Hover preview delay** instead.
 
+Move the pointer out of the panel to return after a preview. Escape returns and closes the panel while it has keyboard focus. Click Search to resume panel keyboard commands after previewing.
+
 ## Find version and help
 
 Settings now shows your installed version and links to help and release notes. **Appearance → System** follows your light or dark preference. It does not copy a custom Chrome theme's colors.

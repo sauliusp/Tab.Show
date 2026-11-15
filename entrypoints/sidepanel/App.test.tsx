@@ -231,6 +231,49 @@ describe('side-panel browser-rendered interaction', () => {
     expect(mock.close).not.toHaveBeenCalled();
   });
 
+  it('keeps arrow keys in an open sort menu from moving the tab selection', async () => {
+    const mock = browserWith150Tabs();
+    vi.stubGlobal('browser', mock.api);
+    render(<UserSettingsProvider><ColorSchemeProvider><App /></ColorSchemeProvider></UserSettingsProvider>);
+    await expectOpenTabCount(150);
+    // Finish the initial search-focus retry before opening a user-controlled menu.
+    await act(async () => { await new Promise(resolve => setTimeout(resolve, 60)); });
+    const search = screen.getByRole('combobox', { name: 'Search tabs' });
+    const highlighted = search.getAttribute('aria-activedescendant');
+    fireEvent.mouseDown(screen.getByRole('combobox', { name: 'Sort tabs' }));
+    const currentOrder = screen.getByRole('option', { name: 'Current order' });
+    currentOrder.focus();
+
+    fireEvent.keyDown(currentOrder, { key: 'ArrowDown' });
+
+    expect(screen.getByRole('option', { name: 'Recently used' })).toHaveFocus();
+    expect(search).toHaveAttribute('aria-activedescendant', highlighted);
+    expect(mock.update).not.toHaveBeenCalled();
+    expect(mock.close).not.toHaveBeenCalled();
+  });
+
+  it('changes sort with Enter without selecting a browser tab and restores trigger focus', async () => {
+    const mock = browserWith150Tabs();
+    vi.stubGlobal('browser', mock.api);
+    render(<UserSettingsProvider><ColorSchemeProvider><App /></ColorSchemeProvider></UserSettingsProvider>);
+    await expectOpenTabCount(150);
+    // Finish the initial search-focus retry before opening a user-controlled menu.
+    await act(async () => { await new Promise(resolve => setTimeout(resolve, 60)); });
+    const sort = screen.getByRole('combobox', { name: 'Sort tabs' });
+    fireEvent.mouseDown(sort);
+    const recentlyUsed = screen.getByRole('option', { name: 'Recently used' });
+    recentlyUsed.focus();
+
+    await act(async () => { fireEvent.keyDown(recentlyUsed, { key: 'Enter' }); });
+
+    await waitFor(() => expect(screen.queryByRole('listbox')).not.toBeInTheDocument());
+    expect(sort).toHaveTextContent('Recently used');
+    expect(JSON.parse(window.localStorage.getItem('tab.show.userSettings') ?? '{}').sortMode).toBe('recently-used');
+    expect(mock.update).not.toHaveBeenCalled();
+    expect(mock.close).not.toHaveBeenCalled();
+    expect(sort).toHaveFocus();
+  });
+
   it('keeps the closed settings drawer out of the accessibility tree', async () => {
     const mock = browserWith150Tabs();
     vi.stubGlobal('browser', mock.api);

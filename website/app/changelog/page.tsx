@@ -184,7 +184,7 @@ export default function ChangelogPage() {
         <h3>Search open tabs</h3>
         <p>Find tabs by page title, URL, or domain from the side panel. Search works in the current window or across windows in the same Chrome profile.</p>
         <h3>Keyboard selection and switching</h3>
-        <p>Arrow keys select results, Enter opens the selected tab, and Escape returns to the original tab. Live preview remains a hover interaction.</p>
+        <p>With keyboard focus in the panel, Arrow keys select results, Enter opens the selected tab, and Escape returns to the original tab. Live preview remains a hover interaction.</p>
         <h3>All-window awareness</h3>
         <p>Choose an explicit All windows scope with complete tab and window totals. Open a tab in another window with a click or Enter. Hovering does not move focus to that window.</p>
         <h3>Flexible sorting</h3>

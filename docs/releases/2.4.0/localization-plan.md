@@ -18,7 +18,7 @@ Country and language exports describe different populations and have different t
 4. Capture the real localized interface for store screenshots. Localized descriptions must describe the same capabilities as English. Do not claim full Chinese support while leaving the working interface in English.
 5. Verify all four locales, including English fallback, missing-message behavior, placeholder order, plural forms, number formatting, small panel widths, zoom, long German labels, Chinese title search, and Chinese input-method composition. Enter during text composition must not choose a tab.
 
-Use concrete product language: search open tabs, preview the actual page, select a tab, keep the panel open, and return with Escape. Explain that hover preview temporarily activates a tab. Do not advertise pinyin search or automatic translation, which are not part of this release.
+Use concrete product language: search open tabs, preview the actual page, select a tab, keep the panel open, and return with Escape while the panel has keyboard focus. Explain that hover preview temporarily activates a tab. Do not advertise pinyin search or automatic translation, which are not part of this release.
 
 Chrome supports these locale codes and requires `default_locale` when a package contains `_locales`. Its store can use localized descriptions, screenshots, and promotional videos; the small tile and marquee image remain shared. [Chrome internationalization](https://developer.chrome.com/docs/extensions/reference/api/i18n), [store listing localization](https://developer.chrome.com/docs/webstore/cws-dashboard-listing).
 

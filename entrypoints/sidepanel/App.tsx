@@ -130,7 +130,7 @@ function App() {
     if (isSettingsOpen || isChaosOpen) return;
     const target = event.target as HTMLElement;
     if (target.closest('a[href]') && event.key !== 'Escape') return;
-    if (target !== searchInputRef.current && target.closest('[role="combobox"],[role="menu"],[role="menuitem"],[role="dialog"]')) return;
+    if (target !== searchInputRef.current && target.closest('[role="combobox"],[role="listbox"],[role="option"],[role="menu"],[role="menuitem"],[role="dialog"]')) return;
     if (event.nativeEvent.isComposing || event.keyCode === 229) return;
     if (event.key === 'Escape') { event.preventDefault(); void handleCancel(); return; }
     if (target !== searchInputRef.current && target.closest('button,[role="button"],input[type="checkbox"]')) return;
