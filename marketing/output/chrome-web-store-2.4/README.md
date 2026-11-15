@@ -13,3 +13,7 @@ Promotional tiles are in `marketing/output/promo-2.4`: 440 × 280 and 1400 × 56
 Slides 02 through 05 and both promotional tiles were visually inspected at their upload dimensions during the earlier English pass. Final review must compare all five slides and both tiles with the exact package, then inspect the complete Store preview after upload.
 
 German, Simplified Chinese, and Traditional Chinese listing copy is prepared under `docs/launch-materials/locales/`. Localized screenshot preparation and final native locale validation are separate gates. Do not imply that an English screenshot demonstrates a localized interface. The existing video demonstrates the default preview/search/keyboard workflow; it does not show the new optional controls or localized UI.
+
+## Capture defect found on 15 November
+
+The current `01-live-preview.jpg` is an incomplete browser render, despite having the expected dimensions. Do not upload it or the matching website PNG. Recapture after the gallery reports `data-capture-ready="true"`, `data-preview-source="primary"`, and the image is visibly loaded, then inspect the saved file. The original `marketing/source/appshots-2.4/live-browser.jpg` remains a valid native Chrome capture.

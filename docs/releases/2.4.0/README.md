@@ -1,6 +1,6 @@
 # TabShow 2.4.0 release candidate
 
-Updated on 15 November 2026. Status: release candidate implemented; core native Chrome checks have passed, with final keyboard, long-list, locale, asset, packaging, and review checks still pending. This file does not confirm a Chrome Web Store submission or public release.
+Updated on 15 November 2026 for source commit `574a63f`. Automated checks, core native checks, and the candidate code review have passed. Final native keyboard, long-list, locale/IME, and asset checks remain pending. The test Mac relocked before those checks could finish. No Chrome Web Store submission or public release is recorded.
 
 This release addresses repeated panel closure, losing the current tab in a long list, and settings that did not stay saved. It also adds German, Simplified Chinese, and Traditional Chinese alongside English, and explains existing features more clearly. See [feedback-plan.md](feedback-plan.md) and [localization-plan.md](localization-plan.md) for the scope and market rationale.
 
@@ -9,7 +9,7 @@ This release addresses repeated panel closure, losing the current tab in a long 
 - Add **Keep panel open after choosing a tab**. It is off by default. When enabled, choosing a tab keeps the panel open. A choice in the current window becomes the starting point for subsequent previews; choosing another window preserves the original window's return tab.
 - Add **Preview tabs on hover**. It is on by default. Users can turn it off while retaining search, keyboard selection, and click-to-switch.
 - Save the selected sort order.
-- Reveal the current tab when the panel opens and keep list position stable during normal use.
+- Reveal the current tab when the panel opens and keep a chosen tab visible when switching within the current window. Background metadata updates do not reset manual scrolling; Recently used intentionally reorders a chosen tab.
 - Keep tab membership accurate when tabs move between windows.
 - Show the installed version and help/release-note links in Settings.
 - Clarify that System appearance follows light/dark preference, while custom Chrome theme colors stay separate.
@@ -42,7 +42,7 @@ Success means sustained user growth with stable retention. Compare the same repo
 
 ## Validation record
 
-The native checks below were performed on 15 November in normal Google Chrome using the dedicated TabShow QA profile and uncluttered sample pages. They replace the earlier locked-Mac blocker. Harness renders remain separate evidence.
+The native checks below were performed on 15 November in normal Google Chrome using the dedicated TabShow QA profile and sample pages. The Mac subsequently relocked; the remaining native checks have not passed. Component renders remain separate evidence.
 
 | Check | Observed result |
 |---|---|
@@ -61,26 +61,26 @@ The native checks below were performed on 15 November in normal Google Chrome us
 | Welcome/update Open TabShow buttons | Opened the actual extension panel |
 | Long-list behavior, input-method composition, and all three new native locales | Pending |
 
-- Automated checks: the most recent recorded full run passed 157 tests. Eight image-contract tests were added afterward; that full-run count does not include them. TypeScript and the production build passed. Run the full suite again against the final release head.
-- Localization: complete catalogs and placeholder contracts are tested, including English fallback, localized numbers, Chinese plural handling, preserved inline keyboard cues, and text-only page rendering. These checks do not replace native locale and IME verification.
-- Packaging: the previous ZIP predates the current localization and keyboard changes and is obsolete. **No final release ZIP or digest is recorded yet.** Rebuild `.output/tabshow-2.4.0-chrome.zip` after the source is frozen; inspect version, locale contents, permissions, integrity, and digest. The manifest source still lists only `sidePanel`, `tabs`, and `tabGroups`, with no host permissions. Confirm this in the final ZIP. Include the locale-sync build script in the sources archive.
-- Layout: earlier English production-component renders were inspected at 320 and 360 pixel widths, with welcome/update pages checked at desktop and mobile sizes. Final localized layouts require another review, especially long German labels and narrow Settings/footer controls.
-- Website: earlier build and content checks passed. The first gallery PNG now exists in the repository website at 1280 × 800. It was still absent from the authoritative Sites checkout when this record was updated. Synchronize the final image, rerun website checks, and inspect the complete gallery before deployment.
-- Media: a native English capture and a 1280 × 800 first gallery slide now exist. The gallery clips the bottom of the real capture through CSS; it does not replace or generate the interface. Final capture/asset review against the updated package is pending. The other four slides and two promotional tiles were inspected earlier and also need the final consistency pass. See [asset provenance](../../../marketing/source/appshots-2.4/README.md) and [Store asset status](../../../marketing/output/chrome-web-store-2.4/README.md).
+- Automated checks: the complete 165-test extension suite, TypeScript, and production build passed for `574a63f`.
+- Localization: all four catalogs contain 341 messages. Tests cover key and placeholder parity, English fallback, number and plural formatting, inline keyboard cues, safe page text, and localized-image fallback. Native Chrome locale selection and Chinese IME checks remain pending.
+- Packaging: see [package-audit.md](package-audit.md) for the candidate ZIP identity, contents, permissions, and rebuild verification. Any later extension source or asset change requires a new package and audit. An audited package is not release approval.
+- Layout: English component renders were checked at 320 and 360 pixels, and welcome/update pages at desktop and mobile sizes. German overflow at 280 pixels was fixed and visually verified. The three new languages still need native Chrome checks, including zoom and narrow panels.
+- Website: the production build, all 10 rendered-content/asset tests, and lint passed. All 58 source files were synchronized to the authoritative Sites checkout and packaged by the Sites helper at source commit `267aaf674aaeefa9939ecdbbf196517f234699c6`; all 10 tests passed there. A subsequent visual audit found the first gallery image is an incomplete render. That archive is unsuitable for publication and must be rebuilt after recapture. No Sites version was saved or deployed.
+- Media: the native English capture is valid, but the first 1280 × 800 gallery capture was incomplete and has been removed from the Store and website source trees. The prepared Sites archive includes that removed image, is unsuitable for publication, and must be rebuilt after recapture. The gallery clips the bottom of the real capture through CSS; it does not replace or generate the interface. Final capture/asset review against the updated package is pending. The other four slides and two promotional tiles were inspected earlier and also need the final consistency pass. See [asset provenance](../../../marketing/source/appshots-2.4/README.md) and [Store asset status](../../../marketing/output/chrome-web-store-2.4/README.md).
 - Existing video: the 31.53-second local demo decodes, and its verified public URL showed the matching default preview/search/keyboard workflow. It does not demonstrate the new optional controls or localized interface. Retain it only with that scope; do not label it a complete 2.4 walkthrough.
-- Codex review: [PR 16](https://github.com/sauliusp/Tab.Show/pull/16), branch `codex/2.4.0-panel-workflow`. The review of core commit `315c1b0` was clean. Subsequent localization and keyboard changes require review of the new head and resolution of any findings before merge. An earlier clean review does not approve the current working tree.
+- Codex review: [PR 16](https://github.com/sauliusp/Tab.Show/pull/16), branch `codex/2.4.0-panel-workflow`. The latest review covered `574a63f` and reported no major issues (receipt `6890914428`). This covers the candidate code, not the unfinished native UI and asset checks. Later production-code changes require another review before merge.
 
-Complete the remaining native checks in [NATIVE-QA.md](NATIVE-QA.md), final assets, exact-package validation, and the final-head review before merging and submitting.
+Complete the remaining native checks in [NATIVE-QA.md](NATIVE-QA.md) and final assets before merging and submitting. Rebuild and re-audit the package after any extension source or asset change.
 
 ## Publication record
 
 | Surface | Status at preparation |
 |---|---|
-| Extension code | Core behavior verified in normal Chrome; final native locale/keyboard/long-list checks and new-head review pending |
-| Chrome ZIP | Previous artifact obsolete; final ZIP and digest pending; not submitted |
+| Extension code | Core behavior verified in normal Chrome; Codex review of `574a63f` found no major issues; final native locale/keyboard/long-list checks pending |
+| Chrome ZIP | Candidate package audited separately; final native and release gates pending; not submitted |
 | Install/update pages | Native Open TabShow and upgrade-note behavior passed; localized native review pending |
-| Store images/video | First native English capture and all five gallery files exist; final updated capture/locale consistency review pending |
-| Website | Source prepared; first gallery image exists in repository but still needs authoritative checkout synchronization and final validation; not deployed |
+| Store images/video | Native English source valid; first composed gallery file is incomplete and must be recaptured; localized native captures and gallery review pending |
+| Website | Source pushed at `267aaf6`; prepared archive fails visual asset review and must be rebuilt; not saved or deployed |
 | Chrome Web Store submission | Not submitted |
 | Public availability | Store still offers 2.3.0 |
 | Featurebase replies/status changes | Five replies posted and verified; keep-open and scroll requests In Progress; search/colors Completed; thumbnails In Review |

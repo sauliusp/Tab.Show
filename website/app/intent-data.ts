@@ -29,7 +29,7 @@ export const lostTabPage: IntentPageData = {
   lead: "When titles collapse and favicons repeat, search the words you remember or preview likely tabs without abandoning your current page.",
   image: "/images/tabshow-2.4-02-search.png",
   imageAlt: "TabShow search narrowing open Chrome tabs by title, URL, or domain",
-  intent: "The fastest way to find a lost Chrome tab is to combine text search with visual recognition: narrow the candidates, preview the live page, and switch only when it matches.",
+  intent: "Combine text search with visual recognition to find a lost Chrome tab: narrow the candidates, preview the live page, and switch only when it matches.",
   content: "lost_tab_page",
   sections: [
     { title: "Why the tab is not really lost", paragraphs: ["The page is usually still open; its identity has collapsed. Twenty tabs can become twenty favicons, and repeated Docs, Figma, email, or dashboard tabs no longer carry enough context in the strip.", "TabShow expands that context vertically. Search checks page titles, URLs, and domains. A query such as a project name, site, or path reduces the list before visual preview confirms the exact page."], bullets: ["Start with a word from the page title.", "Try the domain or a recognizable part of the URL.", "Use All windows if the result may be in another window of this Chrome profile.", "Use Arrow keys to select results, or hover a current-window result to preview it."] },
@@ -91,7 +91,7 @@ export const tabManagerPlusPage: IntentPageData = {
   eyebrow: "Tab Manager Plus alternative",
   title: "Recognize the page.",
   accent: "Skip the management dashboard.",
-  lead: "Tab Manager Plus emphasizes broad tab management. TabShow focuses on the fastest recognition loop: search, preview the live page, switch, or snap back.",
+  lead: "Tab Manager Plus emphasizes broad tab management. TabShow focuses on the recognition loop: search, preview the live page, switch, or snap back.",
   image: "/images/tabshow-2.4-05-panel-settings.png",
   imageAlt: "TabShow Settings with options for keeping the panel open and enabling hover preview",
   intent: "Choose a management dashboard for bulk operations and dense control. Choose TabShow when the expensive part is identifying the right page before you switch.",
