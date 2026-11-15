@@ -12,9 +12,23 @@ Posted request locations:
 
 Private dashboard screenshots are retained outside the public repository. The response text below preserves the preparation drafts; posted text uses the same decisions and clarifies that Recently used intentionally moves the chosen tab to the top. After Store submission, report only the observed availability state. Mark the two implemented requests Completed only once 2.4 is publicly available.
 
-## Keyboard clarification for the next release update
+## Submission follow-ups posted 15 November 2026
 
-The earlier preparation text below is retained as a record. Future updates should say: Escape returns and closes the panel while it has keyboard focus. After a hover preview, move the pointer out of the panel to return; click Search to resume panel keyboard commands. This clarification has not been posted by editing this file.
+Two further comments were posted after the verified Chrome Web Store submission and their rendered entries checked. Both requests remain **In Progress** until the update is publicly available. The keep-open follow-up includes the keyboard-focus correction; the earlier preparation drafts below remain unchanged. Proof captures `featurebase/keep-open-submitted.png` and `featurebase/scroll-submitted.png` are retained outside this public repository.
+
+### Keep panel open
+
+> Version 2.4.0 has passed testing and is now submitted to the Chrome Web Store for review. It will publish automatically if approved. This request stays In Progress until the update is available.
+
+> Once 2.4 arrives, enable Settings → Keep panel open after choosing a tab. One correction to my earlier reply: Escape returns and closes the panel while the panel has keyboard focus. After a hover preview, move the pointer out of the panel to return, or click Search before using keyboard commands.
+
+### Scroll current tab into view
+
+> The scrolling fix and saved sort order are included in 2.4.0, now submitted to the Chrome Web Store for review after testing in Chrome. Publication is automatic if Google approves it.
+
+> This request stays In Progress until the update is available. Chrome order keeps the tab positions stable; Recently used intentionally moves the newly chosen tab to the top.
+
+The canonical review and publication status is in the [release README](README.md#publication-record).
 
 ## Option to keep panel open
 

@@ -12,7 +12,7 @@ English images were captured in Chrome through CUA on 14 November; German, Simpl
 - 04-windows.jpg: search results in two windows in one profile; other-window result is explicitly click-to-switch.
 - 05-settings.jpg: keep-open enabled explicitly; hover remains enabled with 250ms delay.
 
-Welcome PNGs were produced by converting the corresponding 01-preview.jpg files. These captures verify rendering and layout; they do not replace native extension API tests. The English images were checked against the current visible controls during the final visual pass. Exact final-package verification remains a separate release gate.
+Welcome PNGs were produced by converting the corresponding 01-preview.jpg files. These captures verify rendering and layout; they do not replace native extension API tests. The English images were checked against the current visible controls during the final visual pass. Final-package verification was subsequently completed and is recorded in the [native validation record](../../../docs/releases/2.4.0/NATIVE-QA.md).
 
 ## Native browser captures
 
@@ -22,4 +22,4 @@ Localized native captures use QA-only package variants that change `manifest.def
 
 Each locale's gallery slide 1 uses its native file. CSS displays the source at 1152 pixels wide inside a 516-pixel-high frame, clipping the lower part of the real capture. The underlying sources are retained here. All four saved slide-1 images were inspected at 1280 × 800; the demonstrated interaction remains visible.
 
-All four native sources show complete rendering, localized controls where applicable, and no automation infobar. German, Simplified Chinese, and Traditional Chinese release-note captures also passed review of their visible layouts. A captured screen alone does not prove preview/return, update, persistence, focus restoration, or IME behavior. Focus restoration, IME checks, and final-package verification remain pending; see the separate [native validation record](../../../docs/releases/2.4.0/NATIVE-QA.md).
+All four native sources show complete rendering, localized controls where applicable, and no automation infobar. German, Simplified Chinese, and Traditional Chinese release-note captures also passed review of their visible layouts. A captured screen alone does not prove preview/return, update, persistence, focus restoration, or IME behavior. Those checks were still in progress at the capture checkpoint. Final-package and real Chinese IME checks subsequently passed; the unsuccessful focus-restoration trial was removed and the observed Chrome focus constraint is documented in the [native validation record](../../../docs/releases/2.4.0/NATIVE-QA.md). See the [release record](../../../docs/releases/2.4.0/README.md#publication-record) for submission and deployment status.

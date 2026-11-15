@@ -1,6 +1,6 @@
-# TabShow 2.4.0 release candidate
+# TabShow 2.4.0 release record
 
-Prepared 15 November 2026. The final extension package, native Chrome checks, four localized galleries, and website artifact are ready. Final Codex review, merge, Store submission, and Sites deployment remain pending. Public Store availability is still 2.3.0.
+Updated 15 November 2026. TabShow 2.4.0 is **Pending review** in the Chrome Web Store, with automatic publication after approval selected. PR 16 is merged and the final Codex review reported no findings. Website version 14 is live. The latest verified public Store version remains 2.3.0; submission does not establish approval or 2.4 availability.
 
 ## Release scope
 
@@ -32,12 +32,20 @@ Hover preview can move keyboard focus into the page. Move the pointer out of the
 
 | Surface | Current state |
 |---|---|
-| Branch and review | `codex/2.4.0-panel-workflow`, [PR 16](https://github.com/sauliusp/Tab.Show/pull/16); final review pending |
-| Chrome ZIP | Audited and natively tested; not submitted |
-| Store assets | All four galleries and two shared tiles ready; upload/listing preview pending |
-| Website | Final source/archive prepared; not saved or deployed |
-| Chrome Web Store submission | Not submitted |
-| Public availability | Store still offers 2.3.0 |
-| Featurebase | Five replies verified; keep-open/scroll In Progress, search/colors Completed, thumbnails In Review |
+| Code and review | [PR 16](https://github.com/sauliusp/Tab.Show/pull/16) merged to `main` as `68f2833`; [final Codex review](https://github.com/sauliusp/Tab.Show/pull/16#issuecomment-6892039241) reported no findings |
+| Chrome ZIP | The audited 2.4.0 ZIP identified above was uploaded and submitted |
+| Store listings and assets | English, German, Simplified Chinese, and Traditional Chinese descriptions and five-image galleries completed; shared promotional assets completed |
+| Website | Sites version 14 deployed successfully on 15 November 2026 at 09:02:23 UTC; [tab.show](https://tab.show/) is live |
+| Chrome Web Store submission | Submitted on 15 November 2026; dashboard status **Pending review**; automatic publication after approval selected |
+| Public availability | Latest verified Store version is 2.3.0; 2.4.0 approval and public rollout are not yet verified |
+| Featurebase | Five initial replies plus two verified submission follow-ups; keep-open/scroll remain In Progress, search/colors Completed, thumbnails In Review. See [reply record](featurebase-replies.md) |
 
-A saved draft, uploaded package, submitted review, approved review, and public release are distinct states. Record the state observed. Rebuild and re-audit after any extension source or packaged asset change.
+## Dated checkpoints
+
+- **15 November, preparation:** the final package, native QA, localized images, and website artifact were ready before review, merge, submission, and deployment. The validation records preserve that preparation evidence.
+- **15 November, code review:** Codex completed review of final head `a2a0d23e1c35acf3e99edf26ff50f1fef2c94adb` at `2026-11-15T09:00:59Z` with no findings ([receipt](https://github.com/sauliusp/Tab.Show/pull/16#issuecomment-6892039241)). PR 16 was then merged as `68f2833`.
+- **15 November, website:** Sites version 14 deployed source `2224a812c23bf682174ef9a0ae68c0b99d718056` using the archive identified above. Deployment `appgdep_6af9750e01188191a6dd2ce5e25351ca` succeeded at `2026-11-15T09:02:23Z`.
+- **15 November, Store submission:** Chrome displayed “Your extension was submitted for review”. The subsequent Status page showed “Status: Pending review” and “This draft is pending review.” Automatic publication was selected on submission. The confirmation capture `cws-pending-review.jpg` is retained outside this public repository.
+- **15 November, Featurebase:** keep-open and scroll follow-ups were posted and rendered entries verified. Both remain In Progress. The keep-open reply corrected the Escape focus requirement; the scroll reply explained the intentional Recently used reordering.
+
+Google review and public rollout remain outstanding. Verify the public version before announcing availability or marking the implemented Featurebase requests Completed. A saved draft, submitted review, approval, and public release are distinct states. Rebuild and re-audit only if extension production source or packaged assets change; this status update changes documentation only.
