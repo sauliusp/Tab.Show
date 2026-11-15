@@ -24,8 +24,14 @@ Settings now shows your installed version and links to help and release notes. *
 
 Feature-release notes now open in a background tab. Patch updates do not open a release page automatically; the notes remain available in Settings.
 
+## Use TabShow in your language
+
+TabShow is available in English, German, Simplified Chinese, and Traditional Chinese. The panel, Settings, welcome page, and release notes follow your Chrome display language. Counts, instructions, and clipboard messages are localized too. Other display languages use English.
+
+Language support uses files included in the extension. It does not send tab data to a translation service.
+
 Every feature remains free. The release is designed to keep the existing permissions and local-only tab-data handling; confirm these against the final package before publication.
 
 ## Short Store update
 
-TabShow 2.4 adds an optional setting to keep the panel open after choosing a tab, an on/off switch for hover previews, saved sorting, and current-tab visibility when opening the panel. It also fixes list updates when tabs move between windows and makes version information and help easier to find. Existing panel and hover defaults stay the same.
+TabShow 2.4 adds an optional setting to keep the panel open after choosing a tab, an on/off switch for hover previews, saved sorting, and current-tab visibility when opening the panel. It also fixes list updates when tabs move between windows and makes version information and help easier to find. German, Simplified Chinese, and Traditional Chinese join English, following your Chrome display language. Existing panel and hover defaults stay the same.

@@ -1,0 +1,1677 @@
+{
+  "panelLocale": {
+    "message": "de",
+    "description": "BCP 47 language tag for this catalog: en, de, zh-CN or zh-TW. Keep the translated catalog value consistent with its locale."
+  },
+  "panelPageTitle": {
+    "message": "TabShow-Seitenleiste"
+  },
+  "panelExtensionName": {
+    "message": "TabShow: Live-Vorschau für Chrome-Tabs",
+    "description": "Extension name, at most 75 characters. Keep TabShow unchanged."
+  },
+  "panelExtensionShortName": {
+    "message": "TabShow",
+    "description": "Brand name; do not translate."
+  },
+  "panelExtensionDescription": {
+    "message": "Chrome-Tabs live ansehen, bevor du wechselst. Durchsuche offene Tabs und finde die richtige Seite, ohne den Überblick zu verlieren.",
+    "description": "Chrome extension summary: at most 132 characters."
+  },
+  "panelActionTitle": {
+    "message": "TabShow-Seitenleiste öffnen oder schließen"
+  },
+  "panelActionDescription": {
+    "message": "Seitenleiste öffnen oder schließen"
+  },
+  "panelTabScope": {
+    "message": "Angezeigte Tabs"
+  },
+  "panelCurrentWindow": {
+    "message": "Aktuelles Fenster"
+  },
+  "panelAllWindows": {
+    "message": "Alle Fenster"
+  },
+  "panelAllWindowsHint": {
+    "message": "Alle Fenster in diesem Chrome-Profil. Fenster anderer Profile bleiben getrennt."
+  },
+  "panelCurrentWindowHint": {
+    "message": "Tabs in diesem Fenster."
+  },
+  "panelSettings": {
+    "message": "Einstellungen"
+  },
+  "panelOpenSettings": {
+    "message": "Einstellungen öffnen"
+  },
+  "panelSearchPlaceholder": {
+    "message": "Tabs suchen, auch ohne Maus"
+  },
+  "panelSearch": {
+    "message": "Tabs suchen"
+  },
+  "panelThisProfile": {
+    "message": "Dieses Profil"
+  },
+  "panelSortTabs": {
+    "message": "Tabs sortieren"
+  },
+  "panelSortCurrent": {
+    "message": "Aktuelle Reihenfolge"
+  },
+  "panelSortRecent": {
+    "message": "Zuletzt verwendet"
+  },
+  "panelSortAdded": {
+    "message": "Zuletzt geöffnet (ungefähr)"
+  },
+  "panelSortDomain": {
+    "message": "Nach Domain"
+  },
+  "panelSortGroup": {
+    "message": "Nach Tab-Gruppe"
+  },
+  "panelLoading": {
+    "message": "Wird geladen…"
+  },
+  "panelKeyboardHint": {
+    "message": "↑↓ auswählen · Enter öffnen · Esc zurück",
+    "description": "Compact keyboard guide. Keep key names recognizable."
+  },
+  "panelCountsAllWindows": {
+    "message": "Offene Tabs: $count$; Chrome-Fenster: $windows$; nur dieses Profil",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      },
+      "windows": {
+        "content": "$2"
+      }
+    }
+  },
+  "panelCountsCurrentWindow": {
+    "message": "Offene Tabs: $count$",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "panelOpenTabsCompact": {
+    "message": "OFFENE TABS",
+    "description": "Compact counter label. Keep short."
+  },
+  "panelWindowsCompact": {
+    "message": "FENSTER",
+    "description": "Compact counter label. Keep short."
+  },
+  "panelNoAddress": {
+    "message": "Keine Adresse"
+  },
+  "panelOtherWindowHint": {
+    "message": "Anderes Chrome-Fenster. Zum Wechseln anklicken. Keine Vorschau beim Darüberfahren."
+  },
+  "panelUntitledTab": {
+    "message": "Tab ohne Titel"
+  },
+  "panelTab": {
+    "message": "Tab"
+  },
+  "panelOtherWindowSwitch": {
+    "message": "Anderes Fenster; zum Wechseln anklicken"
+  },
+  "panelPinned": {
+    "message": "Angeheftet"
+  },
+  "panelMuted": {
+    "message": "Stummgeschaltet"
+  },
+  "panelPlayingAudio": {
+    "message": "Tonwiedergabe"
+  },
+  "panelSleeping": {
+    "message": "Inaktiv"
+  },
+  "panelOpenTab": {
+    "message": "$title$, $address$ öffnen",
+    "placeholders": {
+      "title": {
+        "content": "$1"
+      },
+      "address": {
+        "content": "$2"
+      }
+    }
+  },
+  "panelOpenCurrentTab": {
+    "message": "$title$, $address$ öffnen. Aktueller Tab.",
+    "placeholders": {
+      "title": {
+        "content": "$1"
+      },
+      "address": {
+        "content": "$2"
+      }
+    }
+  },
+  "panelOpenOtherTab": {
+    "message": "$title$, $address$ öffnen. Anderes Fenster.",
+    "placeholders": {
+      "title": {
+        "content": "$1"
+      },
+      "address": {
+        "content": "$2"
+      }
+    }
+  },
+  "panelSharedUrl_one": {
+    "message": "$count$ Tab hat diese URL",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "panelSharedUrl_other": {
+    "message": "$count$ Tabs haben diese URL",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "panelDuplicates_one": {
+    "message": "$count$ Duplikat",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "panelDuplicates_other": {
+    "message": "$count$ Duplikate",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "panelSwitch": {
+    "message": "Wechseln",
+    "description": "Compact action for a tab in another Chrome window."
+  },
+  "panelWindowPreviewUnavailable": {
+    "message": "Keine Vorschau · Tab anklicken, um zum Fenster zu wechseln"
+  },
+  "panelLoadingTabs": {
+    "message": "Tabs werden geladen…"
+  },
+  "panelLoadingWindows": {
+    "message": "Deine Chrome-Fenster werden geladen."
+  },
+  "panelSearchNoMatches": {
+    "message": "Keine passenden Tabs gefunden"
+  },
+  "panelSearchTryAgain": {
+    "message": "Versuche einen anderen Titel, eine URL oder eine Domain."
+  },
+  "panelNoTabsInScope": {
+    "message": "Hier sind keine Tabs geöffnet"
+  },
+  "panelOpenTabHere": {
+    "message": "Öffne einen Tab, damit er hier erscheint."
+  },
+  "panelTryAllWindows": {
+    "message": "Wähle „Alle Fenster“ oder öffne einen Tab in diesem Fenster."
+  },
+  "panelUnnamedGroup": {
+    "message": "Gruppe ohne Namen"
+  },
+  "panelOpenTabs": {
+    "message": "Offene Tabs"
+  },
+  "panelSwitchToWindow": {
+    "message": "Zu Fenster $number$ wechseln",
+    "placeholders": {
+      "number": {
+        "content": "$1"
+      }
+    }
+  },
+  "panelCollapseGroup": {
+    "message": "$title$ einklappen",
+    "placeholders": {
+      "title": {
+        "content": "$1"
+      }
+    }
+  },
+  "panelExpandGroup": {
+    "message": "$title$ ausklappen",
+    "placeholders": {
+      "title": {
+        "content": "$1"
+      }
+    }
+  },
+  "panelCloseTab": {
+    "message": "Tab schließen"
+  },
+  "panelCloseSettings": {
+    "message": "Einstellungen schließen"
+  },
+  "panelAppearanceMode": {
+    "message": "Darstellung"
+  },
+  "panelUseSystemAppearance": {
+    "message": "Systemdarstellung verwenden"
+  },
+  "panelUseLightAppearance": {
+    "message": "Helle Darstellung verwenden"
+  },
+  "panelUseDarkAppearance": {
+    "message": "Dunkle Darstellung verwenden"
+  },
+  "panelHoverDelayAria": {
+    "message": "Verzögerung der Tab-Vorschau in Millisekunden"
+  },
+  "panelKeepOpen": {
+    "message": "Seitenleiste nach Tab-Auswahl geöffnet lassen"
+  },
+  "panelHoverPreview": {
+    "message": "Tab-Vorschau beim Darüberfahren"
+  },
+  "panelTabSwitching": {
+    "message": "Zwischen Tabs wechseln"
+  },
+  "panelKeepOpenDescription": {
+    "message": "Die Liste bleibt neben der Seite geöffnet, wenn du einen Tab anklickst oder Enter drückst. Chromes Stecknadel heftet nur das Symbol an die Symbolleiste."
+  },
+  "panelHoverPreviewDescription": {
+    "message": "Bewege den Mauszeiger über einen Tab in diesem Fenster, um die Seite live anzusehen. Ist diese Option aus, wechselst du nur per Klick oder Enter."
+  },
+  "panelAppearance": {
+    "message": "Darstellung"
+  },
+  "panelHoverDelay": {
+    "message": "Verzögerung der Tab-Vorschau"
+  },
+  "panelHoverDelayHint": {
+    "message": "Eine längere Verzögerung verhindert versehentliche Vorschauen, wenn du die Seitenleiste mit dem Mauszeiger streifst."
+  },
+  "panelChoosePairing": {
+    "message": "Farbkombination wählen"
+  },
+  "panelImproveHeading": {
+    "message": "TabShow verbessern"
+  },
+  "panelImproveDescription": {
+    "message": "Schlage eine Verbesserung vor oder hilf anderen mit einer ehrlichen Bewertung bei der Entscheidung."
+  },
+  "panelShareIdea": {
+    "message": "Idee vorschlagen"
+  },
+  "panelRate": {
+    "message": "TabShow bewerten"
+  },
+  "panelWhatsNew": {
+    "message": "Was ist neu?"
+  },
+  "panelGettingStarted": {
+    "message": "Erste Schritte"
+  },
+  "panelSupport": {
+    "message": "TabShow unterstützen"
+  },
+  "panelSupportDescription": {
+    "message": "TabShow ist kostenlos. Wenn es dir den Alltag erleichtert, kannst du meine Arbeit mit einem Kaffee unterstützen. Ganz freiwillig."
+  },
+  "panelCoffee": {
+    "message": "Einen Kaffee spendieren"
+  },
+  "panelDone": {
+    "message": "Fertig"
+  },
+  "panelSystem": {
+    "message": "System"
+  },
+  "panelLight": {
+    "message": "Hell"
+  },
+  "panelDark": {
+    "message": "Dunkel"
+  },
+  "panelPrimary": {
+    "message": "Primärfarbe"
+  },
+  "panelSecondary": {
+    "message": "Sekundärfarbe"
+  },
+  "panelFollowingDark": {
+    "message": "Wie im System, derzeit dunkel."
+  },
+  "panelFollowingLight": {
+    "message": "Wie im System, derzeit hell."
+  },
+  "panelAlwaysDark": {
+    "message": "Immer dunkle Darstellung verwenden."
+  },
+  "panelAlwaysLight": {
+    "message": "Immer helle Darstellung verwenden."
+  },
+  "panelSystemThemeHint": {
+    "message": "„System“ übernimmt die helle oder dunkle Darstellung, aber keine Farben benutzerdefinierter Chrome-Designs."
+  },
+  "panelDelayValue": {
+    "message": "$seconds$ s ($milliseconds$ ms)",
+    "placeholders": {
+      "seconds": {
+        "content": "$1"
+      },
+      "milliseconds": {
+        "content": "$2"
+      }
+    }
+  },
+  "panelMilliseconds": {
+    "message": "$value$ ms",
+    "placeholders": {
+      "value": {
+        "content": "$1"
+      }
+    }
+  },
+  "panelAbout": {
+    "message": "Über TabShow"
+  },
+  "panelAboutVersion": {
+    "message": "Über TabShow $version$",
+    "placeholders": {
+      "version": {
+        "content": "$1"
+      }
+    }
+  },
+  "panelPairVioletAmber": {
+    "message": "Dunkelviolett + Bernstein"
+  },
+  "panelPairVioletAmberDescription": {
+    "message": "Violett für den aktuellen Tab, Bernstein für Vorschauen."
+  },
+  "panelPairInkBlue": {
+    "message": "Tintenschwarz + Signalblau"
+  },
+  "panelPairInkBlueDescription": {
+    "message": "Dunkelgrau für den aktuellen Tab, Blau für Vorschauen."
+  },
+  "panelPairGraphiteCoral": {
+    "message": "Graphit + Koralle"
+  },
+  "panelPairGraphiteCoralDescription": {
+    "message": "Graphit für den aktuellen Tab, Koralle für Vorschauen."
+  },
+  "panelPairTealCitrine": {
+    "message": "Dunkles Petrol + Zitronengelb"
+  },
+  "panelPairTealCitrineDescription": {
+    "message": "Petrol für den aktuellen Tab, Gelb für Vorschauen."
+  },
+  "panelPairSlateSeafoam": {
+    "message": "Schiefer + Meerschaumgrün"
+  },
+  "panelPairSlateSeafoamDescription": {
+    "message": "Schiefer für den aktuellen Tab, Meerschaumgrün für Vorschauen."
+  },
+  "panelPairMochaRose": {
+    "message": "Mokka + Rosenquarz"
+  },
+  "panelPairMochaRoseDescription": {
+    "message": "Braun für den aktuellen Tab, Rosa für Vorschauen."
+  },
+  "panelDirection": {
+    "message": "ltr",
+    "description": "Text direction for this catalog. Use ltr for English, German and Chinese; rtl only for right-to-left languages."
+  },
+  "panelCopied": {
+    "message": "Kopiert"
+  },
+  "panelTellFriend": {
+    "message": "Weiterempfehlen"
+  },
+  "panelClipboardError": {
+    "message": "Kein Zugriff auf die Zwischenablage"
+  },
+  "panelClipboardCopied": {
+    "message": "Link zur Chrome-Erweiterung kopiert"
+  },
+  "panelSharePasteHint": {
+    "message": "Füge ihn in eine Nachricht, E-Mail oder einen Beitrag ein."
+  },
+  "panelShareMessage": {
+    "message": "Probier TabShow: Finde den richtigen Chrome-Tab, ohne den Überblick zu verlieren: $url$",
+    "placeholders": {
+      "url": {
+        "content": "$1"
+      }
+    }
+  },
+  "panelSuggestFeature": {
+    "message": "Funktion vorschlagen"
+  },
+  "panelFree": {
+    "message": "Kostenlos nutzbar"
+  },
+  "panelOpenStore": {
+    "message": "Chrome Web Store öffnen"
+  },
+  "panelCopyAddress": {
+    "message": "Kopiere den Link aus der Adressleiste."
+  },
+  "panelTrendStart": {
+    "message": "Verlauf beginnen"
+  },
+  "panelTrendUnchanged": {
+    "message": "Unverändert seit der letzten Prüfung"
+  },
+  "panelOpenChaos": {
+    "message": "Tab-Chaos-Wert öffnen"
+  },
+  "panelChaosLoading": {
+    "message": "Tab-Chaos-Wert wird berechnet…"
+  },
+  "panelTrendLower": {
+    "message": "$count$ weniger als bei der letzten Prüfung",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "panelTrendHigher": {
+    "message": "$count$ mehr als bei der letzten Prüfung",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "panelOpenChaosScore": {
+    "message": "Tab-Chaos-Wert öffnen: $score$, $level$",
+    "placeholders": {
+      "score": {
+        "content": "$1"
+      },
+      "level": {
+        "content": "$2"
+      }
+    }
+  },
+  "panelChaosTooltip": {
+    "message": "Tab-Chaos $score$/100 · $level$ · $trend$",
+    "placeholders": {
+      "score": {
+        "content": "$1"
+      },
+      "level": {
+        "content": "$2"
+      },
+      "trend": {
+        "content": "$3"
+      }
+    }
+  },
+  "panelChaosCompact": {
+    "message": "CHAOS"
+  },
+  "panelVisitedToday": {
+    "message": "heute besucht"
+  },
+  "panelNotAvailable": {
+    "message": "nicht verfügbar"
+  },
+  "panelChaosTitle": {
+    "message": "Tab-Chaos-Wert"
+  },
+  "panelChaosSubtitle": {
+    "message": "Eine Orientierung, keine Bewertung deiner Arbeitsweise."
+  },
+  "panelCloseChaos": {
+    "message": "Tab-Chaos-Wert schließen"
+  },
+  "panelTrendFirstCheck": {
+    "message": "Dein Verlauf beginnt mit dieser Prüfung."
+  },
+  "panelStatOpenTabs": {
+    "message": "offene Tabs"
+  },
+  "panelStatWindows": {
+    "message": "Chrome-Fenster"
+  },
+  "panelStatDuplicates": {
+    "message": "Duplikate"
+  },
+  "panelStatGroups": {
+    "message": "Tab-Gruppen"
+  },
+  "panelPersonalBest": {
+    "message": "bester Wert"
+  },
+  "panelCheckInStreak": {
+    "message": "Tage in Folge geprüft"
+  },
+  "panelScoreFactors": {
+    "message": "So setzt sich der Wert zusammen"
+  },
+  "panelYourSession": {
+    "message": "Deine Sitzung"
+  },
+  "panelDaysAgo_one": {
+    "message": "vor $count$ Tag",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "panelDaysAgo_other": {
+    "message": "vor $count$ Tagen",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "panelDays_one": {
+    "message": "$count$ Tag",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "panelDays_other": {
+    "message": "$count$ Tage",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "panelTopDomains": {
+    "message": "Häufigste Domains: $domains$",
+    "placeholders": {
+      "domains": {
+        "content": "$1"
+      }
+    }
+  },
+  "panelDomainCount": {
+    "message": "$domain$ ($count$)",
+    "placeholders": {
+      "domain": {
+        "content": "$1"
+      },
+      "count": {
+        "content": "$2"
+      }
+    }
+  },
+  "panelListSeparator": {
+    "message": ", "
+  },
+  "panelCurrentPosition": {
+    "message": "Aktueller Tab: $position$ von $total$ in diesem Fenster",
+    "placeholders": {
+      "position": {
+        "content": "$1"
+      },
+      "total": {
+        "content": "$2"
+      }
+    }
+  },
+  "panelLeastRecent": {
+    "message": "Am längsten unberührt: $domain$ · $elapsed$",
+    "placeholders": {
+      "domain": {
+        "content": "$1"
+      },
+      "elapsed": {
+        "content": "$2"
+      }
+    }
+  },
+  "panelDiscardedTabs_one": {
+    "message": "Inaktiv: $count$ aus dem Speicher entladener Tab",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "panelDiscardedTabs_other": {
+    "message": "Inaktiv: $count$ aus dem Speicher entladene Tabs",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "panelChaosPrivacy": {
+    "message": "Wird lokal berechnet und gespeichert. TabShow überträgt deine Tab-Daten nirgendwohin. Schau später wieder nach, um die Entwicklung deiner Sitzung zu sehen."
+  },
+  "panelInstantPreview": {
+    "message": "Sofortige Tab-Vorschau"
+  },
+  "panelPreviewingFrom": {
+    "message": "Vorschau ausgehend von $title$",
+    "placeholders": {
+      "title": {
+        "content": "$1"
+      }
+    }
+  },
+  "panelCurrentTab": {
+    "message": "aktueller Tab"
+  },
+  "services_chaos_level_clear": {
+    "message": "Übersichtlich"
+  },
+  "services_chaos_level_clear_description": {
+    "message": "Dein Browser ist aufgeräumt und leicht zu überblicken."
+  },
+  "services_chaos_level_lively": {
+    "message": "Lebhaft"
+  },
+  "services_chaos_level_lively_description": {
+    "message": "Ein paar offene Enden, aber noch gut im Griff."
+  },
+  "services_chaos_level_busy": {
+    "message": "Viel los"
+  },
+  "services_chaos_level_busy_description": {
+    "message": "Suche und Sortierung machen sich bezahlt."
+  },
+  "services_chaos_level_wild": {
+    "message": "Wild"
+  },
+  "services_chaos_level_wild_description": {
+    "message": "Viele Tabs, aber mit TabShow findest du dich noch zurecht."
+  },
+  "services_chaos_level_maximum": {
+    "message": "Maximales Chaos"
+  },
+  "services_chaos_level_maximum_description": {
+    "message": "In dieser Browser-Sitzung ist ordentlich was los."
+  },
+  "services_chaos_domain_browser": {
+    "message": "Chrome"
+  },
+  "services_chaos_domain_extension": {
+    "message": "Chrome-Erweiterung"
+  },
+  "services_chaos_domain_other": {
+    "message": "Sonstige"
+  },
+  "services_chaos_untitled_tab": {
+    "message": "Tab ohne Titel"
+  },
+  "services_chaos_factor_volume": {
+    "message": "Anzahl der Tabs"
+  },
+  "services_chaos_factor_windows": {
+    "message": "Verteilung auf Fenster"
+  },
+  "services_chaos_factor_duplicates": {
+    "message": "Duplikate"
+  },
+  "services_chaos_factor_stale": {
+    "message": "Seit mindestens 7 Tagen unberührt"
+  },
+  "services_chaos_factor_ungrouped": {
+    "message": "Tabs ohne Gruppe"
+  },
+  "services_chaos_detail_volume_one": {
+    "message": "$count$ offener Tab",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "services_chaos_detail_volume_other": {
+    "message": "$count$ offene Tabs",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "services_chaos_detail_windows_one": {
+    "message": "$count$ Chrome-Fenster",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "services_chaos_detail_windows_other": {
+    "message": "$count$ Chrome-Fenster",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "services_chaos_detail_duplicates_one": {
+    "message": "$count$ zusätzliche Kopie",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "services_chaos_detail_duplicates_other": {
+    "message": "$count$ zusätzliche Kopien",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "services_chaos_detail_stale_one": {
+    "message": "$count$ lange nicht verwendeter Tab",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "services_chaos_detail_stale_other": {
+    "message": "$count$ lange nicht verwendete Tabs",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "services_chaos_detail_ungrouped_one": {
+    "message": "$count$ Tab ohne Gruppe",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "services_chaos_detail_ungrouped_other": {
+    "message": "$count$ Tabs ohne Gruppe",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "services_chaos_summary_single_window_one": {
+    "message": "$count$ Tab in $windows$ Fenster.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      },
+      "windows": {
+        "content": "$2",
+        "example": "1"
+      }
+    }
+  },
+  "services_chaos_summary_single_window_other": {
+    "message": "$count$ Tabs in $windows$ Fenster.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      },
+      "windows": {
+        "content": "$2",
+        "example": "1"
+      }
+    }
+  },
+  "services_chaos_summary_multiple_windows_one": {
+    "message": "$count$ Tab in $windows$ Fenstern.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      },
+      "windows": {
+        "content": "$2",
+        "example": "3"
+      }
+    }
+  },
+  "services_chaos_summary_multiple_windows_other": {
+    "message": "$count$ Tabs in $windows$ Fenstern.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      },
+      "windows": {
+        "content": "$2",
+        "example": "3"
+      }
+    }
+  },
+  "services_chaos_summary_duplicates_one": {
+    "message": "$count$ doppelter Tab lässt sich am einfachsten vermeiden.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "services_chaos_summary_duplicates_other": {
+    "message": "$count$ doppelte Tabs lassen sich am einfachsten vermeiden.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "services_chaos_summary_stale_one": {
+    "message": "$count$ Tab wurde seit mindestens einer Woche nicht verwendet.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "services_chaos_summary_stale_other": {
+    "message": "$count$ Tabs wurden seit mindestens einer Woche nicht verwendet.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "services_chaos_summary_windows": {
+    "message": "Deine Arbeit verteilt sich auf $count$ Chrome-Fenster.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "services_chaos_summary_ungrouped": {
+    "message": "$count$ Tabs ohne Gruppe findest du über die Suche oder aus dem Gedächtnis wieder.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "services_chaos_quick_calm_title": {
+    "message": "Weiterarbeiten statt aufräumen"
+  },
+  "services_chaos_quick_calm_detail": {
+    "message": "Deine Sitzung ist schon übersichtlich. TabShow bleibt im Hintergrund, bis du es brauchst."
+  },
+  "services_chaos_quick_duplicates_title_one": {
+    "message": "$count$ doppelten Tab schließen",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "services_chaos_quick_duplicates_title_other": {
+    "message": "$count$ doppelte Tabs schließen",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "services_chaos_quick_duplicates_detail": {
+    "message": "Duplikate zu schließen senkt den Wert schnell, ohne deine Arbeitsweise zu ändern."
+  },
+  "services_chaos_quick_stale_title": {
+    "message": "Nach „Zuletzt verwendet“ sortieren"
+  },
+  "services_chaos_quick_stale_detail": {
+    "message": "Lange nicht verwendete Tabs stehen dann unten. So lässt sich leichter entscheiden, welche bleiben sollen."
+  },
+  "services_chaos_quick_windows_title": {
+    "message": "Mit „Aktuelles Fenster“ fokussieren"
+  },
+  "services_chaos_quick_windows_detail": {
+    "message": "Nutze „Alle Fenster“ zum Wiederfinden und grenze die Liste danach für dein aktuelles Projekt ein."
+  },
+  "services_chaos_quick_ungrouped_title": {
+    "message": "„Nach Domain“ ausprobieren"
+  },
+  "services_chaos_quick_ungrouped_detail": {
+    "message": "Die Sortierung nach Domain bringt zusammengehörige Tabs zusammen, ohne dass du sie manuell ordnen musst."
+  },
+  "services_chaos_trend_first": {
+    "message": "Erste lokale Prüfung. Mit der Zeit wird der Verlauf aussagekräftiger."
+  },
+  "services_chaos_trend_down_one": {
+    "message": "$count$ Punkt weniger als bei der letzten Prüfung.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "services_chaos_trend_down_other": {
+    "message": "$count$ Punkte weniger als bei der letzten Prüfung.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "services_chaos_trend_up_one": {
+    "message": "$count$ Punkt mehr als bei der letzten Prüfung.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "services_chaos_trend_up_other": {
+    "message": "$count$ Punkte mehr als bei der letzten Prüfung.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "services_chaos_trend_steady": {
+    "message": "Unverändert seit der letzten Prüfung."
+  },
+  "pagesWelcomeTitle": {
+    "message": "Willkommen bei TabShow",
+    "description": "Text on the TabShow welcome page."
+  },
+  "pagesWelcomeInstalled": {
+    "message": "$part1$ Installiert",
+    "description": "Text on the TabShow welcome page.",
+    "placeholders": {
+      "part1": {
+        "content": "$1",
+        "example": "✓"
+      }
+    }
+  },
+  "pagesWelcomeEyebrow": {
+    "message": "Willkommen bei TabShow",
+    "description": "Text on the TabShow welcome page."
+  },
+  "pagesWelcomeHeadingPart2": {
+    "message": "Behalte den Überblick.",
+    "description": "Inline text in pagesWelcomeHeading. Translate consistently with the same setting or control in the side panel."
+  },
+  "pagesWelcomeHeading": {
+    "message": "Finde den richtigen Tab.$part1$$part2$",
+    "description": "Text on the TabShow welcome page.",
+    "placeholders": {
+      "part1": {
+        "content": "$1",
+        "example": "line break"
+      },
+      "part2": {
+        "content": "$2",
+        "example": "Without losing your place."
+      }
+    }
+  },
+  "pagesWelcomeIntro": {
+    "message": "Deine Tabs erscheinen jetzt in einer durchsuchbaren Seitenleiste. Bewege den Mauszeiger über einen Tab, um die Seite live anzusehen. Klicke erst, wenn du die richtige gefunden hast.",
+    "description": "Text on the TabShow welcome page."
+  },
+  "pagesOrUse": {
+    "message": "oder mit",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesWelcomeOpenNote": {
+    "message": "Ein Klick. Keine Einrichtung nötig.",
+    "description": "Text on the TabShow welcome page."
+  },
+  "pagesWelcomeImageCaption": {
+    "message": "Die TabShow-Seitenleiste. Öffne sie neben einer beliebigen Seite.",
+    "description": "Text on the TabShow welcome page."
+  },
+  "pagesWelcomeStartEyebrow": {
+    "message": "Deine erste Vorschau",
+    "description": "Text on the TabShow welcome page."
+  },
+  "pagesWelcomeStartHeading": {
+    "message": "Drei Schritte genügen.",
+    "description": "Text on the TabShow welcome page."
+  },
+  "pagesWelcomeStartIntro": {
+    "message": "Probier es gleich aus. Die Seitenleiste kann neben dieser Seite geöffnet bleiben.",
+    "description": "Text on the TabShow welcome page."
+  },
+  "pagesWelcomeStepOpenHeading": {
+    "message": "Seitenleiste öffnen",
+    "description": "Text on the TabShow welcome page."
+  },
+  "pagesWelcomeStepOpen": {
+    "message": "Nutze den Button oben, das Symbol in der Symbolleiste oder die Tastenkombination.",
+    "description": "Text on the TabShow welcome page."
+  },
+  "pagesWelcomeStepPreviewHeading": {
+    "message": "Auf einen anderen Tab zeigen",
+    "description": "Text on the TabShow welcome page."
+  },
+  "pagesWelcomeStepPreview": {
+    "message": "Die vollständige Seite erscheint. Bewegst du den Mauszeiger aus der Seitenleiste, kehrt TabShow zu deinem Ausgangspunkt zurück.",
+    "description": "Text on the TabShow welcome page."
+  },
+  "pagesWelcomeStepChooseHeading": {
+    "message": "Den richtigen Tab anklicken",
+    "description": "Text on the TabShow welcome page."
+  },
+  "pagesWelcomeStepChoosePart1": {
+    "message": "Einstellungen → Seitenleiste nach Tab-Auswahl geöffnet lassen",
+    "description": "Inline text in pagesWelcomeStepChoose. Translate consistently with the same setting or control in the side panel."
+  },
+  "pagesWelcomeStepChoose": {
+    "message": "Die gewählte Seite wird zum aktuellen Tab. Standardmäßig schließt TabShow die Seitenleiste. Aktiviere $part1$, wenn sie neben deiner Seite bleiben soll.",
+    "description": "Text on the TabShow welcome page.",
+    "placeholders": {
+      "part1": {
+        "content": "$1",
+        "example": "Settings → Keep panel open after choosing a tab"
+      }
+    }
+  },
+  "pagesWelcomeShortcutEyebrow": {
+    "message": "Schnell zur Hand",
+    "description": "Text on the TabShow welcome page."
+  },
+  "pagesWelcomeShortcutHeading": {
+    "message": "TabShow per Tastenkombination öffnen.",
+    "description": "Text on the TabShow welcome page."
+  },
+  "pagesWelcomeShortcutIntro": {
+    "message": "TabShow schlägt diese Tastenkombinationen vor. Chrome lässt sie möglicherweise unzugewiesen, wenn eine andere Erweiterung sie bereits verwendet.",
+    "description": "Text on the TabShow welcome page."
+  },
+  "pagesWelcomeShortcutChange": {
+    "message": "Tastenkombination ändern",
+    "description": "Text on the TabShow welcome page."
+  },
+  "pagesWelcomeShortcutStepCopy": {
+    "message": "Kopiere diese Chrome-Adresse.",
+    "description": "Text on the TabShow welcome page."
+  },
+  "pagesWelcomeShortcutStepPaste": {
+    "message": "Füge sie in die Adressleiste ein und drücke Enter.",
+    "description": "Text on the TabShow welcome page."
+  },
+  "pagesWelcomeShortcutStepAssign": {
+    "message": "Suche TabShow, klicke auf den Stift und drücke die gewünschten Tasten.",
+    "description": "Text on the TabShow welcome page."
+  },
+  "pagesWelcomeFeaturesEyebrow": {
+    "message": "Wenn du so weit bist",
+    "description": "Text on the TabShow welcome page."
+  },
+  "pagesWelcomeFeaturesHeading": {
+    "message": "Drei Wege zum passenden Tab.",
+    "description": "Text on the TabShow welcome page."
+  },
+  "pagesWelcomeSearchHeading": {
+    "message": "Tippen und finden",
+    "description": "Text on the TabShow welcome page."
+  },
+  "pagesWelcomeSearch": {
+    "message": "Suche nach Tab-Titeln, Webadressen oder Domains. Wähle mit $part1$ $part2$ ein Ergebnis und öffne es mit $part3$. Fahre für eine Live-Vorschau mit der Maus darüber.",
+    "description": "Text on the TabShow welcome page.",
+    "placeholders": {
+      "part1": {
+        "content": "$1",
+        "example": "↑"
+      },
+      "part2": {
+        "content": "$2",
+        "example": "↓"
+      },
+      "part3": {
+        "content": "$3",
+        "example": "Enter"
+      }
+    }
+  },
+  "pagesWelcomeWindowsHeading": {
+    "message": "Alle Fenster erreichen",
+    "description": "Text on the TabShow welcome page."
+  },
+  "pagesWelcomeWindowsPart1": {
+    "message": "Aktuelles Fenster",
+    "description": "Inline text in pagesWelcomeWindows. Translate consistently with the same setting or control in the side panel."
+  },
+  "pagesWelcomeWindowsPart2": {
+    "message": "Alle Fenster",
+    "description": "Inline text in pagesWelcomeWindows. Translate consistently with the same setting or control in the side panel."
+  },
+  "pagesWelcomeWindows": {
+    "message": "Wechsle von $part1$ zu $part2$. Hier erscheinen Fenster desselben Chrome-Profils. Andere Profile bleiben getrennt. Zu Tabs in anderen Fenstern wechselst du per Klick; darüberzufahren ändert den Fensterfokus nicht.",
+    "description": "Text on the TabShow welcome page.",
+    "placeholders": {
+      "part1": {
+        "content": "$1",
+        "example": "Current window"
+      },
+      "part2": {
+        "content": "$2",
+        "example": "All windows"
+      }
+    }
+  },
+  "pagesWelcomeSortHeading": {
+    "message": "Passend zur Arbeit sortieren",
+    "description": "Text on the TabShow welcome page."
+  },
+  "pagesWelcomeSort": {
+    "message": "Wähle „Aktuelle Reihenfolge“, „Zuletzt verwendet“, „Zuletzt geöffnet (ungefähr)“, „Nach Domain“ oder „Nach Tab-Gruppe“. Sortierung, Fensterauswahl und Einstellungen bleiben gespeichert.",
+    "description": "Text on the TabShow welcome page."
+  },
+  "pagesWelcomeSettingsHeading": {
+    "message": "Die Seitenleiste anpassen",
+    "description": "Text on the TabShow welcome page."
+  },
+  "pagesWelcomeSettingsPart1": {
+    "message": "Einstellungen",
+    "description": "Inline text in pagesWelcomeSettings. Translate consistently with the same setting or control in the side panel."
+  },
+  "pagesWelcomeSettingsPart2": {
+    "message": "Verzögerung der Tab-Vorschau",
+    "description": "Inline text in pagesWelcomeSettings. Translate consistently with the same setting or control in the side panel."
+  },
+  "pagesWelcomeSettingsPart3": {
+    "message": "Tab-Vorschau beim Darüberfahren",
+    "description": "Inline text in pagesWelcomeSettings. Translate consistently with the same setting or control in the side panel."
+  },
+  "pagesWelcomeSettingsPart4": {
+    "message": "Darstellung → System",
+    "description": "Inline text in pagesWelcomeSettings. Translate consistently with the same setting or control in the side panel."
+  },
+  "pagesWelcomeSettings": {
+    "message": "Unter $part1$ kannst du die $part2$ anpassen oder $part3$ ausschalten, um die Liste ohne Seitenwechsel zu durchsuchen. $part4$ übernimmt deine helle oder dunkle Darstellung, aber keine Farben eines benutzerdefinierten Chrome-Designs.",
+    "description": "Text on the TabShow welcome page.",
+    "placeholders": {
+      "part1": {
+        "content": "$1",
+        "example": "Settings"
+      },
+      "part2": {
+        "content": "$2",
+        "example": "Hover preview delay"
+      },
+      "part3": {
+        "content": "$3",
+        "example": "Preview tabs on hover"
+      },
+      "part4": {
+        "content": "$4",
+        "example": "Appearance → System"
+      }
+    }
+  },
+  "pagesWelcomePinPart1": {
+    "message": "Seitenleiste nach Tab-Auswahl geöffnet lassen",
+    "description": "Inline text in pagesWelcomePin. Translate consistently with the same setting or control in the side panel."
+  },
+  "pagesWelcomePin": {
+    "message": "Chromes Stecknadel heftet TabShow an die Symbolleiste. Soll die Seitenleiste nach der Tab-Auswahl geöffnet bleiben, aktiviere $part1$ in den TabShow-Einstellungen.",
+    "description": "Text on the TabShow welcome page.",
+    "placeholders": {
+      "part1": {
+        "content": "$1",
+        "example": "Keep panel open after choosing a tab"
+      }
+    }
+  },
+  "pagesWelcomeEscape": {
+    "message": "$part1$ beendet die Vorschau und schließt TabShow.",
+    "description": "Text on the TabShow welcome page.",
+    "placeholders": {
+      "part1": {
+        "content": "$1",
+        "example": "Esc"
+      }
+    }
+  },
+  "pagesWelcomeHelpPart1": {
+    "message": "Einstellungen",
+    "description": "Inline text in pagesWelcomeHelp. Translate consistently with the same setting or control in the side panel."
+  },
+  "pagesWelcomeHelp": {
+    "message": "Version und Hilfelinks findest du unter $part1$.",
+    "description": "Text on the TabShow welcome page.",
+    "placeholders": {
+      "part1": {
+        "content": "$1",
+        "example": "Settings"
+      }
+    }
+  },
+  "pagesWelcomeClosingHeading": {
+    "message": "Deine Tabs sind bereit.",
+    "description": "Text on the TabShow welcome page."
+  },
+  "pagesWelcomeClosing": {
+    "message": "Öffne TabShow und probiere deine erste Vorschau aus.",
+    "description": "Text on the TabShow welcome page."
+  },
+  "pagesWelcomePrivacy": {
+    "message": "Deine Tab-Daten bleiben in deinem Browser.",
+    "description": "Text on the TabShow welcome page."
+  },
+  "pagesSuggestImprovement": {
+    "message": "Verbesserung vorschlagen ↗",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesBrandHome": {
+    "message": "TabShow-Startseite",
+    "description": "Accessible name for the link back to the top of the page."
+  },
+  "pagesOpenNow": {
+    "message": "TabShow jetzt öffnen $part1$",
+    "description": "Text on the TabShow release notes page.",
+    "placeholders": {
+      "part1": {
+        "content": "$1",
+        "example": "→"
+      }
+    }
+  },
+  "pagesOpen": {
+    "message": "TabShow öffnen $part1$",
+    "description": "Text on the TabShow release notes page.",
+    "placeholders": {
+      "part1": {
+        "content": "$1",
+        "example": "→"
+      }
+    }
+  },
+  "pagesCopy": {
+    "message": "Kopieren",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesCopyShortcutAddress": {
+    "message": "Chrome-Adresse für Erweiterungs-Tastenkombinationen kopieren",
+    "description": "Accessible name for copying the chrome://extensions/shortcuts address."
+  },
+  "pagesShortcutMacLabel": {
+    "message": "Mac: Command + Shift + X",
+    "description": "Accessible keyboard shortcut. Keep Command/Ctrl + Shift + X unchanged."
+  },
+  "pagesShortcutOtherLabel": {
+    "message": "Windows und Linux: Ctrl + Shift + X",
+    "description": "Accessible keyboard shortcut. Keep Command/Ctrl + Shift + X unchanged."
+  },
+  "pagesWelcomeImageAlt": {
+    "message": "TabShow-2.4-Seitenleiste mit Tab-Suche, Fensterauswahl, Sortierung und sichtbarem aktuellem Tab",
+    "description": "Alt text for the screenshot of the TabShow 2.4 side panel."
+  },
+  "pagesUpdateTitle": {
+    "message": "TabShow 2.4: Was ist neu?",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesUpdateVersion": {
+    "message": "Version 2.4",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesUpdateEyebrow": {
+    "message": "Neu in TabShow 2.4",
+    "description": "Accessible section name for the TabShow 2.4 changes."
+  },
+  "pagesUpdateHeadingPart2": {
+    "message": "Seitenleiste offen lassen.",
+    "description": "Inline text in pagesUpdateHeading. Translate consistently with the same setting or control in the side panel."
+  },
+  "pagesUpdateHeading": {
+    "message": "Tabs wechseln.$part1$$part2$",
+    "description": "Text on the TabShow release notes page.",
+    "placeholders": {
+      "part1": {
+        "content": "$1",
+        "example": "line break"
+      },
+      "part2": {
+        "content": "$2",
+        "example": "Keep the panel open."
+      }
+    }
+  },
+  "pagesUpdateIntro": {
+    "message": "TabShow kann nach der Tab-Auswahl neben deiner Seite geöffnet bleiben. Die Sortierung bleibt gespeichert, und beim Öffnen der Seitenleiste ist dein aktueller Tab sichtbar.",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesSeePreview": {
+    "message": "So funktioniert die Vorschau ↗",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesUpdateOpenNote": {
+    "message": "Alle Funktionen sind kostenlos. Keine neuen Berechtigungen.",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesUpdateKeepOpenEyebrow": {
+    "message": "Du entscheidest",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesUpdateKeepOpenHeading": {
+    "message": "Seitenleiste offen lassen.",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesUpdateKeepOpenPart1": {
+    "message": "Einstellungen → Seitenleiste nach Tab-Auswahl geöffnet lassen",
+    "description": "Inline text in pagesUpdateKeepOpen. Translate consistently with the same setting or control in the side panel."
+  },
+  "pagesUpdateKeepOpen": {
+    "message": "Aktiviere $part1$. Klicke einen Tab an oder drücke Enter, und die Seitenleiste bleibt geöffnet. Ein gewählter Tab im aktuellen Fenster wird zum Ausgangspunkt für die nächste Vorschau.",
+    "description": "Text on the TabShow release notes page.",
+    "placeholders": {
+      "part1": {
+        "content": "$1",
+        "example": "Settings → Keep panel open after choosing a tab"
+      }
+    }
+  },
+  "pagesUpdateKeepOpenDefault": {
+    "message": "Diese Option ist standardmäßig aus. Deine bisherige Arbeitsweise bleibt erhalten. Chromes Stecknadel heftet TabShow nur an die Symbolleiste.",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesUpdateCurrentEyebrow": {
+    "message": "Weniger Suchen",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesUpdateCurrentHeading": {
+    "message": "Den aktuellen Tab im Blick.",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesUpdateCurrent": {
+    "message": "Beim Öffnen von TabShow zeigt die Liste deinen aktuellen Tab. Bleibt die Seitenleiste geöffnet, ist der gewählte Tab beim Wechsel innerhalb desselben Fensters sichtbar. Deine Sortierung wird gespeichert.",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesUpdateMoving": {
+    "message": "Auch beim Verschieben zwischen Chrome-Fenstern bleiben Tabs dem richtigen Fenster zugeordnet.",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesUpdateHoverEyebrow": {
+    "message": "Vorschau nach Wunsch",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesUpdateHoverHeading": {
+    "message": "Tab-Vorschau steuern.",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesUpdateHoverPart1": {
+    "message": "Einstellungen → Tab-Vorschau beim Darüberfahren",
+    "description": "Inline text in pagesUpdateHover. Translate consistently with the same setting or control in the side panel."
+  },
+  "pagesUpdateHover": {
+    "message": "Unter $part1$ schaltest du Live-Vorschauen ein oder aus. Standardmäßig bleiben sie eingeschaltet.",
+    "description": "Text on the TabShow release notes page.",
+    "placeholders": {
+      "part1": {
+        "content": "$1",
+        "example": "Settings → Preview tabs on hover"
+      }
+    }
+  },
+  "pagesUpdateDelayPart1": {
+    "message": "Verzögerung der Tab-Vorschau",
+    "description": "Inline text in pagesUpdateDelay. Translate consistently with the same setting or control in the side panel."
+  },
+  "pagesUpdateDelay": {
+    "message": "Erhöhe die $part1$, um Vorschauen zu behalten und versehentliche Wechsel zu vermeiden. Suche und Tastaturauswahl funktionieren in beiden Fällen.",
+    "description": "Text on the TabShow release notes page.",
+    "placeholders": {
+      "part1": {
+        "content": "$1",
+        "example": "Hover preview delay"
+      }
+    }
+  },
+  "pagesUpdateHelpEyebrow": {
+    "message": "Klarere Einstellungen",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesUpdateHelpHeading": {
+    "message": "Hilfe leichter finden.",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesUpdateHelp": {
+    "message": "Die Einstellungen zeigen jetzt die installierte Version sowie Links zur Hilfe und zu den Versionshinweisen.",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesUpdateThemePart1": {
+    "message": "Darstellung → System",
+    "description": "Inline text in pagesUpdateTheme. Translate consistently with the same setting or control in the side panel."
+  },
+  "pagesUpdateTheme": {
+    "message": "$part1$ übernimmt deine helle oder dunkle Darstellung. Die Farben benutzerdefinierter Chrome-Designs bleiben davon unabhängig.",
+    "description": "Text on the TabShow release notes page.",
+    "placeholders": {
+      "part1": {
+        "content": "$1",
+        "example": "Appearance → System"
+      }
+    }
+  },
+  "pagesUpdateShortcutHeading": {
+    "message": "Weiterhin per Tastenkombination.",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesUpdateShortcutPart1": {
+    "message": "Command + Shift + X",
+    "description": "Inline text in pagesUpdateShortcut. Translate consistently with the same setting or control in the side panel."
+  },
+  "pagesUpdateShortcutPart2": {
+    "message": "Ctrl + Shift + X",
+    "description": "Inline text in pagesUpdateShortcut. Translate consistently with the same setting or control in the side panel."
+  },
+  "pagesUpdateShortcut": {
+    "message": "Vorgeschlagen sind $part1$ auf dem Mac und $part2$ unter Windows und Linux. Ist nichts zugewiesen, füge diese Adresse in Chrome ein und lege die Tastenkombination bei TabShow fest.",
+    "description": "Text on the TabShow release notes page.",
+    "placeholders": {
+      "part1": {
+        "content": "$1",
+        "example": "Command + Shift + X"
+      },
+      "part2": {
+        "content": "$2",
+        "example": "Ctrl + Shift + X"
+      }
+    }
+  },
+  "pagesUpdateKeyboard": {
+    "message": "$part1$ auswählen · $part2$ öffnen · $part3$ zurück und schließen. Bleibt die Seitenleiste geöffnet, wird ein in diesem Fenster gewählter Tab zum neuen Ausgangspunkt.",
+    "description": "Text on the TabShow release notes page.",
+    "placeholders": {
+      "part1": {
+        "content": "$1",
+        "example": "↑↓"
+      },
+      "part2": {
+        "content": "$2",
+        "example": "Enter"
+      },
+      "part3": {
+        "content": "$3",
+        "example": "Esc"
+      }
+    }
+  },
+  "pagesUpdateFeedbackEyebrow": {
+    "message": "Danke für dein Feedback",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesUpdateFeedbackHeading": {
+    "message": "Wie funktioniert es für dich?",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesUpdateFeedback": {
+    "message": "Melde ein Problem, schlage eine Verbesserung vor oder hinterlasse eine ehrliche Bewertung.",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesShareFeedback": {
+    "message": "Feedback geben ↗",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesReview": {
+    "message": "TabShow bewerten ↗",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesPreviousReleases": {
+    "message": "Frühere Versionen",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesPreviousVersions": {
+    "message": "Versionen 0.5–2.3",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesUpdatePrivacy": {
+    "message": "TabShow 2.4 · Deine Tab-Daten bleiben in deinem Browser.",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesHelpSupport": {
+    "message": "Hilfe und Support ↗",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesKeyboardShortcuts": {
+    "message": "Tastenkombinationen",
+    "description": "Accessible section name for keyboard shortcuts."
+  },
+  "pagesHistory1Heading": {
+    "message": "Version 2.3",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesHistory1": {
+    "message": "Klargestellt, dass „Alle Fenster“ das aktuelle Chrome-Profil umfasst. Eine kurze Demo mit gesprochenen Erklärungen zu Live-Vorschau, Suche und Tastaturbedienung ergänzt.",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesHistory2Heading": {
+    "message": "Version 2.2",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesHistory2": {
+    "message": "Freiwillige Links zum Unterstützen von TabShow und zum Kaffeespendieren ergänzt. Alle Funktionen bleiben kostenlos. Enter öffnet einen fokussierten Link; Escape kehrt weiterhin zum Ausgangstab zurück.",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesHistory3Heading": {
+    "message": "Version 2.1",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesHistory3": {
+    "message": "Lokalen Tab-Chaos-Wert sowie helle, dunkle und Systemdarstellung ergänzt. Neue Aktionen zum Vorschlagen von Funktionen und Weiterempfehlen. Tab- und Fensteranzahl bleiben während der Suche unverändert.",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesHistory4Heading": {
+    "message": "Version 2.0",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesHistory4": {
+    "message": "Suche, Tastaturbedienung, fensterübergreifende Ansicht, flexible Sortierung, zusätzliche Tab-Informationen sowie klarere Lade- und Leeranzeigen ergänzt.",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesHistory5Heading": {
+    "message": "1.0.0",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesHistory5": {
+    "message": "Einstellbare Vorschauverzögerung, Ladeanzeige für Vorschauen, schnelleren Zugriff auf Einstellungen und direkten Bewertungslink ergänzt.",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesHistory6Heading": {
+    "message": "0.9",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesHistory6": {
+    "message": "Farbeinstellungen eingeführt, Live-Titel und Favicons verbessert sowie TabShow-Design und Store-Eintrag überarbeitet.",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesHistory7Heading": {
+    "message": "0.8",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesHistory7": {
+    "message": "Tab-Gruppen neu gestaltet, Vorschau zuverlässiger gemacht und Tooltips mit vollständigen Adressen sowie das Feedback-Board ergänzt.",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesHistory8Heading": {
+    "message": "0.7",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesHistory8": {
+    "message": "Große Tab-Sammlungen deutlich beschleunigt sowie Willkommensseite und Versionshinweise ergänzt.",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesHistory9Heading": {
+    "message": "0.5–0.6",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesHistory9": {
+    "message": "Vorschau beim Darüberfahren, Schließen von Tabs, Tastaturzugriff und sichtbare Tab-Gruppen eingeführt.",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesCopied": {
+    "message": "Kopiert",
+    "description": "Clipboard success feedback."
+  },
+  "pagesSelected": {
+    "message": "Ausgewählt",
+    "description": "Feedback when the address is selected because clipboard writing is unavailable."
+  },
+  "pagesPanelOpened": {
+    "message": "TabShow ist geöffnet. Suche einen Tab oder wähle einen aus der Liste.",
+    "description": "Confirmation after opening the side panel."
+  },
+  "pagesPanelOpenFallback": {
+    "message": "Öffne TabShow über das Symbol in der Symbolleiste oder mit $shortcut$.",
+    "description": "Fallback if this page cannot open the side panel. Keep the shortcut placeholder.",
+    "placeholders": {
+      "shortcut": {
+        "content": "$1",
+        "example": "Ctrl + Shift + X"
+      }
+    }
+  },
+  "pagesLanguages": {
+    "message": "Verfügbar auf Englisch, Deutsch sowie vereinfachtem und traditionellem Chinesisch. TabShow richtet sich nach der Sprache deiner Chrome-Oberfläche.",
+    "description": "Supported interface languages and automatic selection based on Chrome display language. Keep all four language names."
+  }
+}

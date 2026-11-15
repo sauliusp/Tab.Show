@@ -16,7 +16,10 @@
     "zip:firefox": "wxt zip -b firefox",
     "compile": "tsc --noEmit",
     "test": "vitest run",
-    "postinstall": "wxt prepare"
+    "postinstall": "wxt prepare",
+    "i18n:sync": "node scripts/sync-english-locale.mjs",
+    "prebuild": "npm run i18n:sync",
+    "prezip": "npm run i18n:sync"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",

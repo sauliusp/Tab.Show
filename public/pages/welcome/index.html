@@ -4,61 +4,62 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="light">
-  <title>Welcome to TabShow</title>
+  <title data-i18n="pagesWelcomeTitle">Welcome to TabShow</title>
   <link rel="stylesheet" href="../shared.css">
 </head>
 <body>
   <header class="topbar shell">
-    <a class="brand" href="#top" aria-label="TabShow home">
+    <a class="brand" href="#top" aria-label="TabShow home" data-i18n-aria-label="pagesBrandHome">
       <img src="../../icon/48.png" width="30" height="30" alt="">
       <span>TabShow</span>
     </a>
-    <span class="status-pill"><span aria-hidden="true">✓</span> Installed</span>
+    <span class="status-pill" data-i18n="pagesWelcomeInstalled"><span aria-hidden="true" data-i18n-slot="part1">✓</span> Installed</span>
   </header>
 
   <main id="top">
     <section class="hero shell welcome-hero">
       <div class="hero-copy">
-        <p class="eyebrow">Welcome to TabShow</p>
-        <h1>Find the right tab.<br><span>Without losing your place.</span></h1>
-        <p class="lede">Your tabs now live in a fast, searchable side panel. Hover to preview a page, then click only when it is the one you want.</p>
+        <p class="eyebrow" data-i18n="pagesWelcomeEyebrow">Welcome to TabShow</p>
+        <h1 data-i18n="pagesWelcomeHeading">Find the right tab.<br data-i18n-slot="part1"><span data-i18n-slot="part2" data-i18n="pagesWelcomeHeadingPart2">Without losing your place.</span></h1>
+        <p class="lede" data-i18n="pagesWelcomeIntro">Your tabs now live in a fast, searchable side panel. Hover to preview a page, then click only when it is the one you want.</p>
+        <p data-i18n="pagesLanguages">Available in English, German, Simplified Chinese, and Traditional Chinese. TabShow follows your Chrome display language.</p>
         <div class="hero-actions">
-          <button class="button button-primary" type="button" data-open-panel>
-            Open TabShow now <span aria-hidden="true">→</span>
+          <button class="button button-primary" type="button" data-open-panel="" data-i18n="pagesOpenNow">
+            Open TabShow now <span aria-hidden="true" data-i18n-slot="part1">→</span>
           </button>
-          <span class="or">or use</span>
+          <span class="or" data-i18n="pagesOrUse">or use</span>
           <span class="shortcut-pair shortcut-pair-compact">
-            <span class="shortcut-option" aria-label="Mac: Command + Shift + X"><small>Mac</small><span class="keys"><kbd>⌘</kbd><kbd>Shift</kbd><kbd>X</kbd></span></span>
-            <span class="shortcut-option" aria-label="Windows and Linux: Ctrl + Shift + X"><small>Windows / Linux</small><span class="keys"><kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>X</kbd></span></span>
+            <span class="shortcut-option" aria-label="Mac: Command + Shift + X" data-i18n-aria-label="pagesShortcutMacLabel"><small>Mac</small><span class="keys"><kbd>⌘</kbd><kbd>Shift</kbd><kbd>X</kbd></span></span>
+            <span class="shortcut-option" aria-label="Windows and Linux: Ctrl + Shift + X" data-i18n-aria-label="pagesShortcutOtherLabel"><small>Windows / Linux</small><span class="keys"><kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>X</kbd></span></span>
           </span>
         </div>
-        <p class="action-note" data-panel-status>One click. No setup form.</p>
+        <p class="action-note" data-panel-status="" data-i18n="pagesWelcomeOpenNote" role="status" aria-live="polite">One click. No setup form.</p>
       </div>
 
       <figure class="product-shot product-shot-capture">
-        <img src="../assets/tabshow-panel-2.4.png" width="420" alt="TabShow 2.4 side panel with tab search, window scope, sorting, and the current tab in view">
-        <figcaption>The TabShow side panel. Open it beside any page.</figcaption>
+        <img src="../assets/tabshow-panel-2.4.png" width="420" alt="TabShow 2.4 side panel with tab search, window scope, sorting, and the current tab in view" data-i18n-alt="pagesWelcomeImageAlt" data-localized-panel-image>
+        <figcaption data-i18n="pagesWelcomeImageCaption">The TabShow side panel. Open it beside any page.</figcaption>
       </figure>
     </section>
 
     <section class="quickstart shell" aria-labelledby="quickstart-title">
       <div class="section-heading">
-        <p class="eyebrow">Your first preview</p>
-        <h2 id="quickstart-title">You’ll get it in three moves.</h2>
-        <p>Try this now. The panel can stay open beside this page.</p>
+        <p class="eyebrow" data-i18n="pagesWelcomeStartEyebrow">Your first preview</p>
+        <h2 id="quickstart-title" data-i18n="pagesWelcomeStartHeading">You’ll get it in three moves.</h2>
+        <p data-i18n="pagesWelcomeStartIntro">Try this now. The panel can stay open beside this page.</p>
       </div>
       <ol class="steps">
         <li>
           <span class="step-number">1</span>
-          <div><h3>Open the side panel</h3><p>Use the button above, the toolbar icon, or the keyboard shortcut.</p></div>
+          <div><h3 data-i18n="pagesWelcomeStepOpenHeading">Open the side panel</h3><p data-i18n="pagesWelcomeStepOpen">Use the button above, the toolbar icon, or the keyboard shortcut.</p></div>
         </li>
         <li>
           <span class="step-number">2</span>
-          <div><h3>Point at another tab</h3><p>Its full page appears. Move your pointer out of the side panel and TabShow returns you to where you started.</p></div>
+          <div><h3 data-i18n="pagesWelcomeStepPreviewHeading">Point at another tab</h3><p data-i18n="pagesWelcomeStepPreview">Its full page appears. Move your pointer out of the side panel and TabShow returns you to where you started.</p></div>
         </li>
         <li>
           <span class="step-number">3</span>
-          <div><h3>Click when it’s the one</h3><p>The selected page becomes your current tab. By default, TabShow closes the panel. Turn on <strong>Settings → Keep panel open after choosing a tab</strong> if you want it to stay beside your page.</p></div>
+          <div><h3 data-i18n="pagesWelcomeStepChooseHeading">Click when it’s the one</h3><p data-i18n="pagesWelcomeStepChoose">The selected page becomes your current tab. By default, TabShow closes the panel. Turn on <strong data-i18n-slot="part1" data-i18n="pagesWelcomeStepChoosePart1">Settings → Keep panel open after choosing a tab</strong> if you want it to stay beside your page.</p></div>
         </li>
       </ol>
     </section>
@@ -66,23 +67,23 @@
     <section class="shortcut-section shell" aria-labelledby="shortcut-title">
       <div class="shortcut-card">
         <div>
-          <p class="eyebrow">Make it muscle memory</p>
-          <h2 id="shortcut-title">Put TabShow one keystroke away.</h2>
-          <p>TabShow suggests these defaults. Chrome may leave one unassigned if another extension already uses it.</p>
+          <p class="eyebrow" data-i18n="pagesWelcomeShortcutEyebrow">Make it muscle memory</p>
+          <h2 id="shortcut-title" data-i18n="pagesWelcomeShortcutHeading">Put TabShow one keystroke away.</h2>
+          <p data-i18n="pagesWelcomeShortcutIntro">TabShow suggests these defaults. Chrome may leave one unassigned if another extension already uses it.</p>
           <div class="shortcut-pair shortcut-pair-large">
-            <span class="shortcut-option" aria-label="Mac: Command + Shift + X"><small>Mac</small><span class="keys keys-large"><kbd>⌘</kbd><kbd>Shift</kbd><kbd>X</kbd></span></span>
-            <span class="shortcut-option" aria-label="Windows and Linux: Ctrl + Shift + X"><small>Windows / Linux</small><span class="keys keys-large"><kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>X</kbd></span></span>
+            <span class="shortcut-option" aria-label="Mac: Command + Shift + X" data-i18n-aria-label="pagesShortcutMacLabel"><small>Mac</small><span class="keys keys-large"><kbd>⌘</kbd><kbd>Shift</kbd><kbd>X</kbd></span></span>
+            <span class="shortcut-option" aria-label="Windows and Linux: Ctrl + Shift + X" data-i18n-aria-label="pagesShortcutOtherLabel"><small>Windows / Linux</small><span class="keys keys-large"><kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>X</kbd></span></span>
           </div>
         </div>
         <div class="shortcut-howto">
-          <h3>Change the shortcut</h3>
+          <h3 data-i18n="pagesWelcomeShortcutChange">Change the shortcut</h3>
           <ol>
-            <li>Copy this Chrome address.</li>
-            <li>Paste it into the address bar and press Enter.</li>
-            <li>Find TabShow, click the pencil, then press your preferred keys.</li>
+            <li data-i18n="pagesWelcomeShortcutStepCopy">Copy this Chrome address.</li>
+            <li data-i18n="pagesWelcomeShortcutStepPaste">Paste it into the address bar and press Enter.</li>
+            <li data-i18n="pagesWelcomeShortcutStepAssign">Find TabShow, click the pencil, then press your preferred keys.</li>
           </ol>
-          <button class="copy-field" type="button" data-copy-shortcuts aria-label="Copy chrome extensions shortcuts address">
-            <code>chrome://extensions/shortcuts</code><span data-copy-label>Copy</span>
+          <button class="copy-field" type="button" data-copy-shortcuts="" aria-label="Copy Chrome extensions shortcuts address" data-i18n-aria-label="pagesCopyShortcutAddress">
+            <code>chrome://extensions/shortcuts</code><span data-copy-label="" data-i18n="pagesCopy">Copy</span>
           </button>
         </div>
       </div>
@@ -90,32 +91,32 @@
 
     <section class="feature-section shell" aria-labelledby="next-title">
       <div class="section-heading compact">
-        <p class="eyebrow">When you’re ready</p>
-        <h2 id="next-title">Three ways to move even faster.</h2>
+        <p class="eyebrow" data-i18n="pagesWelcomeFeaturesEyebrow">When you’re ready</p>
+        <h2 id="next-title" data-i18n="pagesWelcomeFeaturesHeading">Three ways to move even faster.</h2>
       </div>
       <div class="feature-grid">
-        <article><span class="feature-icon">⌕</span><h3>Type to find anything</h3><p>Search tab titles, web addresses, or domains. Use <kbd>↑</kbd> <kbd>↓</kbd> to select a result and <kbd>Enter</kbd> to open it. Hover a result when you want a live preview.</p></article>
-        <article><span class="feature-icon">▤</span><h3>Reach every window</h3><p>Switch from <strong>Current window</strong> to <strong>All windows</strong>. Windows in the same Chrome profile appear here. Other profiles stay separate. Tabs in another window are click-to-switch, so hovering never steals focus.</p></article>
-        <article><span class="feature-icon">↕</span><h3>Sort the way you think</h3><p>Use current order, recently used, recently added (approx.), domain, or tab group. Your sort order, window scope, and panel settings stay saved.</p></article>
+        <article><span class="feature-icon">⌕</span><h3 data-i18n="pagesWelcomeSearchHeading">Type to find anything</h3><p data-i18n="pagesWelcomeSearch">Search tab titles, web addresses, or domains. Use <kbd data-i18n-slot="part1">↑</kbd> <kbd data-i18n-slot="part2">↓</kbd> to select a result and <kbd data-i18n-slot="part3">Enter</kbd> to open it. Hover a result when you want a live preview.</p></article>
+        <article><span class="feature-icon">▤</span><h3 data-i18n="pagesWelcomeWindowsHeading">Reach every window</h3><p data-i18n="pagesWelcomeWindows">Switch from <strong data-i18n-slot="part1" data-i18n="pagesWelcomeWindowsPart1">Current window</strong> to <strong data-i18n-slot="part2" data-i18n="pagesWelcomeWindowsPart2">All windows</strong>. Windows in the same Chrome profile appear here. Other profiles stay separate. Tabs in another window are click-to-switch, so hovering never steals focus.</p></article>
+        <article><span class="feature-icon">↕</span><h3 data-i18n="pagesWelcomeSortHeading">Sort the way you think</h3><p data-i18n="pagesWelcomeSort">Use current order, recently used, recently added (approx.), domain, or tab group. Your sort order, window scope, and panel settings stay saved.</p></article>
       </div>
       <div class="settings-note">
-        <h3>Make the panel work your way</h3>
-        <p>In <strong>Settings</strong>, adjust <strong>Hover preview delay</strong> or turn off <strong>Preview tabs on hover</strong> to browse the list without switching pages. <strong>Appearance → System</strong> follows your light or dark preference; it does not copy a custom Chrome theme’s colors.</p>
-        <p>Chrome’s pin icon puts TabShow in the toolbar. To keep the panel open when you select a tab, use <strong>Keep panel open after choosing a tab</strong> in TabShow’s settings.</p>
+        <h3 data-i18n="pagesWelcomeSettingsHeading">Make the panel work your way</h3>
+        <p data-i18n="pagesWelcomeSettings">In <strong data-i18n-slot="part1" data-i18n="pagesWelcomeSettingsPart1">Settings</strong>, adjust <strong data-i18n-slot="part2" data-i18n="pagesWelcomeSettingsPart2">Hover preview delay</strong> or turn off <strong data-i18n-slot="part3" data-i18n="pagesWelcomeSettingsPart3">Preview tabs on hover</strong> to browse the list without switching pages. <strong data-i18n-slot="part4" data-i18n="pagesWelcomeSettingsPart4">Appearance → System</strong> follows your light or dark preference; it does not copy a custom Chrome theme’s colors.</p>
+        <p data-i18n="pagesWelcomePin">Chrome’s pin icon puts TabShow in the toolbar. To keep the panel open when you select a tab, use <strong data-i18n-slot="part1" data-i18n="pagesWelcomePinPart1">Keep panel open after choosing a tab</strong> in TabShow’s settings.</p>
       </div>
-      <div class="tip-row"><span><kbd>Esc</kbd> cancels the preview and closes TabShow.</span><span>Version and help links are in <strong>Settings</strong>.</span></div>
+      <div class="tip-row"><span data-i18n="pagesWelcomeEscape"><kbd data-i18n-slot="part1">Esc</kbd> cancels the preview and closes TabShow.</span><span data-i18n="pagesWelcomeHelp">Version and help links are in <strong data-i18n-slot="part1" data-i18n="pagesWelcomeHelpPart1">Settings</strong>.</span></div>
     </section>
 
     <section class="closing-cta shell">
       <img src="../../icon/96.png" width="64" height="64" alt="">
-      <div><h2>Your tabs are ready.</h2><p>Open TabShow and make your first preview.</p></div>
-      <button class="button button-primary" type="button" data-open-panel>Open TabShow <span aria-hidden="true">→</span></button>
+      <div><h2 data-i18n="pagesWelcomeClosingHeading">Your tabs are ready.</h2><p data-i18n="pagesWelcomeClosing">Open TabShow and make your first preview.</p></div>
+      <button class="button button-primary" type="button" data-open-panel="" data-i18n="pagesOpen">Open TabShow <span aria-hidden="true" data-i18n-slot="part1">→</span></button>
     </section>
   </main>
 
   <footer class="footer shell">
-    <span>Private by design. Your tab data stays in your browser.</span>
-    <a href="https://narsheek.featurebase.app/" target="_blank" rel="noopener noreferrer">Suggest an improvement ↗</a>
+    <span data-i18n="pagesWelcomePrivacy">Private by design. Your tab data stays in your browser.</span>
+    <a href="https://narsheek.featurebase.app/" target="_blank" rel="noopener noreferrer" data-i18n="pagesSuggestImprovement">Suggest an improvement ↗</a>
   </footer>
   <script src="../onboarding.js"></script>
 </body>

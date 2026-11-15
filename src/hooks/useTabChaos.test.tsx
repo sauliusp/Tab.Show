@@ -136,6 +136,14 @@ describe('useTabChaos tab movement events', () => {
       url: `https://refreshed.example/${index}`,
     }));
     const browserMock = {
+      i18n: {
+        getMessage: (key: string, substitutions?: string[]) => {
+          if (key === 'panelLocale') return 'de';
+          if (key === 'services_chaos_trend_up_other') return `+${substitutions?.[0]}`;
+          if (key === 'services_chaos_trend_down_other') return `−${substitutions?.[0]}`;
+          return '';
+        },
+      },
       tabs: {
         query: vi.fn()
           .mockResolvedValueOnce(initialTabs)
@@ -165,6 +173,7 @@ describe('useTabChaos tab movement events', () => {
     await act(async () => { await Promise.resolve(); });
     const initialScore = result.current.stats!.score;
     expect(result.current.trend?.scoreDelta).toBe(initialScore - 25);
+    expect(result.current.trend?.message).toBe(`+${initialScore - 25}`);
     expect(setItem).toHaveBeenCalledTimes(1);
 
     onRemoved.emit(41, {});
@@ -180,13 +189,7 @@ describe('useTabChaos tab movement events', () => {
       tabsDelta: 5,
       bestScore: 20,
     });
-    expect(result.current.trend?.message).toBe(
-      result.current.stats!.score < 25
-        ? `Down ${25 - result.current.stats!.score} points since your last check.`
-        : result.current.stats!.score > 25
-          ? `Up ${result.current.stats!.score - 25} points since your last check.`
-          : 'Steady since your last check.',
-    );
+    expect(result.current.trend?.message).toBe(`−${25 - result.current.stats!.score}`);
     expect(setItem).toHaveBeenCalledTimes(1);
 
     unmount();

@@ -1,0 +1,679 @@
+{
+  "panelLocale": {
+    "message": "en",
+    "description": "BCP 47 language tag for this catalog: en, de, zh-CN or zh-TW. Keep the translated catalog value consistent with its locale."
+  },
+  "panelPageTitle": {
+    "message": "TabShow Side Panel"
+  },
+  "panelExtensionName": {
+    "message": "TabShow: Live Tab Preview",
+    "description": "Extension name, at most 75 characters. Keep TabShow unchanged."
+  },
+  "panelExtensionShortName": {
+    "message": "TabShow",
+    "description": "Brand name; do not translate."
+  },
+  "panelExtensionDescription": {
+    "message": "Preview live Chrome tabs before you switch. Search your tabs and find the right page without losing your place.",
+    "description": "Chrome extension summary: at most 132 characters."
+  },
+  "panelActionTitle": {
+    "message": "Toggle TabShow Side Panel"
+  },
+  "panelActionDescription": {
+    "message": "Toggle the side panel"
+  },
+  "panelTabScope": {
+    "message": "Tab scope"
+  },
+  "panelCurrentWindow": {
+    "message": "Current window"
+  },
+  "panelAllWindows": {
+    "message": "All windows"
+  },
+  "panelAllWindowsHint": {
+    "message": "All windows in this Chrome profile. Windows in other profiles stay separate."
+  },
+  "panelCurrentWindowHint": {
+    "message": "Tabs in this window."
+  },
+  "panelSettings": {
+    "message": "Settings"
+  },
+  "panelOpenSettings": {
+    "message": "open settings"
+  },
+  "panelSearchPlaceholder": {
+    "message": "Search tabs, no mouse needed"
+  },
+  "panelSearch": {
+    "message": "Search tabs"
+  },
+  "panelThisProfile": {
+    "message": "This profile"
+  },
+  "panelSortTabs": {
+    "message": "Sort tabs"
+  },
+  "panelSortCurrent": {
+    "message": "Current order"
+  },
+  "panelSortRecent": {
+    "message": "Recently used"
+  },
+  "panelSortAdded": {
+    "message": "Recently added (approx.)"
+  },
+  "panelSortDomain": {
+    "message": "By domain"
+  },
+  "panelSortGroup": {
+    "message": "By tab group"
+  },
+  "panelLoading": {
+    "message": "Loading…"
+  },
+  "panelKeyboardHint": {
+    "message": "↑↓ select · Enter open · Esc return",
+    "description": "Compact keyboard guide. Keep key names recognizable."
+  },
+  "panelCountsAllWindows": {
+    "message": "Open tabs: $count$; Chrome windows: $windows$; current profile only",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      },
+      "windows": {
+        "content": "$2"
+      }
+    }
+  },
+  "panelCountsCurrentWindow": {
+    "message": "Open tabs: $count$",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "panelOpenTabsCompact": {
+    "message": "OPEN TABS",
+    "description": "Compact counter label. Keep short."
+  },
+  "panelWindowsCompact": {
+    "message": "WINDOWS",
+    "description": "Compact counter label. Keep short."
+  },
+  "panelNoAddress": {
+    "message": "No address"
+  },
+  "panelOtherWindowHint": {
+    "message": "Another Chrome window. Click to switch. Hover preview is unavailable."
+  },
+  "panelUntitledTab": {
+    "message": "Untitled Tab"
+  },
+  "panelTab": {
+    "message": "Tab"
+  },
+  "panelOtherWindowSwitch": {
+    "message": "Another window; click to switch"
+  },
+  "panelPinned": {
+    "message": "Pinned"
+  },
+  "panelMuted": {
+    "message": "Muted"
+  },
+  "panelPlayingAudio": {
+    "message": "Playing audio"
+  },
+  "panelSleeping": {
+    "message": "Sleeping"
+  },
+  "panelOpenTab": {
+    "message": "Open $title$, $address$",
+    "placeholders": {
+      "title": {
+        "content": "$1"
+      },
+      "address": {
+        "content": "$2"
+      }
+    }
+  },
+  "panelOpenCurrentTab": {
+    "message": "Open $title$, $address$. Current tab.",
+    "placeholders": {
+      "title": {
+        "content": "$1"
+      },
+      "address": {
+        "content": "$2"
+      }
+    }
+  },
+  "panelOpenOtherTab": {
+    "message": "Open $title$, $address$. Another window.",
+    "placeholders": {
+      "title": {
+        "content": "$1"
+      },
+      "address": {
+        "content": "$2"
+      }
+    }
+  },
+  "panelSharedUrl_one": {
+    "message": "$count$ tab shares this URL",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "panelSharedUrl_other": {
+    "message": "$count$ tabs share this URL",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "panelDuplicates_one": {
+    "message": "$count$ duplicate",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "panelDuplicates_other": {
+    "message": "$count$ duplicates",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "panelSwitch": {
+    "message": "Switch",
+    "description": "Compact action for a tab in another Chrome window."
+  },
+  "panelWindowPreviewUnavailable": {
+    "message": "Preview unavailable · click a tab to open that window"
+  },
+  "panelLoadingTabs": {
+    "message": "Loading tabs…"
+  },
+  "panelLoadingWindows": {
+    "message": "Getting your Chrome windows ready."
+  },
+  "panelSearchNoMatches": {
+    "message": "No tabs match your search"
+  },
+  "panelSearchTryAgain": {
+    "message": "Try a different title, URL, or domain."
+  },
+  "panelNoTabsInScope": {
+    "message": "No tabs in this scope"
+  },
+  "panelOpenTabHere": {
+    "message": "Open a tab to see it here."
+  },
+  "panelTryAllWindows": {
+    "message": "Try All windows or open a tab in this window."
+  },
+  "panelUnnamedGroup": {
+    "message": "Unnamed Group"
+  },
+  "panelOpenTabs": {
+    "message": "Open tabs"
+  },
+  "panelSwitchToWindow": {
+    "message": "Switch to window $number$",
+    "placeholders": {
+      "number": {
+        "content": "$1"
+      }
+    }
+  },
+  "panelCollapseGroup": {
+    "message": "Collapse $title$",
+    "placeholders": {
+      "title": {
+        "content": "$1"
+      }
+    }
+  },
+  "panelExpandGroup": {
+    "message": "Expand $title$",
+    "placeholders": {
+      "title": {
+        "content": "$1"
+      }
+    }
+  },
+  "panelCloseTab": {
+    "message": "Close tab"
+  },
+  "panelCloseSettings": {
+    "message": "Close settings"
+  },
+  "panelAppearanceMode": {
+    "message": "Appearance mode"
+  },
+  "panelUseSystemAppearance": {
+    "message": "Use system appearance"
+  },
+  "panelUseLightAppearance": {
+    "message": "Use light appearance"
+  },
+  "panelUseDarkAppearance": {
+    "message": "Use dark appearance"
+  },
+  "panelHoverDelayAria": {
+    "message": "Hover preview delay in milliseconds"
+  },
+  "panelKeepOpen": {
+    "message": "Keep panel open after choosing a tab"
+  },
+  "panelHoverPreview": {
+    "message": "Preview tabs on hover"
+  },
+  "panelTabSwitching": {
+    "message": "Tab switching"
+  },
+  "panelKeepOpenDescription": {
+    "message": "Keep the list beside your page when you click a tab or press Enter. Chrome’s pin button only pins the toolbar icon."
+  },
+  "panelHoverPreviewDescription": {
+    "message": "Point at a tab in this window to preview its live page. Turn off to switch only by clicking or pressing Enter."
+  },
+  "panelAppearance": {
+    "message": "Appearance"
+  },
+  "panelHoverDelay": {
+    "message": "Hover preview delay"
+  },
+  "panelHoverDelayHint": {
+    "message": "Increase the delay to avoid accidental previews when you brush past the sidebar."
+  },
+  "panelChoosePairing": {
+    "message": "Choose your color pairing"
+  },
+  "panelImproveHeading": {
+    "message": "Help improve TabShow"
+  },
+  "panelImproveDescription": {
+    "message": "Share what would make your tab workflow better, or leave an honest review to help others decide."
+  },
+  "panelShareIdea": {
+    "message": "Share an idea"
+  },
+  "panelRate": {
+    "message": "Rate TabShow"
+  },
+  "panelWhatsNew": {
+    "message": "What’s new"
+  },
+  "panelGettingStarted": {
+    "message": "Getting started"
+  },
+  "panelSupport": {
+    "message": "Support TabShow"
+  },
+  "panelSupportDescription": {
+    "message": "TabShow is free. If it makes your day easier, you can support my work with a coffee. Always optional."
+  },
+  "panelCoffee": {
+    "message": "Buy me a coffee"
+  },
+  "panelDone": {
+    "message": "Done"
+  },
+  "panelSystem": {
+    "message": "System"
+  },
+  "panelLight": {
+    "message": "Light"
+  },
+  "panelDark": {
+    "message": "Dark"
+  },
+  "panelPrimary": {
+    "message": "Primary"
+  },
+  "panelSecondary": {
+    "message": "Secondary"
+  },
+  "panelFollowingDark": {
+    "message": "Following your system, currently dark."
+  },
+  "panelFollowingLight": {
+    "message": "Following your system, currently light."
+  },
+  "panelAlwaysDark": {
+    "message": "Always use dark mode."
+  },
+  "panelAlwaysLight": {
+    "message": "Always use light mode."
+  },
+  "panelSystemThemeHint": {
+    "message": "System follows light or dark appearance; it does not copy custom Chrome theme colors."
+  },
+  "panelDelayValue": {
+    "message": "$seconds$s ($milliseconds$ ms)",
+    "placeholders": {
+      "seconds": {
+        "content": "$1"
+      },
+      "milliseconds": {
+        "content": "$2"
+      }
+    }
+  },
+  "panelMilliseconds": {
+    "message": "$value$ ms",
+    "placeholders": {
+      "value": {
+        "content": "$1"
+      }
+    }
+  },
+  "panelAbout": {
+    "message": "About TabShow"
+  },
+  "panelAboutVersion": {
+    "message": "About TabShow $version$",
+    "placeholders": {
+      "version": {
+        "content": "$1"
+      }
+    }
+  },
+  "panelPairVioletAmber": {
+    "message": "Charcoal Violet + Amber"
+  },
+  "panelPairVioletAmberDescription": {
+    "message": "Violet for your current tab, amber for previews."
+  },
+  "panelPairInkBlue": {
+    "message": "Ink Black + Signal Blue"
+  },
+  "panelPairInkBlueDescription": {
+    "message": "Dark gray for your current tab, blue for previews."
+  },
+  "panelPairGraphiteCoral": {
+    "message": "Graphite + Electric Coral"
+  },
+  "panelPairGraphiteCoralDescription": {
+    "message": "Graphite for your current tab, coral for previews."
+  },
+  "panelPairTealCitrine": {
+    "message": "Midnight Teal + Citrine"
+  },
+  "panelPairTealCitrineDescription": {
+    "message": "Teal for your current tab, yellow for previews."
+  },
+  "panelPairSlateSeafoam": {
+    "message": "Slate Stone + Seafoam"
+  },
+  "panelPairSlateSeafoamDescription": {
+    "message": "Slate for your current tab, seafoam for previews."
+  },
+  "panelPairMochaRose": {
+    "message": "Mocha + Rose Quartz"
+  },
+  "panelPairMochaRoseDescription": {
+    "message": "Brown for your current tab, rose for previews."
+  },
+  "panelDirection": {
+    "message": "ltr",
+    "description": "Text direction for this catalog. Use ltr for English, German and Chinese; rtl only for right-to-left languages."
+  },
+  "panelCopied": {
+    "message": "Copied"
+  },
+  "panelTellFriend": {
+    "message": "Tell a friend"
+  },
+  "panelClipboardError": {
+    "message": "Could not access the clipboard"
+  },
+  "panelClipboardCopied": {
+    "message": "Chrome extension link copied"
+  },
+  "panelSharePasteHint": {
+    "message": "Paste it into any message, email, or post."
+  },
+  "panelShareMessage": {
+    "message": "Try TabShow: find the right Chrome tab without losing your place: $url$",
+    "placeholders": {
+      "url": {
+        "content": "$1"
+      }
+    }
+  },
+  "panelSuggestFeature": {
+    "message": "Suggest a feature"
+  },
+  "panelFree": {
+    "message": "Free to use"
+  },
+  "panelOpenStore": {
+    "message": "Open the Chrome Web Store"
+  },
+  "panelCopyAddress": {
+    "message": "Copy the link from its address bar."
+  },
+  "panelTrendStart": {
+    "message": "Start your trend"
+  },
+  "panelTrendUnchanged": {
+    "message": "No change since last check"
+  },
+  "panelOpenChaos": {
+    "message": "Open Tab Chaos Score"
+  },
+  "panelChaosLoading": {
+    "message": "Calculating Tab Chaos Score…"
+  },
+  "panelTrendLower": {
+    "message": "$count$ lower than last check",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "panelTrendHigher": {
+    "message": "$count$ higher than last check",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "panelOpenChaosScore": {
+    "message": "Open Tab Chaos Score: $score$, $level$",
+    "placeholders": {
+      "score": {
+        "content": "$1"
+      },
+      "level": {
+        "content": "$2"
+      }
+    }
+  },
+  "panelChaosTooltip": {
+    "message": "Tab chaos $score$/100 · $level$ · $trend$",
+    "placeholders": {
+      "score": {
+        "content": "$1"
+      },
+      "level": {
+        "content": "$2"
+      },
+      "trend": {
+        "content": "$3"
+      }
+    }
+  },
+  "panelChaosCompact": {
+    "message": "CHAOS"
+  },
+  "panelVisitedToday": {
+    "message": "visited today"
+  },
+  "panelNotAvailable": {
+    "message": "not available"
+  },
+  "panelChaosTitle": {
+    "message": "Tab Chaos Score"
+  },
+  "panelChaosSubtitle": {
+    "message": "A useful signal, not a judgment."
+  },
+  "panelCloseChaos": {
+    "message": "Close Tab Chaos Score"
+  },
+  "panelTrendFirstCheck": {
+    "message": "Your trend starts with this check-in."
+  },
+  "panelStatOpenTabs": {
+    "message": "open tabs"
+  },
+  "panelStatWindows": {
+    "message": "Chrome windows"
+  },
+  "panelStatDuplicates": {
+    "message": "duplicate copies"
+  },
+  "panelStatGroups": {
+    "message": "tab groups"
+  },
+  "panelPersonalBest": {
+    "message": "personal best"
+  },
+  "panelCheckInStreak": {
+    "message": "check-in streak"
+  },
+  "panelScoreFactors": {
+    "message": "What shapes the score"
+  },
+  "panelYourSession": {
+    "message": "Your session"
+  },
+  "panelDaysAgo_one": {
+    "message": "$count$ day ago",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "panelDaysAgo_other": {
+    "message": "$count$ days ago",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "panelDays_one": {
+    "message": "$count$ day",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "panelDays_other": {
+    "message": "$count$ days",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "panelTopDomains": {
+    "message": "Top domains: $domains$",
+    "placeholders": {
+      "domains": {
+        "content": "$1"
+      }
+    }
+  },
+  "panelDomainCount": {
+    "message": "$domain$ ($count$)",
+    "placeholders": {
+      "domain": {
+        "content": "$1"
+      },
+      "count": {
+        "content": "$2"
+      }
+    }
+  },
+  "panelListSeparator": {
+    "message": ", "
+  },
+  "panelCurrentPosition": {
+    "message": "Current tab: $position$ of $total$ in this window",
+    "placeholders": {
+      "position": {
+        "content": "$1"
+      },
+      "total": {
+        "content": "$2"
+      }
+    }
+  },
+  "panelLeastRecent": {
+    "message": "Longest untouched: $domain$ · $elapsed$",
+    "placeholders": {
+      "domain": {
+        "content": "$1"
+      },
+      "elapsed": {
+        "content": "$2"
+      }
+    }
+  },
+  "panelDiscardedTabs_one": {
+    "message": "Sleeping: $count$ discarded tab",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "panelDiscardedTabs_other": {
+    "message": "Sleeping: $count$ discarded tabs",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "panelChaosPrivacy": {
+    "message": "Calculated and stored locally. TabShow does not send your tab data anywhere. Come back later to see how your session changed."
+  },
+  "panelInstantPreview": {
+    "message": "Instant tab preview"
+  },
+  "panelPreviewingFrom": {
+    "message": "Previewing from $title$",
+    "placeholders": {
+      "title": {
+        "content": "$1"
+      }
+    }
+  },
+  "panelCurrentTab": {
+    "message": "current tab"
+  }
+}

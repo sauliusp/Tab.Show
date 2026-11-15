@@ -1,3 +1,4 @@
+import { t, plural } from '../i18n';
 import React from 'react';
 import { useTheme } from '@mui/material/styles';
 import ListItem from '@mui/material/ListItem';
@@ -106,7 +107,7 @@ export const TabItem = React.memo(({
         : 'none';
 
   const secondaryLabel = React.useMemo(() => {
-    if (!tab.url) return 'No address';
+    if (!tab.url) return t('panelNoAddress');
     try {
       const parsed = new URL(tab.url);
       return parsed.hostname || `${parsed.protocol}//${parsed.pathname.split('/')[0]}`;
@@ -191,8 +192,8 @@ export const TabItem = React.memo(({
       aria-selected={Boolean(highlighted)}
       aria-rowindex={rowIndex}
       title={isOtherWindow
-        ? 'Another Chrome window. Click to switch. Hover preview is unavailable.'
-        : tab.url || tab.title || 'Untitled Tab'}
+        ? t('panelOtherWindowHint')
+        : tab.url || tab.title || t('panelUntitledTab')}
       onMouseEnter={() => {
         setIsHovered(true);
         if (pointerPreviewEnabled) {
@@ -236,7 +237,7 @@ export const TabItem = React.memo(({
       <ButtonBase
         component="div"
         onClick={() => onTabClick(tab.id!)}
-        aria-label={`Open ${tab.title || 'Untitled Tab'}, ${secondaryLabel}${isOriginalTab ? '. Current tab.' : ''}${isOtherWindow ? '. Another window.' : ''}`}
+        aria-label={t(isOriginalTab ? 'panelOpenCurrentTab' : isOtherWindow ? 'panelOpenOtherTab' : 'panelOpenTab', { title: tab.title || t('panelUntitledTab'), address: secondaryLabel })}
         sx={{ width: '100%', minWidth: 0, textAlign: 'left', color: 'inherit', borderRadius: 1, '&.Mui-focusVisible': { outline: '2px solid', outlineColor: 'text.primary', outlineOffset: 1 } }}
       >
       <ListItemAvatar sx={{
@@ -245,7 +246,7 @@ export const TabItem = React.memo(({
       }}>
         <TabFavicon
           tab={tab}
-          alt={tab.title || 'Tab'}
+          alt={tab.title || t('panelTab')}
           showImage={!showHoverSpinner}
           sx={{
             ...visualState.avatarStyles,
@@ -278,11 +279,11 @@ export const TabItem = React.memo(({
         primary={
           <Box component="span" sx={{ display: 'flex', alignItems: 'center', gap: 0.5, minWidth: 0 }}>
             <Box component="span" sx={{ ...visualState.textStyles, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-              {tab.title || 'Untitled Tab'}
+              {tab.title || t('panelUntitledTab')}
             </Box>
             {duplicateCount > 1 && (
-              <Box component="span" title={`${duplicateCount} tabs share this URL`} sx={{ flexShrink: 0, fontSize: 10, fontWeight: 800, color: 'inherit', opacity: 0.78 }}>
-                {duplicateCount} duplicates
+              <Box component="span" title={plural('panelSharedUrl', duplicateCount)} sx={{ flexShrink: 0, fontSize: 10, fontWeight: 800, color: 'inherit', opacity: 0.78 }}>
+                {plural('panelDuplicates', duplicateCount)}
               </Box>
             )}
           </Box>
@@ -310,7 +311,7 @@ export const TabItem = React.memo(({
         {isOtherWindow && (
           <Box
             component="span"
-            aria-label="Another window; click to switch"
+            aria-label={t('panelOtherWindowSwitch')}
             sx={{
               display: 'inline-flex',
               alignItems: 'center',
@@ -325,15 +326,15 @@ export const TabItem = React.memo(({
               whiteSpace: 'nowrap'
             }}
           >
-            Switch
+            {t('panelSwitch')}
             <LaunchRounded sx={{ fontSize: 12 }} />
           </Box>
         )}
-        {tab.pinned && <PushPinRounded sx={{ fontSize: 15 }} titleAccess="Pinned" />}
+        {tab.pinned && <PushPinRounded sx={{ fontSize: 15 }} titleAccess={t('panelPinned')} />}
         {tab.mutedInfo?.muted
-          ? <VolumeOffRounded sx={{ fontSize: 16 }} titleAccess="Muted" />
-          : tab.audible && <VolumeUpRounded sx={{ fontSize: 16 }} titleAccess="Playing audio" />}
-        {tab.discarded && <BedtimeRounded sx={{ fontSize: 15 }} titleAccess="Sleeping" />}
+          ? <VolumeOffRounded sx={{ fontSize: 16 }} titleAccess={t('panelMuted')} />
+          : tab.audible && <VolumeUpRounded sx={{ fontSize: 16 }} titleAccess={t('panelPlayingAudio')} />}
+        {tab.discarded && <BedtimeRounded sx={{ fontSize: 15 }} titleAccess={t('panelSleeping')} />}
       </Box>
       </ButtonBase>
       </Box>

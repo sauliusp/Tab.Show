@@ -1,0 +1,92 @@
+{
+  "de": {
+    "edition": "Live-Vorschau für Chrome · 2.4",
+    "proof": [
+      "Kostenlos",
+      "Ohne Konto",
+      "Tab-Daten bleiben im Browser"
+    ],
+    "slides": [
+      {
+        "headline": "Erst ansehen. Dann auswählen.",
+        "description": "Zeige auf einen Tab im aktuellen Fenster. Bewege die Maus aus der Seitenleiste, um zurückzukehren."
+      },
+      {
+        "headline": "Finde den richtigen Tab.",
+        "description": "Suche nach Titel, Adresse oder Domain."
+      },
+      {
+        "headline": "Auch ohne Maus.",
+        "description": "Pfeiltasten wählen aus. Enter öffnet. Esc kehrt zurück."
+      },
+      {
+        "headline": "Alle Fenster im Blick.",
+        "description": "Finde Tabs im selben Chrome-Profil. Zu anderen Fenstern wechselst du per Klick."
+      },
+      {
+        "headline": "Die Seitenleiste bleibt.",
+        "description": "Lass sie nach der Tab-Auswahl offen und passe die Live-Vorschau an."
+      }
+    ]
+  },
+  "zh_CN": {
+    "edition": "Chrome 标签页实时预览 · 2.4",
+    "proof": [
+      "免费",
+      "无需账号",
+      "标签页数据留在浏览器中"
+    ],
+    "slides": [
+      {
+        "headline": "先看页面，再选标签页",
+        "description": "悬停预览实际页面，移出侧边栏即可返回。"
+      },
+      {
+        "headline": "按标题或网址查找",
+        "description": "输入关键词，从已打开的标签页中找到所需页面。"
+      },
+      {
+        "headline": "用键盘选择标签页",
+        "description": "↑↓ 选择，Enter 选定，Esc 返回并关闭。打开侧边栏即可看到当前标签页。"
+      },
+      {
+        "headline": "查找其他窗口的标签页",
+        "description": "“所有窗口”显示当前 Chrome 个人资料中的窗口。点击标签页即可切换。"
+      },
+      {
+        "headline": "选择后保持侧边栏打开",
+        "description": "在设置中开启保持打开，也可调整悬停延迟或关闭预览。"
+      }
+    ]
+  },
+  "zh_TW": {
+    "edition": "Chrome 分頁即時預覽 · 2.4",
+    "proof": [
+      "免費",
+      "不需帳號",
+      "分頁資料留在瀏覽器中"
+    ],
+    "slides": [
+      {
+        "headline": "切換前，先看看網頁",
+        "description": "將滑鼠停在分頁上即可預覽即時畫面。移出側邊欄，回到原來的位置。"
+      },
+      {
+        "headline": "輸入文字，找到分頁",
+        "description": "搜尋標題、網址或網域。"
+      },
+      {
+        "headline": "用鍵盤就能切換",
+        "description": "↑↓ 選取，Enter 開啟，Esc 返回並關閉。"
+      },
+      {
+        "headline": "同一個個人資料中的所有視窗",
+        "description": "其他視窗的分頁需要點選才會切換，滑鼠經過不會搶走焦點。"
+      },
+      {
+        "headline": "讓側邊欄留在旁邊",
+        "description": "在設定中開啟「選擇分頁後保持側邊欄開啟」。預設仍會在選擇後關閉。"
+      }
+    ]
+  }
+}

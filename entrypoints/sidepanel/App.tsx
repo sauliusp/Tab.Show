@@ -1,3 +1,4 @@
+import { t, formatNumber, getLocale } from '../../src/i18n';
 import React from 'react';
 import { useTheme } from '@mui/material/styles';
 import { Box, ButtonBase, IconButton, MenuItem, Select, TextField, Tooltip, Typography } from '@mui/material';
@@ -22,6 +23,11 @@ import { selectTabs } from '../../src/utils/tabSelectors';
 
 function App() {
   const theme = useTheme();
+  React.useEffect(() => {
+    document.documentElement.lang = getLocale();
+    document.documentElement.dir = t('panelDirection');
+    document.title = t('panelPageTitle');
+  }, []);
   const searchInputRef = React.useRef<HTMLInputElement>(null);
   const [isSettingsOpen, setIsSettingsOpen] = React.useState(false);
   const [isChaosOpen, setIsChaosOpen] = React.useState(false);
@@ -152,6 +158,20 @@ function App() {
     }
   };
 
+  React.useEffect(() => {
+    // Pointer interaction can leave focus on the document, outside the panel
+    // root. Child controls keep their existing keyboard handlers.
+    const handleDocumentEscape = (event: KeyboardEvent) => {
+      if (event.key !== 'Escape' || event.defaultPrevented || event.isComposing || event.keyCode === 229) return;
+      if (event.target !== document.body && event.target !== document.documentElement) return;
+      if (isSettingsOpen || isChaosOpen || document.querySelector('[role="dialog"],[role="menu"],[role="listbox"]')) return;
+      event.preventDefault();
+      void handleCancel();
+    };
+    document.addEventListener('keydown', handleDocumentEscape);
+    return () => document.removeEventListener('keydown', handleDocumentEscape);
+  }, [handleCancel, isSettingsOpen, isChaosOpen]);
+
   // Clear visual state cache when theme changes to prevent stale cached values
   React.useEffect(() => {
     clearVisualStateCache();
@@ -199,14 +219,14 @@ function App() {
         >
           <Box
             role="group"
-            aria-label="Tab scope"
+            aria-label={t('panelTabScope')}
             data-testid="tab-scope-control"
             sx={{
               p: 0.35,
               minWidth: 0,
               minHeight: 40,
               display: 'grid',
-              gridTemplateColumns: '1fr 1fr',
+              gridTemplateColumns: 'repeat(2, minmax(0, 1fr))',
               gap: 0.35,
               border: 1,
               borderColor: 'divider',
@@ -215,18 +235,19 @@ function App() {
             }}
           >
             {[
-              { value: false, label: 'Current window', icon: <TabRounded sx={{ fontSize: 16 }} /> },
-              { value: true, label: 'All windows', icon: <WindowRounded sx={{ fontSize: 16 }} /> }
+              { value: false, label: t('panelCurrentWindow'), icon: <TabRounded sx={{ fontSize: 16 }} /> },
+              { value: true, label: t('panelAllWindows'), icon: <WindowRounded sx={{ fontSize: 16 }} /> }
             ].map(option => {
               const selected = allWindows === option.value;
               return (
-                <Tooltip key={option.label} describeChild title={option.value ? 'All windows in this Chrome profile. Windows in other profiles stay separate.' : 'Tabs in this window.'}>
+                <Tooltip key={option.label} describeChild title={option.value ? t('panelAllWindowsHint') : t('panelCurrentWindowHint')}>
                   <ButtonBase
                     aria-label={option.label}
                     aria-pressed={selected}
                     onClick={() => setAllWindows(option.value)}
                     sx={{
                       py: 0.7,
+                      minWidth: 0,
                       gap: 0.75,
                       borderRadius: 1,
                       fontSize: 11.5,
@@ -237,15 +258,15 @@ function App() {
                       '&:hover': { backgroundColor: selected ? 'primary.dark' : 'background.paper' }
                     }}
                   >
-                    {option.icon}{option.label}
+                    {option.icon}<Box component="span" sx={{ minWidth: 0, overflowWrap: 'anywhere', lineHeight: 1.25 }}>{option.label}</Box>
                   </ButtonBase>
                 </Tooltip>
               );
             })}
           </Box>
-          <Tooltip title="Settings">
+          <Tooltip title={t('panelSettings')}>
             <IconButton
-              aria-label="open settings"
+              aria-label={t('panelOpenSettings')}
               onClick={() => setIsSettingsOpen(true)}
               sx={{ width: 40, height: 40, border: 1, borderColor: 'divider', borderRadius: 1.5 }}
             >
@@ -259,10 +280,10 @@ function App() {
             size="small"
             value={query}
             onChange={(event) => { setInputModality('keyboard'); cancelPendingPreview(); setHighlightedTabId(null); setQuery(event.target.value); }}
-            placeholder="Search tabs, no mouse needed"
+            placeholder={t('panelSearchPlaceholder')}
             inputProps={{
               role: 'combobox',
-              'aria-label': 'Search tabs',
+              'aria-label': t('panelSearch'),
               'aria-haspopup': 'grid',
               'aria-expanded': matchingTabs.length > 0,
               'aria-autocomplete': 'list',
@@ -280,27 +301,27 @@ function App() {
             onOpen={() => { setIsSettingsOpen(false); setIsChaosOpen(true); }}
           />
         </Box>
-        <Box sx={{ mt: -0.35, display: 'flex', justifyContent: 'space-between', gap: 1, alignItems: 'baseline' }}>
+        <Box sx={{ mt: -0.35, display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', columnGap: 1, rowGap: 0.25, alignItems: 'baseline' }}>
           <Typography id="keyboard-search-hint" sx={{ fontSize: 10.5, color: 'text.secondary' }}>
-            ↑↓ select · Enter open · Esc return
+            {t('panelKeyboardHint')}
           </Typography>
-          {allWindows && <Typography component="span" title="All windows in this Chrome profile. Windows in other profiles stay separate." sx={{ fontSize: 10.5, color: 'text.secondary', whiteSpace: 'nowrap' }}>This profile</Typography>}
+          {allWindows && <Typography component="span" title={t('panelAllWindowsHint')} sx={{ fontSize: 10.5, color: 'text.secondary', whiteSpace: 'nowrap' }}>{t('panelThisProfile')}</Typography>}
         </Box>
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, minWidth: 0, '@media (max-width: 380px)': { gap: 0.5 } }}>
-          <Select size="small" value={sortMode} onChange={(event) => { setSortMode(event.target.value as TabSortMode); revealTab(activeHighlightedTabId); }} sx={{ width: 128, minWidth: 100, flexShrink: 1, fontSize: 11.5, '& .MuiSelect-select': { py: 0.65 } }} inputProps={{ 'aria-label': 'Sort tabs' }}>
-            <MenuItem value="current">Current order</MenuItem>
-            <MenuItem value="recently-used">Recently used</MenuItem>
-            <MenuItem value="recently-opened">Recently added (approx.)</MenuItem>
-            <MenuItem value="domain">By domain</MenuItem>
-            <MenuItem value="group">By tab group</MenuItem>
+          <Select size="small" value={sortMode} onChange={(event) => { setSortMode(event.target.value as TabSortMode); revealTab(activeHighlightedTabId); }} sx={{ width: 128, minWidth: 100, flexShrink: 1, fontSize: 11.5, '& .MuiSelect-select': { py: 0.65 } }} inputProps={{ 'aria-label': t('panelSortTabs') }}>
+            <MenuItem value="current">{t('panelSortCurrent')}</MenuItem>
+            <MenuItem value="recently-used">{t('panelSortRecent')}</MenuItem>
+            <MenuItem value="recently-opened">{t('panelSortAdded')}</MenuItem>
+            <MenuItem value="domain">{t('panelSortDomain')}</MenuItem>
+            <MenuItem value="group">{t('panelSortGroup')}</MenuItem>
           </Select>
           {isLoading ? (
-            <Typography sx={{ ml: 'auto', fontSize: 10.5, color: 'text.secondary' }}>Loading…</Typography>
+            <Typography sx={{ ml: 'auto', fontSize: 10.5, color: 'text.secondary' }}>{t('panelLoading')}</Typography>
           ) : (
             <Box
               role="status"
               aria-live="polite"
-              aria-label={`Open tabs: ${openTabs.length}${allWindows ? `; Chrome windows: ${openWindowCount}; current profile only` : ''}`}
+              aria-label={allWindows ? t('panelCountsAllWindows', { count: openTabs.length, windows: openWindowCount }) : t('panelCountsCurrentWindow', { count: openTabs.length })}
               data-testid="tab-count-summary"
               sx={{
                 ml: 'auto',
@@ -321,20 +342,20 @@ function App() {
             >
               <TabRounded sx={{ flexShrink: 0, fontSize: 14, color: 'text.secondary' }} />
               <Typography component="span" sx={{ fontSize: 8, lineHeight: 1, fontWeight: 900, letterSpacing: 0.45, color: 'text.secondary', '@media (max-width: 380px)': { display: 'none' } }}>
-                OPEN TABS
+                {t('panelOpenTabsCompact')}
               </Typography>
               <Typography component="strong" sx={{ fontSize: 13, lineHeight: 1, fontWeight: 950, color: 'text.primary' }}>
-                {openTabs.length}
+                {formatNumber(openTabs.length)}
               </Typography>
               {allWindows && (
                 <>
                   <Box aria-hidden="true" sx={{ height: 16, mx: 0.15, borderLeft: 1, borderColor: 'divider' }} />
                   <WindowRounded sx={{ flexShrink: 0, fontSize: 13, color: 'text.secondary' }} />
                   <Typography component="span" sx={{ fontSize: 8, lineHeight: 1, fontWeight: 900, letterSpacing: 0.4, color: 'text.secondary', '@media (max-width: 380px)': { display: 'none' } }}>
-                    WINDOWS
+                    {t('panelWindowsCompact')}
                   </Typography>
                   <Typography component="strong" sx={{ fontSize: 12, lineHeight: 1, fontWeight: 900, color: 'text.primary' }}>
-                    {openWindowCount}
+                    {formatNumber(openWindowCount)}
                   </Typography>
                 </>
               )}

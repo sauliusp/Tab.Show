@@ -1,0 +1,660 @@
+{
+  "pagesWelcomeTitle": {
+    "message": "Welcome to TabShow",
+    "description": "Text on the TabShow welcome page."
+  },
+  "pagesWelcomeInstalled": {
+    "message": "$part1$ Installed",
+    "description": "Text on the TabShow welcome page.",
+    "placeholders": {
+      "part1": {
+        "content": "$1",
+        "example": "✓"
+      }
+    }
+  },
+  "pagesWelcomeEyebrow": {
+    "message": "Welcome to TabShow",
+    "description": "Text on the TabShow welcome page."
+  },
+  "pagesWelcomeHeadingPart2": {
+    "message": "Without losing your place.",
+    "description": "Inline text in pagesWelcomeHeading. Translate consistently with the same setting or control in the side panel."
+  },
+  "pagesWelcomeHeading": {
+    "message": "Find the right tab.$part1$$part2$",
+    "description": "Text on the TabShow welcome page.",
+    "placeholders": {
+      "part1": {
+        "content": "$1",
+        "example": "line break"
+      },
+      "part2": {
+        "content": "$2",
+        "example": "Without losing your place."
+      }
+    }
+  },
+  "pagesWelcomeIntro": {
+    "message": "Your tabs now live in a fast, searchable side panel. Hover to preview a page, then click only when it is the one you want.",
+    "description": "Text on the TabShow welcome page."
+  },
+  "pagesOrUse": {
+    "message": "or use",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesWelcomeOpenNote": {
+    "message": "One click. No setup form.",
+    "description": "Text on the TabShow welcome page."
+  },
+  "pagesWelcomeImageCaption": {
+    "message": "The TabShow side panel. Open it beside any page.",
+    "description": "Text on the TabShow welcome page."
+  },
+  "pagesWelcomeStartEyebrow": {
+    "message": "Your first preview",
+    "description": "Text on the TabShow welcome page."
+  },
+  "pagesWelcomeStartHeading": {
+    "message": "You’ll get it in three moves.",
+    "description": "Text on the TabShow welcome page."
+  },
+  "pagesWelcomeStartIntro": {
+    "message": "Try this now. The panel can stay open beside this page.",
+    "description": "Text on the TabShow welcome page."
+  },
+  "pagesWelcomeStepOpenHeading": {
+    "message": "Open the side panel",
+    "description": "Text on the TabShow welcome page."
+  },
+  "pagesWelcomeStepOpen": {
+    "message": "Use the button above, the toolbar icon, or the keyboard shortcut.",
+    "description": "Text on the TabShow welcome page."
+  },
+  "pagesWelcomeStepPreviewHeading": {
+    "message": "Point at another tab",
+    "description": "Text on the TabShow welcome page."
+  },
+  "pagesWelcomeStepPreview": {
+    "message": "Its full page appears. Move your pointer out of the side panel and TabShow returns you to where you started.",
+    "description": "Text on the TabShow welcome page."
+  },
+  "pagesWelcomeStepChooseHeading": {
+    "message": "Click when it’s the one",
+    "description": "Text on the TabShow welcome page."
+  },
+  "pagesWelcomeStepChoosePart1": {
+    "message": "Settings → Keep panel open after choosing a tab",
+    "description": "Inline text in pagesWelcomeStepChoose. Translate consistently with the same setting or control in the side panel."
+  },
+  "pagesWelcomeStepChoose": {
+    "message": "The selected page becomes your current tab. By default, TabShow closes the panel. Turn on $part1$ if you want it to stay beside your page.",
+    "description": "Text on the TabShow welcome page.",
+    "placeholders": {
+      "part1": {
+        "content": "$1",
+        "example": "Settings → Keep panel open after choosing a tab"
+      }
+    }
+  },
+  "pagesWelcomeShortcutEyebrow": {
+    "message": "Make it muscle memory",
+    "description": "Text on the TabShow welcome page."
+  },
+  "pagesWelcomeShortcutHeading": {
+    "message": "Put TabShow one keystroke away.",
+    "description": "Text on the TabShow welcome page."
+  },
+  "pagesWelcomeShortcutIntro": {
+    "message": "TabShow suggests these defaults. Chrome may leave one unassigned if another extension already uses it.",
+    "description": "Text on the TabShow welcome page."
+  },
+  "pagesWelcomeShortcutChange": {
+    "message": "Change the shortcut",
+    "description": "Text on the TabShow welcome page."
+  },
+  "pagesWelcomeShortcutStepCopy": {
+    "message": "Copy this Chrome address.",
+    "description": "Text on the TabShow welcome page."
+  },
+  "pagesWelcomeShortcutStepPaste": {
+    "message": "Paste it into the address bar and press Enter.",
+    "description": "Text on the TabShow welcome page."
+  },
+  "pagesWelcomeShortcutStepAssign": {
+    "message": "Find TabShow, click the pencil, then press your preferred keys.",
+    "description": "Text on the TabShow welcome page."
+  },
+  "pagesWelcomeFeaturesEyebrow": {
+    "message": "When you’re ready",
+    "description": "Text on the TabShow welcome page."
+  },
+  "pagesWelcomeFeaturesHeading": {
+    "message": "Three ways to move even faster.",
+    "description": "Text on the TabShow welcome page."
+  },
+  "pagesWelcomeSearchHeading": {
+    "message": "Type to find anything",
+    "description": "Text on the TabShow welcome page."
+  },
+  "pagesWelcomeSearch": {
+    "message": "Search tab titles, web addresses, or domains. Use $part1$ $part2$ to select a result and $part3$ to open it. Hover a result when you want a live preview.",
+    "description": "Text on the TabShow welcome page.",
+    "placeholders": {
+      "part1": {
+        "content": "$1",
+        "example": "↑"
+      },
+      "part2": {
+        "content": "$2",
+        "example": "↓"
+      },
+      "part3": {
+        "content": "$3",
+        "example": "Enter"
+      }
+    }
+  },
+  "pagesWelcomeWindowsHeading": {
+    "message": "Reach every window",
+    "description": "Text on the TabShow welcome page."
+  },
+  "pagesWelcomeWindowsPart1": {
+    "message": "Current window",
+    "description": "Inline text in pagesWelcomeWindows. Translate consistently with the same setting or control in the side panel."
+  },
+  "pagesWelcomeWindowsPart2": {
+    "message": "All windows",
+    "description": "Inline text in pagesWelcomeWindows. Translate consistently with the same setting or control in the side panel."
+  },
+  "pagesWelcomeWindows": {
+    "message": "Switch from $part1$ to $part2$. Windows in the same Chrome profile appear here. Other profiles stay separate. Tabs in another window are click-to-switch, so hovering never steals focus.",
+    "description": "Text on the TabShow welcome page.",
+    "placeholders": {
+      "part1": {
+        "content": "$1",
+        "example": "Current window"
+      },
+      "part2": {
+        "content": "$2",
+        "example": "All windows"
+      }
+    }
+  },
+  "pagesWelcomeSortHeading": {
+    "message": "Sort the way you think",
+    "description": "Text on the TabShow welcome page."
+  },
+  "pagesWelcomeSort": {
+    "message": "Use current order, recently used, recently added (approx.), domain, or tab group. Your sort order, window scope, and panel settings stay saved.",
+    "description": "Text on the TabShow welcome page."
+  },
+  "pagesWelcomeSettingsHeading": {
+    "message": "Make the panel work your way",
+    "description": "Text on the TabShow welcome page."
+  },
+  "pagesWelcomeSettingsPart1": {
+    "message": "Settings",
+    "description": "Inline text in pagesWelcomeSettings. Translate consistently with the same setting or control in the side panel."
+  },
+  "pagesWelcomeSettingsPart2": {
+    "message": "Hover preview delay",
+    "description": "Inline text in pagesWelcomeSettings. Translate consistently with the same setting or control in the side panel."
+  },
+  "pagesWelcomeSettingsPart3": {
+    "message": "Preview tabs on hover",
+    "description": "Inline text in pagesWelcomeSettings. Translate consistently with the same setting or control in the side panel."
+  },
+  "pagesWelcomeSettingsPart4": {
+    "message": "Appearance → System",
+    "description": "Inline text in pagesWelcomeSettings. Translate consistently with the same setting or control in the side panel."
+  },
+  "pagesWelcomeSettings": {
+    "message": "In $part1$, adjust $part2$ or turn off $part3$ to browse the list without switching pages. $part4$ follows your light or dark preference; it does not copy a custom Chrome theme’s colors.",
+    "description": "Text on the TabShow welcome page.",
+    "placeholders": {
+      "part1": {
+        "content": "$1",
+        "example": "Settings"
+      },
+      "part2": {
+        "content": "$2",
+        "example": "Hover preview delay"
+      },
+      "part3": {
+        "content": "$3",
+        "example": "Preview tabs on hover"
+      },
+      "part4": {
+        "content": "$4",
+        "example": "Appearance → System"
+      }
+    }
+  },
+  "pagesWelcomePinPart1": {
+    "message": "Keep panel open after choosing a tab",
+    "description": "Inline text in pagesWelcomePin. Translate consistently with the same setting or control in the side panel."
+  },
+  "pagesWelcomePin": {
+    "message": "Chrome’s pin icon puts TabShow in the toolbar. To keep the panel open when you select a tab, use $part1$ in TabShow’s settings.",
+    "description": "Text on the TabShow welcome page.",
+    "placeholders": {
+      "part1": {
+        "content": "$1",
+        "example": "Keep panel open after choosing a tab"
+      }
+    }
+  },
+  "pagesWelcomeEscape": {
+    "message": "$part1$ cancels the preview and closes TabShow.",
+    "description": "Text on the TabShow welcome page.",
+    "placeholders": {
+      "part1": {
+        "content": "$1",
+        "example": "Esc"
+      }
+    }
+  },
+  "pagesWelcomeHelpPart1": {
+    "message": "Settings",
+    "description": "Inline text in pagesWelcomeHelp. Translate consistently with the same setting or control in the side panel."
+  },
+  "pagesWelcomeHelp": {
+    "message": "Version and help links are in $part1$.",
+    "description": "Text on the TabShow welcome page.",
+    "placeholders": {
+      "part1": {
+        "content": "$1",
+        "example": "Settings"
+      }
+    }
+  },
+  "pagesWelcomeClosingHeading": {
+    "message": "Your tabs are ready.",
+    "description": "Text on the TabShow welcome page."
+  },
+  "pagesWelcomeClosing": {
+    "message": "Open TabShow and make your first preview.",
+    "description": "Text on the TabShow welcome page."
+  },
+  "pagesWelcomePrivacy": {
+    "message": "Private by design. Your tab data stays in your browser.",
+    "description": "Text on the TabShow welcome page."
+  },
+  "pagesSuggestImprovement": {
+    "message": "Suggest an improvement ↗",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesBrandHome": {
+    "message": "TabShow home",
+    "description": "Accessible name for the link back to the top of the page."
+  },
+  "pagesOpenNow": {
+    "message": "Open TabShow now $part1$",
+    "description": "Text on the TabShow release notes page.",
+    "placeholders": {
+      "part1": {
+        "content": "$1",
+        "example": "→"
+      }
+    }
+  },
+  "pagesOpen": {
+    "message": "Open TabShow $part1$",
+    "description": "Text on the TabShow release notes page.",
+    "placeholders": {
+      "part1": {
+        "content": "$1",
+        "example": "→"
+      }
+    }
+  },
+  "pagesCopy": {
+    "message": "Copy",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesCopyShortcutAddress": {
+    "message": "Copy Chrome extensions shortcuts address",
+    "description": "Accessible name for copying the chrome://extensions/shortcuts address."
+  },
+  "pagesShortcutMacLabel": {
+    "message": "Mac: Command + Shift + X",
+    "description": "Accessible keyboard shortcut. Keep Command/Ctrl + Shift + X unchanged."
+  },
+  "pagesShortcutOtherLabel": {
+    "message": "Windows and Linux: Ctrl + Shift + X",
+    "description": "Accessible keyboard shortcut. Keep Command/Ctrl + Shift + X unchanged."
+  },
+  "pagesWelcomeImageAlt": {
+    "message": "TabShow 2.4 side panel with tab search, window scope, sorting, and the current tab in view",
+    "description": "Alt text for the screenshot of the TabShow 2.4 side panel."
+  },
+  "pagesUpdateTitle": {
+    "message": "TabShow 2.4: What’s new",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesUpdateVersion": {
+    "message": "Version 2.4",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesUpdateEyebrow": {
+    "message": "What changed in TabShow 2.4",
+    "description": "Accessible section name for the TabShow 2.4 changes."
+  },
+  "pagesUpdateHeadingPart2": {
+    "message": "Keep the panel open.",
+    "description": "Inline text in pagesUpdateHeading. Translate consistently with the same setting or control in the side panel."
+  },
+  "pagesUpdateHeading": {
+    "message": "Switch tabs.$part1$$part2$",
+    "description": "Text on the TabShow release notes page.",
+    "placeholders": {
+      "part1": {
+        "content": "$1",
+        "example": "line break"
+      },
+      "part2": {
+        "content": "$2",
+        "example": "Keep the panel open."
+      }
+    }
+  },
+  "pagesUpdateIntro": {
+    "message": "You can now keep TabShow beside your page after choosing a tab. Your sort order stays saved, and opening the panel brings your current tab into view.",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesSeePreview": {
+    "message": "See how preview works ↗",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesUpdateOpenNote": {
+    "message": "Every feature is free. No new permissions.",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesUpdateKeepOpenEyebrow": {
+    "message": "Your choice",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesUpdateKeepOpenHeading": {
+    "message": "Leave the panel open.",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesUpdateKeepOpenPart1": {
+    "message": "Settings → Keep panel open after choosing a tab",
+    "description": "Inline text in pagesUpdateKeepOpen. Translate consistently with the same setting or control in the side panel."
+  },
+  "pagesUpdateKeepOpen": {
+    "message": "Open $part1$. Click a tab or press Enter, and the panel stays open. Choosing a tab in the current window makes it the starting point for your next preview.",
+    "description": "Text on the TabShow release notes page.",
+    "placeholders": {
+      "part1": {
+        "content": "$1",
+        "example": "Settings → Keep panel open after choosing a tab"
+      }
+    }
+  },
+  "pagesUpdateKeepOpenDefault": {
+    "message": "This is off by default, so your existing workflow stays the same. Chrome’s pin icon only pins TabShow to the toolbar.",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesUpdateCurrentEyebrow": {
+    "message": "Less searching around",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesUpdateCurrentHeading": {
+    "message": "Your current tab in view.",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesUpdateCurrent": {
+    "message": "When you open TabShow, the list starts at your current tab. With the panel kept open, switching within the current window keeps your chosen tab visible. Your preferred sort order is remembered.",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesUpdateMoving": {
+    "message": "Tabs also stay in the right window section when you move them between Chrome windows.",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesUpdateHoverEyebrow": {
+    "message": "Preview when you want",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesUpdateHoverHeading": {
+    "message": "Control hover previews.",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesUpdateHoverPart1": {
+    "message": "Settings → Preview tabs on hover",
+    "description": "Inline text in pagesUpdateHover. Translate consistently with the same setting or control in the side panel."
+  },
+  "pagesUpdateHover": {
+    "message": "Open $part1$ to turn live previews on or off. Previews remain on by default.",
+    "description": "Text on the TabShow release notes page.",
+    "placeholders": {
+      "part1": {
+        "content": "$1",
+        "example": "Settings → Preview tabs on hover"
+      }
+    }
+  },
+  "pagesUpdateDelayPart1": {
+    "message": "Hover preview delay",
+    "description": "Inline text in pagesUpdateDelay. Translate consistently with the same setting or control in the side panel."
+  },
+  "pagesUpdateDelay": {
+    "message": "To keep previews but avoid accidental switches, increase $part1$. Search and keyboard selection work either way.",
+    "description": "Text on the TabShow release notes page.",
+    "placeholders": {
+      "part1": {
+        "content": "$1",
+        "example": "Hover preview delay"
+      }
+    }
+  },
+  "pagesUpdateHelpEyebrow": {
+    "message": "Clearer settings",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesUpdateHelpHeading": {
+    "message": "Help is easier to find.",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesUpdateHelp": {
+    "message": "Settings now shows your installed version and links to help and release notes.",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesUpdateThemePart1": {
+    "message": "Appearance → System",
+    "description": "Inline text in pagesUpdateTheme. Translate consistently with the same setting or control in the side panel."
+  },
+  "pagesUpdateTheme": {
+    "message": "$part1$ follows your light or dark preference. Custom Chrome theme colors remain separate.",
+    "description": "Text on the TabShow release notes page.",
+    "placeholders": {
+      "part1": {
+        "content": "$1",
+        "example": "Appearance → System"
+      }
+    }
+  },
+  "pagesUpdateShortcutHeading": {
+    "message": "Still one shortcut away.",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesUpdateShortcutPart1": {
+    "message": "Command + Shift + X",
+    "description": "Inline text in pagesUpdateShortcut. Translate consistently with the same setting or control in the side panel."
+  },
+  "pagesUpdateShortcutPart2": {
+    "message": "Ctrl + Shift + X",
+    "description": "Inline text in pagesUpdateShortcut. Translate consistently with the same setting or control in the side panel."
+  },
+  "pagesUpdateShortcut": {
+    "message": "Suggested defaults: $part1$ on Mac or $part2$ on Windows and Linux. If the shortcut is unassigned, paste this address into Chrome and set it beside TabShow.",
+    "description": "Text on the TabShow release notes page.",
+    "placeholders": {
+      "part1": {
+        "content": "$1",
+        "example": "Command + Shift + X"
+      },
+      "part2": {
+        "content": "$2",
+        "example": "Ctrl + Shift + X"
+      }
+    }
+  },
+  "pagesUpdateKeyboard": {
+    "message": "$part1$ select · $part2$ choose · $part3$ return and close. With the panel kept open, a tab chosen in this window becomes your new starting point.",
+    "description": "Text on the TabShow release notes page.",
+    "placeholders": {
+      "part1": {
+        "content": "$1",
+        "example": "↑↓"
+      },
+      "part2": {
+        "content": "$2",
+        "example": "Enter"
+      },
+      "part3": {
+        "content": "$3",
+        "example": "Esc"
+      }
+    }
+  },
+  "pagesUpdateFeedbackEyebrow": {
+    "message": "Thanks for the feedback",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesUpdateFeedbackHeading": {
+    "message": "Tell us how it works for you.",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesUpdateFeedback": {
+    "message": "Report a problem, suggest an improvement, or leave an honest review.",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesShareFeedback": {
+    "message": "Share feedback ↗",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesReview": {
+    "message": "Review TabShow ↗",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesPreviousReleases": {
+    "message": "Previous releases",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesPreviousVersions": {
+    "message": "Versions 0.5–2.3",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesUpdatePrivacy": {
+    "message": "TabShow 2.4 · Your tab data stays in your browser.",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesHelpSupport": {
+    "message": "Help and support ↗",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesKeyboardShortcuts": {
+    "message": "Keyboard shortcuts",
+    "description": "Accessible section name for keyboard shortcuts."
+  },
+  "pagesHistory1Heading": {
+    "message": "Version 2.3",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesHistory1": {
+    "message": "Clarified that All windows includes the current Chrome profile. Added a short voiced demo of live preview, search, and keyboard navigation.",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesHistory2Heading": {
+    "message": "Version 2.2",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesHistory2": {
+    "message": "Added optional Support TabShow and Buy me a coffee links. Every feature remains free, and support is entirely optional. Enter follows a focused link; Escape still returns to your original tab.",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesHistory3Heading": {
+    "message": "Version 2.1",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesHistory3": {
+    "message": "Added a local Tab Chaos Score, dark, light, or system appearance, Suggest a feature and Tell a friend actions, and stable OPEN TABS and window totals while searching.",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesHistory4Heading": {
+    "message": "Version 2.0",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesHistory4": {
+    "message": "Added search, keyboard navigation, all-window scope, flexible sorting, richer tab context, and clearer loading and empty states.",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesHistory5Heading": {
+    "message": "1.0.0",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesHistory5": {
+    "message": "Added adjustable hover delay, preview loading feedback, faster access to settings, and a direct rating link.",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesHistory6Heading": {
+    "message": "0.9",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesHistory6": {
+    "message": "Introduced color settings, improved live titles and favicons, and refreshed the TabShow identity and store listing.",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesHistory7Heading": {
+    "message": "0.8",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesHistory7": {
+    "message": "Redesigned tab groups, improved hover reliability, and added full-address tooltips and the feedback board.",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesHistory8Heading": {
+    "message": "0.7",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesHistory8": {
+    "message": "Made large tab collections dramatically faster and added the welcome and release pages.",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesHistory9Heading": {
+    "message": "0.5–0.6",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesHistory9": {
+    "message": "Launched hover preview, tab closing, keyboard access, and visual tab groups.",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesCopied": {
+    "message": "Copied",
+    "description": "Clipboard success feedback."
+  },
+  "pagesSelected": {
+    "message": "Selected",
+    "description": "Feedback when the address is selected because clipboard writing is unavailable."
+  },
+  "pagesPanelOpened": {
+    "message": "TabShow is open. Search for a tab or choose one from the list.",
+    "description": "Confirmation after opening the side panel."
+  },
+  "pagesPanelOpenFallback": {
+    "message": "Use the toolbar icon or press $shortcut$ to open TabShow.",
+    "description": "Fallback if this page cannot open the side panel. Keep the shortcut placeholder.",
+    "placeholders": {
+      "shortcut": {
+        "content": "$1",
+        "example": "Ctrl + Shift + X"
+      }
+    }
+  },
+  "pagesLanguages": {
+    "message": "Available in English, German, Simplified Chinese, and Traditional Chinese. TabShow follows your Chrome display language.",
+    "description": "Supported interface languages and automatic selection based on Chrome display language. Keep all four language names."
+  }
+}

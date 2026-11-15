@@ -43,6 +43,10 @@ MORE CONTEXT IN THE LIST
 • Choose light, dark, or system appearance and a color pairing. System follows your light/dark preference, not custom Chrome theme colors.
 • See a local Tab Chaos Score and a practical suggestion based on your open tabs.
 
+FOUR INTERFACE LANGUAGES
+
+Use TabShow in English, German, Simplified Chinese, or Traditional Chinese. The panel, Settings, welcome page, and release notes follow your Chrome display language. Other display languages use English.
+
 YOUR TAB DATA STAYS IN YOUR BROWSER
 
 No account, ads, extension analytics, or TabShow backend. No host permissions or access to webpage contents. TabShow uses the tab details Chrome provides to list, search, sort, preview, switch, and close tabs. Settings and the local score history stay in your browser.
@@ -51,7 +55,7 @@ Every feature is free. Supporting development through Buy Me a Coffee is optiona
 
 WHAT'S NEW IN 2.4
 
-Optional keep-open mode, a switch for hover previews, saved sorting, and your current tab in view when opening the panel. Tab lists also update correctly when tabs move between windows. Settings now includes the installed version, help, and release notes. Existing defaults stay the same.
+Optional keep-open mode, a switch for hover previews, saved sorting, and your current tab in view when opening the panel. Tab lists also update correctly when tabs move between windows. Settings now includes the installed version, help, and release notes. German, Simplified Chinese, and Traditional Chinese join English. Existing defaults stay the same.
 
 Changelog: https://tab.show/changelog
 Privacy: https://tab.show/privacy
@@ -69,6 +73,8 @@ Use current captures of the packaged extension. Recommended gallery order:
 5. The keep-open setting and hover controls.
 
 Each image should explain one task with short text. Do not use generated UI, unsupported claims, an obsolete version label, or a screenshot that hides the page being previewed. Existing branding can be retained.
+
+Localized listing text and gallery captions are in `docs/launch-materials/locales/`. Use real captures of the matching localized interface. Verify every locale against the final package; translated copy alone is not evidence that native behavior and layout have passed.
 
 The existing voiced walkthrough is `https://www.youtube.com/watch?v=ZznCNcOynjw`. Verify the live video's visibility, captions, and shown behavior before retaining it. Its default preview-and-close workflow remains relevant, but it does not demonstrate the new optional settings. Do not call it a 2.4 feature walkthrough unless it is updated accordingly.
 

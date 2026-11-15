@@ -39,7 +39,12 @@ if (scenario === 'chaos') {
     bestScore: 46,
   }));
 }
-globalThis.browser = createMockBrowser(tabCount);
+const requestedLocale = params.get('locale') ?? 'en';
+const locale = ['en', 'de', 'zh_CN', 'zh_TW'].includes(requestedLocale) ? requestedLocale : 'en';
+const catalogResponse = await fetch(`/public/_locales/${locale}/messages.json`);
+if (!catalogResponse.ok) throw new Error(`Missing preview catalog: ${locale}`);
+const catalog = await catalogResponse.json();
+globalThis.browser = createMockBrowser(tabCount, catalog);
 document.documentElement.dataset.scenario = scenario;
 
 const [{ default: App }, { UserSettingsProvider }, { ColorSchemeProvider }] = await Promise.all([
@@ -67,7 +72,8 @@ async function waitFor(selector: string, timeout = 5000): Promise<Element> {
 }
 
 async function prepareScenario() {
-  const search = await waitFor('input[aria-label="Search tabs"]') as HTMLInputElement;
+  const { t } = await import('../../src/i18n');
+  const search = await waitFor(`input[aria-label="${t('panelSearch')}"]`) as HTMLInputElement;
   await new Promise(resolve => setTimeout(resolve, 350));
 
   if (scenario === 'preview') {
@@ -77,27 +83,31 @@ async function prepareScenario() {
     target?.dispatchEvent(new MouseEvent('mouseover', { bubbles: true }));
   }
 
-  if (scenario === 'search' || scenario === 'keyboard') {
+  if (scenario === 'search' || scenario === 'keyboard' || scenario === 'windows') {
     const valueSetter = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value')?.set;
-    valueSetter?.call(search, 'TabShow');
-    search.dispatchEvent(new InputEvent('input', { bubbles: true, inputType: 'insertText', data: 'TabShow' }));
+    const query = scenario === 'windows' ? 'website' : 'TabShow';
+    valueSetter?.call(search, query);
+    search.dispatchEvent(new InputEvent('input', { bubbles: true, inputType: 'insertText', data: query }));
     search.dispatchEvent(new Event('change', { bubbles: true }));
-    if (scenario === 'keyboard') search.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown', bubbles: true }));
+    if (scenario === 'keyboard') {
+      await new Promise(resolve => setTimeout(resolve, 350));
+      search.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown', bubbles: true }));
+    }
   }
 
   if (scenario === 'context') {
-    const sort = await waitFor('[aria-label="Sort tabs"]');
+    const sort = await waitFor(`[aria-label="${t('panelSortTabs')}"]`);
     sort.dispatchEvent(new MouseEvent('mousedown', { bubbles: true }));
   }
 
   if (scenario === 'settings') {
-    const settings = await waitFor('button[aria-label="open settings"]');
+    const settings = await waitFor(`button[aria-label="${t('panelOpenSettings')}"]`);
     settings.dispatchEvent(new MouseEvent('click', { bubbles: true }));
   }
 
   if (scenario === 'chaos') {
-    const chaos = await waitFor('button[aria-label^="Open Tab Chaos Score"]');
-    chaos.dispatchEvent(new MouseEvent('click', { bubbles: true }));
+    const chaos = await waitFor('[data-testid="chaos-score-content"]');
+    chaos.closest('button')?.dispatchEvent(new MouseEvent('click', { bubbles: true }));
   }
 
   await new Promise(resolve => setTimeout(resolve, 650));

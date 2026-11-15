@@ -1,0 +1,342 @@
+{
+  "services_chaos_level_clear": {
+    "message": "Clear skies"
+  },
+  "services_chaos_level_clear_description": {
+    "message": "Your browser is calm and easy to scan."
+  },
+  "services_chaos_level_lively": {
+    "message": "Lively"
+  },
+  "services_chaos_level_lively_description": {
+    "message": "A few loose ends, but still comfortably under control."
+  },
+  "services_chaos_level_busy": {
+    "message": "Busy"
+  },
+  "services_chaos_level_busy_description": {
+    "message": "Search and sorting are earning their keep."
+  },
+  "services_chaos_level_wild": {
+    "message": "Wild"
+  },
+  "services_chaos_level_wild_description": {
+    "message": "There is real tab sprawl, but TabShow can still make it navigable."
+  },
+  "services_chaos_level_maximum": {
+    "message": "Maximum chaos"
+  },
+  "services_chaos_level_maximum_description": {
+    "message": "This browser session deserves its own weather system."
+  },
+  "services_chaos_domain_browser": {
+    "message": "Chrome"
+  },
+  "services_chaos_domain_extension": {
+    "message": "Chrome extension"
+  },
+  "services_chaos_domain_other": {
+    "message": "Other"
+  },
+  "services_chaos_untitled_tab": {
+    "message": "Untitled tab"
+  },
+  "services_chaos_factor_volume": {
+    "message": "Tab volume"
+  },
+  "services_chaos_factor_windows": {
+    "message": "Window sprawl"
+  },
+  "services_chaos_factor_duplicates": {
+    "message": "Duplicates"
+  },
+  "services_chaos_factor_stale": {
+    "message": "Quiet for 7+ days"
+  },
+  "services_chaos_factor_ungrouped": {
+    "message": "Ungrouped load"
+  },
+  "services_chaos_detail_volume_one": {
+    "message": "$count$ open tab",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "services_chaos_detail_volume_other": {
+    "message": "$count$ open tabs",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "services_chaos_detail_windows_one": {
+    "message": "$count$ Chrome window",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "services_chaos_detail_windows_other": {
+    "message": "$count$ Chrome windows",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "services_chaos_detail_duplicates_one": {
+    "message": "$count$ extra copy",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "services_chaos_detail_duplicates_other": {
+    "message": "$count$ extra copies",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "services_chaos_detail_stale_one": {
+    "message": "$count$ long-neglected tab",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "services_chaos_detail_stale_other": {
+    "message": "$count$ long-neglected tabs",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "services_chaos_detail_ungrouped_one": {
+    "message": "$count$ tab outside groups",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "services_chaos_detail_ungrouped_other": {
+    "message": "$count$ tabs outside groups",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "services_chaos_summary_single_window_one": {
+    "message": "$count$ tab across $windows$ window.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      },
+      "windows": {
+        "content": "$2",
+        "example": "1"
+      }
+    }
+  },
+  "services_chaos_summary_single_window_other": {
+    "message": "$count$ tabs across $windows$ window.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      },
+      "windows": {
+        "content": "$2",
+        "example": "1"
+      }
+    }
+  },
+  "services_chaos_summary_multiple_windows_one": {
+    "message": "$count$ tab across $windows$ windows.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      },
+      "windows": {
+        "content": "$2",
+        "example": "3"
+      }
+    }
+  },
+  "services_chaos_summary_multiple_windows_other": {
+    "message": "$count$ tabs across $windows$ windows.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      },
+      "windows": {
+        "content": "$2",
+        "example": "3"
+      }
+    }
+  },
+  "services_chaos_summary_duplicates_one": {
+    "message": "$count$ duplicate tab is the fastest source of avoidable clutter.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "services_chaos_summary_duplicates_other": {
+    "message": "$count$ duplicate tabs are the fastest source of avoidable clutter.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "services_chaos_summary_stale_one": {
+    "message": "$count$ tab has been quiet for at least a week.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "services_chaos_summary_stale_other": {
+    "message": "$count$ tabs have been quiet for at least a week.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "services_chaos_summary_windows": {
+    "message": "Your active work is spread across $count$ Chrome windows.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "services_chaos_summary_ungrouped": {
+    "message": "$count$ ungrouped tabs are relying on search and memory for context.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "services_chaos_quick_calm_title": {
+    "message": "Keep finding, not tidying"
+  },
+  "services_chaos_quick_calm_detail": {
+    "message": "Your session is already calm. TabShow will stay out of the way until you need it."
+  },
+  "services_chaos_quick_duplicates_title_one": {
+    "message": "Close $count$ duplicate tab",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "services_chaos_quick_duplicates_title_other": {
+    "message": "Close $count$ duplicate tabs",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "services_chaos_quick_duplicates_detail": {
+    "message": "Duplicates are the quickest way to lower the score without reorganizing your workflow."
+  },
+  "services_chaos_quick_stale_title": {
+    "message": "Sort by recently used"
+  },
+  "services_chaos_quick_stale_detail": {
+    "message": "The quietest tabs fall to the bottom, making a quick keep-or-close pass much easier."
+  },
+  "services_chaos_quick_windows_title": {
+    "message": "Use Current window for focus"
+  },
+  "services_chaos_quick_windows_detail": {
+    "message": "Keep All windows for retrieval, then narrow the list when you want a calmer project view."
+  },
+  "services_chaos_quick_ungrouped_title": {
+    "message": "Try By domain"
+  },
+  "services_chaos_quick_ungrouped_detail": {
+    "message": "Domain sorting creates instant context without asking you to build a workspace system."
+  },
+  "services_chaos_trend_first": {
+    "message": "First local check-in. This becomes more useful over time."
+  },
+  "services_chaos_trend_down_one": {
+    "message": "Down $count$ point since your last check.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "services_chaos_trend_down_other": {
+    "message": "Down $count$ points since your last check.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "services_chaos_trend_up_one": {
+    "message": "Up $count$ point since your last check.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "services_chaos_trend_up_other": {
+    "message": "Up $count$ points since your last check.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "services_chaos_trend_steady": {
+    "message": "Steady since your last check."
+  }
+}

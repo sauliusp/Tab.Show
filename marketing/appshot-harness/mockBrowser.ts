@@ -62,11 +62,25 @@ function buildTabs(requestedCount: number) {
   return [...baseTabs, ...generated];
 }
 
-export function createMockBrowser(requestedCount = baseTabs.length) {
+type Message = { message: string; placeholders?: Record<string, { content: string }> };
+
+export function createMockBrowser(requestedCount = baseTabs.length, catalog: Record<string, Message> = {}) {
   const tabs = buildTabs(Math.max(1, requestedCount));
   const updates: Array<{ id: number; at: number }> = [];
   return {
     qa: { updates },
+    i18n: {
+      getMessage(key: string, substitutions: string[] = []) {
+        const entry = catalog[key];
+        if (!entry) return '';
+        return entry.message.replace(/\$\$|\$([a-zA-Z0-9_]+)\$/g, (token, name: string | undefined) => {
+          if (token === '$$') return '$';
+          const content = entry.placeholders?.[name!.toLowerCase()]?.content;
+          return content?.replace(/\$(\d+)/g, (_match, index: string) => substitutions[Number(index) - 1] ?? '') ?? token;
+        });
+      },
+      getUILanguage() { return catalog.panelLocale?.message ?? 'en'; },
+    },
     tabs: {
       async query(query: { active?: boolean; currentWindow?: boolean } = {}) {
         return tabs.filter(tab => (!query.active || tab.id === activeTabId) && (!query.currentWindow || tab.windowId === 10));

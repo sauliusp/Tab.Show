@@ -18,6 +18,7 @@ export const previewPage: IntentPageData = {
     { q: "Can Chrome preview a tab without switching by itself?", a: "Chrome does not provide this exact side-panel recognition loop by default. TabShow temporarily activates the live tab while you point at it, then restores the original tab when you move away." },
     { q: "Is the preview a screenshot?", a: "No. It is the real live tab shown in the main browser window, not a thumbnail or image captured by TabShow." },
     { q: "Does hover preview work in another Chrome window?", a: "No, and that is intentional. Tabs from other windows in the same Chrome profile appear in All windows scope, but you must click or press Enter to switch. Hovering does not move focus to another window." },
+    { q: "Which languages can I use?", a: "The 2.4 release candidate supports English, German, Simplified Chinese, and Traditional Chinese, selected automatically from Chrome's display language. The website and linked external help pages remain in English. See the changelog for release availability." },
   ],
 };
 

@@ -131,6 +131,8 @@ export default function ChangelogPage() {
         <p>The panel brings the current tab into view when it opens. With the panel kept open, switching within the current window keeps your chosen tab visible. Your sort choice is saved between visits.</p>
         <h3>Find help and check your version</h3>
         <p>Settings includes the installed version, help, and release notes. Search by title, URL, or domain is still at the top of the panel; it has been available since version 2.0.</p>
+        <h3>Use TabShow in four languages</h3>
+        <p>The 2.4 release candidate supports English, German, Simplified Chinese, and Traditional Chinese. The panel, Settings, welcome page, and in-extension release notes follow Chrome's display language, with English as the fallback. This website and linked external help pages remain in English.</p>
         <h3>More reliable previews and window changes</h3>
         <p>A selection in another Chrome window no longer replaces the tab a preview returns to. Tabs moved between windows refresh in the list, and hover settings take effect without reopening the panel.</p>
         <h3>Existing preferences stay yours</h3>

@@ -2,7 +2,7 @@
 
 Reviewed on 14 November 2026 in the signed-in Featurebase dashboard. The profile showed two requests, three comments, and votes on Hover Delay and Popup view; the activity was labelled “5 days ago.” Dates below use 9 November as that relative date, not an independently exported timestamp. No installed extension version was provided by the user.
 
-The Store item list showed **356 users** on 14 November 2026. A dated baseline of the authenticated dashboard's installs, uninstalls, page views, impressions, and weekly users is retained in the local release workspace. The repository is public, so it does not publish the dashboard's non-public analytics.
+A dated baseline of the authenticated dashboard's installs, uninstalls, page views, impressions, and weekly users is retained in the local release workspace. The repository is public, so it does not publish the dashboard's non-public analytics.
 
 Retain each metric's dashboard definition. Do not divide installs by page views and call it conversion, or equate net installs with active-user growth. The goal is to remove repeat-use friction while preserving the preview workflow and privacy model. Increased user count is an outcome to measure, not a guarantee.
 
@@ -46,7 +46,7 @@ The primary product promise remains finding the right live tab without losing th
 
 Record the actual public release date and retain this baseline report. Review the first seven days for regression signals, then compare a full 30-day post-release period with the same dashboard metrics and interval definitions. No recurring job is created by this plan.
 
-- **Retention signal:** weekly users and the item-list user count should show sustained growth. Investigate any rise in uninstalls together with new bug reports, rollout timing, and traffic mix.
+- **Installed-base signal:** compare weekly users and the item-list user count using their Store definitions; neither establishes actual extension usage or cohort retention. Investigate any rise in uninstalls together with new bug reports, rollout timing, and traffic mix.
 - **Acquisition signal:** compare Store impressions, page views, and installs separately. Use a dashboard-provided conversion metric only if its population and attribution window are documented; do not invent one by dividing these totals.
 - **Product signal:** check whether new feedback still reports unexpected closure, list jumps, missing search, or unclear theme behavior. These observations can confirm resolved friction without collecting extension browsing data.
 - **Release quality:** compare feedback before and after rollout, and check that users reporting a problem actually have the affected version. Do not assume an old version or user error.

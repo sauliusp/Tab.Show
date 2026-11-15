@@ -1,4 +1,5 @@
 import type { Tab, TabGroup } from '../types/Tab';
+import { plural, t } from '../i18n';
 import { getDuplicateKey, getTabDomain } from './tabSelectors';
 
 const DAY_MS = 24 * 60 * 60 * 1000;
@@ -18,7 +19,7 @@ export interface ChaosFactor {
 
 export interface TabChaosStats {
   score: number;
-  level: 'Clear skies' | 'Lively' | 'Busy' | 'Wild' | 'Maximum chaos';
+  level: string;
   levelDescription: string;
   totalTabs: number;
   windowsCount: number;
@@ -46,19 +47,19 @@ interface CalculateChaosOptions {
 const clamp = (value: number, minimum: number, maximum: number) => Math.min(maximum, Math.max(minimum, value));
 
 function describeLevel(score: number): Pick<TabChaosStats, 'level' | 'levelDescription'> {
-  if (score < 20) return { level: 'Clear skies', levelDescription: 'Your browser is calm and easy to scan.' };
-  if (score < 40) return { level: 'Lively', levelDescription: 'A few loose ends, but still comfortably under control.' };
-  if (score < 60) return { level: 'Busy', levelDescription: 'Search and sorting are earning their keep.' };
-  if (score < 80) return { level: 'Wild', levelDescription: 'There is real tab sprawl, but TabShow can still make it navigable.' };
-  return { level: 'Maximum chaos', levelDescription: 'This browser session deserves its own weather system.' };
+  if (score < 20) return { level: t('services_chaos_level_clear'), levelDescription: t('services_chaos_level_clear_description') };
+  if (score < 40) return { level: t('services_chaos_level_lively'), levelDescription: t('services_chaos_level_lively_description') };
+  if (score < 60) return { level: t('services_chaos_level_busy'), levelDescription: t('services_chaos_level_busy_description') };
+  if (score < 80) return { level: t('services_chaos_level_wild'), levelDescription: t('services_chaos_level_wild_description') };
+  return { level: t('services_chaos_level_maximum'), levelDescription: t('services_chaos_level_maximum_description') };
 }
 
 function safeDomain(tab: Tab): string {
-  if (tab.url?.startsWith('chrome://')) return 'Chrome';
-  if (tab.url?.startsWith('chrome-extension://')) return 'Chrome extension';
+  if (tab.url?.startsWith('chrome://')) return t('services_chaos_domain_browser');
+  if (tab.url?.startsWith('chrome-extension://')) return t('services_chaos_domain_extension');
   const domain = getTabDomain(tab);
   if (domain) return domain;
-  return 'Other';
+  return t('services_chaos_domain_other');
 }
 
 export function calculateTabChaos(tabs: Tab[], groups: TabGroup[], options: CalculateChaosOptions = {}): TabChaosStats {
@@ -98,7 +99,7 @@ export function calculateTabChaos(tabs: Tab[], groups: TabGroup[], options: Calc
     .sort((a, b) => a.lastAccessed - b.lastAccessed)[0];
   const leastRecentTab = leastRecent
     ? {
-        title: leastRecent.title || 'Untitled tab',
+        title: leastRecent.title || t('services_chaos_untitled_tab'),
         domain: safeDomain(leastRecent),
         daysAgo: Math.max(0, Math.floor((now - leastRecent.lastAccessed) / DAY_MS)),
       }
@@ -121,29 +122,29 @@ export function calculateTabChaos(tabs: Tab[], groups: TabGroup[], options: Calc
   const ungroupedPoints = totalTabs <= 12 ? 0 : Math.min(10, Math.round((ungroupedTabs / totalTabs) * 10));
 
   const factors: ChaosFactor[] = [
-    { id: 'volume', label: 'Tab volume', points: volumePoints, detail: `${totalTabs} open tab${totalTabs === 1 ? '' : 's'}` },
-    { id: 'windows', label: 'Window sprawl', points: windowPoints, detail: `${windowsCount} Chrome window${windowsCount === 1 ? '' : 's'}` },
-    { id: 'duplicates', label: 'Duplicates', points: duplicatePoints, detail: `${duplicateTabs} extra cop${duplicateTabs === 1 ? 'y' : 'ies'}` },
-    { id: 'stale', label: 'Quiet for 7+ days', points: stalePoints, detail: `${staleTabs} long-neglected tab${staleTabs === 1 ? '' : 's'}` },
-    { id: 'ungrouped', label: 'Ungrouped load', points: ungroupedPoints, detail: `${ungroupedTabs} tab${ungroupedTabs === 1 ? '' : 's'} outside groups` },
+    { id: 'volume', label: t('services_chaos_factor_volume'), points: volumePoints, detail: plural('services_chaos_detail_volume', totalTabs) },
+    { id: 'windows', label: t('services_chaos_factor_windows'), points: windowPoints, detail: plural('services_chaos_detail_windows', windowsCount) },
+    { id: 'duplicates', label: t('services_chaos_factor_duplicates'), points: duplicatePoints, detail: plural('services_chaos_detail_duplicates', duplicateTabs) },
+    { id: 'stale', label: t('services_chaos_factor_stale'), points: stalePoints, detail: plural('services_chaos_detail_stale', staleTabs) },
+    { id: 'ungrouped', label: t('services_chaos_factor_ungrouped'), points: ungroupedPoints, detail: plural('services_chaos_detail_ungrouped', ungroupedTabs) },
   ];
   const score = clamp(factors.reduce((total, factor) => total + factor.points, 0), 0, 100);
   const levelInfo = describeLevel(score);
 
-  let summary = `${totalTabs} tabs across ${windowsCount} window${windowsCount === 1 ? '' : 's'}.`;
-  let quickWin = { title: 'Keep finding, not tidying', detail: 'Your session is already calm. TabShow will stay out of the way until you need it.' };
+  let summary = plural(windowsCount === 1 ? 'services_chaos_summary_single_window' : 'services_chaos_summary_multiple_windows', totalTabs, { windows: windowsCount });
+  let quickWin = { title: t('services_chaos_quick_calm_title'), detail: t('services_chaos_quick_calm_detail') };
   if (duplicateTabs > 0) {
-    summary = `${duplicateTabs} duplicate tab${duplicateTabs === 1 ? ' is' : 's are'} the fastest source of avoidable clutter.`;
-    quickWin = { title: `Close ${duplicateTabs} duplicate tab${duplicateTabs === 1 ? '' : 's'}`, detail: 'Duplicates are the quickest way to lower the score without reorganizing your workflow.' };
+    summary = plural('services_chaos_summary_duplicates', duplicateTabs);
+    quickWin = { title: plural('services_chaos_quick_duplicates_title', duplicateTabs), detail: t('services_chaos_quick_duplicates_detail') };
   } else if (staleTabs > 0) {
-    summary = `${staleTabs} tab${staleTabs === 1 ? ' has' : 's have'} been quiet for at least a week.`;
-    quickWin = { title: 'Sort by recently used', detail: 'The quietest tabs fall to the bottom, making a quick keep-or-close pass much easier.' };
+    summary = plural('services_chaos_summary_stale', staleTabs);
+    quickWin = { title: t('services_chaos_quick_stale_title'), detail: t('services_chaos_quick_stale_detail') };
   } else if (windowsCount >= 3) {
-    summary = `Your active work is spread across ${windowsCount} Chrome windows.`;
-    quickWin = { title: 'Use Current window for focus', detail: 'Keep All windows for retrieval, then narrow the list when you want a calmer project view.' };
+    summary = t('services_chaos_summary_windows', { count: windowsCount });
+    quickWin = { title: t('services_chaos_quick_windows_title'), detail: t('services_chaos_quick_windows_detail') };
   } else if (ungroupedTabs >= 12) {
-    summary = `${ungroupedTabs} ungrouped tabs are relying on search and memory for context.`;
-    quickWin = { title: 'Try By domain', detail: 'Domain sorting creates instant context without asking you to build a workspace system.' };
+    summary = t('services_chaos_summary_ungrouped', { count: ungroupedTabs });
+    quickWin = { title: t('services_chaos_quick_ungrouped_title'), detail: t('services_chaos_quick_ungrouped_detail') };
   }
 
   return {
@@ -165,6 +166,13 @@ export function calculateTabChaos(tabs: Tab[], groups: TabGroup[], options: Calc
     quickWin,
     calculatedAt: now,
   };
+}
+
+export function getChaosTrendMessage(scoreDelta: number | null): string {
+  if (scoreDelta === null) return t('services_chaos_trend_first');
+  if (scoreDelta < 0) return plural('services_chaos_trend_down', Math.abs(scoreDelta));
+  if (scoreDelta > 0) return plural('services_chaos_trend_up', scoreDelta);
+  return t('services_chaos_trend_steady');
 }
 
 export function getChaosScoreColor(score: number): string {

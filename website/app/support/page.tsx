@@ -4,7 +4,7 @@ import { CoffeeButton, FEEDBACK_URL, REVIEW_URL, PlainPage, pageMetadata } from 
 export const metadata = pageMetadata("TabShow Support | Setup, Shortcuts, Preview and Feedback", "Find TabShow help for search, preview settings, keeping the side panel open, appearance, versions, shortcuts, and multiple windows.", "/support");
 
 export default function SupportPage() {
-  return <PlainPage eyebrow="Support" title="Get back to the tab" accent="you were looking for." lead="Start with the checks below. If a problem remains, share the steps and your installed version on the feedback board." nav={[{href:"#start",label:"Getting started"},{href:"#shortcuts",label:"Keyboard"},{href:"#preview",label:"Preview behavior"},{href:"#panel-settings",label:"Panel settings"},{href:"#version",label:"Version and updates"},{href:"#troubleshooting",label:"Troubleshooting"},{href:"#contact",label:"Feedback"},{href:"#support-development",label:"Support development"}]}>
+  return <PlainPage eyebrow="Support" title="Get back to the tab" accent="you were looking for." lead="Start with the checks below. If a problem remains, share the steps and your installed version on the feedback board." nav={[{href:"#start",label:"Getting started"},{href:"#shortcuts",label:"Keyboard"},{href:"#preview",label:"Preview behavior"},{href:"#panel-settings",label:"Panel settings"},{href:"#version",label:"Version and updates"},{href:"#language",label:"Language"},{href:"#troubleshooting",label:"Troubleshooting"},{href:"#contact",label:"Feedback"},{href:"#support-development",label:"Support development"}]}>
     <section id="start">
       <h2>Getting started</h2>
       <ol><li>Install TabShow from the Chrome Web Store.</li><li>Pin the TabShow toolbar icon if you want one-click access.</li><li>Click the icon or use the extension shortcut to open the side panel.</li><li>Use the search field at the top to find a title, URL, or domain, or point at a tab to preview it.</li><li>Click the right tab to switch, or move away to return.</li></ol>
@@ -38,6 +38,11 @@ export default function SupportPage() {
       <h2>Check your version</h2>
       <p>Open <code>chrome://extensions</code>, find TabShow, and select <strong>Details</strong> to see the installed version. In 2.4, Settings also shows the version and links to help and release notes.</p>
       <p>Chrome normally updates extensions automatically. If the store lists a newer version than the one installed, restart Chrome and check again. A release candidate or a version awaiting review is not yet available through the store. You do not need to uninstall TabShow to receive an update.</p>
+    </section>
+    <section id="language">
+      <h2>Language in 2.4</h2>
+      <p>The <strong>2.4 release candidate</strong> supports English, German, Simplified Chinese, and Traditional Chinese. TabShow follows Chrome's display language, with English as the fallback for unsupported languages. A webpage's language does not change the interface.</p>
+      <p>The panel, Settings, welcome page, and in-extension release notes are translated. This website and linked external help pages remain in English. Check the <a href="/changelog#version-2-4">release status</a> before looking for these translations in your installed version.</p>
     </section>
     <section id="troubleshooting">
       <h2>Quick troubleshooting</h2>

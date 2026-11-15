@@ -4,83 +4,84 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="light">
-  <title>TabShow 2.4: What’s new</title>
+  <title data-i18n="pagesUpdateTitle">TabShow 2.4: What’s new</title>
   <link rel="stylesheet" href="../shared.css">
 </head>
 <body>
   <header class="topbar shell">
-    <a class="brand" href="#top" aria-label="TabShow home"><img src="../../icon/48.png" width="30" height="30" alt=""><span>TabShow</span></a>
-    <span class="status-pill status-update">Version 2.4</span>
+    <a class="brand" href="#top" aria-label="TabShow home" data-i18n-aria-label="pagesBrandHome"><img src="../../icon/48.png" width="30" height="30" alt=""><span>TabShow</span></a>
+    <span class="status-pill status-update" data-i18n="pagesUpdateVersion">Version 2.4</span>
   </header>
 
   <main id="top">
     <section class="update-hero shell">
-      <p class="eyebrow">What changed in TabShow 2.4</p>
-      <h1>Switch tabs.<br><span>Keep the panel open.</span></h1>
-      <p class="lede">You can now keep TabShow beside your page after choosing a tab. Your sort order stays saved, and opening the panel brings your current tab into view.</p>
+      <p class="eyebrow" data-i18n="pagesUpdateEyebrow">What changed in TabShow 2.4</p>
+      <h1 data-i18n="pagesUpdateHeading">Switch tabs.<br data-i18n-slot="part1"><span data-i18n-slot="part2" data-i18n="pagesUpdateHeadingPart2">Keep the panel open.</span></h1>
+      <p class="lede" data-i18n="pagesUpdateIntro">You can now keep TabShow beside your page after choosing a tab. Your sort order stays saved, and opening the panel brings your current tab into view.</p>
       <div class="hero-actions centered">
-        <button class="button button-primary" type="button" data-open-panel>Open TabShow <span aria-hidden="true">→</span></button>
-        <a class="quiet-link" href="https://tab.show/#demo" target="_blank" rel="noopener noreferrer">See how preview works ↗</a>
+        <button class="button button-primary" type="button" data-open-panel="" data-i18n="pagesOpen">Open TabShow <span aria-hidden="true" data-i18n-slot="part1">→</span></button>
+        <a class="quiet-link" href="https://tab.show/#demo" target="_blank" rel="noopener noreferrer" data-i18n="pagesSeePreview">See how preview works ↗</a>
       </div>
-      <p class="action-note centered" data-panel-status>Every feature is free. No new permissions.</p>
+      <p class="action-note centered" data-panel-status="" data-i18n="pagesUpdateOpenNote" role="status" aria-live="polite">Every feature is free. No new permissions.</p>
     </section>
 
-    <section class="bento update-changes shell" aria-label="What changed in TabShow 2.4">
+    <section class="bento update-changes shell" aria-label="What changed in TabShow 2.4" data-i18n-aria-label="pagesUpdateEyebrow">
       <article class="bento-card">
-        <span class="number">01</span><p class="eyebrow">Your choice</p><h2>Leave the panel open.</h2>
-        <p>Open <strong>Settings → Keep panel open after choosing a tab</strong>. Click a tab or press Enter, and the panel stays open. Choosing a tab in the current window makes it the starting point for your next preview.</p>
-        <p>This is off by default, so your existing workflow stays the same. Chrome’s pin icon only pins TabShow to the toolbar.</p>
+        <span class="number">01</span><p class="eyebrow" data-i18n="pagesUpdateKeepOpenEyebrow">Your choice</p><h2 data-i18n="pagesUpdateKeepOpenHeading">Leave the panel open.</h2>
+        <p data-i18n="pagesUpdateKeepOpen">Open <strong data-i18n-slot="part1" data-i18n="pagesUpdateKeepOpenPart1">Settings → Keep panel open after choosing a tab</strong>. Click a tab or press Enter, and the panel stays open. Choosing a tab in the current window makes it the starting point for your next preview.</p>
+        <p data-i18n="pagesUpdateKeepOpenDefault">This is off by default, so your existing workflow stays the same. Chrome’s pin icon only pins TabShow to the toolbar.</p>
       </article>
       <article class="bento-card">
-        <span class="number">02</span><p class="eyebrow">Less searching around</p><h2>Your current tab in view.</h2>
-        <p>When you open TabShow, the list starts at your current tab. With the panel kept open, switching within the current window keeps your chosen tab visible. Your preferred sort order is remembered.</p>
-        <p>Tabs also stay in the right window section when you move them between Chrome windows.</p>
+        <span class="number">02</span><p class="eyebrow" data-i18n="pagesUpdateCurrentEyebrow">Less searching around</p><h2 data-i18n="pagesUpdateCurrentHeading">Your current tab in view.</h2>
+        <p data-i18n="pagesUpdateCurrent">When you open TabShow, the list starts at your current tab. With the panel kept open, switching within the current window keeps your chosen tab visible. Your preferred sort order is remembered.</p>
+        <p data-i18n="pagesUpdateMoving">Tabs also stay in the right window section when you move them between Chrome windows.</p>
       </article>
       <article class="bento-card">
-        <span class="number">03</span><p class="eyebrow">Preview when you want</p><h2>Control hover previews.</h2>
-        <p>Open <strong>Settings → Preview tabs on hover</strong> to turn live previews on or off. Previews remain on by default.</p>
-        <p>To keep previews but avoid accidental switches, increase <strong>Hover preview delay</strong>. Search and keyboard selection work either way.</p>
+        <span class="number">03</span><p class="eyebrow" data-i18n="pagesUpdateHoverEyebrow">Preview when you want</p><h2 data-i18n="pagesUpdateHoverHeading">Control hover previews.</h2>
+        <p data-i18n="pagesUpdateHover">Open <strong data-i18n-slot="part1" data-i18n="pagesUpdateHoverPart1">Settings → Preview tabs on hover</strong> to turn live previews on or off. Previews remain on by default.</p>
+        <p data-i18n="pagesUpdateDelay">To keep previews but avoid accidental switches, increase <strong data-i18n-slot="part1" data-i18n="pagesUpdateDelayPart1">Hover preview delay</strong>. Search and keyboard selection work either way.</p>
       </article>
       <article class="bento-card">
-        <span class="number">04</span><p class="eyebrow">Clearer settings</p><h2>Help is easier to find.</h2>
-        <p>Settings now shows your installed version and links to help and release notes.</p>
-        <p><strong>Appearance → System</strong> follows your light or dark preference. Custom Chrome theme colors remain separate.</p>
+        <span class="number">04</span><p class="eyebrow" data-i18n="pagesUpdateHelpEyebrow">Clearer settings</p><h2 data-i18n="pagesUpdateHelpHeading">Help is easier to find.</h2>
+        <p data-i18n="pagesUpdateHelp">Settings now shows your installed version and links to help and release notes.</p>
+        <p data-i18n="pagesLanguages">Available in English, German, Simplified Chinese, and Traditional Chinese. TabShow follows your Chrome display language.</p>
+        <p data-i18n="pagesUpdateTheme"><strong data-i18n-slot="part1" data-i18n="pagesUpdateThemePart1">Appearance → System</strong> follows your light or dark preference. Custom Chrome theme colors remain separate.</p>
       </article>
     </section>
 
-    <section class="shell update-reminder" aria-label="Keyboard shortcuts">
+    <section class="shell update-reminder" aria-label="Keyboard shortcuts" data-i18n-aria-label="pagesKeyboardShortcuts">
       <div>
-        <h2>Still one shortcut away.</h2>
-        <p>Suggested defaults: <strong>Command + Shift + X</strong> on Mac or <strong>Ctrl + Shift + X</strong> on Windows and Linux. If the shortcut is unassigned, paste this address into Chrome and set it beside TabShow.</p>
-        <p><kbd>↑↓</kbd> select · <kbd>Enter</kbd> choose · <kbd>Esc</kbd> return and close. With the panel kept open, a tab chosen in this window becomes your new starting point.</p>
+        <h2 data-i18n="pagesUpdateShortcutHeading">Still one shortcut away.</h2>
+        <p data-i18n="pagesUpdateShortcut">Suggested defaults: <strong data-i18n-slot="part1" data-i18n="pagesUpdateShortcutPart1">Command + Shift + X</strong> on Mac or <strong data-i18n-slot="part2" data-i18n="pagesUpdateShortcutPart2">Ctrl + Shift + X</strong> on Windows and Linux. If the shortcut is unassigned, paste this address into Chrome and set it beside TabShow.</p>
+        <p data-i18n="pagesUpdateKeyboard"><kbd data-i18n-slot="part1">↑↓</kbd> select · <kbd data-i18n-slot="part2">Enter</kbd> choose · <kbd data-i18n-slot="part3">Esc</kbd> return and close. With the panel kept open, a tab chosen in this window becomes your new starting point.</p>
       </div>
-      <button class="copy-field" type="button" data-copy-shortcuts aria-label="Copy Chrome extensions shortcuts address"><code>chrome://extensions/shortcuts</code><span data-copy-label>Copy</span></button>
+      <button class="copy-field" type="button" data-copy-shortcuts="" aria-label="Copy Chrome extensions shortcuts address" data-i18n-aria-label="pagesCopyShortcutAddress"><code>chrome://extensions/shortcuts</code><span data-copy-label="" data-i18n="pagesCopy">Copy</span></button>
     </section>
 
     <section class="community-cta shell update-community" aria-labelledby="community-title">
-      <div><p class="eyebrow">Thanks for the feedback</p><h2 id="community-title">Tell us how it works for you.</h2><p>Report a problem, suggest an improvement, or leave an honest review.</p></div>
-      <div class="community-actions"><a class="button button-secondary" href="https://narsheek.featurebase.app/" target="_blank" rel="noopener noreferrer">Share feedback ↗</a><a class="quiet-link" href="https://chromewebstore.google.com/detail/tabshow-live-tab-preview/njdjagodlomkhingeecipnlnnhnipkho/reviews" target="_blank" rel="noopener noreferrer">Review TabShow ↗</a></div>
+      <div><p class="eyebrow" data-i18n="pagesUpdateFeedbackEyebrow">Thanks for the feedback</p><h2 id="community-title" data-i18n="pagesUpdateFeedbackHeading">Tell us how it works for you.</h2><p data-i18n="pagesUpdateFeedback">Report a problem, suggest an improvement, or leave an honest review.</p></div>
+      <div class="community-actions"><a class="button button-secondary" href="https://narsheek.featurebase.app/" target="_blank" rel="noopener noreferrer" data-i18n="pagesShareFeedback">Share feedback ↗</a><a class="quiet-link" href="https://chromewebstore.google.com/detail/tabshow-live-tab-preview/njdjagodlomkhingeecipnlnnhnipkho/reviews" target="_blank" rel="noopener noreferrer" data-i18n="pagesReview">Review TabShow ↗</a></div>
     </section>
 
     <section class="history shell">
       <details>
-        <summary><span>Previous releases</span><small>Versions 0.5–2.3</small></summary>
+        <summary><span data-i18n="pagesPreviousReleases">Previous releases</span><small data-i18n="pagesPreviousVersions">Versions 0.5–2.3</small></summary>
         <div class="history-content">
-          <article><h3>Version 2.3</h3><p>Clarified that All windows includes the current Chrome profile. Added a short voiced demo of live preview, search, and keyboard navigation.</p></article>
-          <article><h3>Version 2.2</h3><p>Added optional Support TabShow and Buy me a coffee links. Every feature remains free, and support is entirely optional. Enter follows a focused link; Escape still returns to your original tab.</p></article>
-          <article><h3>Version 2.1</h3><p>Added a local Tab Chaos Score, dark, light, or system appearance, Suggest a feature and Tell a friend actions, and stable OPEN TABS and window totals while searching.</p></article>
-          <article><h3>Version 2.0</h3><p>Added search, keyboard navigation, all-window scope, flexible sorting, richer tab context, and clearer loading and empty states.</p></article>
-          <article><h3>1.0.0</h3><p>Added adjustable hover delay, preview loading feedback, faster access to settings, and a direct rating link.</p></article>
-          <article><h3>0.9</h3><p>Introduced color settings, improved live titles and favicons, and refreshed the TabShow identity and store listing.</p></article>
-          <article><h3>0.8</h3><p>Redesigned tab groups, improved hover reliability, and added full-address tooltips and the feedback board.</p></article>
-          <article><h3>0.7</h3><p>Made large tab collections dramatically faster and added the welcome and release pages.</p></article>
-          <article><h3>0.5–0.6</h3><p>Launched hover preview, tab closing, keyboard access, and visual tab groups.</p></article>
+          <article><h3 data-i18n="pagesHistory1Heading">Version 2.3</h3><p data-i18n="pagesHistory1">Clarified that All windows includes the current Chrome profile. Added a short voiced demo of live preview, search, and keyboard navigation.</p></article>
+          <article><h3 data-i18n="pagesHistory2Heading">Version 2.2</h3><p data-i18n="pagesHistory2">Added optional Support TabShow and Buy me a coffee links. Every feature remains free, and support is entirely optional. Enter follows a focused link; Escape still returns to your original tab.</p></article>
+          <article><h3 data-i18n="pagesHistory3Heading">Version 2.1</h3><p data-i18n="pagesHistory3">Added a local Tab Chaos Score, dark, light, or system appearance, Suggest a feature and Tell a friend actions, and stable OPEN TABS and window totals while searching.</p></article>
+          <article><h3 data-i18n="pagesHistory4Heading">Version 2.0</h3><p data-i18n="pagesHistory4">Added search, keyboard navigation, all-window scope, flexible sorting, richer tab context, and clearer loading and empty states.</p></article>
+          <article><h3 data-i18n="pagesHistory5Heading">1.0.0</h3><p data-i18n="pagesHistory5">Added adjustable hover delay, preview loading feedback, faster access to settings, and a direct rating link.</p></article>
+          <article><h3 data-i18n="pagesHistory6Heading">0.9</h3><p data-i18n="pagesHistory6">Introduced color settings, improved live titles and favicons, and refreshed the TabShow identity and store listing.</p></article>
+          <article><h3 data-i18n="pagesHistory7Heading">0.8</h3><p data-i18n="pagesHistory7">Redesigned tab groups, improved hover reliability, and added full-address tooltips and the feedback board.</p></article>
+          <article><h3 data-i18n="pagesHistory8Heading">0.7</h3><p data-i18n="pagesHistory8">Made large tab collections dramatically faster and added the welcome and release pages.</p></article>
+          <article><h3 data-i18n="pagesHistory9Heading">0.5–0.6</h3><p data-i18n="pagesHistory9">Launched hover preview, tab closing, keyboard access, and visual tab groups.</p></article>
         </div>
       </details>
     </section>
   </main>
 
-  <footer class="footer shell"><span>TabShow 2.4 · Your tab data stays in your browser.</span><a href="https://tab.show/support" target="_blank" rel="noopener noreferrer">Help and support ↗</a></footer>
+  <footer class="footer shell"><span data-i18n="pagesUpdatePrivacy">TabShow 2.4 · Your tab data stays in your browser.</span><a href="https://tab.show/support" target="_blank" rel="noopener noreferrer" data-i18n="pagesHelpSupport">Help and support ↗</a></footer>
   <script src="../onboarding.js"></script>
 </body>
 </html>

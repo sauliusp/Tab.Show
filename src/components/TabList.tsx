@@ -1,3 +1,4 @@
+import { t } from '../i18n';
 import React, { useMemo, useRef } from 'react';
 import { useTheme } from '@mui/material/styles';
 import { defaultRangeExtractor, useVirtualizer } from '@tanstack/react-virtual';
@@ -99,8 +100,8 @@ export function TabList({
           id: `window-${windowId}`,
           type: 'window',
           data: {
-            title: `Switch to window ${windowNumber}`,
-            subtitle: 'Preview unavailable · click a tab to open that window',
+            title: t('panelSwitchToWindow', { number: windowNumber }),
+            subtitle: t('panelWindowPreviewUnavailable'),
           }
         });
       }
@@ -149,10 +150,10 @@ export function TabList({
   });
 
   const emptyState = isLoading
-    ? { title: 'Loading tabs…', detail: 'Getting your Chrome windows ready.' }
+    ? { title: t('panelLoadingTabs'), detail: t('panelLoadingWindows') }
     : query.trim()
-      ? { title: 'No tabs match your search', detail: 'Try a different title, URL, or domain.' }
-      : { title: 'No tabs in this scope', detail: allWindows ? 'Open a tab to see it here.' : 'Try All windows or open a tab in this window.' };
+      ? { title: t('panelSearchNoMatches'), detail: t('panelSearchTryAgain') }
+      : { title: t('panelNoTabsInScope'), detail: allWindows ? t('panelOpenTabHere') : t('panelTryAllWindows') };
 
   const handledScrollRequest = useRef<number | null>(null);
   const viewportHeight = virtualizer.scrollRect?.height ?? 0;
@@ -231,7 +232,7 @@ export function TabList({
           <ListItemButton 
             onClick={() => onGroupToggle(group.id)}
             aria-expanded={isExpanded}
-            aria-label={`${isExpanded ? 'Collapse' : 'Expand'} ${group.title || 'Unnamed group'}`}
+            aria-label={t(isExpanded ? 'panelCollapseGroup' : 'panelExpandGroup', { title: group.title || t('panelUnnamedGroup') })}
             sx={{
               pl: 2,
               pr: 2,
@@ -262,7 +263,7 @@ export function TabList({
                     float: 'left'
                   }}
                 >
-                  {group.title || 'Unnamed Group'}
+                  {group.title || t('panelUnnamedGroup')}
                 </Typography>
               }
             />
@@ -299,7 +300,7 @@ export function TabList({
     <Box
       id="tab-results"
       role="grid"
-      aria-label="Open tabs"
+      aria-label={t('panelOpenTabs')}
       aria-rowcount={virtualItems.length}
       ref={parentRef}
       sx={{

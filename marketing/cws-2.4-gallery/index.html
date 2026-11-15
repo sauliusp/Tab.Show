@@ -58,8 +58,8 @@
     .preview .copy { top: 88px; width: 1152px; }
     .preview h1 { font-size: 52px; line-height: 1.12; letter-spacing: -2.3px; }
     .preview .description { width: 1152px; margin-top: 13px; font-size: 22px; }
-    .browser-shot { top: 205px; left: 64px; width: 1152px; height: 516px; align-items: center; }
-    .browser-shot img { max-width: 1152px; max-height: 516px; }
+    .browser-shot { top: 205px; left: 64px; width: 1152px; height: 516px; overflow: hidden; border: 1px solid var(--rule); border-radius: 12px; }
+    .browser-shot img { width: 1152px; max-width: none; max-height: none; border: 0; border-radius: 0; }
     .setting-label { margin: 29px 0 0; max-width: 560px; padding-left: 18px; border-left: 3px solid var(--accent); color: var(--ink); font-size: 21px; line-height: 1.5; font-weight: 650; }
     #capture-status { position: absolute; z-index: 10; left: 64px; right: 64px; bottom: 98px; padding: 14px 18px; border: 1px solid #bf4c29; border-radius: 8px; background: #fff0d8; color: #642a16; font: 600 16px/1.4 "Inter Local", sans-serif; }
     #capture-status[hidden] { display: none; }
@@ -84,15 +84,16 @@
     </footer>
     <p id="capture-status" role="status">Loading local screenshot and font…</p>
   </main>
-  <script>
-    const shots = "../source/appshots-2.4/";
+  <script type="module">
+    const params = new URLSearchParams(location.search);
+    const locale = ['de', 'zh_CN', 'zh_TW'].includes(params.get('locale')) ? params.get('locale') : 'en';
+    const shots = `../source/appshots-2.4/${locale === 'en' ? '' : locale + '/'}`;
     const slides = [
       {
         mode: "preview",
         headline: "See the page <em>before you switch.</em>",
         description: "Hover to look. Move away to return. Click to stay.",
         image: "live-browser.jpg",
-        fallback: "01-preview.jpg",
         alt: "Actual Chrome page with the TabShow side panel previewing another open tab",
       },
       {
@@ -129,9 +130,16 @@
         alt: "Actual TabShow Settings with Keep panel open after choosing a tab enabled",
       },
     ];
-    const rawSlide = Number(new URLSearchParams(location.search).get("slide") || 1);
+    const rawSlide = Number(params.get("slide") || 1);
     const slideNumber = Number.isInteger(rawSlide) && rawSlide >= 1 && rawSlide <= slides.length ? rawSlide : 1;
     const slide = slides[slideNumber - 1];
+    if (locale !== 'en') {
+      const copy = (await (await fetch('./locales.json')).json())[locale];
+      Object.assign(slide, copy.slides[slideNumber - 1], { eyebrow: '', extra: '' });
+      document.documentElement.lang = locale.replace('_', '-');
+      document.querySelector('.edition').textContent = copy.edition;
+      document.querySelectorAll('.proof span').forEach((node, index) => node.textContent = copy.proof[index]);
+    }
     document.title = `TabShow 2.4 · Gallery ${slideNumber} of ${slides.length}`;
     document.getElementById("canvas").className = `canvas ${slide.mode || ""}`;
     document.getElementById("headline").innerHTML = slide.headline;

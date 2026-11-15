@@ -26,7 +26,9 @@ function findEmDashFiles(directory: string): string[] {
 
 describe('project copy style', () => {
   it('uses the colon-based extension name and keeps product copy free of em dashes', () => {
-    expect(readFileSync(join(ROOT, 'wxt.config.ts'), 'utf8')).toContain("name: 'TabShow: Live Tab Preview'");
+    expect(readFileSync(join(ROOT, 'wxt.config.ts'), 'utf8')).toContain("name: '__MSG_panelExtensionName__'");
+    const english = JSON.parse(readFileSync(join(ROOT, 'public/_locales/en/messages.json'), 'utf8'));
+    expect(english.panelExtensionName.message).toBe('TabShow: Live Tab Preview');
     expect(PRODUCT_COPY_DIRECTORIES.flatMap(directory => findEmDashFiles(join(ROOT, directory)))).toEqual([]);
   });
 

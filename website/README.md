@@ -29,6 +29,6 @@ For hosted publication, use the Sites source workflow and build helper from the 
 
 ## Deployment
 
-The public Sites deployment is available at `https://tabshow.sauliusdev.chatgpt.site/`. The production custom domains `https://tab.show/` and `https://www.tab.show/` are active with valid SSL. Connect analytics without collecting tab content and keep the production routes covered by the rendered-output checks.
+The public Sites deployment is available at `https://tabshow.sauliusdev.chatgpt.site/`. The production custom domains `https://tab.show/` and `https://www.tab.show/` are active with valid SSL. Keep the existing consent-gated website analytics separate from the extension, collect no tab content, and keep the production routes covered by rendered-output checks.
 
 The Sites configuration is in `.openai/hosting.json`; no D1 or R2 bindings are required.

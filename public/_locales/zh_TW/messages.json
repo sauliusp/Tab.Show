@@ -1,0 +1,1677 @@
+{
+  "panelLocale": {
+    "message": "zh-TW",
+    "description": "BCP 47 language tag for this catalog: en, de, zh-CN or zh-TW. Keep the translated catalog value consistent with its locale."
+  },
+  "panelPageTitle": {
+    "message": "TabShow 側邊欄"
+  },
+  "panelExtensionName": {
+    "message": "TabShow：即時分頁預覽",
+    "description": "Extension name, at most 75 characters. Keep TabShow unchanged."
+  },
+  "panelExtensionShortName": {
+    "message": "TabShow",
+    "description": "Brand name; do not translate."
+  },
+  "panelExtensionDescription": {
+    "message": "切換前先預覽 Chrome 分頁的即時畫面。搜尋分頁，找到需要的網頁，不必反覆切換尋找。",
+    "description": "Chrome extension summary: at most 132 characters."
+  },
+  "panelActionTitle": {
+    "message": "開啟或關閉 TabShow 側邊欄"
+  },
+  "panelActionDescription": {
+    "message": "開啟或關閉側邊欄"
+  },
+  "panelTabScope": {
+    "message": "分頁範圍"
+  },
+  "panelCurrentWindow": {
+    "message": "目前視窗"
+  },
+  "panelAllWindows": {
+    "message": "所有視窗"
+  },
+  "panelAllWindowsHint": {
+    "message": "包含目前 Chrome 個人資料中的所有視窗。其他個人資料的視窗不會顯示在這裡。"
+  },
+  "panelCurrentWindowHint": {
+    "message": "目前視窗中的分頁。"
+  },
+  "panelSettings": {
+    "message": "設定"
+  },
+  "panelOpenSettings": {
+    "message": "開啟設定"
+  },
+  "panelSearchPlaceholder": {
+    "message": "輸入文字搜尋分頁"
+  },
+  "panelSearch": {
+    "message": "搜尋分頁"
+  },
+  "panelThisProfile": {
+    "message": "目前個人資料"
+  },
+  "panelSortTabs": {
+    "message": "分頁排序"
+  },
+  "panelSortCurrent": {
+    "message": "目前順序"
+  },
+  "panelSortRecent": {
+    "message": "最近使用"
+  },
+  "panelSortAdded": {
+    "message": "最近新增（大約）"
+  },
+  "panelSortDomain": {
+    "message": "依網域"
+  },
+  "panelSortGroup": {
+    "message": "依分頁群組"
+  },
+  "panelLoading": {
+    "message": "載入中…"
+  },
+  "panelKeyboardHint": {
+    "message": "↑↓ 選取 · Enter 開啟 · Esc 返回",
+    "description": "Compact keyboard guide. Keep key names recognizable."
+  },
+  "panelCountsAllWindows": {
+    "message": "已開啟分頁：$count$；Chrome 視窗：$windows$；僅限目前個人資料",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      },
+      "windows": {
+        "content": "$2"
+      }
+    }
+  },
+  "panelCountsCurrentWindow": {
+    "message": "已開啟分頁：$count$",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "panelOpenTabsCompact": {
+    "message": "分頁",
+    "description": "Compact counter label. Keep short."
+  },
+  "panelWindowsCompact": {
+    "message": "視窗",
+    "description": "Compact counter label. Keep short."
+  },
+  "panelNoAddress": {
+    "message": "沒有網址"
+  },
+  "panelOtherWindowHint": {
+    "message": "位於另一個 Chrome 視窗。點選即可切換，不支援滑鼠停留預覽。"
+  },
+  "panelUntitledTab": {
+    "message": "無標題分頁"
+  },
+  "panelTab": {
+    "message": "分頁"
+  },
+  "panelOtherWindowSwitch": {
+    "message": "位於另一個視窗；點選即可切換"
+  },
+  "panelPinned": {
+    "message": "已固定"
+  },
+  "panelMuted": {
+    "message": "已靜音"
+  },
+  "panelPlayingAudio": {
+    "message": "正在播放音訊"
+  },
+  "panelSleeping": {
+    "message": "休眠中"
+  },
+  "panelOpenTab": {
+    "message": "開啟 $title$，$address$",
+    "placeholders": {
+      "title": {
+        "content": "$1"
+      },
+      "address": {
+        "content": "$2"
+      }
+    }
+  },
+  "panelOpenCurrentTab": {
+    "message": "開啟 $title$，$address$。目前分頁。",
+    "placeholders": {
+      "title": {
+        "content": "$1"
+      },
+      "address": {
+        "content": "$2"
+      }
+    }
+  },
+  "panelOpenOtherTab": {
+    "message": "開啟 $title$，$address$。位於另一個視窗。",
+    "placeholders": {
+      "title": {
+        "content": "$1"
+      },
+      "address": {
+        "content": "$2"
+      }
+    }
+  },
+  "panelSharedUrl_one": {
+    "message": "有 $count$ 個分頁使用相同網址",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "panelSharedUrl_other": {
+    "message": "有 $count$ 個分頁使用相同網址",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "panelDuplicates_one": {
+    "message": "$count$ 個重複",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "panelDuplicates_other": {
+    "message": "$count$ 個重複",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "panelSwitch": {
+    "message": "切換",
+    "description": "Compact action for a tab in another Chrome window."
+  },
+  "panelWindowPreviewUnavailable": {
+    "message": "無法預覽 · 點選分頁以開啟該視窗"
+  },
+  "panelLoadingTabs": {
+    "message": "正在載入分頁…"
+  },
+  "panelLoadingWindows": {
+    "message": "正在準備你的 Chrome 視窗。"
+  },
+  "panelSearchNoMatches": {
+    "message": "找不到符合的分頁"
+  },
+  "panelSearchTryAgain": {
+    "message": "試試其他標題、網址或網域。"
+  },
+  "panelNoTabsInScope": {
+    "message": "此範圍內沒有分頁"
+  },
+  "panelOpenTabHere": {
+    "message": "開啟分頁後，就會顯示在這裡。"
+  },
+  "panelTryAllWindows": {
+    "message": "試試「所有視窗」，或在目前視窗中開啟分頁。"
+  },
+  "panelUnnamedGroup": {
+    "message": "未命名群組"
+  },
+  "panelOpenTabs": {
+    "message": "已開啟的分頁"
+  },
+  "panelSwitchToWindow": {
+    "message": "切換至視窗 $number$",
+    "placeholders": {
+      "number": {
+        "content": "$1"
+      }
+    }
+  },
+  "panelCollapseGroup": {
+    "message": "收合 $title$",
+    "placeholders": {
+      "title": {
+        "content": "$1"
+      }
+    }
+  },
+  "panelExpandGroup": {
+    "message": "展開 $title$",
+    "placeholders": {
+      "title": {
+        "content": "$1"
+      }
+    }
+  },
+  "panelCloseTab": {
+    "message": "關閉分頁"
+  },
+  "panelCloseSettings": {
+    "message": "關閉設定"
+  },
+  "panelAppearanceMode": {
+    "message": "外觀模式"
+  },
+  "panelUseSystemAppearance": {
+    "message": "使用系統外觀"
+  },
+  "panelUseLightAppearance": {
+    "message": "使用淺色外觀"
+  },
+  "panelUseDarkAppearance": {
+    "message": "使用深色外觀"
+  },
+  "panelHoverDelayAria": {
+    "message": "滑鼠停留預覽延遲，單位為毫秒"
+  },
+  "panelKeepOpen": {
+    "message": "選擇分頁後保持側邊欄開啟"
+  },
+  "panelHoverPreview": {
+    "message": "滑鼠停留時預覽分頁"
+  },
+  "panelTabSwitching": {
+    "message": "分頁切換"
+  },
+  "panelKeepOpenDescription": {
+    "message": "點選分頁或按下 Enter 後，讓清單留在網頁旁邊。Chrome 的固定按鈕只會將圖示固定在工具列上。"
+  },
+  "panelHoverPreviewDescription": {
+    "message": "將滑鼠指向目前視窗中的分頁，預覽即時網頁。關閉後，只有點選分頁或按下 Enter 才會切換。"
+  },
+  "panelAppearance": {
+    "message": "外觀"
+  },
+  "panelHoverDelay": {
+    "message": "滑鼠停留預覽延遲"
+  },
+  "panelHoverDelayHint": {
+    "message": "增加延遲時間，可避免滑鼠經過側邊欄時意外觸發預覽。"
+  },
+  "panelChoosePairing": {
+    "message": "選擇配色"
+  },
+  "panelImproveHeading": {
+    "message": "幫助改善 TabShow"
+  },
+  "panelImproveDescription": {
+    "message": "告訴我們怎樣能讓分頁操作更順手，或留下真實評論，幫助其他人決定是否使用。"
+  },
+  "panelShareIdea": {
+    "message": "提出想法"
+  },
+  "panelRate": {
+    "message": "評價 TabShow"
+  },
+  "panelWhatsNew": {
+    "message": "更新內容"
+  },
+  "panelGettingStarted": {
+    "message": "開始使用"
+  },
+  "panelSupport": {
+    "message": "支持 TabShow"
+  },
+  "panelSupportDescription": {
+    "message": "TabShow 免費提供所有功能。如果它讓你的工作更方便，歡迎請我喝杯咖啡。完全自願。"
+  },
+  "panelCoffee": {
+    "message": "請我喝杯咖啡"
+  },
+  "panelDone": {
+    "message": "完成"
+  },
+  "panelSystem": {
+    "message": "系統"
+  },
+  "panelLight": {
+    "message": "淺色"
+  },
+  "panelDark": {
+    "message": "深色"
+  },
+  "panelPrimary": {
+    "message": "主色"
+  },
+  "panelSecondary": {
+    "message": "輔色"
+  },
+  "panelFollowingDark": {
+    "message": "跟隨系統設定，目前為深色。"
+  },
+  "panelFollowingLight": {
+    "message": "跟隨系統設定，目前為淺色。"
+  },
+  "panelAlwaysDark": {
+    "message": "一律使用深色模式。"
+  },
+  "panelAlwaysLight": {
+    "message": "一律使用淺色模式。"
+  },
+  "panelSystemThemeHint": {
+    "message": "「系統」會跟隨淺色或深色外觀，不會套用自訂 Chrome 主題的顏色。"
+  },
+  "panelDelayValue": {
+    "message": "$seconds$ 秒（$milliseconds$ 毫秒）",
+    "placeholders": {
+      "seconds": {
+        "content": "$1"
+      },
+      "milliseconds": {
+        "content": "$2"
+      }
+    }
+  },
+  "panelMilliseconds": {
+    "message": "$value$ 毫秒",
+    "placeholders": {
+      "value": {
+        "content": "$1"
+      }
+    }
+  },
+  "panelAbout": {
+    "message": "關於 TabShow"
+  },
+  "panelAboutVersion": {
+    "message": "關於 TabShow $version$",
+    "placeholders": {
+      "version": {
+        "content": "$1"
+      }
+    }
+  },
+  "panelPairVioletAmber": {
+    "message": "炭紫與琥珀"
+  },
+  "panelPairVioletAmberDescription": {
+    "message": "紫色標示目前分頁，琥珀色標示預覽。"
+  },
+  "panelPairInkBlue": {
+    "message": "墨黑與亮藍"
+  },
+  "panelPairInkBlueDescription": {
+    "message": "深灰色標示目前分頁，藍色標示預覽。"
+  },
+  "panelPairGraphiteCoral": {
+    "message": "石墨與珊瑚"
+  },
+  "panelPairGraphiteCoralDescription": {
+    "message": "石墨色標示目前分頁，珊瑚色標示預覽。"
+  },
+  "panelPairTealCitrine": {
+    "message": "深青與檸檬黃"
+  },
+  "panelPairTealCitrineDescription": {
+    "message": "青色標示目前分頁，黃色標示預覽。"
+  },
+  "panelPairSlateSeafoam": {
+    "message": "石板灰與海沫綠"
+  },
+  "panelPairSlateSeafoamDescription": {
+    "message": "石板灰標示目前分頁，海沫綠標示預覽。"
+  },
+  "panelPairMochaRose": {
+    "message": "摩卡與玫瑰"
+  },
+  "panelPairMochaRoseDescription": {
+    "message": "棕色標示目前分頁，玫瑰色標示預覽。"
+  },
+  "panelDirection": {
+    "message": "ltr",
+    "description": "Text direction for this catalog. Use ltr for English, German and Chinese; rtl only for right-to-left languages."
+  },
+  "panelCopied": {
+    "message": "已複製"
+  },
+  "panelTellFriend": {
+    "message": "分享給朋友"
+  },
+  "panelClipboardError": {
+    "message": "無法存取剪貼簿"
+  },
+  "panelClipboardCopied": {
+    "message": "已複製擴充功能連結"
+  },
+  "panelSharePasteHint": {
+    "message": "可貼到訊息、電子郵件或貼文中。"
+  },
+  "panelShareMessage": {
+    "message": "試試 TabShow：切換前先預覽 Chrome 分頁，找到需要的網頁：$url$",
+    "placeholders": {
+      "url": {
+        "content": "$1"
+      }
+    }
+  },
+  "panelSuggestFeature": {
+    "message": "建議功能"
+  },
+  "panelFree": {
+    "message": "免費使用"
+  },
+  "panelOpenStore": {
+    "message": "開啟 Chrome 線上應用程式商店"
+  },
+  "panelCopyAddress": {
+    "message": "從網址列複製連結。"
+  },
+  "panelTrendStart": {
+    "message": "開始記錄趨勢"
+  },
+  "panelTrendUnchanged": {
+    "message": "與上次檢查相同"
+  },
+  "panelOpenChaos": {
+    "message": "開啟分頁混亂分數"
+  },
+  "panelChaosLoading": {
+    "message": "正在計算分頁混亂分數…"
+  },
+  "panelTrendLower": {
+    "message": "比上次檢查低 $count$ 分",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "panelTrendHigher": {
+    "message": "比上次檢查高 $count$ 分",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "panelOpenChaosScore": {
+    "message": "開啟分頁混亂分數：$score$，$level$",
+    "placeholders": {
+      "score": {
+        "content": "$1"
+      },
+      "level": {
+        "content": "$2"
+      }
+    }
+  },
+  "panelChaosTooltip": {
+    "message": "分頁混亂分數 $score$/100 · $level$ · $trend$",
+    "placeholders": {
+      "score": {
+        "content": "$1"
+      },
+      "level": {
+        "content": "$2"
+      },
+      "trend": {
+        "content": "$3"
+      }
+    }
+  },
+  "panelChaosCompact": {
+    "message": "混亂度"
+  },
+  "panelVisitedToday": {
+    "message": "今天瀏覽過"
+  },
+  "panelNotAvailable": {
+    "message": "無法取得"
+  },
+  "panelChaosTitle": {
+    "message": "分頁混亂分數"
+  },
+  "panelChaosSubtitle": {
+    "message": "提供參考，不評斷你的習慣。"
+  },
+  "panelCloseChaos": {
+    "message": "關閉分頁混亂分數"
+  },
+  "panelTrendFirstCheck": {
+    "message": "趨勢將從這次檢查開始記錄。"
+  },
+  "panelStatOpenTabs": {
+    "message": "已開啟分頁"
+  },
+  "panelStatWindows": {
+    "message": "Chrome 視窗"
+  },
+  "panelStatDuplicates": {
+    "message": "重複分頁"
+  },
+  "panelStatGroups": {
+    "message": "分頁群組"
+  },
+  "panelPersonalBest": {
+    "message": "個人最低分"
+  },
+  "panelCheckInStreak": {
+    "message": "連續檢查天數"
+  },
+  "panelScoreFactors": {
+    "message": "分數的組成"
+  },
+  "panelYourSession": {
+    "message": "目前瀏覽狀態"
+  },
+  "panelDaysAgo_one": {
+    "message": "$count$ 天前",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "panelDaysAgo_other": {
+    "message": "$count$ 天前",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "panelDays_one": {
+    "message": "$count$ 天",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "panelDays_other": {
+    "message": "$count$ 天",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "panelTopDomains": {
+    "message": "主要網域：$domains$",
+    "placeholders": {
+      "domains": {
+        "content": "$1"
+      }
+    }
+  },
+  "panelDomainCount": {
+    "message": "$domain$（$count$）",
+    "placeholders": {
+      "domain": {
+        "content": "$1"
+      },
+      "count": {
+        "content": "$2"
+      }
+    }
+  },
+  "panelListSeparator": {
+    "message": "、"
+  },
+  "panelCurrentPosition": {
+    "message": "目前分頁：此視窗中的第 $position$ 個，共 $total$ 個",
+    "placeholders": {
+      "position": {
+        "content": "$1"
+      },
+      "total": {
+        "content": "$2"
+      }
+    }
+  },
+  "panelLeastRecent": {
+    "message": "最久未使用：$domain$ · $elapsed$",
+    "placeholders": {
+      "domain": {
+        "content": "$1"
+      },
+      "elapsed": {
+        "content": "$2"
+      }
+    }
+  },
+  "panelDiscardedTabs_one": {
+    "message": "休眠中：$count$ 個已釋放記憶體的分頁",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "panelDiscardedTabs_other": {
+    "message": "休眠中：$count$ 個已釋放記憶體的分頁",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "panelChaosPrivacy": {
+    "message": "分數在本機計算並儲存。TabShow 不會將分頁資料傳送到任何地方。稍後再來看看瀏覽狀態有什麼變化。"
+  },
+  "panelInstantPreview": {
+    "message": "即時分頁預覽"
+  },
+  "panelPreviewingFrom": {
+    "message": "從 $title$ 開始預覽",
+    "placeholders": {
+      "title": {
+        "content": "$1"
+      }
+    }
+  },
+  "panelCurrentTab": {
+    "message": "目前分頁"
+  },
+  "services_chaos_level_clear": {
+    "message": "清爽"
+  },
+  "services_chaos_level_clear_description": {
+    "message": "分頁不多，容易一眼找到需要的內容。"
+  },
+  "services_chaos_level_lively": {
+    "message": "活躍"
+  },
+  "services_chaos_level_lively_description": {
+    "message": "還有一些分頁可以整理，但目前仍容易掌握。"
+  },
+  "services_chaos_level_busy": {
+    "message": "忙碌"
+  },
+  "services_chaos_level_busy_description": {
+    "message": "搜尋和排序能幫你更快找到分頁。"
+  },
+  "services_chaos_level_wild": {
+    "message": "混亂"
+  },
+  "services_chaos_level_wild_description": {
+    "message": "分頁有些分散，TabShow 仍能幫你找到方向。"
+  },
+  "services_chaos_level_maximum": {
+    "message": "極度混亂"
+  },
+  "services_chaos_level_maximum_description": {
+    "message": "分頁已經相當多，可能值得花點時間檢視。"
+  },
+  "services_chaos_domain_browser": {
+    "message": "Chrome"
+  },
+  "services_chaos_domain_extension": {
+    "message": "Chrome 擴充功能"
+  },
+  "services_chaos_domain_other": {
+    "message": "其他"
+  },
+  "services_chaos_untitled_tab": {
+    "message": "無標題分頁"
+  },
+  "services_chaos_factor_volume": {
+    "message": "分頁數量"
+  },
+  "services_chaos_factor_windows": {
+    "message": "視窗分散程度"
+  },
+  "services_chaos_factor_duplicates": {
+    "message": "重複分頁"
+  },
+  "services_chaos_factor_stale": {
+    "message": "7 天以上未使用"
+  },
+  "services_chaos_factor_ungrouped": {
+    "message": "未分組分頁"
+  },
+  "services_chaos_detail_volume_one": {
+    "message": "$count$ 個已開啟分頁",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "services_chaos_detail_volume_other": {
+    "message": "$count$ 個已開啟分頁",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "services_chaos_detail_windows_one": {
+    "message": "$count$ 個 Chrome 視窗",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "services_chaos_detail_windows_other": {
+    "message": "$count$ 個 Chrome 視窗",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "services_chaos_detail_duplicates_one": {
+    "message": "$count$ 個額外副本",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "services_chaos_detail_duplicates_other": {
+    "message": "$count$ 個額外副本",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "services_chaos_detail_stale_one": {
+    "message": "$count$ 個長期未使用的分頁",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "services_chaos_detail_stale_other": {
+    "message": "$count$ 個長期未使用的分頁",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "services_chaos_detail_ungrouped_one": {
+    "message": "$count$ 個未加入群組的分頁",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "services_chaos_detail_ungrouped_other": {
+    "message": "$count$ 個未加入群組的分頁",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "services_chaos_summary_single_window_one": {
+    "message": "$windows$ 個視窗中共有 $count$ 個分頁。",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      },
+      "windows": {
+        "content": "$2",
+        "example": "1"
+      }
+    }
+  },
+  "services_chaos_summary_single_window_other": {
+    "message": "$windows$ 個視窗中共有 $count$ 個分頁。",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      },
+      "windows": {
+        "content": "$2",
+        "example": "1"
+      }
+    }
+  },
+  "services_chaos_summary_multiple_windows_one": {
+    "message": "$windows$ 個視窗中共有 $count$ 個分頁。",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      },
+      "windows": {
+        "content": "$2",
+        "example": "3"
+      }
+    }
+  },
+  "services_chaos_summary_multiple_windows_other": {
+    "message": "$windows$ 個視窗中共有 $count$ 個分頁。",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      },
+      "windows": {
+        "content": "$2",
+        "example": "3"
+      }
+    }
+  },
+  "services_chaos_summary_duplicates_one": {
+    "message": "先處理 $count$ 個重複分頁，最容易減少不必要的雜亂。",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "services_chaos_summary_duplicates_other": {
+    "message": "先處理 $count$ 個重複分頁，最容易減少不必要的雜亂。",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "services_chaos_summary_stale_one": {
+    "message": "有 $count$ 個分頁已至少一週未使用。",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "services_chaos_summary_stale_other": {
+    "message": "有 $count$ 個分頁已至少一週未使用。",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "services_chaos_summary_windows": {
+    "message": "目前的工作分散在 $count$ 個 Chrome 視窗中。",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "services_chaos_summary_ungrouped": {
+    "message": "$count$ 個未分組的分頁，需要靠搜尋和記憶來辨識。",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "services_chaos_quick_calm_title": {
+    "message": "繼續使用，不必急著整理"
+  },
+  "services_chaos_quick_calm_detail": {
+    "message": "目前分頁已很清爽。需要找分頁時，再開啟 TabShow 就好。"
+  },
+  "services_chaos_quick_duplicates_title_one": {
+    "message": "關閉 $count$ 個重複分頁",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "services_chaos_quick_duplicates_title_other": {
+    "message": "關閉 $count$ 個重複分頁",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "services_chaos_quick_duplicates_detail": {
+    "message": "關閉重複分頁就能降低分數，不必重新整理整個工作流程。"
+  },
+  "services_chaos_quick_stale_title": {
+    "message": "依最近使用排序"
+  },
+  "services_chaos_quick_stale_detail": {
+    "message": "最久未使用的分頁會排到下方，方便快速決定保留或關閉。"
+  },
+  "services_chaos_quick_windows_title": {
+    "message": "用「目前視窗」專注工作"
+  },
+  "services_chaos_quick_windows_detail": {
+    "message": "找分頁時使用「所有視窗」，想專注眼前工作時再縮小清單範圍。"
+  },
+  "services_chaos_quick_ungrouped_title": {
+    "message": "試試「依網域」"
+  },
+  "services_chaos_quick_ungrouped_detail": {
+    "message": "依網域排序，就能把相關分頁放在一起，不必另外建立工作區。"
+  },
+  "services_chaos_trend_first": {
+    "message": "第一次本機檢查。之後就能比較分數變化。"
+  },
+  "services_chaos_trend_down_one": {
+    "message": "比上次檢查降低 $count$ 分。",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "services_chaos_trend_down_other": {
+    "message": "比上次檢查降低 $count$ 分。",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "services_chaos_trend_up_one": {
+    "message": "比上次檢查增加 $count$ 分。",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "services_chaos_trend_up_other": {
+    "message": "比上次檢查增加 $count$ 分。",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "services_chaos_trend_steady": {
+    "message": "與上次檢查相同。"
+  },
+  "pagesWelcomeTitle": {
+    "message": "歡迎使用 TabShow",
+    "description": "Text on the TabShow welcome page."
+  },
+  "pagesWelcomeInstalled": {
+    "message": "$part1$ 已安裝",
+    "description": "Text on the TabShow welcome page.",
+    "placeholders": {
+      "part1": {
+        "content": "$1",
+        "example": "✓"
+      }
+    }
+  },
+  "pagesWelcomeEyebrow": {
+    "message": "歡迎使用 TabShow",
+    "description": "Text on the TabShow welcome page."
+  },
+  "pagesWelcomeHeadingPart2": {
+    "message": "預覽後，回到原來的位置。",
+    "description": "Inline text in pagesWelcomeHeading. Translate consistently with the same setting or control in the side panel."
+  },
+  "pagesWelcomeHeading": {
+    "message": "找到需要的分頁。$part1$$part2$",
+    "description": "Text on the TabShow welcome page.",
+    "placeholders": {
+      "part1": {
+        "content": "$1",
+        "example": "line break"
+      },
+      "part2": {
+        "content": "$2",
+        "example": "Without losing your place."
+      }
+    }
+  },
+  "pagesWelcomeIntro": {
+    "message": "分頁現在都在可搜尋的側邊欄裡。將滑鼠停在分頁上即可預覽，確定是你要的網頁後再點選。",
+    "description": "Text on the TabShow welcome page."
+  },
+  "pagesOrUse": {
+    "message": "或使用",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesWelcomeOpenNote": {
+    "message": "點一下就能用，不必填寫設定表單。",
+    "description": "Text on the TabShow welcome page."
+  },
+  "pagesWelcomeImageCaption": {
+    "message": "TabShow 側邊欄。可在任何網頁旁開啟。",
+    "description": "Text on the TabShow welcome page."
+  },
+  "pagesWelcomeStartEyebrow": {
+    "message": "第一次預覽",
+    "description": "Text on the TabShow welcome page."
+  },
+  "pagesWelcomeStartHeading": {
+    "message": "三個步驟，開始使用。",
+    "description": "Text on the TabShow welcome page."
+  },
+  "pagesWelcomeStartIntro": {
+    "message": "現在就試試。側邊欄可以留在這個網頁旁邊。",
+    "description": "Text on the TabShow welcome page."
+  },
+  "pagesWelcomeStepOpenHeading": {
+    "message": "開啟側邊欄",
+    "description": "Text on the TabShow welcome page."
+  },
+  "pagesWelcomeStepOpen": {
+    "message": "使用上方按鈕、工具列圖示或鍵盤快捷鍵。",
+    "description": "Text on the TabShow welcome page."
+  },
+  "pagesWelcomeStepPreviewHeading": {
+    "message": "將滑鼠指向另一個分頁",
+    "description": "Text on the TabShow welcome page."
+  },
+  "pagesWelcomeStepPreview": {
+    "message": "完整網頁會顯示。將滑鼠移出側邊欄，TabShow 就會帶你回到原來的分頁。",
+    "description": "Text on the TabShow welcome page."
+  },
+  "pagesWelcomeStepChooseHeading": {
+    "message": "找到後再點選",
+    "description": "Text on the TabShow welcome page."
+  },
+  "pagesWelcomeStepChoosePart1": {
+    "message": "設定 → 選擇分頁後保持側邊欄開啟",
+    "description": "Inline text in pagesWelcomeStepChoose. Translate consistently with the same setting or control in the side panel."
+  },
+  "pagesWelcomeStepChoose": {
+    "message": "選取的網頁會成為目前分頁。預設情況下，TabShow 會關閉側邊欄。如果想讓側邊欄留在網頁旁邊，請開啟「$part1$」。",
+    "description": "Text on the TabShow welcome page.",
+    "placeholders": {
+      "part1": {
+        "content": "$1",
+        "example": "Settings → Keep panel open after choosing a tab"
+      }
+    }
+  },
+  "pagesWelcomeShortcutEyebrow": {
+    "message": "用熟悉的快捷鍵",
+    "description": "Text on the TabShow welcome page."
+  },
+  "pagesWelcomeShortcutHeading": {
+    "message": "一組按鍵，開啟 TabShow。",
+    "description": "Text on the TabShow welcome page."
+  },
+  "pagesWelcomeShortcutIntro": {
+    "message": "以下是 TabShow 建議的預設快捷鍵。如果其他擴充功能已使用相同按鍵，Chrome 可能不會自動指派。",
+    "description": "Text on the TabShow welcome page."
+  },
+  "pagesWelcomeShortcutChange": {
+    "message": "變更快捷鍵",
+    "description": "Text on the TabShow welcome page."
+  },
+  "pagesWelcomeShortcutStepCopy": {
+    "message": "複製這個 Chrome 網址。",
+    "description": "Text on the TabShow welcome page."
+  },
+  "pagesWelcomeShortcutStepPaste": {
+    "message": "貼到網址列，然後按下 Enter。",
+    "description": "Text on the TabShow welcome page."
+  },
+  "pagesWelcomeShortcutStepAssign": {
+    "message": "找到 TabShow，點選鉛筆圖示，再按下你想用的按鍵。",
+    "description": "Text on the TabShow welcome page."
+  },
+  "pagesWelcomeFeaturesEyebrow": {
+    "message": "接著試試",
+    "description": "Text on the TabShow welcome page."
+  },
+  "pagesWelcomeFeaturesHeading": {
+    "message": "三種更快找到分頁的方法。",
+    "description": "Text on the TabShow welcome page."
+  },
+  "pagesWelcomeSearchHeading": {
+    "message": "輸入文字就能找",
+    "description": "Text on the TabShow welcome page."
+  },
+  "pagesWelcomeSearch": {
+    "message": "搜尋分頁標題、網址或網域。使用 $part1$ $part2$ 選取結果，按 $part3$ 開啟。想看即時預覽時，將滑鼠停在結果上即可。",
+    "description": "Text on the TabShow welcome page.",
+    "placeholders": {
+      "part1": {
+        "content": "$1",
+        "example": "↑"
+      },
+      "part2": {
+        "content": "$2",
+        "example": "↓"
+      },
+      "part3": {
+        "content": "$3",
+        "example": "Enter"
+      }
+    }
+  },
+  "pagesWelcomeWindowsHeading": {
+    "message": "找到每個視窗中的分頁",
+    "description": "Text on the TabShow welcome page."
+  },
+  "pagesWelcomeWindowsPart1": {
+    "message": "目前視窗",
+    "description": "Inline text in pagesWelcomeWindows. Translate consistently with the same setting or control in the side panel."
+  },
+  "pagesWelcomeWindowsPart2": {
+    "message": "所有視窗",
+    "description": "Inline text in pagesWelcomeWindows. Translate consistently with the same setting or control in the side panel."
+  },
+  "pagesWelcomeWindows": {
+    "message": "從「$part1$」切換至「$part2$」，即可看到同一個 Chrome 個人資料中的視窗。其他個人資料的視窗不會混在一起。其他視窗中的分頁需要點選才會切換，滑鼠經過時不會搶走焦點。",
+    "description": "Text on the TabShow welcome page.",
+    "placeholders": {
+      "part1": {
+        "content": "$1",
+        "example": "Current window"
+      },
+      "part2": {
+        "content": "$2",
+        "example": "All windows"
+      }
+    }
+  },
+  "pagesWelcomeSortHeading": {
+    "message": "依照你的習慣排序",
+    "description": "Text on the TabShow welcome page."
+  },
+  "pagesWelcomeSort": {
+    "message": "可依目前順序、最近使用、最近新增（大約）、網域或分頁群組排序。排序方式、視窗範圍和側邊欄設定都會保留。",
+    "description": "Text on the TabShow welcome page."
+  },
+  "pagesWelcomeSettingsHeading": {
+    "message": "調整側邊欄的操作方式",
+    "description": "Text on the TabShow welcome page."
+  },
+  "pagesWelcomeSettingsPart1": {
+    "message": "設定",
+    "description": "Inline text in pagesWelcomeSettings. Translate consistently with the same setting or control in the side panel."
+  },
+  "pagesWelcomeSettingsPart2": {
+    "message": "滑鼠停留預覽延遲",
+    "description": "Inline text in pagesWelcomeSettings. Translate consistently with the same setting or control in the side panel."
+  },
+  "pagesWelcomeSettingsPart3": {
+    "message": "滑鼠停留時預覽分頁",
+    "description": "Inline text in pagesWelcomeSettings. Translate consistently with the same setting or control in the side panel."
+  },
+  "pagesWelcomeSettingsPart4": {
+    "message": "外觀 → 系統",
+    "description": "Inline text in pagesWelcomeSettings. Translate consistently with the same setting or control in the side panel."
+  },
+  "pagesWelcomeSettings": {
+    "message": "在「$part1$」中調整「$part2$」，或關閉「$part3$」，就能瀏覽清單而不切換網頁。「$part4$」會跟隨你的淺色或深色偏好，不會套用自訂 Chrome 主題的顏色。",
+    "description": "Text on the TabShow welcome page.",
+    "placeholders": {
+      "part1": {
+        "content": "$1",
+        "example": "Settings"
+      },
+      "part2": {
+        "content": "$2",
+        "example": "Hover preview delay"
+      },
+      "part3": {
+        "content": "$3",
+        "example": "Preview tabs on hover"
+      },
+      "part4": {
+        "content": "$4",
+        "example": "Appearance → System"
+      }
+    }
+  },
+  "pagesWelcomePinPart1": {
+    "message": "選擇分頁後保持側邊欄開啟",
+    "description": "Inline text in pagesWelcomePin. Translate consistently with the same setting or control in the side panel."
+  },
+  "pagesWelcomePin": {
+    "message": "Chrome 的固定圖示會將 TabShow 放到工具列上。若想在選擇分頁後保持側邊欄開啟，請在 TabShow 設定中啟用「$part1$」。",
+    "description": "Text on the TabShow welcome page.",
+    "placeholders": {
+      "part1": {
+        "content": "$1",
+        "example": "Keep panel open after choosing a tab"
+      }
+    }
+  },
+  "pagesWelcomeEscape": {
+    "message": "$part1$ 會取消預覽並關閉 TabShow。",
+    "description": "Text on the TabShow welcome page.",
+    "placeholders": {
+      "part1": {
+        "content": "$1",
+        "example": "Esc"
+      }
+    }
+  },
+  "pagesWelcomeHelpPart1": {
+    "message": "設定",
+    "description": "Inline text in pagesWelcomeHelp. Translate consistently with the same setting or control in the side panel."
+  },
+  "pagesWelcomeHelp": {
+    "message": "版本資訊和說明連結都在「$part1$」裡。",
+    "description": "Text on the TabShow welcome page.",
+    "placeholders": {
+      "part1": {
+        "content": "$1",
+        "example": "Settings"
+      }
+    }
+  },
+  "pagesWelcomeClosingHeading": {
+    "message": "分頁已準備好了。",
+    "description": "Text on the TabShow welcome page."
+  },
+  "pagesWelcomeClosing": {
+    "message": "開啟 TabShow，試試第一次預覽。",
+    "description": "Text on the TabShow welcome page."
+  },
+  "pagesWelcomePrivacy": {
+    "message": "分頁資料留在瀏覽器中，保護你的隱私。",
+    "description": "Text on the TabShow welcome page."
+  },
+  "pagesSuggestImprovement": {
+    "message": "提出改善建議 ↗",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesBrandHome": {
+    "message": "TabShow 首頁",
+    "description": "Accessible name for the link back to the top of the page."
+  },
+  "pagesOpenNow": {
+    "message": "立即開啟 TabShow $part1$",
+    "description": "Text on the TabShow release notes page.",
+    "placeholders": {
+      "part1": {
+        "content": "$1",
+        "example": "→"
+      }
+    }
+  },
+  "pagesOpen": {
+    "message": "開啟 TabShow $part1$",
+    "description": "Text on the TabShow release notes page.",
+    "placeholders": {
+      "part1": {
+        "content": "$1",
+        "example": "→"
+      }
+    }
+  },
+  "pagesCopy": {
+    "message": "複製",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesCopyShortcutAddress": {
+    "message": "複製 Chrome 擴充功能快捷鍵設定網址",
+    "description": "Accessible name for copying the chrome://extensions/shortcuts address."
+  },
+  "pagesShortcutMacLabel": {
+    "message": "Mac：Command + Shift + X",
+    "description": "Accessible keyboard shortcut. Keep Command/Ctrl + Shift + X unchanged."
+  },
+  "pagesShortcutOtherLabel": {
+    "message": "Windows 和 Linux：Ctrl + Shift + X",
+    "description": "Accessible keyboard shortcut. Keep Command/Ctrl + Shift + X unchanged."
+  },
+  "pagesWelcomeImageAlt": {
+    "message": "TabShow 2.4 側邊欄，顯示分頁搜尋、視窗範圍、排序與目前分頁",
+    "description": "Alt text for the screenshot of the TabShow 2.4 side panel."
+  },
+  "pagesUpdateTitle": {
+    "message": "TabShow 2.4：更新內容",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesUpdateVersion": {
+    "message": "版本 2.4",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesUpdateEyebrow": {
+    "message": "TabShow 2.4 的變更",
+    "description": "Accessible section name for the TabShow 2.4 changes."
+  },
+  "pagesUpdateHeadingPart2": {
+    "message": "側邊欄保持開啟。",
+    "description": "Inline text in pagesUpdateHeading. Translate consistently with the same setting or control in the side panel."
+  },
+  "pagesUpdateHeading": {
+    "message": "切換分頁。$part1$$part2$",
+    "description": "Text on the TabShow release notes page.",
+    "placeholders": {
+      "part1": {
+        "content": "$1",
+        "example": "line break"
+      },
+      "part2": {
+        "content": "$2",
+        "example": "Keep the panel open."
+      }
+    }
+  },
+  "pagesUpdateIntro": {
+    "message": "現在選擇分頁後，也能讓 TabShow 留在網頁旁邊。排序方式會保留，開啟側邊欄時也會直接顯示目前分頁的位置。",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesSeePreview": {
+    "message": "看看預覽如何運作 ↗",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesUpdateOpenNote": {
+    "message": "所有功能免費，未新增權限。",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesUpdateKeepOpenEyebrow": {
+    "message": "由你選擇",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesUpdateKeepOpenHeading": {
+    "message": "讓側邊欄留在旁邊。",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesUpdateKeepOpenPart1": {
+    "message": "設定 → 選擇分頁後保持側邊欄開啟",
+    "description": "Inline text in pagesUpdateKeepOpen. Translate consistently with the same setting or control in the side panel."
+  },
+  "pagesUpdateKeepOpen": {
+    "message": "開啟「$part1$」。點選分頁或按下 Enter 後，側邊欄就會保持開啟。在目前視窗中選擇分頁後，該分頁會成為下次預覽的起點。",
+    "description": "Text on the TabShow release notes page.",
+    "placeholders": {
+      "part1": {
+        "content": "$1",
+        "example": "Settings → Keep panel open after choosing a tab"
+      }
+    }
+  },
+  "pagesUpdateKeepOpenDefault": {
+    "message": "此選項預設關閉，因此原有操作方式不變。Chrome 的固定圖示只會將 TabShow 固定在工具列上。",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesUpdateCurrentEyebrow": {
+    "message": "不必再到處找",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesUpdateCurrentHeading": {
+    "message": "目前分頁就在眼前。",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesUpdateCurrent": {
+    "message": "開啟 TabShow 時，清單會顯示目前分頁的位置。側邊欄保持開啟時，在目前視窗內切換分頁，也會讓選取的分頁保持可見。偏好的排序方式會自動保留。",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesUpdateMoving": {
+    "message": "在 Chrome 視窗之間移動分頁時，分頁也會顯示在正確的視窗區段。",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesUpdateHoverEyebrow": {
+    "message": "想預覽時再預覽",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesUpdateHoverHeading": {
+    "message": "自由控制滑鼠停留預覽。",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesUpdateHoverPart1": {
+    "message": "設定 → 滑鼠停留時預覽分頁",
+    "description": "Inline text in pagesUpdateHover. Translate consistently with the same setting or control in the side panel."
+  },
+  "pagesUpdateHover": {
+    "message": "到「$part1$」開啟或關閉即時預覽。預覽功能預設仍為開啟。",
+    "description": "Text on the TabShow release notes page.",
+    "placeholders": {
+      "part1": {
+        "content": "$1",
+        "example": "Settings → Preview tabs on hover"
+      }
+    }
+  },
+  "pagesUpdateDelayPart1": {
+    "message": "滑鼠停留預覽延遲",
+    "description": "Inline text in pagesUpdateDelay. Translate consistently with the same setting or control in the side panel."
+  },
+  "pagesUpdateDelay": {
+    "message": "若想保留預覽又避免意外切換，可增加「$part1$」。無論預覽是否開啟，搜尋和鍵盤選取都能使用。",
+    "description": "Text on the TabShow release notes page.",
+    "placeholders": {
+      "part1": {
+        "content": "$1",
+        "example": "Hover preview delay"
+      }
+    }
+  },
+  "pagesUpdateHelpEyebrow": {
+    "message": "更清楚的設定",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesUpdateHelpHeading": {
+    "message": "更容易找到說明。",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesUpdateHelp": {
+    "message": "設定現在會顯示已安裝的版本，以及使用說明和版本更新內容的連結。",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesUpdateThemePart1": {
+    "message": "外觀 → 系統",
+    "description": "Inline text in pagesUpdateTheme. Translate consistently with the same setting or control in the side panel."
+  },
+  "pagesUpdateTheme": {
+    "message": "「$part1$」會跟隨你的淺色或深色偏好，不會套用自訂 Chrome 主題的顏色。",
+    "description": "Text on the TabShow release notes page.",
+    "placeholders": {
+      "part1": {
+        "content": "$1",
+        "example": "Appearance → System"
+      }
+    }
+  },
+  "pagesUpdateShortcutHeading": {
+    "message": "一樣能用快捷鍵開啟。",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesUpdateShortcutPart1": {
+    "message": "Command + Shift + X",
+    "description": "Inline text in pagesUpdateShortcut. Translate consistently with the same setting or control in the side panel."
+  },
+  "pagesUpdateShortcutPart2": {
+    "message": "Ctrl + Shift + X",
+    "description": "Inline text in pagesUpdateShortcut. Translate consistently with the same setting or control in the side panel."
+  },
+  "pagesUpdateShortcut": {
+    "message": "建議預設快捷鍵：Mac 使用 $part1$，Windows 和 Linux 使用 $part2$。若尚未指派快捷鍵，請將這個網址貼到 Chrome，找到 TabShow 後設定。",
+    "description": "Text on the TabShow release notes page.",
+    "placeholders": {
+      "part1": {
+        "content": "$1",
+        "example": "Command + Shift + X"
+      },
+      "part2": {
+        "content": "$2",
+        "example": "Ctrl + Shift + X"
+      }
+    }
+  },
+  "pagesUpdateKeyboard": {
+    "message": "$part1$ 選取 · $part2$ 確認 · $part3$ 返回並關閉。側邊欄保持開啟時，在目前視窗中選擇的分頁會成為新的預覽起點。",
+    "description": "Text on the TabShow release notes page.",
+    "placeholders": {
+      "part1": {
+        "content": "$1",
+        "example": "↑↓"
+      },
+      "part2": {
+        "content": "$2",
+        "example": "Enter"
+      },
+      "part3": {
+        "content": "$3",
+        "example": "Esc"
+      }
+    }
+  },
+  "pagesUpdateFeedbackEyebrow": {
+    "message": "謝謝你的回饋",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesUpdateFeedbackHeading": {
+    "message": "告訴我們用起來如何。",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesUpdateFeedback": {
+    "message": "回報問題、提出改善建議，或留下真實評論。",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesShareFeedback": {
+    "message": "提供回饋 ↗",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesReview": {
+    "message": "評論 TabShow ↗",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesPreviousReleases": {
+    "message": "過往版本",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesPreviousVersions": {
+    "message": "版本 0.5–2.3",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesUpdatePrivacy": {
+    "message": "TabShow 2.4 · 分頁資料留在你的瀏覽器中。",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesHelpSupport": {
+    "message": "說明與支援 ↗",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesKeyboardShortcuts": {
+    "message": "鍵盤快捷鍵",
+    "description": "Accessible section name for keyboard shortcuts."
+  },
+  "pagesHistory1Heading": {
+    "message": "版本 2.3",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesHistory1": {
+    "message": "說明「所有視窗」僅包含目前 Chrome 個人資料中的視窗。新增簡短的語音示範，介紹即時預覽、搜尋與鍵盤操作。",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesHistory2Heading": {
+    "message": "版本 2.2",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesHistory2": {
+    "message": "新增「支持 TabShow」與「請我喝杯咖啡」連結。所有功能仍免費提供，支持完全自願。Enter 可開啟目前焦點所在的連結，Escape 仍會返回原來的分頁。",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesHistory3Heading": {
+    "message": "版本 2.1",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesHistory3": {
+    "message": "新增本機分頁混亂分數、深色／淺色／系統外觀、「建議功能」與「分享給朋友」，搜尋時也會顯示穩定的分頁與視窗總數。",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesHistory4Heading": {
+    "message": "版本 2.0",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesHistory4": {
+    "message": "新增搜尋、鍵盤操作、所有視窗範圍、多種排序、更完整的分頁資訊，以及更清楚的載入與空白狀態。",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesHistory5Heading": {
+    "message": "1.0.0",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesHistory5": {
+    "message": "新增可調整的滑鼠停留延遲、預覽載入提示、更方便的設定入口，以及直接評分連結。",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesHistory6Heading": {
+    "message": "0.9",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesHistory6": {
+    "message": "推出配色設定，改善即時標題與網站圖示，並更新 TabShow 品牌外觀與商店頁面。",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesHistory7Heading": {
+    "message": "0.8",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesHistory7": {
+    "message": "重新設計分頁群組，改善滑鼠停留預覽的穩定性，並新增完整網址提示與回饋看板。",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesHistory8Heading": {
+    "message": "0.7",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesHistory8": {
+    "message": "大幅提升大量分頁時的操作速度，並新增歡迎頁與版本更新頁。",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesHistory9Heading": {
+    "message": "0.5–0.6",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesHistory9": {
+    "message": "推出滑鼠停留預覽、關閉分頁、鍵盤操作與視覺化分頁群組。",
+    "description": "Text on the TabShow release notes page."
+  },
+  "pagesCopied": {
+    "message": "已複製",
+    "description": "Clipboard success feedback."
+  },
+  "pagesSelected": {
+    "message": "已選取",
+    "description": "Feedback when the address is selected because clipboard writing is unavailable."
+  },
+  "pagesPanelOpened": {
+    "message": "TabShow 已開啟。搜尋分頁，或從清單中選擇。",
+    "description": "Confirmation after opening the side panel."
+  },
+  "pagesPanelOpenFallback": {
+    "message": "使用工具列圖示，或按 $shortcut$ 開啟 TabShow。",
+    "description": "Fallback if this page cannot open the side panel. Keep the shortcut placeholder.",
+    "placeholders": {
+      "shortcut": {
+        "content": "$1",
+        "example": "Ctrl + Shift + X"
+      }
+    }
+  },
+  "pagesLanguages": {
+    "message": "支援英文、德文、簡體中文和繁體中文。TabShow 會依照 Chrome 的介面語言顯示。",
+    "description": "Supported interface languages and automatic selection based on Chrome display language. Keep all four language names."
+  }
+}

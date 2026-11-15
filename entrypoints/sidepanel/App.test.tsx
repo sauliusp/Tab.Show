@@ -1,4 +1,4 @@
-import { createEvent, fireEvent, render, screen, waitFor, within } from '@testing-library/react';
+import { act, createEvent, fireEvent, render, screen, waitFor, within } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
 import App from './App';
 import { UserSettingsProvider } from '../../src/contexts/UserSettingsContext';
@@ -47,6 +47,30 @@ async function expectOpenTabCount(count: number, windowCount?: number) {
 }
 
 describe('side-panel browser-rendered interaction', () => {
+  it('keeps Chinese composition Enter and arrow keys inside the search input', async () => {
+    const mock = browserWith150Tabs();
+    const tabs = await mock.api.tabs.query({});
+    tabs[0]!.title = '設計索引';
+    tabs[149]!.title = '設計文件';
+    vi.stubGlobal('browser', mock.api);
+    render(<UserSettingsProvider><ColorSchemeProvider><App /></ColorSchemeProvider></UserSettingsProvider>);
+    const search = screen.getByRole('combobox', { name: 'Search tabs' });
+    await expectOpenTabCount(150);
+    fireEvent.compositionStart(search);
+    fireEvent.change(search, { target: { value: '設計' } });
+    fireEvent.keyDown(search, { key: 'Enter', isComposing: true });
+    fireEvent.keyDown(search, { key: 'ArrowDown', isComposing: true });
+    fireEvent.keyDown(search, { key: 'Enter', keyCode: 229 });
+    expect(search).toHaveValue('設計');
+    expect(search).toHaveAttribute('aria-activedescendant', 'tab-option-1');
+    expect(mock.update).not.toHaveBeenCalled();
+    expect(mock.close).not.toHaveBeenCalled();
+    fireEvent.compositionEnd(search);
+    fireEvent.change(search, { target: { value: '設計文件' } });
+    fireEvent.keyDown(search, { key: 'Enter' });
+    await waitFor(() => expect(mock.update).toHaveBeenCalledWith(150, { active: true }));
+  });
+
   it('stays usable with 150 tabs and commits an URL search result from the keyboard', async () => {
     const mock = browserWith150Tabs();
     vi.stubGlobal('browser', mock.api);
@@ -78,6 +102,55 @@ describe('side-panel browser-rendered interaction', () => {
     fireEvent.keyDown(search, { key: 'Escape' });
     await waitFor(() => expect(mock.update).toHaveBeenCalledWith(1, { active: true }));
     expect(mock.close).toHaveBeenCalledWith({ windowId: 10 });
+  });
+
+  it.each(['body', 'html'] as const)('handles Escape from the panel %s after a persistent selection', async (target) => {
+    window.localStorage.setItem('tab.show.userSettings', JSON.stringify({ keepPanelOpen: true }));
+    const mock = browserWith150Tabs();
+    vi.stubGlobal('browser', mock.api);
+    const view = render(<UserSettingsProvider><ColorSchemeProvider><App /></ColorSchemeProvider></UserSettingsProvider>);
+    const search = screen.getByRole('combobox', { name: 'Search tabs' });
+    await expectOpenTabCount(150);
+    fireEvent.change(search, { target: { value: 'QA Tab 002' } });
+    await act(async () => { fireEvent.keyDown(search, { key: 'Enter' }); });
+    expect(mock.update).toHaveBeenCalledWith(2, { active: true });
+    expect(mock.close).not.toHaveBeenCalled();
+
+    search.blur();
+    expect(document.body).toHaveFocus();
+    const targetElement = target === 'body' ? document.body : document.documentElement;
+    const escape = createEvent.keyDown(targetElement, { key: 'Escape' });
+    fireEvent(targetElement, escape);
+
+    await waitFor(() => expect(mock.close).toHaveBeenCalledOnce());
+    expect(mock.update).toHaveBeenLastCalledWith(2, { active: true });
+    expect(mock.update).toHaveBeenCalledTimes(2);
+    expect(escape.defaultPrevented).toBe(true);
+
+    view.unmount();
+    fireEvent.keyDown(targetElement, { key: 'Escape' });
+    expect(mock.close).toHaveBeenCalledOnce();
+  });
+
+  it.each(['settings', 'sort'] as const)('does not let body Escape bypass the open %s layer', async (layer) => {
+    const mock = browserWith150Tabs();
+    vi.stubGlobal('browser', mock.api);
+    render(<UserSettingsProvider><ColorSchemeProvider><App /></ColorSchemeProvider></UserSettingsProvider>);
+    await expectOpenTabCount(150);
+    if (layer === 'settings') {
+      fireEvent.click(screen.getByRole('button', { name: 'open settings' }));
+      expect(screen.getByRole('dialog', { name: 'Settings' })).toBeVisible();
+    } else {
+      fireEvent.mouseDown(screen.getByRole('combobox', { name: 'Sort tabs' }));
+      expect(screen.getByRole('listbox')).toBeVisible();
+    }
+
+    const escape = createEvent.keyDown(document.body, { key: 'Escape' });
+    fireEvent(document.body, escape);
+
+    expect(escape.defaultPrevented).toBe(false);
+    expect(mock.update).not.toHaveBeenCalled();
+    expect(mock.close).not.toHaveBeenCalled();
   });
 
   it('keeps keyboard selection immediate and switch-free when pointer delay is one second', async () => {

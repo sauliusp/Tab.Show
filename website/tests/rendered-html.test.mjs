@@ -149,6 +149,25 @@ test("changelog preserves the complete user-facing release history", async () =>
   assert.doesNotMatch(changelog, /tab age, domains|domains, and Chrome groups/i);
 });
 
+test("language guidance distinguishes the 2.4 candidate from English external help", async () => {
+  for (const path of ["/", "/chrome-tab-preview-extension", "/changelog", "/support"]) {
+    const html = await (await render(path)).text();
+    const text = html.replace(/<[^>]*>/g, "");
+    assert.match(text, /2\.4 release candidate supports English, German, Simplified Chinese, and Traditional Chinese/, path);
+    assert.match(text, /Chrome(?:'|&#x27;|&#39;)s display language/, path);
+    assert.match(text, /website and linked external help pages remain in English/, path);
+  }
+  const support = await (await render("/support")).text();
+  assert.match(support, /href="#language"/);
+  assert.match(support, /id="language"/);
+  assert.match(support, /English as the fallback for unsupported languages/);
+  assert.match(support, /Chrome Web Store currently offers 2\.3/);
+
+  const changelog = await (await render("/changelog")).text();
+  assert.match(changelog, /Version 2\.4 is a release candidate/);
+  assert.match(changelog, /Chrome Web Store currently offers 2\.3/);
+});
+
 test("search copy keeps full-scope totals distinct from filtered results", async () => {
   const lostTabPage = await (await render("/find-lost-chrome-tab")).text();
   assert.match(lostTabPage, /Search narrows the visible list/);
