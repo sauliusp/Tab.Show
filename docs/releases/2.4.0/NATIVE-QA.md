@@ -63,7 +63,7 @@ Reliable return actions were verified: move the pointer outside the panel to res
 
 - The retained production source passed all 167 extension tests, TypeScript, the production build and ZIP generation. All four catalogs contain 341 messages. The German 280-pixel overflow fix passed visual review. The abandoned focus trial and its diagnostics are absent; its larger test count is not used as final-release evidence. See [package-audit.md](package-audit.md) for the final artifact identity and package checks.
 - All 20 gallery images across the four languages and both promotional tiles passed visual review. The first gallery image was recaptured and the matching website PNG restored. This supersedes the earlier missing/incomplete-image blocker. The composed gallery uses the real source capture with CSS cropping; it does not synthesize product UI.
-- The website's 10 tests and lint passed. The authoritative Sites helper rebuilt the React 19.2.9 source at `63551ca82218232538bc4c141966e80fc24a57be`. No Sites version was saved or deployed.
+- The website's 10 tests and lint passed. The earlier build checkpoint was `63551ca82218232538bc4c141966e80fc24a57be`; final copy was packaged from `2224a812c23bf682174ef9a0ae68c0b99d718056`. Sites version 14 subsequently deployed successfully on 15 November at 09:02:23 UTC. Current publication status is recorded in the [release README](README.md#publication-record).
 
 ## Recorded scope limits
 
@@ -79,4 +79,4 @@ These are the limits of the completed validation scope, not additional mandatory
 
 Core native gates and the final production-package confirmation above are complete. Use [package-audit.md](package-audit.md) for the exact artifact and the [release README](README.md) for code-review, merge, upload and publication status. Any later extension source or asset change requires the appropriate package verification; this record does not approve a different artifact.
 
-Store upload/submission, review approval, and public availability are different states and are not established by this native QA record. Record each observed state after the corresponding action, and publish the matching Sites version through its release workflow.
+This native QA record establishes the checks above. Subsequent Store submission, Google review, website deployment, and public availability are recorded separately in the [release README](README.md#publication-record). Submission is not approval or public availability.
