@@ -24,7 +24,7 @@ export default function SupportPage() {
     </section>
     <section id="panel-settings">
       <h2>Panel settings in 2.4</h2>
-      <p>These controls are part of the <strong>2.4 release candidate</strong>. The Chrome Web Store currently offers 2.3. See the <a href="/changelog#version-2-4">release status</a> before checking for new settings.</p>
+      <p>These controls are available in <strong>TabShow 2.4</strong>. The Chrome Web Store currently offers 2.4.0. See the <a href="/changelog#version-2-4">release notes</a> for the full update.</p>
       <h3>Keep the panel open after choosing a tab</h3>
       <p>Open Settings and turn on <strong>Keep panel open after choosing a tab</strong>. Clicking a result or pressing Enter keeps the panel open. When you select a tab in the current window, it becomes the tab your next preview returns to. The setting is off by default.</p>
       <p>Chrome's pin control keeps the TabShow toolbar button accessible. It does not control whether TabShow closes after you choose a tab. With keyboard focus in the panel, Escape returns to the selected tab and closes the panel.</p>
@@ -42,8 +42,8 @@ export default function SupportPage() {
     </section>
     <section id="language">
       <h2>Language in 2.4</h2>
-      <p>The <strong>2.4 release candidate</strong> supports English, German, Simplified Chinese, and Traditional Chinese. TabShow follows Chrome's display language, with English as the fallback for unsupported languages. A webpage's language does not change the interface.</p>
-      <p>The panel, Settings, welcome page, and in-extension release notes are translated. This website and linked external help pages remain in English. Check the <a href="/changelog#version-2-4">release status</a> before looking for these translations in your installed version.</p>
+      <p><strong>TabShow 2.4</strong> supports English, German, Simplified Chinese, and Traditional Chinese. TabShow follows Chrome's display language, with English as the fallback for unsupported languages. A webpage's language does not change the interface.</p>
+      <p>The panel, Settings, welcome page, and in-extension release notes are translated. This website and linked external help pages remain in English. Open Settings to check your installed version, or read the <a href="/changelog#version-2-4">release notes</a>.</p>
     </section>
     <section id="troubleshooting">
       <h2>Quick troubleshooting</h2>

@@ -24,10 +24,10 @@ const faq = [
   { q: "Can I search tabs across every Chrome window?", a: "Yes. Choose All windows to search tabs across windows in the same Chrome profile. Windows in other profiles, such as separate Work and Personal profiles, stay separate. For safety, open a tab in another window with a click or Enter; hovering does not move focus across windows." },
   { q: "What happens when I move away from a preview?", a: "TabShow returns you to the original tab. If the preview was the right page, click it to make the switch permanent." },
   { q: "Can I use TabShow with the keyboard?", a: "Yes. With keyboard focus in the panel, Arrow keys select search results, Enter opens the selected tab, and Escape returns to the original tab. After a hover preview, move away to return and click Search to resume keyboard commands. The side panel shortcut can be customized in Chrome's extension shortcut settings." },
-  { q: "Can I keep the panel open after choosing a tab?", a: "The 2.4 release candidate adds Settings → Keep panel open after choosing a tab. It is off by default, so selecting a tab still closes the panel unless you enable it. Chrome's pin control only keeps the toolbar button accessible. Check the changelog for release availability." },
-  { q: "Can I turn hover previews off?", a: "The 2.4 release candidate adds Settings → Preview tabs on hover. Turn it off to browse and search the list without changing pages. Click or press Enter to switch. Hover preview remains on by default." },
+  { q: "Can I keep the panel open after choosing a tab?", a: "TabShow 2.4 adds Settings → Keep panel open after choosing a tab. It is off by default, so selecting a tab still closes the panel unless you enable it. Chrome's pin control only keeps the toolbar button accessible. See the changelog for release notes." },
+  { q: "Can I turn hover previews off?", a: "TabShow 2.4 adds Settings → Preview tabs on hover. Turn it off to browse and search the list without changing pages. Click or press Enter to switch. Hover preview remains on by default." },
   { q: "Does TabShow follow my Chrome theme?", a: "TabShow offers System, Light, and Dark appearance plus its own color pairings. System follows your operating system's light or dark setting. It does not import colors from custom Chrome themes." },
-  { q: "Which languages does TabShow support?", a: "The 2.4 release candidate supports English, German, Simplified Chinese, and Traditional Chinese. The interface follows Chrome's display language, with English as the fallback. The panel, Settings, welcome page, and in-extension release notes are translated. This website and linked external help pages remain in English. Check the changelog for release availability." },
+  { q: "Which languages does TabShow support?", a: "TabShow 2.4 supports English, German, Simplified Chinese, and Traditional Chinese. The interface follows Chrome's display language, with English as the fallback. The panel, Settings, welcome page, and in-extension release notes are translated. This website and linked external help pages remain in English. See the changelog for release notes." },
 ];
 
 export default function Home() {
@@ -117,12 +117,12 @@ export default function Home() {
 
         <section className="section shell visual-pair" id="panel-settings">
           <div>
-            <p className="eyebrow"><span /> In the 2.4 release candidate</p>
+            <p className="eyebrow"><span /> New in 2.4</p>
             <h2>Choose how<br /><em>the panel behaves.</em></h2>
             <p className="section-copy">Keep the panel open after choosing a tab, or turn hover previews off and switch only with a click or Enter. Your sort order stays saved, and opening the panel brings your current tab into view.</p>
             <p className="section-copy">The defaults stay the same: hover to preview, click to switch and close. The new settings are optional.</p>
-            <p className="section-copy">The 2.4 candidate adds German, Simplified Chinese, and Traditional Chinese alongside English. The interface follows Chrome&apos;s display language.</p>
-            <a className="text-link" href="/changelog#version-2-4">Check 2.4 release status <span aria-hidden="true">→</span></a>
+            <p className="section-copy">TabShow 2.4 adds German, Simplified Chinese, and Traditional Chinese alongside English. The interface follows Chrome&apos;s display language.</p>
+            <a className="text-link" href="/changelog#version-2-4">Read 2.4 release notes <span aria-hidden="true">→</span></a>
           </div>
           <ProductImage src="/images/tabshow-2.4-05-panel-settings.png" alt="TabShow Settings with controls to keep the panel open and turn hover previews on or off" />
         </section>

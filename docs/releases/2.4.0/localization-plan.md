@@ -1,6 +1,6 @@
 # Localization and market priorities for 2.4
 
-Status as of 15 November 2026: implementation and verification are complete within the recorded [native QA scope](NATIVE-QA.md). The four-language package was submitted to the Chrome Web Store and is **Pending review**. Public rollout is not yet verified; see the canonical [release record](README.md#publication-record).
+Status as of 16 November 2026: the four-language 2.4.0 package is publicly available. Implementation and verification are complete within the recorded [native QA scope](NATIVE-QA.md). German and both Chinese public galleries each load five localized screenshots. A separate English gallery correction is Pending review; see the [gallery audit](store-gallery-audit.md) and canonical [release record](README.md#publication-record).
 
 ## Decision and evidence
 

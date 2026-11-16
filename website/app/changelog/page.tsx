@@ -2,7 +2,7 @@
 import { FEEDBACK_URL, PlainPage, pageMetadata } from "../site";
 
 export const metadata = pageMetadata(
-  "TabShow Changelog | Version 2.4 Release Candidate",
+  "TabShow Changelog | Version 2.4",
   "TabShow 2.4 adds optional panel persistence, a hover-preview switch, saved sorting, and current-tab visibility. Read the release status and history.",
   "/changelog",
 );
@@ -108,7 +108,7 @@ export default function ChangelogPage() {
       eyebrow="Changelog"
       title="TabShow 2.4"
       accent="keeps your chosen tab in view."
-      lead="Version 2.4 is a release candidate. Chrome Web Store currently offers 2.3, published September 10, 2026. The new settings below become available after review and publication."
+      lead="Version 2.4 is available in the Chrome Web Store, published November 16, 2026. It adds optional keep-open mode, hover controls, saved sorting, and three new interface languages."
       nav={[
         { href: "#version-2-4", label: "Version 2.4" },
         { href: "#version-2-3", label: "Version 2.3" },
@@ -121,7 +121,7 @@ export default function ChangelogPage() {
       ]}
     >
       <section id="version-2-4">
-        <p className="eyebrow"><span /> November 14, 2026 · Release candidate</p>
+        <p className="eyebrow"><span /> November 16, 2026 · Published</p>
         <h2>Version 2.4</h2>
         <h3>Keep the panel open when you want it</h3>
         <p>Turn on <strong>Keep panel open after choosing a tab</strong> in Settings to keep browsing the list after a click or Enter. It is off by default. Chrome's pin control keeps the toolbar button accessible; this setting controls whether TabShow closes after a selection.</p>
@@ -132,7 +132,7 @@ export default function ChangelogPage() {
         <h3>Find help and check your version</h3>
         <p>Settings includes the installed version, help, and release notes. Search by title, URL, or domain is still at the top of the panel; it has been available since version 2.0.</p>
         <h3>Use TabShow in four languages</h3>
-        <p>The 2.4 release candidate supports English, German, Simplified Chinese, and Traditional Chinese. The panel, Settings, welcome page, and in-extension release notes follow Chrome's display language, with English as the fallback. This website and linked external help pages remain in English.</p>
+        <p>TabShow 2.4 supports English, German, Simplified Chinese, and Traditional Chinese. The panel, Settings, welcome page, and in-extension release notes follow Chrome's display language, with English as the fallback. This website and linked external help pages remain in English.</p>
         <h3>More reliable previews and window changes</h3>
         <p>A selection in another Chrome window no longer replaces the tab a preview returns to. Tabs moved between windows refresh in the list, and hover settings take effect without reopening the panel.</p>
         <h3>Existing preferences stay yours</h3>
@@ -216,7 +216,7 @@ export default function ChangelogPage() {
 
       <section id="privacy">
         <h2>Privacy and permissions</h2>
-        <p>TabShow has no account, backend, advertising, host permissions, or access to webpage contents. The 2.4 release candidate adds no permissions. The unused <code>activeTab</code> permission remains removed.</p>
+        <p>TabShow has no account, backend, advertising, host permissions, or access to webpage contents. TabShow 2.4 adds no permissions. The unused <code>activeTab</code> permission remains removed.</p>
         <p>See the full <a className="text-link" href="/privacy">plain-language privacy page →</a></p>
       </section>
 
