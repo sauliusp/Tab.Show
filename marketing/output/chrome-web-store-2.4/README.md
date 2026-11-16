@@ -1,6 +1,6 @@
 # TabShow 2.4 Store assets
 
-Updated 15 November 2026. All 20 gallery images and both shared promotional tiles passed independent visual review at their upload dimensions and were included in the completed Store listings. Version 2.4.0 is submitted and **Pending review**; Google approval is not established. See the [release record](../../../docs/releases/2.4.0/README.md#publication-record).
+Updated 16 November 2026. All 20 gallery images and both shared promotional tiles passed visual review. Version 2.4.0 is publicly available. German and both Chinese public galleries show all five images. English initially showed only its localized video: its five images were in Global assets, while English Localised screenshots was empty. The approved five-image set has now also been saved directly under English and submitted; this correction is **Pending review**. See the [gallery audit](../../../docs/releases/2.4.0/store-gallery-audit.md) and [release record](../../../docs/releases/2.4.0/README.md#publication-record).
 
 The root contains five English gallery images. `de/`, `zh_CN/`, and `zh_TW/` each contain five localized images. All are 1280 × 800 JPEGs rendered in Chrome from `marketing/cws-2.4-gallery/index.html?slide=N`, with `&locale=de`, `&locale=zh_CN`, or `&locale=zh_TW` for localized versions. Slides 02 through 05 use current production components with deterministic sample tabs. Source provenance is recorded in `marketing/source/appshots-2.4/README.md`.
 

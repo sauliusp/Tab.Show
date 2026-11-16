@@ -1,5 +1,25 @@
 # Featurebase responses and status record
 
+Current state, 16 November 2026: public Store availability of 2.4.0 was verified before posting the two publication replies below and changing keep-open and scrolling to **Completed**. Their rendered replies and status controls were checked. The older entries preserve the state and wording at the time they were posted.
+
+## Publication follow-ups posted 16 November 2026
+
+### Keep panel open: Completed
+
+> TabShow 2.4.0 is now available in the Chrome Web Store. Enable Settings → Keep panel open after choosing a tab to use this option. It is off by default, so existing behavior stays the same until you enable it.
+
+> Settings now shows your installed version. If it still shows an older version, let Chrome finish updating before looking for the new control. This request is now completed.
+
+### Scroll current tab into view: Completed
+
+> The scrolling fix is now available in TabShow 2.4.0 on the Chrome Web Store. Opening the panel brings the current tab into view, manual scrolling stays put during pointer and tab-title updates, and your sort choice is saved.
+
+> Use Chrome order for stable tab positions. Recently used still moves the newly chosen tab to the top by design. You can check your installed version in Settings. This request is now completed.
+
+No duplicate replies were added to search, colors, thumbnails, or popup. No unsupported feature was marked shipped. Proof captures `featurebase-keep-open-completed.jpg` and `featurebase-scroll-completed.jpg` are retained privately with the 16 November release evidence.
+
+## Preparation replies posted 14 November 2026
+
 On 14 November 2026, five responses were posted and their rendered discussion entries verified in the authenticated Featurebase dashboard. The two implemented requests were changed from In Review to In Progress. None was marked newly Completed. The replies explicitly identify 2.4 as a release candidate still in testing and review, not available in the Store.
 
 Posted request locations:

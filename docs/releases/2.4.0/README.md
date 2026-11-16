@@ -1,6 +1,6 @@
 # TabShow 2.4.0 release record
 
-Updated 15 November 2026. TabShow 2.4.0 is **Pending review** in the Chrome Web Store, with automatic publication after approval selected. PR 16 is merged and the final Codex review reported no findings. Website version 14 is live. The latest verified public Store version remains 2.3.0; submission does not establish approval or 2.4 availability.
+Updated 16 November 2026. TabShow **2.4.0 is publicly available** in the Chrome Web Store, with a Store update date of 16 November. Website version 15 is live, and the implemented keep-open and scrolling requests are Completed in Featurebase. A separate **English gallery correction is Pending review** with automatic publication selected. The German and both Chinese public galleries each show all five localized screenshots. See [the gallery audit](store-gallery-audit.md) for the remaining English visibility issue.
 
 ## Release scope
 
@@ -34,11 +34,11 @@ Hover preview can move keyboard focus into the page. Move the pointer out of the
 |---|---|
 | Code and review | [PR 16](https://github.com/sauliusp/Tab.Show/pull/16) merged to `main` as `68f2833`; [final Codex review](https://github.com/sauliusp/Tab.Show/pull/16#issuecomment-6892039241) reported no findings |
 | Chrome ZIP | The audited 2.4.0 ZIP identified above was uploaded and submitted |
-| Store listings and assets | English, German, Simplified Chinese, and Traditional Chinese descriptions and five-image galleries completed; shared promotional assets completed |
-| Website | Sites version 14 deployed successfully on 15 November 2026 at 09:02:23 UTC; [tab.show](https://tab.show/) is live |
-| Chrome Web Store submission | Submitted on 15 November 2026; dashboard status **Pending review**; automatic publication after approval selected |
-| Public availability | Latest verified Store version is 2.3.0; 2.4.0 approval and public rollout are not yet verified |
-| Featurebase | Five initial replies plus two verified submission follow-ups; keep-open/scroll remain In Progress, search/colors Completed, thumbnails In Review. See [reply record](featurebase-replies.md) |
+| Store listings and assets | All four localized galleries now contain five images in the dashboard. German and both Chinese galleries are publicly visible. English still shows only its video while the correction is reviewed. Shared promotional tiles remain in English |
+| Website | Sites version 15 deployed successfully on 16 November 2026 at 06:54:35 UTC; [tab.show](https://tab.show/) reflects public 2.4 availability |
+| Chrome Web Store submission | Original 2.4.0 release published. A separate English-gallery-only correction was submitted on 16 November and is **Pending review**, with automatic publication selected |
+| Public availability | Version **2.4.0** verified on the public English, German, Simplified Chinese, and Traditional Chinese listings; Store update date 16 November 2026 |
+| Featurebase | Two publication replies posted and verified; keep-open and scrolling changed to Completed. Search/colors retain their existing Completed decisions; thumbnails and popup were not shipped. See [reply record](featurebase-replies.md) |
 
 ## Dated checkpoints
 
@@ -48,4 +48,9 @@ Hover preview can move keyboard focus into the page. Move the pointer out of the
 - **15 November, Store submission:** Chrome displayed “Your extension was submitted for review”. The subsequent Status page showed “Status: Pending review” and “This draft is pending review.” Automatic publication was selected on submission. The confirmation capture `cws-pending-review.jpg` is retained outside this public repository.
 - **15 November, Featurebase:** keep-open and scroll follow-ups were posted and rendered entries verified. Both remain In Progress. The keep-open reply corrected the Escape focus requirement; the scroll reply explained the intentional Recently used reordering.
 
-Google review and public rollout remain outstanding. Verify the public version before announcing availability or marking the implemented Featurebase requests Completed. A saved draft, submitted review, approval, and public release are distinct states. Rebuild and re-audit only if extension production source or packaged assets change; this status update changes documentation only.
+- **16 November, publication:** public Store pages in all four supported languages show version 2.4.0, updated 16 November 2026. English showed only its video, despite five English screenshots being present in Global assets.
+- **16 November, gallery correction:** the five approved English images were added directly to English Localised screenshots, saved, and submitted. The dashboard readback is **Pending review**. German and both Chinese public galleries each loaded all five 1280 × 800 images in the correct language and order. The English public gallery still awaits the correction. No extension package was rebuilt or resubmitted.
+- **16 November, Featurebase:** public availability replies were posted on keep-open and scrolling, and both requests were changed to Completed. Rendered replies and status controls were verified.
+- **16 November, website:** Sites version 15 deployed source `dec72a0fc2603fd131b32f37ce79e5b8fed440ab` using archive SHA-256 `a46a7d27d4055228a00ac8bf8af3db1faeddfd8335ce6e78c49498b12882276f`. Deployment `appgdep_6afaa89de8388191adc0cbbfac376679` succeeded at `2026-11-16T06:54:35Z`. Build, lint, and all 10 website tests passed. Public home, support, changelog, privacy, and language-answer copy were checked in the browser.
+
+Only the English gallery correction still requires Google review and public verification. The extension's availability is already verified. A saved draft, submitted review, approval, and public visibility remain distinct states. Rebuild and re-audit only if extension production source or packaged assets change; this follow-up changes website copy and release documentation only.

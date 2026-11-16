@@ -60,7 +60,7 @@ export function CoffeeButton() {
 }
 
 export function ProductImage({ src, alt, priority = false }: { src: string; alt: string; priority?: boolean }) {
-  return <figure className="product-visual"><img src={src} alt={alt} width="1280" height="800" loading={priority ? "eager" : "lazy"} fetchPriority={priority ? "high" : "auto"} /><figcaption>TabShow 2.4 release candidate · <a href="/changelog#version-2-4">Release status</a></figcaption></figure>;
+  return <figure className="product-visual"><img src={src} alt={alt} width="1280" height="800" loading={priority ? "eager" : "lazy"} fetchPriority={priority ? "high" : "auto"} /><figcaption>TabShow 2.4 · <a href="/changelog#version-2-4">Release notes</a></figcaption></figure>;
 }
 
 export function Community() {

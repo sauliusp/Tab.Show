@@ -18,7 +18,7 @@ export const previewPage: IntentPageData = {
     { q: "Can Chrome preview a tab without switching by itself?", a: "Chrome does not provide this exact side-panel recognition loop by default. TabShow temporarily activates the live tab while you point at it, then restores the original tab when you move away." },
     { q: "Is the preview a screenshot?", a: "No. It is the real live tab shown in the main browser window, not a thumbnail or image captured by TabShow." },
     { q: "Does hover preview work in another Chrome window?", a: "No, and that is intentional. Tabs from other windows in the same Chrome profile appear in All windows scope, but you must click or press Enter to switch. Hovering does not move focus to another window." },
-    { q: "Which languages can I use?", a: "The 2.4 release candidate supports English, German, Simplified Chinese, and Traditional Chinese, selected automatically from Chrome's display language. The website and linked external help pages remain in English. See the changelog for release availability." },
+    { q: "Which languages can I use?", a: "TabShow 2.4 supports English, German, Simplified Chinese, and Traditional Chinese, selected automatically from Chrome's display language. The website and linked external help pages remain in English. See the changelog for release notes." },
   ],
 };
 
@@ -105,6 +105,6 @@ export const tabManagerPlusPage: IntentPageData = {
   faq: [
     { q: "Can TabShow perform bulk tab operations?", a: "No. It supports focused actions such as previewing, switching, sorting, and closing individual tabs. It is not a bulk-management dashboard." },
     { q: "What context does TabShow show?", a: "Titles, domains, favicons, groups, pinned state, audio or muted state, sleeping state, duplicates, and whether a result belongs to another window." },
-    { q: "Can I change the sort order?", a: "Yes. Use current browser order, recently used, recently added (approximate), domain, or tab group. The 2.4 release candidate also remembers your sort choice when you reopen the panel." },
+    { q: "Can I change the sort order?", a: "Yes. Use current browser order, recently used, recently added (approximate), domain, or tab group. TabShow 2.4 also remembers your sort choice when you reopen the panel." },
   ],
 };

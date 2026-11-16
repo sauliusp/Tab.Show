@@ -73,7 +73,7 @@ test("homepage uses authentic product proof and honest conversion language", asy
   assert.match(html, /narsheek\.featurebase\.app/);
   assert.match(html, /Share your experience to help others decide/);
   assert.doesNotMatch(html, /earned five stars/);
-  assert.match(html, /2\.4 release candidate/);
+  assert.match(html, /2\.4/);
   assert.match(html, /"@type":"SoftwareApplication"/);
   assert.match(html, /"@type":"FAQPage"/);
   assert.doesNotMatch(html, /join thousands|zero impact|best free chrome tab manager|100% free forever/i);
@@ -110,9 +110,9 @@ test("privacy and support match the shipped permission and cross-window behavior
   assert.match(privacy, /tabGroups/);
   assert.match(privacy, /favicon/);
   assert.doesNotMatch(privacy, /<code>favicon<\/code>/);
-  assert.match(privacy, /Applies to:[\s\S]{0,120}2\.4 release candidate/);
+  assert.match(privacy, /Applies to:[\s\S]{0,120}2\.4/);
   assert.match(privacy, /activeTab[\s\S]{0,160}removed[\s\S]{0,120}implementation did not use it/i);
-  assert.match(privacy, /2\.4 release candidate uses the same permissions/i);
+  assert.match(privacy, /2\.4 uses the same permissions/i);
   assert.match(privacy, /does not read page contents/i);
   assert.match(privacy, /up to 90 local daily check-ins/i);
   assert.match(privacy, /Repeated panel openings update the current day's check-in/i);
@@ -130,7 +130,7 @@ test("privacy and support match the shipped permission and cross-window behavior
   assert.match(support, /Hover preview is on by default/);
   assert.match(support, /pin control keeps the TabShow toolbar button accessible/);
   assert.match(support, /does not import colors from custom Chrome themes/);
-  assert.match(support, /Chrome Web Store currently offers 2\.3/);
+  assert.match(support, /Chrome Web Store currently offers 2\.4.0/);
   assert.match(support, /chrome:\/\/extensions/);
   assert.doesNotMatch(support, /closing it restores the original tab/);
   assert.match(support, /while it has keyboard focus/);
@@ -145,7 +145,7 @@ test("changelog preserves the complete user-facing release history", async () =>
     assert.match(changelog, new RegExp(`Version (?:<!-- -->)?${version.replaceAll(".", "\\.")}`));
   }
   assert.match(changelog, /Featurebase feedback board/);
-  assert.match(changelog, /Version 2\.4 is a release candidate/);
+  assert.match(changelog, /Version 2\.4 is available in the Chrome Web Store/);
   assert.match(changelog, /Published September 10, 2026/);
   assert.doesNotMatch(changelog, /Version 2\.3 is prepared for release/);
   assert.match(changelog, /Every feature remains free/);
@@ -153,11 +153,11 @@ test("changelog preserves the complete user-facing release history", async () =>
   assert.doesNotMatch(changelog, /tab age, domains|domains, and Chrome groups/i);
 });
 
-test("language guidance distinguishes the 2.4 candidate from English external help", async () => {
+test("language guidance distinguishes the localized extension from English external help", async () => {
   for (const path of ["/", "/chrome-tab-preview-extension", "/changelog", "/support"]) {
     const html = await (await render(path)).text();
     const text = html.replace(/<[^>]*>/g, "");
-    assert.match(text, /2\.4 release candidate supports English, German, Simplified Chinese, and Traditional Chinese/, path);
+    assert.match(text, /2\.4 supports English, German, Simplified Chinese, and Traditional Chinese/, path);
     assert.match(text, /Chrome(?:'|&#x27;|&#39;)s display language/, path);
     assert.match(text, /website and linked external help pages remain in English/, path);
   }
@@ -165,11 +165,11 @@ test("language guidance distinguishes the 2.4 candidate from English external he
   assert.match(support, /href="#language"/);
   assert.match(support, /id="language"/);
   assert.match(support, /English as the fallback for unsupported languages/);
-  assert.match(support, /Chrome Web Store currently offers 2\.3/);
+  assert.match(support, /Chrome Web Store currently offers 2\.4.0/);
 
   const changelog = await (await render("/changelog")).text();
-  assert.match(changelog, /Version 2\.4 is a release candidate/);
-  assert.match(changelog, /Chrome Web Store currently offers 2\.3/);
+  assert.match(changelog, /Version 2\.4 is available in the Chrome Web Store/);
+  assert.match(changelog, /published November 16, 2026/);
 });
 
 test("search copy keeps full-scope totals distinct from filtered results", async () => {
