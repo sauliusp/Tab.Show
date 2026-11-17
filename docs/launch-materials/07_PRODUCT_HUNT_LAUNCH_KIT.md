@@ -1,6 +1,6 @@
 # TabShow Product Hunt launch kit
 
-Status: copy and assets locally complete on 2026-07-23. External Product Hunt draft creation is intentionally paused until Saulius provides the logged-in session.
+Status: refreshed for v2.3 on 2026-09-18. External Product Hunt draft creation and scheduling remain approval-gated.
 
 ## Launch thesis
 
@@ -23,14 +23,14 @@ Unsupported language remains banned:
 
 Use [`marketing/output/product-hunt/SUBMISSION.md`](../../marketing/output/product-hunt/SUBMISSION.md) as the source of truth during the logged-in Product Hunt session.
 
-The selected tagline is 37 characters and the description is 251 characters, so both fit Product Hunt’s current 60-character tagline limit and the stricter description limit documented in part of its current help material.
+The selected tagline is 37 characters and the description is 257 characters, so both fit Product Hunt’s current 60-character tagline limit and the stricter description limit documented in part of its current help material.
 
 ### Fields requiring live confirmation
 
 - Maker username: select Saulius’s personal Product Hunt account. Company accounts cannot post.
 - Existing product/relaunch state: search Product Hunt again while logged in. Public search on 2026-07-23 did not reveal an existing TabShow product, but the submission flow is authoritative.
 - Shoutouts: optional. Select only genuine tools with Product Hunt entries. Candidates from the actual stack are Google Chrome, React, and Vite or WXT if the latter exists in Product Hunt.
-- Launch date: create a draft first. Do not schedule until Chrome Web Store version 2.0 is public and installable.
+- Launch date: create a draft first. TabShow 2.3.0 is public and installable; do not schedule without separate approval.
 
 ## Asset package
 
@@ -46,7 +46,7 @@ All visual files are in `marketing/output/product-hunt/`.
 | `gallery/05-all-windows.png` | 1270×760 | Truthful multi-window behavior |
 | `gallery/06-context-and-sorting.png` | 1270×760 | Sorting and tab-state context |
 
-The gallery uses authentic TabShow 2.0 appshots. Imagegen provides only editorial scenery; it does not invent the product interface. The generated thumbnail background source is stored at `marketing/source/imagegen/product-hunt/thumbnail-background.png`. Rebuild with:
+The gallery uses authentic TabShow appshots. Imagegen provides only editorial scenery; it does not invent the product interface. The generated thumbnail background source is stored at `marketing/source/imagegen/product-hunt/thumbnail-background.png`. Rebuild with:
 
 ```bash
 /Users/spetreikis/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3 marketing/render_product_hunt_assets.py
@@ -54,7 +54,7 @@ The gallery uses authentic TabShow 2.0 appshots. Imagegen provides only editoria
 
 ## Video decision
 
-Video is optional. Do not reuse the old 1.x YouTube video: a polished but stale demo is worse than no demo.
+Use the authentic v2.1 master https://www.youtube.com/watch?v=gfOky71v2wI for a Product Hunt draft after review. It is public in the current Chrome Web Store v2.3.0 listing.
 
 If a new video is produced before scheduling, keep it to 15–25 seconds:
 
@@ -87,7 +87,7 @@ Today I’m launching TabShow on Product Hunt.
 
 The problem is intentionally small: when Chrome’s tab strip gets crowded, finding one page often means clicking through several wrong tabs.
 
-TabShow adds a searchable side panel. Point at a current-window tab to preview its live page, click to switch, or move away to return. Version 2.0 also adds all-window search, keyboard navigation, sorting, and useful tab context.
+TabShow adds a searchable side panel. Point at a current-window tab to preview its live page, click to switch, or move away to return. Version 2.3 makes the all-window scope explicit: it searches windows in the same Chrome profile; other profiles stay separate. It also includes keyboard navigation, sorting, and useful tab context.
 
 I deliberately kept it out of the workspace/session-management business. It has no account, backend, ads, tracking, or host permissions.
 
@@ -97,7 +97,7 @@ If crowded Chrome tabs are familiar, I’d appreciate an honest try and your fee
 
 ### Existing-user note
 
-TabShow 2.0 is live on Product Hunt today. If you have used it, I’d genuinely value your honest experience in the discussion: what works, what is confusing, and what should improve next.
+TabShow 2.3 is live on Product Hunt today. If you have used it, I’d genuinely value your honest experience in the discussion: what works, what is confusing, and what should improve next.
 
 `[PRODUCT_HUNT_LAUNCH_URL]`
 
@@ -146,8 +146,8 @@ The interface is designed to keep long lists usable, including virtualized rende
 ### Before creating the draft
 
 - Confirm `https://tab.show/`, `/privacy`, and `/support` return HTTPS 200.
-- Confirm the Chrome Web Store redirects to the current TabShow 2.0 listing.
-- Confirm version 2.0 is publicly installable, not merely approved or staged.
+- Confirm the Chrome Web Store redirects to the current TabShow 2.3 listing.
+- Confirm version 2.3 is publicly installable, not merely approved or staged.
 - Use a personal Product Hunt account that has completed onboarding.
 - Check whether Product Hunt recognizes TabShow or `tab.show` as an existing product.
 
@@ -183,7 +183,7 @@ The interface is designed to keep long lists usable, including virtualized rende
 
 Do not schedule or launch if:
 
-- Chrome Web Store 2.0 is not publicly installable.
+- Chrome Web Store 2.3 is not publicly installable.
 - Product Hunt identifies this as a relaunch and the eligibility/change explanation has not been reviewed.
 - Any gallery image contains stale 1.x UI.
 - The landing page, Store link, privacy page, or support page fails.
